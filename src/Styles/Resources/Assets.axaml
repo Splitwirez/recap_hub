@@ -1,0 +1,45 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.Hub"
+        xmlns:rctr="using:ReCap.Hub.Controls">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <rctr:SlicedImage x:Key="Test"
+                        Source="avares://ReCap.Hub/Res/UI/Test.png"
+                        BorderThickness="20,40,60,80"/>
+
+
+      <rctr:SlicedImage x:Key="Window.TitleBar.Main"
+                        Source="avares://ReCap.Hub/Res/UI/Window/TitleBarMain.png"
+                        BorderThickness="12,42,0,10"/>
+      <rctr:SlicedImage x:Key="Window.TitleBar.Right"
+                        Source="avares://ReCap.Hub/Res/UI/Window/TitleBarRight.png"
+                        BorderThickness="38,42,12,10"/>
+      
+      <rctr:SlicedImage x:Key="Window.Body"
+                        Source="avares://ReCap.Hub/Res/UI/Window/Body.png"
+                        BorderThickness="24,6"/>
+      <rctr:SlicedImage x:Key="Window.Underlay"
+                        Source="avares://ReCap.Hub/Res/UI/Window/Underlay.png"
+                        BorderThickness="10"/>
+      <rctr:SlicedImage x:Key="Window.BottomEdgeTrim"
+                        Source="avares://ReCap.Hub/Res/UI/Window/BottomEdgeTrim.png"
+                        BorderThickness="22,0"/>
+      
+      
+      
+      <rctr:SlicedImage x:Key="TopTabs.TabRow"
+                        Source="avares://ReCap.Hub/Res/UI/TopTabs/TabRow.png"
+                        BorderThickness="22,9,22,6"/>
+      <rctr:SlicedImage x:Key="TopTabs.SelectedBackground"
+                        Source="avares://ReCap.Hub/Res/UI/TopTabs/SelectedBackground.png"
+                        BorderThickness="14,6,14,8"/>
+      
+
+      <FontFamily x:Key="HeaderFont">EA Pirulen Rg DS</FontFamily>
+      <FontFamily x:Key="BodyFont">EAHelveticaNeueLT Com 57 Cn DS</FontFamily>
+      <!--FontFamily x:Key="BodyFont">EA HelveticaNeue Con Bold Cyr D</FontFamily-->
+      
+    </ResourceDictionary>
+  </Styles.Resources>
+</Styles>

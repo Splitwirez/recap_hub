@@ -7,10 +7,11 @@ namespace ReCap.Hub.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        ViewModelBase _currentPage = new HomePageViewModel();
         public ViewModelBase CurrentPage
         {
-            get;
-            set;
-        } = new HomePageViewModel();
+            get => _currentPage;
+            set => RASIC(ref _currentPage, value);
+        }
     }
 }

@@ -1,0 +1,42 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:ReCap.Hub.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ReCap.Hub.Views.LocalPlayView">
+  <Design.DataContext>
+    <vm:LocalPlayViewModel/>
+  </Design.DataContext>
+  <!--ContentControl Classes="tabContent"-->
+    <DockPanel>
+      <ContentControl Classes="tabRow" DockPanel.Dock="Top">
+        <StackPanel Orientation="Horizontal">
+          <ToggleButton x:Name="GameConfigsToggle"
+                        Content="Show game configs"
+                        IsChecked="True"
+                        IsVisible="{Binding !#GameConfigsToggle.IsChecked, Mode=OneWay}"/>
+          <ToggleButton Content="Hide game configs"
+                        IsChecked="{Binding !#GameConfigsToggle.IsChecked, Mode=TwoWay}"
+                        IsVisible="{Binding #GameConfigsToggle.IsChecked, Mode=OneWay}"/>
+        </StackPanel>
+      </ContentControl>
+      <ListBox x:Name="GameConfigsList"
+               Items="{Binding GameConfigs}"
+               SelectedItem="{Binding SelectedGameConfig, Mode=TwoWay}"
+               IsVisible="{Binding #GameConfigsToggle.IsChecked}"
+               DockPanel.Dock="Left">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Orientation="Vertical">
+              <TextBlock Text="{Binding Title}" Classes="h3"/>
+              <TextBlock Text="{Binding CurrentCrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
+              <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Threat level {0}'}"/>
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+      <ContentControl Content="{Binding SelectedGameConfig, Mode=OneWay}"/>
+    </DockPanel>
+  <!--/ContentControl-->
+</UserControl>
