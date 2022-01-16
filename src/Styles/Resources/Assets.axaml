@@ -1,13 +1,29 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:ReCap.Hub"
-        xmlns:rctr="using:ReCap.Hub.Controls">
+        xmlns:rctr="using:ReCap.Hub.Controls"
+        xmlns:sys="using:System">
   <Styles.Resources>
     <ResourceDictionary>
-      <rctr:SlicedImage x:Key="Test"
-                        Source="avares://ReCap.Hub/Res/UI/Test.png"
-                        BorderThickness="20,40,60,80"/>
+      <sys:Double x:Key="H1FontSize">30</sys:Double>
+      <sys:Double x:Key="H2FontSize">15</sys:Double>
+      
+      
+      
+      <Color x:Key="StrongForegroundColor">#FFFFFFFF</Color>
+      <SolidColorBrush x:Key="StrongForegroundBrush"
+                       Color="{DynamicResource StrongForegroundColor}"/>
+      
+      <Color x:Key="Weak1ForegroundColor">#CAFFFFFF</Color>
+      <SolidColorBrush x:Key="Weak1ForegroundBrush"
+                       Color="{DynamicResource Weak1ForegroundColor}"/>
+      
+      <Color x:Key="Weak2ForegroundColor">#96FFFFFF</Color>
+      <SolidColorBrush x:Key="Weak2ForegroundBrush"
+                       Color="{DynamicResource Weak2ForegroundColor}"/>
 
+      
+      
 
       <rctr:SlicedImage x:Key="Window.TitleBar.Main"
                         Source="avares://ReCap.Hub/Res/UI/Window/TitleBarMain.png"
@@ -34,6 +50,25 @@
       <rctr:SlicedImage x:Key="TopTabs.SelectedBackground"
                         Source="avares://ReCap.Hub/Res/UI/TopTabs/SelectedBackground.png"
                         BorderThickness="14,6,14,8"/>
+      
+      
+      <rctr:SlicedImage x:Key="ListBox.Background"
+                        Source="avares://ReCap.Hub/Res/UI/ListBox/Background.png"
+                        BorderThickness="12,10"/>
+      <rctr:SlicedImage x:Key="ListBox.BackgroundOutermost"
+                        Source="avares://ReCap.Hub/Res/UI/ListBox/BackgroundOutermost.png"
+                        BorderThickness="26,10,12,10"/>
+      
+      
+      <rctr:SlicedImage x:Key="ListBoxItem.Idle"
+                        Source="avares://ReCap.Hub/Res/UI/ListBoxItem/Idle.png"
+                        BorderThickness="4"/>
+      <rctr:SlicedImage x:Key="ListBoxItem.Selected"
+                        Source="avares://ReCap.Hub/Res/UI/ListBoxItem/Selected.png"
+                        BorderThickness="4"/>
+      <rctr:SlicedImage x:Key="ListBoxItem.Edge"
+                        Source="avares://ReCap.Hub/Res/UI/ListBoxItem/Edge.png"
+                        BorderThickness="8"/>
       
 
       <FontFamily x:Key="HeaderFont">EA Pirulen Rg DS</FontFamily>

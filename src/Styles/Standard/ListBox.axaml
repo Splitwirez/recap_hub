@@ -3,6 +3,31 @@
         xmlns:local="using:ReCap.Hub"
         xmlns:rctr="using:ReCap.Hub.Controls">
     <Style Selector="ListBox">
-        <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Panel>
+            <ScrollViewer Name="PART_ScrollViewer"
+                          HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                          VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                          AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}">
+              <ItemsPresenter Name="PART_ItemsPresenter"
+                              Items="{TemplateBinding Items}"
+                              ItemsPanel="{TemplateBinding ItemsPanel}"
+                              ItemTemplate="{TemplateBinding ItemTemplate}"
+                              Margin="{TemplateBinding Padding}"
+                              VirtualizationMode="{TemplateBinding VirtualizationMode}"/>
+            </ScrollViewer>
+          </Panel>
+        </ControlTemplate>
+      </Setter>
+      <Setter Property="ItemsPanel">
+        <ItemsPanelTemplate>
+          <StackPanel x:Name="PART_ItemsPanel"/>
+        </ItemsPanelTemplate>
+      </Setter>
+    </Style>
+    <Style Selector="ListBox /template/ StackPanel#PART_ItemsPanel">
+      <Setter Property="Spacing" Value="2"/>
     </Style>
 </Styles>

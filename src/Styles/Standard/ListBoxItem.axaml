@@ -1,0 +1,48 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.Hub"
+        xmlns:rctr="using:ReCap.Hub.Controls">
+  <Style Selector="ListBoxItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="8" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <rctr:ImagePresenter x:Name="Edge"
+                               Source="{DynamicResource ListBoxItem.Edge}"/>
+          <rctr:ImagePresenter x:Name="Background"
+                               Margin="4"/>
+          <ContentPresenter x:Name="PART_ContentPresenter"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Content="{TemplateBinding Content}"
+                            Margin="{TemplateBinding Padding}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="ListBoxItem /template/ rctr|ImagePresenter#Edge">
+    <Setter Property="Opacity" Value="0.25" />
+  </Style>
+  <Style Selector="ListBoxItem /template/ rctr|ImagePresenter#Background">
+    <Setter Property="Source" Value="{DynamicResource ListBoxItem.Idle}" />
+  </Style>
+  
+  
+  <Style Selector="ListBoxItem:pointerover /template/ rctr|ImagePresenter#Edge">
+    <Setter Property="Opacity" Value="0.75" />
+  </Style>
+  
+  
+  <Style Selector="ListBoxItem:selected /template/ rctr|ImagePresenter#Background">
+    <Setter Property="Source" Value="{DynamicResource ListBoxItem.Selected}" />
+  </Style>
+  <Style Selector="ListBoxItem:selected:not(:pointerover) /template/ rctr|ImagePresenter#Edge">
+    <Setter Property="Opacity" Value="0.5" />
+  </Style>
+</Styles>

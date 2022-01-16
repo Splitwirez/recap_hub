@@ -6,20 +6,24 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ReCap.Hub.Views.GameConfigView">
   <DockPanel>
-    <ListBox x:Name="SaveGamesList"
-             Items="{Binding Saves}"
-             SelectedItem="{Binding SelectedSave, Mode=TwoWay}"
-             DockPanel.Dock="Left">
-      <ListBox.ItemTemplate>
-        <DataTemplate>
-          <StackPanel Orientation="Vertical">
-            <TextBlock Text="{Binding Title}" Classes="h3"/>
-            <TextBlock Text="{Binding CurrentCrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
-            <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore Threat {0}'}"/>
-          </StackPanel>
-        </DataTemplate>
-      </ListBox.ItemTemplate>
-    </ListBox>
+    <HeaderedContentControl x:Name="GameConfigsPane"
+                              Header="Saves"
+                              Classes="sidePane"
+                              DockPanel.Dock="Left">
+      <ListBox x:Name="SaveGamesList"
+            Items="{Binding Saves}"
+            SelectedItem="{Binding SelectedSave, Mode=TwoWay}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Orientation="Vertical">
+              <TextBlock Text="{Binding Title}" Classes="h3"/>
+              <TextBlock Text="{Binding CurrentCrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
+              <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore Threat {0}'}"/>
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+    </HeaderedContentControl>
     <ContentControl Content="{Binding SelectedSave, Mode=OneWay}"/>
   </DockPanel>
 </UserControl>

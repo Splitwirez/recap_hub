@@ -2,6 +2,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:ReCap.Hub"
         xmlns:rctr="using:ReCap.Hub.Controls">
+  <StyleInclude Source="avares://Avalonia.Themes.Fluent/Accents/AccentColors.xaml" />
+  <StyleInclude Source="avares://Avalonia.Themes.Fluent/Accents/BaseDark.xaml" />
+  <StyleInclude Source="avares://Avalonia.Themes.Fluent/Accents/Base.xaml" />
+  <StyleInclude Source="avares://Avalonia.Themes.Fluent/Accents/FluentControlResourcesDark.xaml" />
+  
+  
   <!-- Define ToolTip first so its styles can be overriden by other controls (e.g. TextBox) -->
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ToolTip.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/DataValidationErrors.xaml"/>
@@ -14,15 +20,14 @@
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/CheckBox.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ComboBox.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ComboBoxItem.xaml"/>
-  <!--StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ContentControl.xaml"/-->
-  <!--StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/Label.xaml"/-->
+  <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ContentControl.xaml"/>
+  <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/Label.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/GridSplitter.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ItemsControl.xaml"/>
   
-  <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ListBox.xaml"/>
   <StyleInclude Source="avares://ReCap.Hub/Styles/Standard/ListBox.axaml"/>
+  <StyleInclude Source="avares://ReCap.Hub/Styles/Standard/ListBoxItem.axaml"/>
   
-  <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ListBoxItem.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/Menu.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ContextMenu.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/MenuItem.xaml"/>
@@ -37,7 +42,7 @@
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ScrollBar.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ScrollViewer.xaml"/>
 
-  <!--StyleInclude Source="avares://ReCap.Hub/Styles/Standard/TabStripItem.axaml"/-->
+  <StyleInclude Source="avares://ReCap.Hub/Styles/Standard/TabStrip.axaml"/>
   <StyleInclude Source="avares://ReCap.Hub/Styles/Standard/TabStripItem.axaml"/>
   
   <!-- TabControl needs to come after TabStrip as it redefines the inner TabStrip.ItemsPanel-->

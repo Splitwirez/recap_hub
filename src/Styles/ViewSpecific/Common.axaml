@@ -8,8 +8,50 @@
             <SolidColorBrush x:Key="HoloDecorFillBrush">#20FFFFFF</SolidColorBrush>
         </ResourceDictionary>
     </Styles.Resources>
+
+    <Style Selector="HeaderedContentControl.sidePane">
+      <Setter Property="Padding" Value="10"/>
+      <Setter Property="Width" Value="200"/>
+      <Setter Property="Margin" Value="0,0,-6,0"/>
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Panel>
+            <rctr:ImagePresenter x:Name="Background" Margin="2,2,0,2"/>
+            <DockPanel Margin="{TemplateBinding Padding}">
+              <ContentPresenter x:Name="PART_HeaderPresenter"
+                              Classes="h3"
+                              Background="Transparent"
+                              BorderBrush="Transparent"
+                              BorderThickness="0"
+                              Content="{TemplateBinding Header}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              HorizontalContentAlignment="Left"
+                              VerticalContentAlignment="Center"
+                              DockPanel.Dock="Top"
+                              Margin="0,0,0,5"/>
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                              Margin="-3,0,0,0"
+                              Background="Transparent"
+                              BorderBrush="Transparent"
+                              BorderThickness="0"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </DockPanel>
+          </Panel>
+        </ControlTemplate>
+      </Setter>          
+    </Style>
+    <Style Selector="HeaderedContentControl.sidePane /template/ rctr|ImagePresenter#Background">
+        <Setter Property="Source" Value="{DynamicResource ListBox.Background}"/>
+        <Setter Property="Margin" Value="1"/>
+    </Style>
+    <Style Selector="HeaderedContentControl.sidePane.outermost /template/ rctr|ImagePresenter#Background">
+      <Setter Property="Source" Value="{DynamicResource ListBox.BackgroundOutermost}"/>
+    </Style>
     
-    
+
     <Style Selector="ContentControl.tabContent">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
@@ -72,24 +114,25 @@
         </Style.Animations>
     </Style>
 
-  <Style Selector=":is(Control)">
-    <Setter Property="TextBlock.FontSize" Value="11"/>
-  </Style>
   <Style Selector=":is(Control).h1,
                   :is(Control).h2,
                   :is(Control).h3">
     <Setter Property="TextBlock.FontFamily" Value="{DynamicResource HeaderFont}"/>
   </Style>
-  <Style Selector=":is(Control).h1,
-                  :is(Control).h2,
-                  :is(Control).h3">
-    <Setter Property="TextBlock.FontFamily" Value="{DynamicResource HeaderFont}"/>
+  <Style Selector=":is(Control).h1">
+    <Setter Property="TextBlock.FontSize" Value="{DynamicResource H1FontSize}"/>
+  </Style>
+  <Style Selector=":is(Control).h2">
+    <Setter Property="TextBlock.FontSize" Value="{DynamicResource H2FontSize}"/>
+  </Style>
+  <Style Selector=":is(Control).h3">
+    <Setter Property="TextBlock.FontSize" Value="{DynamicResource H3FontSize}"/>
   </Style>
 
 
   <Style Selector="ContentControl.tabRow">
     <Setter Property="Height" Value="40"/>
-    <!--Setter Property="Margin" Value="0,0,0,-8"/-->
+    <Setter Property="Margin" Value="0,0,0,-4"/>
     <Setter Property="Template">
       <ControlTemplate>
         <Panel>
@@ -107,7 +150,7 @@
     </Setter>
   </Style>
 
-  <Style Selector="Window.topTabs /template/ VisualLayerManager">
+  <Style Selector="Window.topTabs /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="Margin" Value="0,-29,0,0"/>
   </Style>
   <Style Selector="Window.topTabs /template/ rctr|ImagePresenter#WindowBody">

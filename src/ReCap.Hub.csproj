@@ -15,6 +15,9 @@
   </ItemGroup>
   <ItemGroup>
     <AvaloniaXaml Remove="Styles\Standard\ListBox.axaml" />
+    <AvaloniaXaml Remove="Styles\Standard\ListBoxItem.axaml" />
+    <AvaloniaXaml Remove="Styles\Standard\TabStrip.axaml" />
+    <AvaloniaXaml Remove="Styles\ViewSpecific\HomePage.axaml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="$(AvVer)" />

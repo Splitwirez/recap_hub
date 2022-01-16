@@ -2,7 +2,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:ReCap.Hub"
         xmlns:rctr="using:ReCap.Hub.Controls">
-    <FluentTheme Mode="Dark"/>
     <StyleInclude Source="avares://ReCap.Hub/Styles/Resources/Assets.axaml"/>
     <StyleInclude Source="avares://ReCap.Hub/Styles/Standard.axaml"/>
     <StyleInclude Source="avares://ReCap.Hub/Styles/ViewSpecific.axaml"/>

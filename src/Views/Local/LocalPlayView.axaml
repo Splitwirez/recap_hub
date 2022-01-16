@@ -21,21 +21,21 @@
                         IsVisible="{Binding #GameConfigsToggle.IsChecked, Mode=OneWay}"/>
         </StackPanel>
       </ContentControl>
-      <ListBox x:Name="GameConfigsList"
-               Items="{Binding GameConfigs}"
-               SelectedItem="{Binding SelectedGameConfig, Mode=TwoWay}"
-               IsVisible="{Binding #GameConfigsToggle.IsChecked}"
-               DockPanel.Dock="Left">
-        <ListBox.ItemTemplate>
-          <DataTemplate>
-            <StackPanel Orientation="Vertical">
+      <HeaderedContentControl x:Name="GameConfigsPane"
+                              Header="Game configs"
+                              Classes="sidePane outermost"
+                              IsVisible="{Binding #GameConfigsToggle.IsChecked}"
+                              DockPanel.Dock="Left">
+        <ListBox x:Name="GameConfigsList"
+                 Items="{Binding GameConfigs}"
+                 SelectedItem="{Binding SelectedGameConfig, Mode=TwoWay}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
               <TextBlock Text="{Binding Title}" Classes="h3"/>
-              <TextBlock Text="{Binding CurrentCrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
-              <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Threat level {0}'}"/>
-            </StackPanel>
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListBox>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </HeaderedContentControl>
       <ContentControl Content="{Binding SelectedGameConfig, Mode=OneWay}"/>
     </DockPanel>
   <!--/ContentControl-->

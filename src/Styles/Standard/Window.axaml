@@ -90,7 +90,8 @@
                     <Panel Height="40" VerticalAlignment="Top">
                       <TextBlock Text="{TemplateBinding Content}"
                                  FontFamily="{DynamicResource HeaderFont}"
-                                 Margin="40,0"
+                                 FontSize="15"
+                                 Margin="20,0,40,0"
                                  HorizontalAlignment="Stretch"
                                  TextAlignment="Left"
                                  VerticalAlignment="Center"/>
@@ -250,6 +251,7 @@
     <Style Selector="Window">
         <Setter Property="FontFamily" Value="{DynamicResource BodyFont}"/>
         <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{DynamicResource StrongForegroundBrush}"/>
         <Setter Property="TransparencyLevelHint" Value="Transparent"/>
         <Setter Property="SystemDecorations" Value="None"/>
         <!--Setter Property="ExtendClientAreaTitleBarHeightHint" Value="34"/>

@@ -26,7 +26,7 @@
     </Panel>
     <Panel Margin="20">
       <StackPanel Orientation="Vertical" VerticalAlignment="Top" Spacing="12">
-        <TextBlock Text="{Binding Title}" Classes="h1" FontSize="30"/>
+        <TextBlock Text="{Binding Title}" Classes="h1" />
         <TextBlock Text="{Binding CurrentCrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
         <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore Threat {0}'}"/>
       </StackPanel>
