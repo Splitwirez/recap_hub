@@ -23,6 +23,14 @@ namespace ReCap.Hub.ViewModels
             set => RASIC(ref _selectedGameConfig, value);
         }
 
+
+        bool _showGameConfigs = true;
+        public bool ShowGameConfigs
+        {
+            get => _showGameConfigs;
+            set => RASIC(ref _showGameConfigs, value);
+        }
+
         public LocalPlayViewModel()
              : base()
         {

@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:ReCap.Hub.ViewModels"
+             xmlns:v="using:ReCap.Hub.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ReCap.Hub.Views.LocalPlayView">
   <Design.DataContext>
@@ -14,17 +15,17 @@
         <StackPanel Orientation="Horizontal">
           <ToggleButton x:Name="GameConfigsToggle"
                         Content="Show game configs"
-                        IsChecked="True"
-                        IsVisible="{Binding !#GameConfigsToggle.IsChecked, Mode=OneWay}"/>
+                        IsChecked="{Binding ShowGameConfigs, Mode=TwoWay}"
+                        IsVisible="{Binding !ShowGameConfigs}"/>
           <ToggleButton Content="Hide game configs"
                         IsChecked="{Binding !#GameConfigsToggle.IsChecked, Mode=TwoWay}"
-                        IsVisible="{Binding #GameConfigsToggle.IsChecked, Mode=OneWay}"/>
+                        IsVisible="{Binding ShowGameConfigs}"/>
         </StackPanel>
       </ContentControl>
       <HeaderedContentControl x:Name="GameConfigsPane"
                               Header="Game configs"
                               Classes="sidePane outermost"
-                              IsVisible="{Binding #GameConfigsToggle.IsChecked}"
+                              IsVisible="{Binding ShowGameConfigs, Mode=OneWay}"
                               DockPanel.Dock="Left">
         <ListBox x:Name="GameConfigsList"
                  Items="{Binding GameConfigs}"
@@ -36,7 +37,8 @@
           </ListBox.ItemTemplate>
         </ListBox>
       </HeaderedContentControl>
-      <ContentControl Content="{Binding SelectedGameConfig, Mode=OneWay}"/>
+      <!--ContentControl Content="{Binding SelectedGameConfig, Mode=OneWay}" Tag="{Binding ShowGameConfigs}"/-->
+      <v:GameConfigView DataContext="{Binding SelectedGameConfig, Mode=OneWay}" FlushWithLeft="{Binding !$parent[UserControl].DataContext.ShowGameConfigs}"/>
     </DockPanel>
   <!--/ContentControl-->
 </UserControl>

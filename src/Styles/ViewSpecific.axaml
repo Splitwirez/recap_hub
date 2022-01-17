@@ -4,4 +4,5 @@
         xmlns:rctr="using:ReCap.Hub.Controls">
     <StyleInclude Source="avares://ReCap.Hub/Styles/ViewSpecific/Common.axaml"/>
     <StyleInclude Source="avares://ReCap.Hub/Styles/ViewSpecific/HomePage.axaml"/>
+    <StyleInclude Source="avares://ReCap.Hub/Styles/ViewSpecific/SaveGame.axaml"/>
 </Styles>

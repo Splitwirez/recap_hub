@@ -9,17 +9,31 @@
     </Styles.Resources>
     
     
-    <Style Selector="Button.homePageChoice">
-        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="VerticalAlignment" Value="Stretch"/>
-        <Setter Property="BorderBrush" Value="#FFF6FBFE"/>
-        <Setter Property="BorderThickness" Value="1"/>
+    <Style Selector="Button">
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="FontSize" Value="36"/>
-        <Setter Property="Foreground" Value="#96FFFFFF"/>
-        <Setter Property="Template">
-            <ControlTemplate>
+        <Setter Property="Padding" Value="20,4"/>
+        <!--Setter Property="FontSize" Value="36"/>
+        <Setter Property="Foreground" Value="#96FFFFFF"/-->
+        <Setter Property="Foreground" Value="{DynamicResource Weak1ForegroundBrush}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource HeaderFont}"/>
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Panel Background="#01000000">
+            <rctr:AngledBorder x:Name="ExtBackground" Background="{TemplateBinding Background}" />
+            <rctr:ImagePresenter x:Name="Background"/>
+            <ContentPresenter x:Name="PART_ContentPresenter"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Panel>
+        </ControlTemplate>
+            <!--ControlTemplate>
                 <Panel Background="#01000000">
                     <Rectangle x:Name="BrushSizeHelperRectangle" Margin="{TemplateBinding BorderThickness}" Fill="Transparent"/>
                     <rctr:AngledBorder x:Name="IdleBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
@@ -65,10 +79,38 @@
                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                 </Panel>
-            </ControlTemplate>
+            </ControlTemplate-->
         </Setter>
     </Style>
-    <Style Selector="Button.homePageChoice:pointerover /template/ rctr|AngledBorder#IdleBackground,
+  <Style Selector="Button /template/ rctr|AngledBorder#ExtBackground">
+    <Setter Property="Margin" Value="2"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="CornerRadius" Value="2,0,2,0"/>
+  </Style>
+  <Style Selector="Button /template/ rctr|ImagePresenter#Background">
+    <Setter Property="Source" Value="{DynamicResource Button.Idle}"/>
+  </Style>
+  <Style Selector="Button /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="TextBlock.Foreground" Value="{TemplateBinding TextBlock.Foreground}"/>
+  </Style>
+  
+  
+  <Style Selector="Button:pointerover:not(:pressed) /template/ rctr|ImagePresenter#Background">
+    <Setter Property="Source" Value="{DynamicResource Button.Hover}"/>
+  </Style>
+  <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource StrongForegroundBrush}"/>
+  </Style>
+  
+  
+  <Style Selector="Button:disabled /template/ rctr|ImagePresenter#Background">
+    <Setter Property="Opacity" Value="0.25"/>
+  </Style>
+  <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource Weak2ForegroundBrush}"/>
+  </Style>
+  
+    <!--Style Selector="Button.homePageChoice:pointerover /template/ rctr|AngledBorder#IdleBackground,
                     Button.homePageChoice:pressed /template/ rctr|AngledBorder#IdleBackground,
                     Button.homePageChoice:disabled /template/ rctr|AngledBorder#IdleBackground">
         <Setter Property="IsVisible" Value="False"/>
@@ -96,5 +138,5 @@
     </Style>
     <Style Selector="Button.homePageChoice.bottom /template/ rctr|AngledBorder#IdleBackground">
         <Setter Property="CornerRadius" Value="0,0,18,18"/>
-    </Style>
+    </Style-->
 </Styles>

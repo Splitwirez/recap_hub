@@ -6,6 +6,15 @@ namespace ReCap.Hub.Views
 {
     public class GameConfigView : UserControl
     {
+
+        public static readonly StyledProperty<bool> FlushWithLeftProperty =
+            AvaloniaProperty.Register<GameConfigView, bool>(nameof(FlushWithLeft), true);
+        public bool FlushWithLeft
+        {
+            get => GetValue(FlushWithLeftProperty);
+            set => SetValue(FlushWithLeftProperty, value);
+        }
+
         public GameConfigView()
         {
             this.InitializeComponent();

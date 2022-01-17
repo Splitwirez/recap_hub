@@ -9,9 +9,9 @@
         </ResourceDictionary>
     </Styles.Resources>
 
-    <Style Selector="HeaderedContentControl.sidePane">
+  <Style Selector="HeaderedContentControl.sidePane">
+    <Setter Property="Width" Value="200"/>
       <Setter Property="Padding" Value="10"/>
-      <Setter Property="Width" Value="200"/>
       <Setter Property="Margin" Value="0,0,-6,0"/>
       <Setter Property="Template">
         <ControlTemplate>
@@ -47,7 +47,8 @@
         <Setter Property="Source" Value="{DynamicResource ListBox.Background}"/>
         <Setter Property="Margin" Value="1"/>
     </Style>
-    <Style Selector="HeaderedContentControl.sidePane.outermost /template/ rctr|ImagePresenter#Background">
+    <Style Selector="HeaderedContentControl.sidePane.outermost /template/ rctr|ImagePresenter#Background,
+           v|GameConfigView[FlushWithLeft=True] HeaderedContentControl.sidePane.toggleOutermost /template/ rctr|ImagePresenter#Background">
       <Setter Property="Source" Value="{DynamicResource ListBox.BackgroundOutermost}"/>
     </Style>
     
@@ -133,6 +134,7 @@
   <Style Selector="ContentControl.tabRow">
     <Setter Property="Height" Value="40"/>
     <Setter Property="Margin" Value="0,0,0,-4"/>
+    <Setter Property="Padding" Value="26,4,26,9"/>
     <Setter Property="Template">
       <ControlTemplate>
         <Panel>
@@ -141,6 +143,7 @@
                                             Background="Transparent"
                                             BorderBrush="Transparent"
                                             BorderThickness="0"
+                                            Margin="{TemplateBinding Padding}"
                                             Content="{TemplateBinding Content}"
                                             ContentTemplate="{TemplateBinding ContentTemplate}"
                                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -149,11 +152,34 @@
       </ControlTemplate>
     </Setter>
   </Style>
+  <Style Selector="ContentControl.tabRow Button,
+                  ContentControl.tabRow ToggleButton">
+    <Setter Property="Height" Value="20"/>
+  </Style>
 
   <Style Selector="Window.topTabs /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="Margin" Value="0,-29,0,0"/>
   </Style>
   <Style Selector="Window.topTabs /template/ rctr|ImagePresenter#WindowBody">
     <Setter Property="Margin" Value="0,35,0,0"/>
+  </Style>
+
+
+
+  <Style Selector="Button.play">
+    <Setter Property="FontSize" Value="{DynamicResource H2FontSize}"/>
+    <Setter Property="Background" Value="#FF2AC10A"/>
+  </Style>
+  <Style Selector="Button.play /template/ rctr|AngledBorder#ExtBackground">
+    <Style.Animations>
+      <Animation Duration="0:0:1" FillMode="Both" IterationCount="INFINITE" PlaybackDirection="Alternate">
+        <KeyFrame Cue="0%">
+          <Setter Property="Opacity" Value="1"/>
+        </KeyFrame>
+        <KeyFrame Cue="100%">
+          <Setter Property="Opacity" Value="0.5"/>
+        </KeyFrame>
+      </Animation>
+    </Style.Animations>
   </Style>
 </Styles>

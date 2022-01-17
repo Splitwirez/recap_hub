@@ -1,0 +1,34 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.Hub"
+        xmlns:rctr="using:ReCap.Hub.Controls"
+        xmlns:v="using:ReCap.Hub.Views">
+  <Style Selector="TemplatedControl.threatBanner">
+    <Setter Property="Margin" Value="10,10,10,0"/>
+    <Setter Property="Height" Value="200"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <Panel ClipToBounds="True">
+            <Panel.OpacityMask>
+              <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,80%">
+                <GradientStop Offset="0" Color="Black"/>
+                <GradientStop Offset="1" Color="Transparent"/>
+              </LinearGradientBrush>
+            </Panel.OpacityMask>
+            <Rectangle Fill="{TemplateBinding Background}">
+              <Rectangle.OpacityMask>
+                <ImageBrush Source="avares://ReCap.Hub/Res/UI/Level/Mask.png" Stretch="Fill"/>
+              </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle Opacity="0.5">
+              <Rectangle.Fill>
+                <ImageBrush Source="avares://ReCap.Hub/Res/UI/Level/Overlay.png" Stretch="Fill"/>
+              </Rectangle.Fill>
+            </Rectangle>
+          </Panel>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+</Styles>

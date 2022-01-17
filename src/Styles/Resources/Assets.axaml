@@ -14,7 +14,7 @@
       <SolidColorBrush x:Key="StrongForegroundBrush"
                        Color="{DynamicResource StrongForegroundColor}"/>
       
-      <Color x:Key="Weak1ForegroundColor">#CAFFFFFF</Color>
+      <Color x:Key="Weak1ForegroundColor">#E0FFFFFF</Color>
       <SolidColorBrush x:Key="Weak1ForegroundBrush"
                        Color="{DynamicResource Weak1ForegroundColor}"/>
       
@@ -69,6 +69,13 @@
       <rctr:SlicedImage x:Key="ListBoxItem.Edge"
                         Source="avares://ReCap.Hub/Res/UI/ListBoxItem/Edge.png"
                         BorderThickness="8"/>
+
+      <rctr:SlicedImage x:Key="Button.Idle"
+                        Source="avares://ReCap.Hub/Res/UI/Button/Idle.png"
+                        BorderThickness="6"/>
+      <rctr:SlicedImage x:Key="Button.Hover"
+                        Source="avares://ReCap.Hub/Res/UI/Button/Hover.png"
+                        BorderThickness="6"/>
       
 
       <FontFamily x:Key="HeaderFont">EA Pirulen Rg DS</FontFamily>

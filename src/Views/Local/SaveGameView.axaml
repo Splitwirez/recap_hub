@@ -6,24 +6,14 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ReCap.Hub.Views.SaveGameView">
   <Panel>
-    <Panel HorizontalAlignment="Stretch"
-           VerticalAlignment="Top"
-           ClipToBounds="True">
-      <Panel.OpacityMask>
-        <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,86%">
-          <GradientStop Offset="0" Color="Black"/>
-          <GradientStop Offset="1" Color="Transparent"/>
-        </LinearGradientBrush>
-      </Panel.OpacityMask>
-      <Image HorizontalAlignment="Stretch"
-             VerticalAlignment="Top"
-             Source="avares://ReCap.Hub/Res/UI/Level/zelems_3.png"
-             Stretch="Uniform">
-        <Image.OpacityMask>
-          <ImageBrush Source="avares://ReCap.Hub/Res/UI/Level/Mask.png"/>
-        </Image.OpacityMask>
-      </Image>
-    </Panel>
+    <TemplatedControl Classes="threatBanner"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Top">
+      <TemplatedControl.Background>
+        <ImageBrush Source="avares://ReCap.Hub/Res/UI/Level/zelems_3.png"
+          AlignmentY="Center" Stretch="UniformToFill"/>
+      </TemplatedControl.Background>
+    </TemplatedControl>
     <Panel Margin="20">
       <StackPanel Orientation="Vertical" VerticalAlignment="Top" Spacing="12">
         <TextBlock Text="{Binding Title}" Classes="h1" />
@@ -31,6 +21,7 @@
         <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore Threat {0}'}"/>
       </StackPanel>
       <Button x:Name="Launchgamebutton"
+            Classes="play"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Content="Play"/>
