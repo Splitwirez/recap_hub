@@ -27,15 +27,20 @@
                               Classes="sidePane outermost"
                               IsVisible="{Binding ShowGameConfigs, Mode=OneWay}"
                               DockPanel.Dock="Left">
-        <ListBox x:Name="GameConfigsList"
-                 Items="{Binding GameConfigs}"
-                 SelectedItem="{Binding SelectedGameConfig, Mode=TwoWay}">
-          <ListBox.ItemTemplate>
-            <DataTemplate>
-              <TextBlock Text="{Binding Title}" Classes="h3"/>
-            </DataTemplate>
-          </ListBox.ItemTemplate>
-        </ListBox>
+        <DockPanel>
+            <ListBox x:Name="GameConfigsList"
+                   Items="{Binding GameConfigs}"
+                   SelectedItem="{Binding SelectedGameConfig, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <Panel>
+                  <TextBlock Text="{Binding Title}" Classes="h3"/>
+                  <Button IsVisible="{Binding $parent[ListBoxItem].IsPointerOver}" Content="Delete" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                </Panel>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </DockPanel>
       </HeaderedContentControl>
       <!--ContentControl Content="{Binding SelectedGameConfig, Mode=OneWay}" Tag="{Binding ShowGameConfigs}"/-->
       <v:GameConfigView DataContext="{Binding SelectedGameConfig, Mode=OneWay}" FlushWithLeft="{Binding !$parent[UserControl].DataContext.ShowGameConfigs}"/>

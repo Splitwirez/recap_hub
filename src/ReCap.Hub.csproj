@@ -11,15 +11,8 @@
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Include="Res/UI/**/*.png" />
+    <AvaloniaResource Include="Res/Hero/*.png" />
     <AvaloniaResource Include="Res/Icon/**/*.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <AvaloniaXaml Remove="Styles\Standard\ListBox.axaml" />
-    <AvaloniaXaml Remove="Styles\Standard\ListBoxItem.axaml" />
-    <AvaloniaXaml Remove="Styles\Standard\TabStrip.axaml" />
-    <AvaloniaXaml Remove="Styles\Standard\ToggleButton.axaml" />
-    <AvaloniaXaml Remove="Styles\ViewSpecific\HomePage.axaml" />
-    <AvaloniaXaml Remove="Styles\ViewSpecific\SaveGame.axaml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="$(AvVer)" />

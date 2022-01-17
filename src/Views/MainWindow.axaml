@@ -8,7 +8,7 @@
         x:Class="ReCap.Hub.Views.MainWindow"
         Title="ReCap Hub Prototype"
         Classes="topTabs"
-        Content="{Binding CurrentPage}" Width="800" Height="500">
+        Content="{Binding CurrentPage}" Width="1024" Height="600">
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>

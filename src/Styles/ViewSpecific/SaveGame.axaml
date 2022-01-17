@@ -31,4 +31,34 @@
       </ControlTemplate>
     </Setter>
   </Style>
+
+  <Style Selector="ContentControl.heroCard">
+      <Setter Property="Padding" Value="4"/>
+      <Setter Property="Width" Value="138"/>
+      <Setter Property="Margin" Value="5"/>
+      <Setter Property="Template">
+      <ControlTemplate>
+        <rctr:AngledBorder BorderBrush="#40FFFFFF"
+                           BorderThickness="1"
+                           CornerRadius="16,0,16,0">
+          <ContentPresenter x:Name="PART_ContentPresenter"
+                              Background="Transparent"
+                              BorderBrush="Transparent"
+                              BorderThickness="0"
+                              Margin="{TemplateBinding Padding}"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </rctr:AngledBorder>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="ContentControl.heroCard > StackPanel">
+    <Setter Property="Spacing" Value="4"/>
+  </Style>
+  
+  <Style Selector="ContentControl.heroCard TextBlock">
+    <Setter Property="TextAlignment" Value="Center"/>
+  </Style>
 </Styles>

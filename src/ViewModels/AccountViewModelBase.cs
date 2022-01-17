@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace ReCap.Hub.ViewModels
@@ -19,6 +20,13 @@ namespace ReCap.Hub.ViewModels
         {
             get => _currentCrogenitorLevel;
             set => RASIC(ref _currentCrogenitorLevel, value);
+        }
+
+        ObservableCollection<HeroViewModel> _heroes = new ObservableCollection<HeroViewModel>();
+        public ObservableCollection<HeroViewModel> Heroes
+        {
+            get => _heroes;
+            set => RASIC(ref _heroes, value);
         }
     }
 }

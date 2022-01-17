@@ -10,22 +10,27 @@
              <!--FlushWithLeft="{Binding $parent[ContentControl].DataContext.ShowGameConfigs, FallbackValue=True}"-->
   <DockPanel>
     <HeaderedContentControl x:Name="GameConfigsPane"
-                              Header="Saves"
+                              Header="Save games"
                               Classes="sidePane toggleOutermost"
                               DockPanel.Dock="Left">
-      <ListBox x:Name="SaveGamesList"
-            Items="{Binding Saves}"
-            SelectedItem="{Binding SelectedSave, Mode=TwoWay}">
-        <ListBox.ItemTemplate>
-          <DataTemplate>
-            <StackPanel Orientation="Vertical">
-              <TextBlock Text="{Binding Title}" Classes="h3"/>
-              <TextBlock Text="{Binding CurrentCrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
-              <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore Threat {0}'}"/>
-            </StackPanel>
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListBox>
+      <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Spacing="4">
+          <Button Content="New game..."/>
+        </StackPanel>
+        <ListBox x:Name="SaveGamesList"
+              Items="{Binding Saves}"
+              SelectedItem="{Binding SelectedSave, Mode=TwoWay}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Title}" Classes="h3"/>
+                <TextBlock Text="{Binding CurrentCrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
+                <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore Threat {0}'}"/>
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </DockPanel>
     </HeaderedContentControl>
     <ContentControl Content="{Binding SelectedSave, Mode=OneWay}"/>
   </DockPanel>

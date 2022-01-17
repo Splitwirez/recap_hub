@@ -14,17 +14,55 @@
           AlignmentY="Center" Stretch="UniformToFill"/>
       </TemplatedControl.Background>
     </TemplatedControl>
-    <Panel Margin="20">
-      <StackPanel Orientation="Vertical" VerticalAlignment="Top" Spacing="12">
-        <TextBlock Text="{Binding Title}" Classes="h1" />
-        <TextBlock Text="{Binding CurrentCrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
-        <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore Threat {0}'}"/>
+    <DockPanel>
+      <StackPanel Spacing="4"
+                  Margin="20"
+                  Orientation="Horizontal"
+                  HorizontalAlignment="Right"
+                  DockPanel.Dock="Bottom">
+        <Button x:Name="DuplicateGameButton"
+                Content="Duplicate"/>
+      <Button x:Name="LaunchGameButton"
+              Classes="play"
+              Content="Play"/>
       </StackPanel>
-      <Button x:Name="Launchgamebutton"
-            Classes="play"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Content="Play"/>
-    </Panel>
+      <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="28" Spacing="32">
+          <StackPanel Orientation="Vertical" Spacing="5">
+            <TextBlock Text="{Binding Title}" Classes="h1" />
+            <TextBlock Text="{Binding CurrentCrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
+            <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore Threat {0}'}"/>
+          </StackPanel>
+          <StackPanel Orientation="Vertical" Spacing="5">
+            <TextBlock Text="Heroes"
+                      Classes="h2"/>
+            <TextBlock Text="{Binding Heroes.Count, StringFormat='{}{0} Activated'}"/>
+            <ItemsControl Items="{Binding Heroes}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <ContentControl Classes="heroCard">
+                    <StackPanel Orientation="Vertical">
+                      <Image Width="128"
+                             Height="128"
+                            Source="{Binding Thumbnail}"/>
+                      <TextBlock Text="{Binding ShortName}"
+                                Classes="h3"
+                                TextWrapping="Wrap"/>
+                      <TextBlock Text="{Binding LoreTitle}"
+                                TextWrapping="Wrap"/>
+                    </StackPanel>
+                  </ContentControl>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <WrapPanel HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+            </ItemsControl>
+          </StackPanel>
+        </StackPanel>
+      </ScrollViewer>
+    </DockPanel>
   </Panel>
 </UserControl>

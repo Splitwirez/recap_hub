@@ -167,7 +167,7 @@
 
 
   <Style Selector="Button.play">
-    <Setter Property="FontSize" Value="{DynamicResource H2FontSize}"/>
+    <!--Setter Property="FontSize" Value="{DynamicResource H2FontSize}"/-->
     <Setter Property="Background" Value="#FF2AC10A"/>
   </Style>
   <Style Selector="Button.play /template/ rctr|AngledBorder#ExtBackground">
