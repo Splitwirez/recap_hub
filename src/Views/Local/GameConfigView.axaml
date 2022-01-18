@@ -14,7 +14,7 @@
                               Classes="sidePane toggleOutermost"
                               DockPanel.Dock="Left">
       <DockPanel>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Spacing="4">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Spacing="4" Margin="10">
           <Button Content="New game..."/>
         </StackPanel>
         <ListBox x:Name="SaveGamesList"

@@ -12,6 +12,13 @@ namespace ReCap.Hub.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+
+#if !LOCAL_ONLY
+            Classes.Add("topTabs");
+#else
+            Width -= 194;
+            Height -= 67;
+#endif
         }
 
         private void InitializeComponent()

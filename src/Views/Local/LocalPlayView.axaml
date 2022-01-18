@@ -10,40 +10,45 @@
     <vm:LocalPlayViewModel/>
   </Design.DataContext>
   <!--ContentControl Classes="tabContent"-->
-    <DockPanel>
-      <ContentControl Classes="tabRow" DockPanel.Dock="Top">
-        <StackPanel Orientation="Horizontal">
-          <ToggleButton x:Name="GameConfigsToggle"
-                        Content="Show game configs"
-                        IsChecked="{Binding ShowGameConfigs, Mode=TwoWay}"
-                        IsVisible="{Binding !ShowGameConfigs}"/>
-          <ToggleButton Content="Hide game configs"
-                        IsChecked="{Binding !#GameConfigsToggle.IsChecked, Mode=TwoWay}"
-                        IsVisible="{Binding ShowGameConfigs}"/>
-        </StackPanel>
-      </ContentControl>
-      <HeaderedContentControl x:Name="GameConfigsPane"
-                              Header="Game configs"
-                              Classes="sidePane outermost"
-                              IsVisible="{Binding ShowGameConfigs, Mode=OneWay}"
-                              DockPanel.Dock="Left">
-        <DockPanel>
+  <DockPanel>
+    <ContentControl Classes="tabRow" DockPanel.Dock="Top">
+      <StackPanel Orientation="Horizontal">
+        <ToggleButton x:Name="GameConfigsToggle"
+                      Content="Show game configs"
+                      IsChecked="{Binding ShowGameConfigs, Mode=TwoWay}"
+                      IsVisible="{Binding !ShowGameConfigs}"/>
+        <ToggleButton Content="Hide game configs"
+                      IsChecked="{Binding !#GameConfigsToggle.IsChecked, Mode=TwoWay}"
+                      IsVisible="{Binding ShowGameConfigs}"/>
+      </StackPanel>
+    </ContentControl>
+    <Panel>
+      <TemplatedControl Classes="windowSegment toBottom"/>
+      <DockPanel>
+        <HeaderedContentControl x:Name="GameConfigsPane"
+                                Header="Game configs"
+                                Classes="sidePane outermost"
+                                IsVisible="{Binding ShowGameConfigs, Mode=OneWay}"
+                                DockPanel.Dock="Left">
+          <DockPanel>
             <ListBox x:Name="GameConfigsList"
                    Items="{Binding GameConfigs}"
                    SelectedItem="{Binding SelectedGameConfig, Mode=TwoWay}">
-            <ListBox.ItemTemplate>
-              <DataTemplate>
-                <Panel>
-                  <TextBlock Text="{Binding Title}" Classes="h3"/>
-                  <Button IsVisible="{Binding $parent[ListBoxItem].IsPointerOver}" Content="Delete" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                </Panel>
-              </DataTemplate>
-            </ListBox.ItemTemplate>
-          </ListBox>
-        </DockPanel>
-      </HeaderedContentControl>
-      <!--ContentControl Content="{Binding SelectedGameConfig, Mode=OneWay}" Tag="{Binding ShowGameConfigs}"/-->
-      <v:GameConfigView DataContext="{Binding SelectedGameConfig, Mode=OneWay}" FlushWithLeft="{Binding !$parent[UserControl].DataContext.ShowGameConfigs}"/>
-    </DockPanel>
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <Panel>
+                    <TextBlock Text="{Binding Title}" Classes="h3"/>
+                    <Button IsVisible="{Binding $parent[ListBoxItem].IsPointerOver}" Content="Delete" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                  </Panel>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+          </DockPanel>
+        </HeaderedContentControl>
+        <!--ContentControl Content="{Binding SelectedGameConfig, Mode=OneWay}" Tag="{Binding ShowGameConfigs}"/-->
+        <v:GameConfigView DataContext="{Binding SelectedGameConfig, Mode=OneWay}" FlushWithLeft="{Binding !$parent[UserControl].DataContext.ShowGameConfigs}"/>
+      </DockPanel>
+    </Panel>
+  </DockPanel>
   <!--/ContentControl-->
 </UserControl>

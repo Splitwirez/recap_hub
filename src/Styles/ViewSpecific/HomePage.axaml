@@ -29,7 +29,8 @@
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Panel Margin="8,0">
+        <Panel Margin="8,0"
+               Background="#01000000">
           <rctr:ImagePresenter Source="{DynamicResource TopTabs.SelectedBackground}"
                                IsVisible="{TemplateBinding IsSelected}"
                                Margin="-8,0"/>

@@ -20,4 +20,7 @@
     <PackageReference Include="Avalonia.Diagnostics" Version="$(AvVer)" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvVer)" />
   </ItemGroup>
+  <PropertyGroup>
+    <!--DefineConstants>$(DefineConstants);LOCAL_ONLY</DefineConstants-->
+  </PropertyGroup>
 </Project>

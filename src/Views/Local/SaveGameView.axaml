@@ -15,16 +15,15 @@
       </TemplatedControl.Background>
     </TemplatedControl>
     <DockPanel>
-      <StackPanel Spacing="4"
+      <StackPanel Orientation="Horizontal"
+                  Spacing="10"
                   Margin="20"
-                  Orientation="Horizontal"
                   HorizontalAlignment="Right"
                   DockPanel.Dock="Bottom">
-        <Button x:Name="DuplicateGameButton"
-                Content="Duplicate"/>
-      <Button x:Name="LaunchGameButton"
-              Classes="play"
-              Content="Play"/>
+        <Button Content="Settings..."/>
+        <Button x:Name="LaunchGameButton"
+                Classes="play"
+                Content="Play"/>
       </StackPanel>
       <ScrollViewer HorizontalScrollBarVisibility="Disabled">
         <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="28" Spacing="32">
