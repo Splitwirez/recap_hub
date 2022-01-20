@@ -2,58 +2,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:ReCap.Hub"
         xmlns:rctr="using:ReCap.Hub.Controls">
-    <Styles.Resources>
-        <ResourceDictionary>
-            <SolidColorBrush x:Key="WindowBodyBorderBrush">#FFC0C0C0</SolidColorBrush>
-
-            <Color x:Key="WindowBodyBackgroundColor">#F7111213</Color>
-            <Color x:Key="WindowBodyBackgroundGlowColor">#7FFFFFFF</Color>
-            <Color x:Key="WindowBodyBackgroundGlowMidColor">#40FFFFFF</Color>
-            <Color x:Key="WindowBodyBackgroundGlowEndColor">#00FFFFFF</Color>
-            <SolidColorBrush x:Key="WindowBodyBackgroundBrush" Color="{DynamicResource WindowBodyBackgroundColor}"/>
-            <GradientStops x:Key="WindowBodyBackgroundGlowStops">
-                <GradientStop Offset="0" Color="{DynamicResource WindowBodyBackgroundGlowColor}"/>
-                <GradientStop Offset="0.375" Color="{DynamicResource WindowBodyBackgroundGlowMidColor}"/>
-                <GradientStop Offset="1" Color="{DynamicResource WindowBodyBackgroundGlowEndColor}"/>
-            </GradientStops>
-            <!--VisualBrush x:Key="WindowBodyBackgroundBrush">
-                <VisualBrush.Visual>
-                    <Border Height="3" Background="#F70D0F11" BorderBrush="#F7101215" BorderThickness="0,0,0,1"/>
-                </VisualBrush.Visual>
-            </VisualBrush-->
-
-            <!--LinearGradientBrush x:Key="TitleBarBackgroundBrush" StartPoint="0%,0%" EndPoint="0%,100%">
-                <GradientStop Offset="0.5" Color="#6BB7CFDA"/>
-                <GradientStop Offset="1" Color="#2CB7CFDA"/>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="TitleBarBackgroundLowerBrush" StartPoint="0%,0%" EndPoint="0%,100%">
-                <GradientStop Offset="0" Color="#2CB7CFDA"/>
-                <GradientStop Offset="1" Color="#22BBD2DC"/>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="TitleBarBorderBrush" StartPoint="0%,0%" EndPoint="0%,100%">
-                <GradientStop Offset="0.25" Color="#00FFFFFF"/>
-                <GradientStop Offset="1" Color="#B0FFFFFF"/>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="TitleBarBorderLowerBrush" StartPoint="0%,0%" EndPoint="0%,100%">
-                <GradientStop Offset="0" Color="#B0FFFFFF"/>
-                <GradientStop Offset="1" Color="#C0FFFFFF"/>
-            </LinearGradientBrush-->
-            <LinearGradientBrush x:Key="ActiveTitleBarBackgroundBrush" StartPoint="0,0" EndPoint="0,100">
-                <GradientStop Offset="0" Color="#BBB7CFDA"/>
-                <GradientStop Offset="0.34" Color="#7C93A5AD"/>
-                <GradientStop Offset="0.38" Color="#72BBD2DC"/>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="InactiveTitleBarBackgroundBrush" StartPoint="0,0" EndPoint="0,100">
-                <GradientStop Offset="0" Color="#BBD8D8D8"/>
-                <GradientStop Offset="0.34" Color="#7CAAAAAA"/>
-                <GradientStop Offset="0.38" Color="#72DBDBDB"/>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="TitleBarBorderBrush" StartPoint="0,0" EndPoint="0,100">
-                <GradientStop Offset="0" Color="#00FFFFFF"/>
-                <GradientStop Offset="0.38" Color="#E0FFFFFF"/>
-            </LinearGradientBrush>
-        </ResourceDictionary>
-    </Styles.Resources>
     
     
     <Style Selector="rctr|TitleBar2">
@@ -99,10 +47,10 @@
                     <DockPanel Classes="nonTopTabs"
                                 IsHitTestVisible="False">
                       <Panel x:Name="LeftEndContainer" DockPanel.Dock="Left" ClipToBounds="True">
-                        <rctr:AngledBorder x:Name="LeftEnd" BorderBrush="{DynamicResource TitleBarBorderBrush}" BorderThickness="1" Margin="0,0,-2,0"/>
+                        <rctr:AngledBorder x:Name="LeftEnd" BorderBrush="{DynamicResource Window.TitleBar.BorderBrush}" StrokeThickness="1" Margin="0,0,-2,0"/>
                       </Panel>
                       <Panel Margin="0,0,0,5" ClipToBounds="True">
-                        <rctr:AngledBorder BorderBrush="{DynamicResource TitleBarBorderBrush}" BorderThickness="1" CornerRadius="0,33,0,0" Margin="-2,0,0,0"/>
+                        <rctr:AngledBorder BorderBrush="{DynamicResource Window.TitleBar.BorderBrush}" StrokeThickness="1" CornerRadius="0,33,0,0" Margin="-2,0,0,0"/>
                       </Panel>
                       <!--Panel Width="26" Height="33" HorizontalAlignment="Left" ClipToBounds="True">
                         <rctr:AngledBorder BorderBrush="{DynamicResource TitleBarBorderBrush}" BorderThickness="1" CornerRadius="9,0,0,0" Height="35" VerticalAlignment="Top"/>
@@ -160,10 +108,10 @@
     <Setter Property="IsVisible" Value="False"/>
   </Style>
   <Style Selector="Window[IsActive=True] /template/ rctr|TitleBar2 /template/ rctr|AngledBorder">
-        <Setter Property="Background" Value="{DynamicResource ActiveTitleBarBackgroundBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Active}"/>
     </Style>
     <Style Selector="Window[IsActive=False] /template/ rctr|TitleBar2 /template/ rctr|AngledBorder">
-        <Setter Property="Background" Value="{DynamicResource InactiveTitleBarBackgroundBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Inactive}"/>
     </Style>
     <Style Selector="rctr|TitleBar2 /template/ Panel#LeftEndContainer">
         <Setter Property="Width" Value="21"/>
@@ -179,14 +127,13 @@
     </Style>
 
     <Style Selector="Button.captionButton">
-        <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel Background="#01000000">
-                    <rctr:AngledBorder x:Name="BgElement" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0,5,0,5" Width="43" Height="23">
+                    <rctr:AngledBorder x:Name="BgElement" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" StrokeThickness="2" CornerRadius="0,5,0,5" Width="43" Height="23">
                         <ContentPresenter x:Name="PART_ContentPresenter"
                                         Background="Transparent"
                                         BorderBrush="Transparent"
@@ -282,7 +229,7 @@
               <rctr:AngledBorder x:Name="NormalHoloShadow"
                                  Background="#9D0D0F12"
                                  BorderBrush="#6F5D5F62"
-                                 BorderThickness="2"
+                                 StrokeThickness="2"
                                  CornerRadius="9"
                                  Margin="-3,3,4,-6"/>
               <!--Margin="0,3,4,0"-->
@@ -405,11 +352,14 @@
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="TemplatedControl.windowSegment /template/ rctr|ImagePresenter#Background">
+  <Style Selector="TemplatedControl.windowSegment:not(.footer) /template/ rctr|ImagePresenter#Background">
     <Setter Property="Source" Value="{DynamicResource Window.Body}"/>
   </Style>
   <Style Selector="TemplatedControl.windowSegment.footer /template/ rctr|ImagePresenter#Background">
     <Setter Property="Source" Value="{DynamicResource Window.Footer}"/>
+  </Style>
+  <Style Selector="TemplatedControl.windowSegment:not(.toTop)">
+    <Setter Property="Margin" Value="0,-4,0,0"/>
   </Style>
   <Style Selector="TemplatedControl.windowSegment /template/ Rectangle#LowerTrim">
     <Setter Property="IsVisible" Value="False"/>

@@ -1,0 +1,19 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.Hub"
+        xmlns:rctr="using:ReCap.Hub.Controls"
+        xmlns:sys="using:System">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <rctr:SlicedImage x:Key="ListBoxItem.Idle"
+                        Source="avares://ReCap.Hub/Res/UI/ListBoxItem/Idle.png"
+                        BorderThickness="4"/>
+      <rctr:SlicedImage x:Key="ListBoxItem.Selected"
+                        Source="avares://ReCap.Hub/Res/UI/ListBoxItem/Selected.png"
+                        BorderThickness="4"/>
+      <rctr:SlicedImage x:Key="ListBoxItem.Edge"
+                        Source="avares://ReCap.Hub/Res/UI/ListBoxItem/Edge.png"
+                        BorderThickness="8"/>
+    </ResourceDictionary>
+  </Styles.Resources>
+</Styles>

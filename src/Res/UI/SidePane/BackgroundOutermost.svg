@@ -2,14 +2,14 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="100.00011"
+   width="100"
    height="116"
-   viewBox="0 0 100.00011 116"
+   viewBox="0 0 100 116"
    version="1.1"
    id="svg8"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   sodipodi:docname="Background.svg"
-   inkscape:export-filename="Background.png"
+   sodipodi:docname="BackgroundOutermost.svg"
+   inkscape:export-filename="BackgroundOutermost.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -22,42 +22,6 @@
    xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs2">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient6515">
-      <stop
-         style="stop-color:#e1e2e2;stop-opacity:0.44999999"
-         offset="0"
-         id="stop6511" />
-      <stop
-         style="stop-color:#e1e2e2;stop-opacity:0.15000001"
-         offset="1"
-         id="stop6513" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient6148">
-      <stop
-         style="stop-color:#b7cfda;stop-opacity:0.34999999"
-         offset="0"
-         id="stop6144" />
-      <stop
-         style="stop-color:#b7cfda;stop-opacity:0"
-         offset="1"
-         id="stop6146" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient5111">
-      <stop
-         style="stop-color:#ffffff;stop-opacity:0.58823532"
-         offset="0"
-         id="stop5107" />
-      <stop
-         style="stop-color:#ffffff;stop-opacity:0"
-         offset="1"
-         id="stop5109" />
-    </linearGradient>
     <linearGradient
        inkscape:collect="always"
        id="linearGradient6293">
@@ -271,25 +235,6 @@
          id="path78820"
          sodipodi:nodetypes="ccccccccccc" />
     </clipPath>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient5111"
-       id="linearGradient5113"
-       x1="2.5"
-       y1="7.5"
-       x2="2.5"
-       y2="112.5"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-2,-2)" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient6148"
-       id="linearGradient6150"
-       x1="2.5"
-       y1="7.5"
-       x2="2.5"
-       y2="112.5"
-       gradientUnits="userSpaceOnUse" />
     <filter
        inkscape:collect="always"
        style="color-interpolation-filters:sRGB"
@@ -303,23 +248,14 @@
          stdDeviation="2.13293"
          id="feGaussianBlur6321" />
     </filter>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient6515"
-       id="linearGradient6517"
-       x1="2.5"
-       y1="7.5"
-       x2="2.5"
-       y2="112.5"
-       gradientUnits="userSpaceOnUse" />
     <clipPath
        clipPathUnits="userSpaceOnUse"
-       id="clipPath2156">
+       id="clipPath6323">
       <path
          style="color:#000000;fill:#ff00ff;fill-opacity:1;-inkscape-stroke:none;paint-order:stroke fill markers"
-         d="M 3,8 8,3 H 99.585937 L 95.292969,7.2929687 V 112.70703 L 99.585937,117 H 8 l -5,-5 z"
-         id="path2158"
-         sodipodi:nodetypes="ccccccccc" />
+         d="M 95.292969,112.70703 99.585937,117 H 24.707031 l -5,-5 H 3 V 8 h 15.707031 l 5,-5 h 75.878906 l -4.292968,4.2929687 z"
+         id="path6325"
+         sodipodi:nodetypes="ccccccccccc" />
     </clipPath>
   </defs>
   <sodipodi:namedview
@@ -329,9 +265,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="29.698485"
-     inkscape:cy="-27.223611"
+     inkscape:zoom="11.313708"
+     inkscape:cx="104.03309"
+     inkscape:cy="118.3078"
      inkscape:document-units="px"
      inkscape:current-layer="g177"
      showgrid="false"
@@ -383,29 +319,29 @@
      style="display:inline">
     <g
        id="g5798"
-       clip-path="url(#clipPath2156)"
+       clip-path="url(#clipPath6323)"
        transform="translate(-2,-2)">
       <rect
-         style="fill:url(#linearGradient6150);fill-opacity:1;stroke:none;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.45"
+         style="fill:#b7cfda;fill-opacity:0.34901962;stroke:none;stroke-width:4;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.45"
          id="rect5692"
          width="105"
          height="120"
          x="0"
          y="0" />
       <path
-         sodipodi:nodetypes="ccccccccc"
+         sodipodi:nodetypes="ccccccccccc"
          inkscape:connector-curvature="0"
          id="path5594"
-         d="m 2.5,112.5 5,5 h 93.293 l -5,-5 V 7.5 l 5,-5 H 7.5 l -5,5 z"
-         style="display:inline;mix-blend-mode:normal;fill:none;stroke:url(#linearGradient6517);stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers;filter:url(#filter6319)"
+         d="m 95.793,7.5 5,-5 H 23.5 l -5,5 h -16 v 105 h 17 l 5,5 h 76.293 l -5,-5 z"
+         style="display:inline;mix-blend-mode:normal;fill:none;stroke:#e1e2e2;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.4509804;paint-order:stroke fill markers;filter:url(#filter6319)"
          clip-path="none" />
     </g>
     <path
-       sodipodi:nodetypes="ccccccccc"
+       sodipodi:nodetypes="ccccccccccc"
        inkscape:connector-curvature="0"
        id="path175"
-       d="m 5.5,115.5 h 93.293 l -5,-5 V 5.5 l 5,-5 H 5.5 l -5,5 v 105 z"
-       style="display:inline;fill:none;stroke:url(#linearGradient5113);stroke-width:1;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+       d="m 93.793,5.5 5,-5 H 21.5 l -5,5 h -16 v 105 h 17 l 5,5 h 76.293 l -5,-5 z"
+       style="display:inline;fill:none;stroke:#ffffff;stroke-width:1;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers;stroke-opacity:0.58823532"
        clip-path="none" />
   </g>
 </svg>

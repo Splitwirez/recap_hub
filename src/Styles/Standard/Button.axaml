@@ -2,36 +2,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:ReCap.Hub"
         xmlns:rctr="using:ReCap.Hub.Controls">
-    <Styles.Resources>
-        <ResourceDictionary>
-            <SolidColorBrush x:Key="a">#FFC0C0C0</SolidColorBrush>
-        </ResourceDictionary>
-    </Styles.Resources>
-    
-    
-    <Style Selector="Button">
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="20,4"/>
-        <!--Setter Property="FontSize" Value="36"/>
-        <Setter Property="Foreground" Value="#96FFFFFF"/-->
-        <Setter Property="Foreground" Value="{DynamicResource Weak1ForegroundBrush}"/>
-        <Setter Property="FontFamily" Value="{DynamicResource HeaderFont}"/>
+    <Style Selector=":is(Button)">
+      <Setter Property="HorizontalContentAlignment" Value="Center"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+      <Setter Property="Padding" Value="20,4"/>
+      <!--Setter Property="FontSize" Value="36"/>
+      <Setter Property="Foreground" Value="#96FFFFFF"/-->
+      <Setter Property="Background" Value="#40A7CBE2"/>
+      <Setter Property="Foreground" Value="{DynamicResource Weak1ForegroundBrush}"/>
+      <Setter Property="FontFamily" Value="{DynamicResource HeaderFont}"/>
       <Setter Property="Template">
         <ControlTemplate>
-          <Panel Background="#01000000">
-            <rctr:AngledBorder x:Name="ExtBackground" Background="{TemplateBinding Background}" />
-            <rctr:ImagePresenter x:Name="Background"/>
+          <rctr:AngledBorder x:Name="Background">
             <ContentPresenter x:Name="PART_ContentPresenter"
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            BorderThickness="0"
-                            Content="{TemplateBinding Content}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}"
-                            Padding="{TemplateBinding Padding}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-          </Panel>
+                              Background="Transparent"
+                              BorderBrush="Transparent"
+                              BorderThickness="0"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Padding="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </rctr:AngledBorder>
         </ControlTemplate>
             <!--ControlTemplate>
                 <Panel Background="#01000000">
@@ -82,61 +74,75 @@
             </ControlTemplate-->
         </Setter>
     </Style>
-  <Style Selector="Button /template/ rctr|AngledBorder#ExtBackground">
-    <Setter Property="Margin" Value="2"/>
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="CornerRadius" Value="2,0,2,0"/>
+  <Style Selector=":is(Button) /template/ rctr|AngledBorder#Background">
+    <Setter Property="Background" Value="{TemplateBinding Background}"/>
+    <Setter Property="BorderBrush" Value="#A3FFFFFF"/>
+    <Setter Property="StrokeThickness" Value="2"/>
+    <Setter Property="InnerGlowColor" Value="#40FFFFFF"/>
   </Style>
-  <Style Selector="Button /template/ rctr|ImagePresenter#Background">
-    <Setter Property="Source" Value="{DynamicResource Button.Idle}"/>
+  <Style Selector=":is(Button) /template/ rctr|AngledBorder#Background,
+                  StackPanel.rightButtons > :is(Button):nth-child(1):nth-last-child(1) /template/ rctr|AngledBorder#Background">
+    <Setter Property="CornerRadius" Value="4,0,4,0"/>
   </Style>
-  <Style Selector="Button /template/ ContentPresenter#PART_ContentPresenter">
+  <Style Selector=":is(Button) /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="TextBlock.Foreground" Value="{TemplateBinding TextBlock.Foreground}"/>
   </Style>
   
   
-  <Style Selector="Button:pointerover:not(:pressed) /template/ rctr|ImagePresenter#Background">
-    <Setter Property="Source" Value="{DynamicResource Button.Hover}"/>
+  <Style Selector=":is(Button):pointerover:not(:pressed) /template/ rctr|AngledBorder#Background">
+    <Setter Property="BorderBrush" Value="#C0FFFFFF"/>
   </Style>
-  <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+  <Style Selector=":is(Button):pointerover /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="TextBlock.Foreground" Value="{DynamicResource StrongForegroundBrush}"/>
   </Style>
   
   
-  <Style Selector="Button:disabled /template/ rctr|ImagePresenter#Background">
-    <Setter Property="Opacity" Value="0.25"/>
+  <Style Selector=":is(Button):disabled /template/ rctr|AngledBorder#Background">
+    <Setter Property="Background" Value="#40C9C9C9"/>
+    <Setter Property="BorderBrush" Value="#51FFFFFF"/>
+    <Setter Property="InnerGlowColor" Value="#20FFFFFF"/>
   </Style>
-  <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter">
+  <Style Selector=":is(Button):disabled /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="TextBlock.Foreground" Value="{DynamicResource Weak2ForegroundBrush}"/>
   </Style>
+
+
+  <Style Selector="StackPanel.leftButtons,
+                  StackPanel.rightButtons">
+    <Setter Property="Orientation" Value="Horizontal"/>
+    <Setter Property="Spacing" Value="0"/>
+  </Style>
   
-    <!--Style Selector="Button.homePageChoice:pointerover /template/ rctr|AngledBorder#IdleBackground,
-                    Button.homePageChoice:pressed /template/ rctr|AngledBorder#IdleBackground,
-                    Button.homePageChoice:disabled /template/ rctr|AngledBorder#IdleBackground">
-        <Setter Property="IsVisible" Value="False"/>
-    </Style>
-    <Style Selector="Button.homePageChoice:pressed /template/ rctr|AngledBorder#HoverBackground">
-        <Setter Property="IsVisible" Value="False"/>
-    </Style>
-    <Style Selector="Button.homePageChoice:pointerover:not(:pressed)">
-        <Setter Property="Foreground" Value="#96FFFFFF"/>
-    </Style>
-    <Style Selector="Button.homePageChoice:pressed">
-        <Setter Property="RenderTransform" Value="{x:Null}"/>
-    </Style>
-    
+  <Style Selector="StackPanel.leftButtons,
+                  :is(Button).left">
+    <Setter Property="DockPanel.Dock" Value="Left"/>
+  </Style>
+  <Style Selector="StackPanel.rightButtons,
+                  :is(Button).right">
+    <Setter Property="DockPanel.Dock" Value="Right"/>
+  </Style>
+  
+  
+  
+  <Style Selector="StackPanel.leftButtons > :is(Button) /template/ rctr|AngledBorder#Background,
+                  StackPanel.rightButtons > :is(Button) /template/ rctr|AngledBorder#Background">
+    <Setter Property="CornerRadius" Value="0"/>
+  </Style>
+  <Style Selector="StackPanel.leftButtons > :is(Button):nth-child(1) /template/ rctr|AngledBorder#Background">
+    <Setter Property="CornerRadius" Value="0,0,0,4"/>
+  </Style>
+  <Style Selector="StackPanel.leftButtons > :is(Button):nth-last-child(1) /template/ rctr|AngledBorder#Background">
+    <Setter Property="CornerRadius" Value="0,4,0,0"/>
+  </Style>
+  <Style Selector="StackPanel.rightButtons > :is(Button):nth-child(1) /template/ rctr|AngledBorder#Background">
+    <Setter Property="CornerRadius" Value="4,0,0,0"/>
+  </Style>
+  <Style Selector="StackPanel.rightButtons > :is(Button):nth-last-child(1) /template/ rctr|AngledBorder#Background">
+    <Setter Property="CornerRadius" Value="0,0,4,0"/>
+  </Style>
 
-
-    <Style Selector="Button.homePageChoice.top">
-        <Setter Property="Margin" Value="0,0,0,2"/>
-    </Style>
-    <Style Selector="Button.homePageChoice.top /template/ rctr|AngledBorder#IdleBackground">
-        <Setter Property="CornerRadius" Value="18,18,0,0"/>
-    </Style>
-    <Style Selector="Button.homePageChoice.bottom">
-        <Setter Property="Margin" Value="0,2,0,0"/>
-    </Style>
-    <Style Selector="Button.homePageChoice.bottom /template/ rctr|AngledBorder#IdleBackground">
-        <Setter Property="CornerRadius" Value="0,0,18,18"/>
-    </Style-->
+  <Style Selector=":is(Button).left /template/ rctr|AngledBorder#Background,
+                  StackPanel.leftButtons > :is(Button):nth-child(1):nth-last-child(1) /template/ rctr|AngledBorder#Background">
+    <Setter Property="CornerRadius" Value="0,4,0,4"/>
+  </Style>
 </Styles>

@@ -23,7 +23,7 @@
       </StackPanel>
     </ContentControl>
     <Panel>
-      <TemplatedControl Classes="windowSegment toBottom"/>
+      <TemplatedControl Classes="windowSegment toTop toBottom"/>
       <DockPanel>
         <HeaderedContentControl x:Name="GameConfigsPane"
                                 Header="Game configs"

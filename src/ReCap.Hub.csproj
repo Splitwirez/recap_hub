@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -15,10 +15,24 @@
     <AvaloniaResource Include="Res/Icon/**/*.ico" />
   </ItemGroup>
   <ItemGroup>
+    <AvaloniaXaml Remove="Styles\Resources.axaml" />
+    <AvaloniaXaml Remove="Styles\Resources\Button.axaml" />
+    <AvaloniaXaml Remove="Styles\Resources\Global.axaml" />
+    <AvaloniaXaml Remove="Styles\Resources\ListBoxItem.axaml" />
+    <AvaloniaXaml Remove="Styles\Resources\SidePane.axaml" />
+    <AvaloniaXaml Remove="Styles\Resources\TopTabs.axaml" />
+    <AvaloniaXaml Remove="Styles\Resources\Window.axaml" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Avalonia" Version="$(AvVer)" />
     <PackageReference Include="Avalonia.Desktop" Version="$(AvVer)" />
     <PackageReference Include="Avalonia.Diagnostics" Version="$(AvVer)" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvVer)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\Dev\UITestView.axaml.cs">
+      <DependentUpon>UITestView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <PropertyGroup>
     <!--DefineConstants>$(DefineConstants);LOCAL_ONLY</DefineConstants-->

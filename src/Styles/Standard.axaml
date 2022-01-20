@@ -36,7 +36,7 @@
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/PopupRoot.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ProgressBar.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/RadioButton.xaml"/>
-  <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/RepeatButton.xaml" />
+  <!--StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/RepeatButton.xaml" /-->
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/Separator.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/Slider.xaml"/>
   <StyleInclude Source="avares://Avalonia.Themes.Fluent/Controls/ScrollBar.xaml"/>

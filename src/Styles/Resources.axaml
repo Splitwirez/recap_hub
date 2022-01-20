@@ -1,0 +1,13 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.Hub"
+        xmlns:rctr="using:ReCap.Hub.Controls">
+  <StyleInclude Source="avares://ReCap.Hub/Styles/Resources/Global.axaml"/>
+  
+  <StyleInclude Source="avares://ReCap.Hub/Styles/Resources/Button.axaml"/>
+  <StyleInclude Source="avares://ReCap.Hub/Styles/Resources/ListBoxItem.axaml"/>
+  <StyleInclude Source="avares://ReCap.Hub/Styles/Resources/Window.axaml"/>
+  
+  <StyleInclude Source="avares://ReCap.Hub/Styles/Resources/SidePane.axaml"/>
+  <StyleInclude Source="avares://ReCap.Hub/Styles/Resources/TopTabs.axaml"/>
+</Styles>

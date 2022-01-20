@@ -44,12 +44,20 @@
       </Setter>          
     </Style>
     <Style Selector="HeaderedContentControl.sidePane /template/ rctr|ImagePresenter#Background">
-        <Setter Property="Source" Value="{DynamicResource ListBox.Background}"/>
+      <Setter Property="OpacityMask">
+        <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+          <GradientStop Offset="0" Color="#FF000000"/>
+          <GradientStop Offset="1" Color="#40000000"/>
+        </LinearGradientBrush>
+      </Setter>
+    </Style>
+    <Style Selector="HeaderedContentControl.sidePane /template/ rctr|ImagePresenter#Background">
+        <Setter Property="Source" Value="{DynamicResource SidePane.Background}"/>
         <Setter Property="Margin" Value="1"/>
     </Style>
     <Style Selector="HeaderedContentControl.sidePane.outermost /template/ rctr|ImagePresenter#Background,
            v|GameConfigView[FlushWithLeft=True] HeaderedContentControl.sidePane.toggleOutermost /template/ rctr|ImagePresenter#Background">
-      <Setter Property="Source" Value="{DynamicResource ListBox.BackgroundOutermost}"/>
+      <Setter Property="Source" Value="{DynamicResource SidePane.BackgroundOutermost}"/>
     </Style>
     
 

@@ -38,10 +38,20 @@
       <Setter Property="Margin" Value="5"/>
       <Setter Property="Template">
       <ControlTemplate>
-        <rctr:AngledBorder BorderBrush="#40FFFFFF"
-                           BorderThickness="1"
-                           CornerRadius="16,0,16,0">
-          <ContentPresenter x:Name="PART_ContentPresenter"
+        <rctr:AngledBorder BorderBrush="#20FFFFFF"
+                            StrokeThickness="1"
+                            CornerRadius="19,0,8,0">
+          <Panel>
+            <rctr:AngledBorder BorderBrush="#40FFFFFF"
+                              Width="130"
+                              Height="130"
+                              Margin="3"
+                              VerticalAlignment="Top"
+                              StrokeThickness="1"
+                              CornerRadius="16,0,16,0"
+                              InnerGlowColor="#20FFFFFF"/>
+
+            <ContentPresenter x:Name="PART_ContentPresenter"
                               Background="Transparent"
                               BorderBrush="Transparent"
                               BorderThickness="0"
@@ -50,6 +60,7 @@
                               ContentTemplate="{TemplateBinding ContentTemplate}"
                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+          </Panel>
         </rctr:AngledBorder>
       </ControlTemplate>
     </Setter>
@@ -60,5 +71,38 @@
   
   <Style Selector="ContentControl.heroCard TextBlock">
     <Setter Property="TextAlignment" Value="Center"/>
+  </Style>
+
+  <Style Selector="ContentControl.saveGameFooter">
+    <Setter Property="Height" Value="50"/>
+    <Setter Property="Margin" Value="0,-8,0,0"/>
+    <Setter Property="Padding" Value="24,16,24,10"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel>
+          <rctr:ImagePresenter Source="{DynamicResource SidePane.SaveGameFooterBackground}"
+                               Margin="2">
+            <rctr:ImagePresenter.OpacityMask>
+              <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                <GradientStop Offset="0" Color="#A0000000"/>
+                <GradientStop Offset="1" Color="#60000000"/>
+              </LinearGradientBrush>
+            </rctr:ImagePresenter.OpacityMask>
+          </rctr:ImagePresenter>
+          <ContentPresenter x:Name="PART_ContentPresenter"
+                            Margin="{TemplateBinding Padding}"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="ContentControl.saveGameFooter > StackPanel">
+    <Setter Property="Spacing" Value="10"/>
   </Style>
 </Styles>

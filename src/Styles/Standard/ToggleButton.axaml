@@ -2,64 +2,38 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:ReCap.Hub"
         xmlns:rctr="using:ReCap.Hub.Controls">
-  <Styles.Resources>
-    <ResourceDictionary>
-      <SolidColorBrush x:Key="a">#FFC0C0C0</SolidColorBrush>
-    </ResourceDictionary>
-  </Styles.Resources>
-
-
   <Style Selector="ToggleButton">
-    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-    <Setter Property="VerticalContentAlignment" Value="Center"/>
-    <Setter Property="Padding" Value="20,4"/>
-    <Setter Property="Foreground" Value="{DynamicResource Weak1ForegroundBrush}"/>
-    <Setter Property="FontFamily" Value="{DynamicResource HeaderFont}"/>
     <Setter Property="Template">
       <ControlTemplate>
-        <Panel Background="#01000000">
-          <rctr:AngledBorder x:Name="ExtBackground" Background="{TemplateBinding Background}" />
-          <rctr:ImagePresenter x:Name="Background"/>
-          <ContentPresenter x:Name="PART_ContentPresenter"
-                          Background="Transparent"
-                          BorderBrush="Transparent"
-                          BorderThickness="0"
-                          Content="{TemplateBinding Content}"
-                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                          Padding="{TemplateBinding Padding}"
-                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-        </Panel>
+        <rctr:AngledBorder x:Name="Background">
+          <rctr:AngledBorder x:Name="CheckedBackground"
+                             StrokeThickness="2"
+                             CornerRadius="{Binding #Background.CornerRadius}">
+            <ContentPresenter x:Name="PART_ContentPresenter"
+                              Background="Transparent"
+                              BorderBrush="Transparent"
+                              BorderThickness="0"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Padding="{TemplateBinding Padding}"
+                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </rctr:AngledBorder>
+        </rctr:AngledBorder>
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="ToggleButton /template/ rctr|AngledBorder#ExtBackground">
-    <Setter Property="Margin" Value="2"/>
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="CornerRadius" Value="2,0,2,0"/>
+  
+  <Style Selector="ToggleButton:checked /template/ rctr|AngledBorder#CheckedBackground">
+    <Setter Property="Background" Value="#7F809CAD"/>
+    <Setter Property="InnerGlowColor" Value="#7FA7CBE2"/>
   </Style>
-  <Style Selector="ToggleButton /template/ rctr|ImagePresenter#Background">
-    <Setter Property="Source" Value="{DynamicResource Button.Idle}"/>
-  </Style>
-  <Style Selector="ToggleButton /template/ ContentPresenter#PART_ContentPresenter">
-    <Setter Property="TextBlock.Foreground" Value="{TemplateBinding TextBlock.Foreground}"/>
+  <Style Selector="ToggleButton:checked /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource Weak1ForegroundBrush}"/>
   </Style>
 
-
-  <Style Selector="ToggleButton:pointerover:not(:pressed) /template/ rctr|ImagePresenter#Background,
-                  ToggleButton:checked /template/ rctr|ImagePresenter#Background">
-    <Setter Property="Source" Value="{DynamicResource Button.Hover}"/>
-  </Style>
-  <Style Selector="ToggleButton:pointerover /template/ ContentPresenter#PART_ContentPresenter,
-                    ToggleButton:checked /template/ ContentPresenter#PART_ContentPresenter">
-    <Setter Property="TextBlock.Foreground" Value="{DynamicResource StrongForegroundBrush}"/>
-  </Style>
-
-
-  <Style Selector="ToggleButton:disabled /template/ rctr|ImagePresenter#Background">
-    <Setter Property="Opacity" Value="0.25"/>
-  </Style>
-  <Style Selector="ToggleButton:disabled /template/ ContentPresenter#PART_ContentPresenter">
-    <Setter Property="TextBlock.Foreground" Value="{DynamicResource Weak2ForegroundBrush}"/>
+  <Style Selector="ToggleButton:checked:disabled /template/ rctr|AngledBorder#CheckedBackground">
+    <Setter Property="Background" Value="#7FAAAAAA"/>
+    <Setter Property="InnerGlowColor" Value="#7FE0E0E0"/>
   </Style>
 </Styles>
