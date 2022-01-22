@@ -2,7 +2,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Nullable>enable</Nullable>
+    <ApplicationIcon>Res/Icon/ReCap.ico</ApplicationIcon>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <!--DefineConstants>$(DefineConstants);LOCAL_ONLY</DefineConstants-->
   </PropertyGroup>
 
   <PropertyGroup>
@@ -14,18 +18,15 @@
     <PackageReference Include="Avalonia.Diagnostics" Version="$(AvVer)" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvVer)" />
   </ItemGroup>
-
   
   <ItemGroup>
     <Folder Include="Models/" />
     <AvaloniaResource Include="Styles/**/*.axaml" />
   </ItemGroup>
+  
   <ItemGroup>
     <AvaloniaResource Include="Res/UI/**/*.png" />
     <AvaloniaResource Include="Res/Hero/*.png" />
-    <AvaloniaResource Include="Res/Icon/**/*.ico" />
+    <AvaloniaResource Include="Res/Icon/ReCap.ico" />
   </ItemGroup>
-  <PropertyGroup>
-    <!--DefineConstants>$(DefineConstants);LOCAL_ONLY</DefineConstants-->
-  </PropertyGroup>
 </Project>

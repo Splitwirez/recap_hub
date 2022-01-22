@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -16,12 +17,10 @@ namespace ReCap.Hub
             if (RunningOn.Windows)
             {
                 IntPtr console = PInvoke.GetConsoleWindow();
-
-                if (console == IntPtr.Zero)
+                
+                PInvoke.GetWindowThreadProcessId(console, out uint consolePid);
+                if (Process.GetCurrentProcess().Id == consolePid)
                 {
-                    PInvoke.AllocConsole();
-                    console = PInvoke.GetConsoleWindow();
-                    
                     if (PInvoke.IsWindow(console))
                         PInvoke.ShowWindow(console, 0);
                 }

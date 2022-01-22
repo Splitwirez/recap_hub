@@ -53,10 +53,10 @@ namespace ReCap.Hub.Controls
             }
         }
 
-        private void Src_AffectRender(object? sender, AvaloniaPropertyChangedEventArgs e)
+        private void Src_AffectRender(object sender, AvaloniaPropertyChangedEventArgs e)
             => InvalidateVisual();
 
-        private void Src_AffectMeasure(object? sender, AvaloniaPropertyChangedEventArgs e)
+        private void Src_AffectMeasure(object sender, AvaloniaPropertyChangedEventArgs e)
             => InvalidateMeasure();
 
         public ImagePresenter()

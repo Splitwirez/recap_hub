@@ -72,8 +72,6 @@ namespace ReCap.Hub.Controls
         Rect _bcSrc = new Rect();
         Rect _brSrc = new Rect();
 
-        double _imageWidth = 0;
-        double _imageHeight = 0;
         bool _drawAnything = false;
         bool _drawBorders = false;
 
