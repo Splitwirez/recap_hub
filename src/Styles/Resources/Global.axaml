@@ -23,10 +23,8 @@
                        Color="{DynamicResource Weak2ForegroundColor}"/>
       
 
-      <FontFamily x:Key="HeaderFont">EA Pirulen Rg DS</FontFamily>
-      <FontFamily x:Key="BodyFont">EAHelveticaNeueLT Com 57 Cn DS</FontFamily>
-      <!--FontFamily x:Key="BodyFont">EA HelveticaNeue Con Bold Cyr D</FontFamily-->
-      
+      <FontFamily x:Key="HeaderFont">avares://ReCap.Hub/Res/UI/Font/Header#Pirulen</FontFamily>
+      <FontFamily x:Key="BodyFont">avares://ReCap.Hub/Res/UI/Font/Body#Roboto Condensed</FontFamily>
     </ResourceDictionary>
   </Styles.Resources>
 </Styles>

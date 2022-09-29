@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AvVer>0.10.10</AvVer>
+    <AvVer>0.10.18</AvVer>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="$(AvVer)" />
@@ -26,6 +26,7 @@
   
   <ItemGroup>
     <AvaloniaResource Include="Res/UI/**/*.png" />
+    <AvaloniaResource Include="Res/UI/**/*.ttf" />
     <AvaloniaResource Include="Res/Hero/*.png" />
     <AvaloniaResource Include="Res/Icon/ReCap.ico" />
   </ItemGroup>
