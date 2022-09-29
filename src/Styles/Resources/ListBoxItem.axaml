@@ -5,15 +5,15 @@
         xmlns:sys="using:System">
   <Styles.Resources>
     <ResourceDictionary>
-      <rctr:SlicedImage x:Key="ListBoxItem.Idle"
-                        Source="avares://ReCap.Hub/Res/UI/ListBoxItem/Idle.png"
-                        BorderThickness="4"/>
-      <rctr:SlicedImage x:Key="ListBoxItem.Selected"
-                        Source="avares://ReCap.Hub/Res/UI/ListBoxItem/Selected.png"
-                        BorderThickness="4"/>
-      <rctr:SlicedImage x:Key="ListBoxItem.Edge"
-                        Source="avares://ReCap.Hub/Res/UI/ListBoxItem/Edge.png"
-                        BorderThickness="8"/>
+      <Color x:Key="ListBoxItem.Background.Idle">#FF0A121D</Color>
+      <Color x:Key="ListBoxItem.Glow.Idle">#9038566B</Color>
+      <Color x:Key="ListBoxItem.BorderBrush.Idle">#40FFFFFF</Color>
+      
+      <Color x:Key="ListBoxItem.Background.Selected">#FF558CBA</Color>
+      <Color x:Key="ListBoxItem.Glow.Selected">#9092EDFF</Color>
+      <Color x:Key="ListBoxItem.BorderBrush.Selected">#7FFFFFFF</Color>
+      
+      <Color x:Key="ListBoxItem.BorderBrush.Hover">#C0FFFFFF</Color>
     </ResourceDictionary>
   </Styles.Resources>
 </Styles>

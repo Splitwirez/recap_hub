@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:ReCap.Hub"
         xmlns:rctr="using:ReCap.Hub.Controls">
-  <Style Selector="ToggleButton">
+  <!--Style Selector="ToggleButton">
     <Setter Property="Template">
       <ControlTemplate>
         <rctr:AngledBorder x:Name="Background">
@@ -22,18 +22,18 @@
         </rctr:AngledBorder>
       </ControlTemplate>
     </Setter>
-  </Style>
+  </Style-->
   
-  <Style Selector="ToggleButton:checked /template/ rctr|AngledBorder#CheckedBackground">
-    <Setter Property="Background" Value="#7F809CAD"/>
+  <Style Selector=":is(ToggleButton):checked /template/ rctr|AngledBorder#Background">
+    <Setter Property="Background" Value="#C0809CAD"/>
     <Setter Property="InnerGlowColor" Value="#7FA7CBE2"/>
   </Style>
-  <Style Selector="ToggleButton:checked /template/ ContentPresenter#PART_ContentPresenter">
+  <Style Selector=":is(ToggleButton):checked /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="TextBlock.Foreground" Value="{DynamicResource Weak1ForegroundBrush}"/>
   </Style>
 
-  <Style Selector="ToggleButton:checked:disabled /template/ rctr|AngledBorder#CheckedBackground">
-    <Setter Property="Background" Value="#7FAAAAAA"/>
+  <Style Selector=":is(ToggleButton):checked:disabled /template/ rctr|AngledBorder#Background">
+    <Setter Property="Background" Value="#C0AAAAAA"/>
     <Setter Property="InnerGlowColor" Value="#7FE0E0E0"/>
   </Style>
 </Styles>

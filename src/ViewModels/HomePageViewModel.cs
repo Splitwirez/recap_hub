@@ -87,15 +87,15 @@ namespace ReCap.Hub.ViewModels
                                     },
                                     new HeroViewModel()
                                     {
-                                        ShortName = "What",
-                                        LoreTitle = "How",
-                                        Thumbnail = GetBitmap("avares://ReCap.Hub/Res/Hero/0x6E76B39A.png")
-                                    },
-                                    new HeroViewModel()
-                                    {
                                         ShortName = "Zrin",
                                         LoreTitle = "The Sun Fist",
                                         Thumbnail = GetBitmap("avares://ReCap.Hub/Res/Hero/576185321_thumb.png")
+                                    },
+                                    new HeroViewModel()
+                                    {
+                                        ShortName = "What",
+                                        LoreTitle = "How",
+                                        Thumbnail = GetBitmap("avares://ReCap.Hub/Res/Hero/0x6E76B39A.png")
                                     },
                                 }
                             }

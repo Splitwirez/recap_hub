@@ -30,7 +30,7 @@
           <StackPanel Orientation="Vertical" Spacing="5">
             <TextBlock Text="{Binding Title}" Classes="h1" />
             <TextBlock Text="{Binding CurrentCrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
-            <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore Threat {0}'}"/>
+            <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore threat {0}'}"/>
           </StackPanel>
           <StackPanel Orientation="Vertical" Spacing="5">
             <TextBlock Text="Heroes"

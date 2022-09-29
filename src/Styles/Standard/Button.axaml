@@ -13,7 +13,14 @@
       <Setter Property="FontFamily" Value="{DynamicResource HeaderFont}"/>
       <Setter Property="Template">
         <ControlTemplate>
-          <rctr:AngledBorder x:Name="Background">
+          <Panel>
+            <rctr:AngledBorder x:Name="Background"/>
+            <rctr:AngledBorder x:Name="HoverGlow"
+                              StrokeThickness="{Binding #Background.StrokeThickness, Mode=OneWay}"
+                              CornerRadius="{Binding #Background.CornerRadius, Mode=OneWay}"
+                              InnerGlowColor="#7FFFFFFF"
+                              InnerGlowSize="2"
+                              />
             <ContentPresenter x:Name="PART_ContentPresenter"
                               Background="Transparent"
                               BorderBrush="Transparent"
@@ -23,7 +30,7 @@
                               Padding="{TemplateBinding Padding}"
                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-          </rctr:AngledBorder>
+          </Panel>
         </ControlTemplate>
             <!--ControlTemplate>
                 <Panel Background="#01000000">
@@ -74,6 +81,9 @@
             </ControlTemplate-->
         </Setter>
     </Style>
+  <Style Selector=":is(Button) /template/ rctr|AngledBorder#HoverGlow">
+    <Setter Property="IsVisible" Value="False"/>
+  </Style>
   <Style Selector=":is(Button) /template/ rctr|AngledBorder#Background">
     <Setter Property="Background" Value="{TemplateBinding Background}"/>
     <Setter Property="BorderBrush" Value="#A3FFFFFF"/>
@@ -91,6 +101,19 @@
   
   <Style Selector=":is(Button):pointerover:not(:pressed) /template/ rctr|AngledBorder#Background">
     <Setter Property="BorderBrush" Value="#C0FFFFFF"/>
+  </Style>
+  <Style Selector=":is(Button):pointerover:not(:pressed) /template/ rctr|AngledBorder#HoverGlow">
+    <Setter Property="IsVisible" Value="True"/>
+    <Style.Animations>
+      <Animation Duration="0:0:1" FillMode="Both" IterationCount="INFINITE" PlaybackDirection="Alternate">
+        <KeyFrame Cue="0%">
+          <Setter Property="Opacity" Value="1"/>
+        </KeyFrame>
+        <KeyFrame Cue="100%">
+          <Setter Property="Opacity" Value="0"/>
+        </KeyFrame>
+      </Animation>
+    </Style.Animations>
   </Style>
   <Style Selector=":is(Button):pointerover /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="TextBlock.Foreground" Value="{DynamicResource StrongForegroundBrush}"/>

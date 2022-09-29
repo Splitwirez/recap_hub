@@ -9,7 +9,8 @@
                 "build",
                 "${workspaceFolder}/src/ReCap.Hub.csproj",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "/consoleloggerparameters:NoSummary",
+                "/p:LocalOnly=True"
             ],
             "problemMatcher": "$msCompile"
         },

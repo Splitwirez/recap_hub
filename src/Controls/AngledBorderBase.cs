@@ -59,6 +59,18 @@ namespace ReCap.Hub.Controls
 
 
         /// <summary>
+        /// Defines the <see cref="InnerGlowSize"/> property.
+        /// </summary>
+        public static readonly StyledProperty<double> InnerGlowSizeProperty =
+            AvaloniaProperty.Register<AngledBorderBase, double>(nameof(InnerGlowSize), -1);
+        
+        public double InnerGlowSize
+        {
+            get => GetValue(InnerGlowSizeProperty);
+            set => SetValue(InnerGlowSizeProperty, value);
+        }
+
+        /// <summary>
         /// Defines the <see cref="InnerGlowColor"/> property.
         /// </summary>
         public static readonly StyledProperty<Color> InnerGlowColorProperty =
@@ -100,13 +112,15 @@ namespace ReCap.Hub.Controls
             
             
             InnerGlowColorProperty.Changed.AddClassHandler<AngledBorderBase>((s, e) => s._boxShadow.Color = ((e.NewValue != null) && (e.NewValue is Color color)) ? color : Colors.Transparent);
+            InnerGlowSizeProperty.Changed.AddClassHandler<AngledBorderBase>((s, e) => s._boxShadow.Blur = ((e.NewValue != null) && (e.NewValue is double radius)) ? radius : -1);
 
             
             AffectsRender<AngledBorderBase>(
                 BackgroundProperty,
                 BorderBrushProperty,
                 StrokeThicknessProperty,
-                InnerGlowColorProperty);
+                InnerGlowColorProperty,
+                InnerGlowSizeProperty);
         }
 
 
@@ -131,10 +145,11 @@ namespace ReCap.Hub.Controls
             (_fillGeometry, _strokeGeometry, _rrect) = RefreshGeometry();
 
             
+            double minDimen = InnerGlowSize;
             double width = Math.Round(Bounds.Width);
             double height = Math.Round(Bounds.Height);
 
-            double minDimen = Math.Min(width, height);
+            minDimen = ((minDimen >= 0) ? minDimen : 1) * Math.Min(width, height);
             
             /*double blurBase = minDimen / 2;
             double spreadBase = minDimen / 3;

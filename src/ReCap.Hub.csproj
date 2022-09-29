@@ -5,8 +5,8 @@
     <ApplicationIcon>Res/Icon/ReCap.ico</ApplicationIcon>
   </PropertyGroup>
   
-  <PropertyGroup>
-    <!--DefineConstants>$(DefineConstants);LOCAL_ONLY</DefineConstants-->
+  <PropertyGroup Condition=" '$(LocalOnly)' == 'True' ">
+    <DefineConstants>$(DefineConstants);LOCAL_ONLY</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup>
