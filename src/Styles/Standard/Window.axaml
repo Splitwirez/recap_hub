@@ -358,7 +358,7 @@
   <Style Selector="TemplatedControl.windowSegment.footer /template/ rctr|ImagePresenter#Background">
     <Setter Property="Source" Value="{DynamicResource Window.Footer}"/>
   </Style>
-  <Style Selector="TemplatedControl.windowSegment:not(.toTop)">
+  <Style Selector="TemplatedControl.windowSegment:not(.toTop):not(.toBottom)">
     <Setter Property="Margin" Value="0,-4,0,0"/>
   </Style>
   <Style Selector="TemplatedControl.windowSegment /template/ Rectangle#LowerTrim">
