@@ -1,0 +1,34 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:sys="using:System">
+	<Styles.Resources>
+		<ResourceDictionary>
+			<rctr:SlicedImage x:Key="SidePane.Background"
+							Source="avares://ReCap.CommonUI/Res/UI/SidePane/Background.png"
+							BorderThickness="12,10"/>
+			<rctr:SlicedImage x:Key="SidePane.BackgroundOutermost"
+							Source="avares://ReCap.CommonUI/Res/UI/SidePane/BackgroundOutermost.png"
+							BorderThickness="26,10,12,10"/>
+
+			<rctr:SlicedImage x:Key="SidePane.Background.WithFooter"
+							Source="avares://ReCap.CommonUI/Res/UI/SidePane/BackgroundWithFooter.png"
+							BorderThickness="12,10"/>
+			<rctr:SlicedImage x:Key="SidePane.BackgroundOutermost.WithFooter"
+							Source="avares://ReCap.CommonUI/Res/UI/SidePane/BackgroundOutermostWithFooter.png"
+							BorderThickness="26,10,12,10"/>
+
+			<rctr:SlicedImage x:Key="SidePane.FooterBackground"
+							Source="avares://ReCap.CommonUI/Res/UI/SidePane/FooterBackground.png"
+							BorderThickness="12,10"/>
+			<rctr:SlicedImage x:Key="SidePane.FooterBackgroundOutermost"
+							Source="avares://ReCap.CommonUI/Res/UI/SidePane/FooterBackgroundOutermost.png"
+							BorderThickness="26,10,12,10"/>
+
+			<rctr:SlicedImage x:Key="SidePane.SaveGameFooterBackground"
+							Source="avares://ReCap.CommonUI/Res/UI/SidePane/SaveGameFooterBackground.png"
+							BorderThickness="12,10,26,10"/>
+		</ResourceDictionary>
+	</Styles.Resources>
+</Styles>

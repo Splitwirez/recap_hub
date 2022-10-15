@@ -1,0 +1,70 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:v="clr-namespace:ReCap.Hub.Views;assembly=ReCap.Hub"
+             xmlns:vm="using:ReCap.Hub.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ReCap.Hub.Views.SaveGameView">
+  <Panel>
+    <TemplatedControl Classes="threatBanner"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Top">
+      <TemplatedControl.Background>
+        <ImageBrush Source="avares://ReCap.Hub/Res/UI/Level/zelems_3.png"
+          AlignmentY="Center" Stretch="UniformToFill"/>
+      </TemplatedControl.Background>
+    </TemplatedControl>
+    <DockPanel>
+      <ContentControl Classes="saveGameFooter"
+                      DockPanel.Dock="Bottom">
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+          <!--Button Content="Settings..."/-->
+          <Button x:Name="LaunchGameButton"
+                  Classes="play"
+                  Content="Play"
+                  Command="{Binding $parent[v:GameConfigView].DataContext.PlayGameWithSave}"
+                  CommandParameter="{Binding}"/>
+        </StackPanel>
+      </ContentControl>
+      <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="28" Spacing="32">
+          <StackPanel Orientation="Vertical" Spacing="5">
+            <TextBlock Text="{Binding Title}" Classes="h1" />
+            <TextBlock Text="{Binding CurrentCrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
+            <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore threat {0}'}"/>
+          </StackPanel>
+          <StackPanel Orientation="Vertical" Spacing="5">
+            <TextBlock Text="Heroes"
+                      Classes="h3"/>
+            <TextBlock Text="{Binding Heroes.Count, StringFormat='{}{0} Activated'}"/>
+            <ItemsControl Items="{Binding Heroes}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <ContentControl Classes="heroCard">
+                    <StackPanel Orientation="Vertical">
+                      <Image Width="128"
+                             Height="128"
+                            Source="{Binding Thumbnail}"/>
+                      <TextBlock Text="{Binding ShortName}"
+                                Classes="h3"
+                                TextWrapping="Wrap"/>
+                      <TextBlock Text="{Binding LoreTitle}"
+                                TextWrapping="Wrap"/>
+                    </StackPanel>
+                  </ContentControl>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <WrapPanel HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+            </ItemsControl>
+          </StackPanel>
+        </StackPanel>
+      </ScrollViewer>
+    </DockPanel>
+  </Panel>
+</UserControl>

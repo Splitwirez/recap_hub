@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
+		<ApplicationIcon>Assets/ReCap.ico</ApplicationIcon>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DefineConstantsEx> </DefineConstantsEx>
+		<AssemblyName>ReCap.Hub</AssemblyName>
+	</PropertyGroup>
+	
+	<Import Project="../../shared/avalonia.props"/>
+
+	<PropertyGroup>
+		<!-- Condition=" '$(LocalOnly)' == 'True' "-->
+		<DefineConstantsEx>$(DefineConstantsEx);LOCAL_ONLY</DefineConstantsEx>
+	</PropertyGroup>
+
+
+
+	<PropertyGroup>
+		<DefineConstants>$(DefineConstants)$(DefineConstantsEx)</DefineConstants>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<ProjectReference Include="../ReCap.CommonUI/ReCap.CommonUI.csproj" />
+		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+		<PackageReference Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
+		<PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Models/" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AvaloniaResource Include="Assets/Hero/*.png" />
+		<AvaloniaResource Include="Assets/*.ico" />
+		<AvaloniaResource Include="Res/UI/**/*.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="../../content/server/**/*.*">
+			<LogicalName>recap-server?%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="../../content/dbpf/**/*.*">
+			<LogicalName>dbpf?%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+		</EmbeddedResource>
+	</ItemGroup>
+	
+	<Import Project="../../shared/editorconfig.props"/>
+	<Import Project="../../shared/publish.props"/>
+</Project>

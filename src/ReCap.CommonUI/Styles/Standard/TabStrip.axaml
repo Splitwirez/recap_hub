@@ -1,0 +1,21 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI">
+	<Style Selector="TabStrip.topTabs">
+		<Setter Property="Margin" Value="10,0" />
+		<Setter Property="Template">
+			<ControlTemplate>
+				<ItemsPresenter Name="PART_ItemsPresenter"
+								Items="{TemplateBinding Items}"
+								ItemsPanel="{TemplateBinding ItemsPanel}"
+								ItemTemplate="{TemplateBinding ItemTemplate}" />
+			</ControlTemplate>
+		</Setter>
+		<Setter Property="ItemsPanel">
+			<ItemsPanelTemplate>
+				<WrapPanel />
+			</ItemsPanelTemplate>
+		</Setter>
+	</Style>
+</Styles>

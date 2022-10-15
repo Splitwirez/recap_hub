@@ -1,0 +1,19 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:sys="using:System">
+	<Styles.Resources>
+		<ResourceDictionary>
+			<Color x:Key="ListBoxItem.Background.Idle">#FF0A121D</Color>
+			<Color x:Key="ListBoxItem.Glow.Idle">#9038566B</Color>
+			<Color x:Key="ListBoxItem.BorderBrush.Idle">#40FFFFFF</Color>
+
+			<Color x:Key="ListBoxItem.Background.Selected">#FF558CBA</Color>
+			<Color x:Key="ListBoxItem.Glow.Selected">#9092EDFF</Color>
+			<Color x:Key="ListBoxItem.BorderBrush.Selected">#7FFFFFFF</Color>
+
+			<Color x:Key="ListBoxItem.BorderBrush.Hover">#C0FFFFFF</Color>
+		</ResourceDictionary>
+	</Styles.Resources>
+</Styles>

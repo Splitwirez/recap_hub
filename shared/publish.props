@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<PublishDirName>$(PublishTarget)</PublishDirName>
+		<!--IsPublish>False</IsPublish-->
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(PublishTarget)' == 'Windows' ">
+		<RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+		<!--IsPublish>True</IsPublish-->
+	</PropertyGroup>
+	
+	
+	
+	<PropertyGroup Condition=" '$(PublishTarget)' != '' ">
+		<Configuration>Release</Configuration>
+		<SelfContained>true</SelfContained>
+		<PublishSingleFile>true</PublishSingleFile>
+		<PublishTrimmed>true</PublishTrimmed>
+		<TrimMode>link</TrimMode>
+		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+		<DebuggerSupport>false</DebuggerSupport>
+		<EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+		<EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
+		<MetadataUpdaterSupport>false</MetadataUpdaterSupport>
+		<!--OutputPath>../../publish/demo/$(PublishDirName)</OutputPath-->
+	</PropertyGroup>
+</Project>

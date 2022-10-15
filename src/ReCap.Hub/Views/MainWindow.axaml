@@ -1,0 +1,34 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ReCap.Hub.ViewModels"
+        xmlns:v="using:ReCap.Hub.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Icon="avares://ReCap.Hub/Assets/ReCap.ico"
+        x:Class="ReCap.Hub.Views.MainWindow"
+        Title="Resurrection Capsule Hub"
+        Width="1024" Height="600">
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    <Window.Styles>
+      <Style Selector="Rectangle[IsVisible=True].fakeContentArea">
+        <Setter Property="Fill">
+          <VisualBrush Visual="{Binding ElementName=ContentArea, Mode=OneTime}" Stretch="Fill" />
+        </Setter>
+      </Style>
+    </Window.Styles>
+    <Panel>
+      <Panel>
+        <!--IsVisible="{Binding !IsVisible, ElementName=DialogOverlay, Mode=OneWay, FallbackValue=True}"-->
+        <ContentControl x:Name="ContentArea"
+                        Content="{Binding CurrentPage}"
+                        Focusable="False"
+                        IsTabStop="False"/>
+      </Panel>
+      <Rectangle Classes="fakeContentArea" IsVisible="{Binding IsVisible, ElementName=DialogOverlay, Mode=OneWay, FallbackValue=False}"/>
+      <v:DialogOverlay x:Name="DialogOverlay"/>
+      <!--DataContext="{Binding $parent[Window].DataContext, Mode=OneWay}"-->
+    </Panel>
+</Window>

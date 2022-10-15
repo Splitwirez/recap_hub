@@ -1,0 +1,105 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:ReCap.Hub.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ReCap.Hub.Views.LocateDarksporeView"
+             Classes="dialogRoot">
+  <DockPanel>
+    <ContentControl Classes="dialogFooter"
+                    HorizontalContentAlignment="Stretch"
+                    DockPanel.Dock="Bottom">
+      <ContentControl.Styles>
+        <Style Selector=":is(Button).left">
+          <Setter Property="Margin" Value="0,0,12,0" />
+        </Style>
+      
+        <Style Selector=":is(Button).right">
+          <Setter Property="Margin" Value="12,0,0,0" />
+        </Style>
+      </ContentControl.Styles>
+      <!--Panel-->
+        <DockPanel LastChildFill="False">
+          <Button Content="Cancel"
+                  Classes="left"
+                  DockPanel.Dock="Left"
+                  IsVisible="{Binding AllowsCancel, Mode=OneWay}"/>
+
+          <Panel DockPanel.Dock="Right">
+            <Panel.Styles>
+              <Style Selector="ToggleButton[IsChecked=False]">
+                <!--For the first time in my entire life, I actually wish Avalonia had Visibility.Hidden like WPF...but only a little bit lol-->
+                <Setter Property="Opacity" Value="0" />
+                <Setter Property="IsHitTestVisible" Value="False" />
+                <Setter Property="Focusable" Value="False" />
+                <Setter Property="IsTabStop" Value="False" />
+              </Style>
+            </Panel.Styles>
+
+            <ToggleButton x:Name="BrowseManuallyButton" Content="Browse manually"
+                          Classes="right"
+                          IsChecked="{Binding !BrowseForGamePath, Mode=TwoWay}"/>
+                          <!--IsVisible="{Binding #BrowseManuallyButton.IsChecked, Mode=OneWay}"-->
+            <ToggleButton Content="Detect by launching"
+                          Classes="right"
+                          IsChecked="{Binding BrowseForGamePath, Mode=TwoWay}"/>
+                          <!--IsVisible="{Binding !#BrowseManuallyButton.IsChecked, Mode=OneWay}"-->
+          </Panel>
+          <Button Content="Accept"
+                  DockPanel.Dock="Right"
+                  IsVisible="False"/>
+          <!--
+                  IsVisible="{Binding BrowseForGamePath, Mode=OneWay}"/>
+          -->
+        </DockPanel>
+        <!--StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    IsVisible="{Binding HasGamePath, Mode=OneWay}">
+          <Button Content="Yes"/>
+          <Button Content="No"/>
+        </StackPanel>
+      </Panel-->
+    </ContentControl>
+    
+    <HeaderedContentControl Header="Welcome back, crogenitor"
+                            Classes="dialogBody">
+
+      <DockPanel>
+        <TextBlock Text="Critical systems are now back online. Non-critical systems require further setup."
+                   TextWrapping="Wrap"
+                   DockPanel.Dock="Top"/>
+        <!--Critical ship systems are back online. Before non-critical systems can come back online, you will need to complete a few small tasks.-->
+        
+        <Panel>
+          <Panel x:Name="BrowseForDarksporePrompt" IsVisible="{Binding BrowseForGamePath, Mode=OneWay}">
+            <TextBlock Text="This functionality is not yet available."
+                       Classes="sh3"/>
+          </Panel>
+          <DockPanel IsVisible="{Binding !#BrowseForDarksporePrompt.IsVisible, Mode=OneWay}">
+            <ProgressBar Classes="wheel"
+                         IsIndeterminate="True"
+                         VerticalAlignment="Center"
+                         DockPanel.Dock="Right"/>
+            <TextBlock Text="Start by opening Darkspore, to re-establish connectivity."
+                       Classes="sh3"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Center"/>
+            <!--TextBlock Text="Monitoring for Darkspore client..."
+                       Classes="h3"
+                       TextWrapping="Wrap"
+                       TextAlignment="Left"
+                       VerticalAlignment="Center" /-->
+          </DockPanel>
+        
+          <!--Panel IsVisible="{Binding !#OpenDarksporePrompt.IsVisible, Mode=OneWay}">
+            <StackPanel Orientation="Vertical">
+              <TextBlock Text="{Binding GamePath, Mode=OneWay}"/>
+              <TextBlock Text="Is this path correct?"/>
+            </StackPanel>
+          </Panel-->
+        </Panel>
+      </DockPanel>
+    </HeaderedContentControl>
+  </DockPanel>
+</UserControl>

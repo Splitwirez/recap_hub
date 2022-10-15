@@ -1,0 +1,65 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:sys="using:System">
+	<Styles.Resources>
+		<ResourceDictionary>
+			<SolidColorBrush x:Key="WindowBodyBorderBrush">#FFC0C0C0</SolidColorBrush>
+
+			<Color x:Key="WindowBodyBackgroundColor">#F7111213</Color>
+			<Color x:Key="WindowBodyBackgroundGlowColor">#7FFFFFFF</Color>
+			<Color x:Key="WindowBodyBackgroundGlowMidColor">#40FFFFFF</Color>
+			<Color x:Key="WindowBodyBackgroundGlowEndColor">#00FFFFFF</Color>
+			<SolidColorBrush x:Key="WindowBodyBackgroundBrush" Color="{DynamicResource WindowBodyBackgroundColor}"/>
+			<GradientStops x:Key="WindowBodyBackgroundGlowStops">
+				<GradientStop Offset="0" Color="{DynamicResource WindowBodyBackgroundGlowColor}"/>
+				<GradientStop Offset="0.375" Color="{DynamicResource WindowBodyBackgroundGlowMidColor}"/>
+				<GradientStop Offset="1" Color="{DynamicResource WindowBodyBackgroundGlowEndColor}"/>
+			</GradientStops>
+
+
+
+			<LinearGradientBrush x:Key="Window.TitleBar.BackgroundBrush.Active" StartPoint="0,0" EndPoint="0,100">
+				<GradientStop Offset="0" Color="#BBB7CFDA"/>
+				<GradientStop Offset="0.34" Color="#7C93A5AD"/>
+				<GradientStop Offset="0.38" Color="#72BBD2DC"/>
+			</LinearGradientBrush>
+			<LinearGradientBrush x:Key="Window.TitleBar.BackgroundBrush.Inactive" StartPoint="0,0" EndPoint="0,100">
+				<GradientStop Offset="0" Color="#BBD8D8D8"/>
+				<GradientStop Offset="0.34" Color="#7CAAAAAA"/>
+				<GradientStop Offset="0.38" Color="#72DBDBDB"/>
+			</LinearGradientBrush>
+			<LinearGradientBrush x:Key="Window.TitleBar.BorderBrush" StartPoint="0,0" EndPoint="0,100">
+				<GradientStop Offset="0" Color="#00FFFFFF"/>
+				<GradientStop Offset="0.38" Color="#E0FFFFFF"/>
+			</LinearGradientBrush>
+
+
+
+
+
+			<rctr:SlicedImage x:Key="Window.TitleBar.Main"
+							Source="avares://ReCap.CommonUI/Res/UI/Window/TitleBarMain.png"
+							BorderThickness="12,42,0,10"/>
+			<rctr:SlicedImage x:Key="Window.TitleBar.Right"
+							Source="avares://ReCap.CommonUI/Res/UI/Window/TitleBarRight.png"
+							BorderThickness="38,42,12,10"/>
+
+
+
+			<rctr:SlicedImage x:Key="Window.Body"
+							Source="avares://ReCap.CommonUI/Res/UI/Window/Body.png"
+							BorderThickness="24,6"/>
+			<rctr:SlicedImage x:Key="Window.Footer"
+							Source="avares://ReCap.CommonUI/Res/UI/Window/Footer.png"
+							BorderThickness="24,6"/>
+			<rctr:SlicedImage x:Key="Window.Underlay"
+							Source="avares://ReCap.CommonUI/Res/UI/Window/Underlay.png"
+							BorderThickness="10"/>
+			<rctr:SlicedImage x:Key="Window.BottomEdgeTrim"
+							Source="avares://ReCap.CommonUI/Res/UI/Window/BottomEdgeTrim.png"
+							BorderThickness="22,0"/>
+		</ResourceDictionary>
+	</Styles.Resources>
+</Styles>

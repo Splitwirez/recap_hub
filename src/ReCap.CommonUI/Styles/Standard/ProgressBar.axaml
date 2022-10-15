@@ -1,0 +1,180 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:sys="using:System">
+	<!--x:CompileBindings="True"-->
+	<Styles.Resources>
+		<ResourceDictionary>
+			<PathGeometry x:Key="HexagonGeometry" Figures="M 21.5 0 L 43 12.413 L 43 37.587 L 21.5 50 L 0 37.587 L 0 12.413 Z"/>
+
+			<local:MultiplyConverter x:Key="MultiplyConverter"/>
+
+			<sys:TimeSpan x:Key="WheelRotationDuration">0:0:2.4</sys:TimeSpan>
+			<sys:TimeSpan x:Key="HexFlashDuration">0:0:0.4</sys:TimeSpan>
+		</ResourceDictionary>
+	</Styles.Resources>
+	<Style Selector="ProgressBar:indeterminate.wheel">
+		<Setter Property="HorizontalAlignment" Value="Center" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Margin" Value="24" />
+		<!--Setter Property="MinWidth" Value="22.36" /-->
+		<!--Setter Property="Width" Value="140" /-->
+		<!--134-->
+		<!--Setter Property="Height" Value="{Binding Bounds.Width, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource MultiplyConverter}, ConverterParameter=1.1627906976744186046511627906977}" /-->
+		<!--Setter Property="Height" Value="140" /-->
+		<!--Setter Property="Width" Value="{Binding Bounds.Height, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource MultiplyConverter}, ConverterParameter=0.95714285714285714285714285714286}" /-->
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel>
+					<!--Background="#FFFF00FF"-->
+					<!--Height="{Binding Bounds.Width, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource MultiplyConverter}, ConverterParameter=1.1627906976744186046511627906977}"-->
+					<!--VerticalAlignment="Stretch"-->
+					<Border x:Name="PART_Indicator"
+							IsVisible="False"
+							IsHitTestVisible="False"
+							Focusable="False"
+							IsTabStop="False"
+							Opacity="0" />
+					<rctr:Flash HorizontalAlignment="Stretch"
+								VerticalAlignment="Stretch"
+								Margin="-22,-19.5"/>
+					<!-- Width="{Binding Bounds.Height, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource MultiplyConverter}, ConverterParameter=0.95714285714285714285714285714286, Mode=OneWay}"-->
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+
+	<Style Selector="ProgressBar:indeterminate.wheel /template/ rctr|Flash">
+		<!--Setter Property="Width" Value="{Binding Bounds.Height, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource MultiplyConverter}, ConverterParameter=0.86}" /-->
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Viewbox Stretch="Uniform"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+							StretchDirection="DownOnly">
+					<Canvas x:Name="Root"
+							Width="134"
+							Height="140"
+							Margin="22,19.5">
+						<TemplatedControl x:Name="PART_Flash6"
+									Canvas.Left="0"
+									Canvas.Top="40.5"
+									Canvas.Right="45"
+									Canvas.Bottom="92.5" />
+
+						<TemplatedControl x:Name="PART_Flash5"
+									Canvas.Left="24"
+									Canvas.Top="82"
+									Canvas.Right="69"
+									Canvas.Bottom="140" />
+
+						<TemplatedControl x:Name="PART_Flash4"
+									Canvas.Left="71"
+									Canvas.Top="82"
+									Canvas.Right="116"
+									Canvas.Bottom="140" />
+
+						<TemplatedControl x:Name="PART_Flash3"
+									Canvas.Left="95"
+									Canvas.Top="40.5"
+									Canvas.Right="45"
+									Canvas.Bottom="92.5" />
+
+						<TemplatedControl x:Name="PART_Flash2"
+									Canvas.Left="71"
+									Canvas.Top="0"
+									Canvas.Right="116"
+									Canvas.Bottom="52" />
+
+						<TemplatedControl x:Name="PART_Flash1"
+									Canvas.Left="24"
+									Canvas.Top="0"
+									Canvas.Right="69"
+									Canvas.Bottom="52" />
+					</Canvas>
+				</Viewbox>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+
+
+	<Style Selector="ProgressBar:indeterminate.wheel /template/ rctr|Flash /template/ :is(Control)#Root > TemplatedControl">
+		<!--Setter Property="Width" Value="{Binding Bounds.Height, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource MultiplyConverter}, ConverterParameter=0.86}" /-->
+		<Setter Property="Margin" Value="-22,-19.5"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel>
+					<!--Background="#FF00FF00"-->
+					<!--HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"-->
+					<!--Width="{Binding Bounds.Height, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource MultiplyConverter}, ConverterParameter=0.86}"-->
+					<Panel x:Name="InsetPanel" Margin="22,19.5">
+						<Path Data="{DynamicResource HexagonGeometry}"
+								Stroke="Transparent">
+							<Path.Fill>
+								<RadialGradientBrush Center="50%,50%" GradientOrigin="50%,50%">
+									<GradientStop Offset="0" Color="#FF3B4547" />
+									<GradientStop Offset="1" Color="#FF505455" />
+								</RadialGradientBrush>
+							</Path.Fill>
+						</Path>
+						<Path Data="{DynamicResource HexagonGeometry}"
+								Stroke="#FF91A2AA"/>
+					</Panel>
+					
+					<Ellipse Classes="hexFade"
+							ZIndex="-12">
+						<Ellipse.Fill>
+							<RadialGradientBrush Center="50%,50%" GradientOrigin="50%,50%">
+								<GradientStop Offset="0.5" Color="#A5FBFBFB" />
+								<GradientStop Offset="1" Color="#00000000" />
+							</RadialGradientBrush>
+						</Ellipse.Fill>
+					</Ellipse>
+					
+					
+					<Path Data="{DynamicResource HexagonGeometry}"
+						Stroke="Transparent"
+						Margin="{Binding #InsetPanel.Margin, Mode=OneWay}"
+						Classes="hexFade">
+						<Path.Fill>
+							<RadialGradientBrush Center="50%,50%" GradientOrigin="50%,50%">
+								<GradientStop Offset="0" Color="#FFFFFFFF" />
+								<GradientStop Offset="1" Color="#97FFFFFF" />
+								<!--#CBFFFFFF-->
+							</RadialGradientBrush>
+						</Path.Fill>
+					</Path>
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+	<Style Selector="ProgressBar:indeterminate.wheel /template/ rctr|Flash /template/ :is(Control)#Root > TemplatedControl /template/ :is(Shape)">
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="VerticalAlignment" Value="Stretch" />
+		<Setter Property="Stretch" Value="Fill" />
+	</Style>
+	<Style Selector="ProgressBar:indeterminate.wheel /template/ rctr|Flash /template/ :is(Control)#Root > TemplatedControl /template/ Path">
+		<Setter Property="StrokeThickness" Value="2" />
+	</Style>
+
+	<Style Selector="ProgressBar:indeterminate.wheel /template/ rctr|Flash /template/ :is(Control)#Root > TemplatedControl:not(.flashing) /template/ :is(Shape).hexFade">
+		<Setter Property="Opacity" Value="0"/>
+	</Style>
+	<Style Selector="ProgressBar:indeterminate.wheel /template/ rctr|Flash /template/ :is(Control)#Root > TemplatedControl.flashing /template/ :is(Shape).hexFade">
+		<Style.Animations>
+			<Animation Duration="{DynamicResource HexFlashDuration}" FillMode="Both">
+				<KeyFrame Cue="0%">
+					<Setter Property="Opacity" Value="0"/>
+				</KeyFrame>
+				<KeyFrame Cue="20%">
+					<Setter Property="Opacity" Value="1"/>
+				</KeyFrame>
+				<KeyFrame Cue="100%">
+					<Setter Property="Opacity" Value="0"/>
+				</KeyFrame>
+			</Animation>
+		</Style.Animations>
+	</Style>
+</Styles>

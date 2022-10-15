@@ -7,10 +7,10 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/ReCap.Hub.csproj",
+                "${workspaceFolder}/src/ReCap.Hub/ReCap.Hub.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
-                "/p:LocalOnly=True"
+                "/p:LocalOnly=True",
             ],
             "problemMatcher": "$msCompile"
         },
@@ -20,9 +20,9 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/ReCap.Hub.csproj",
+                "${workspaceFolder}/src/ReCap.Hub/ReCap.Hub.csproj",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "/consoleloggerparameters:NoSummary",
             ],
             "problemMatcher": "$msCompile"
         },
@@ -33,7 +33,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/src/ReCap.Hub.csproj",
+                "${workspaceFolder}/src/ReCap.Hub/ReCap.Hub.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
