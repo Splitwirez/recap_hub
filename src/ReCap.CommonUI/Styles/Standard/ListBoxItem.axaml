@@ -9,7 +9,7 @@
 		<Setter Property="CornerRadius" Value="4,0,4,0" />
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Panel>
+				<Panel Background="#01000000">
 					<rctr:AngledBorder x:Name="Edge"
 										BorderBrush="{TemplateBinding BorderBrush}"
 										StrokeThickness="2"
@@ -53,5 +53,10 @@
 	</Style>
 	<Style Selector="ListBoxItem:selected:not(:pointerover) /template/ rctr|AngledBorder#Edge">
 		<Setter Property="BorderBrush" Value="{DynamicResource ListBoxItem.BorderBrush.Selected}" />
+	</Style>
+
+
+	<Style Selector="ListBox.fitts-law-list > ListBoxItem /template/ rctr|AngledBorder#Edge">
+		<Setter Property="Margin" Value="8,0,0,0"/>
 	</Style>
 </Styles>

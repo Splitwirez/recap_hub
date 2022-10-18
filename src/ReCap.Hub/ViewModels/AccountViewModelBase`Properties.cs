@@ -7,7 +7,7 @@ namespace ReCap.Hub.ViewModels
 {
     public abstract partial class AccountViewModelBase : ViewModelBase
     {
-        public const string TUTORIAL_COMPLETED_EL = "tutorial_completed";
+        /*public const string TUTORIAL_COMPLETED_EL = "tutorial_completed";
         string _tutorialCompleted = "N";
         public string TutorialCompleted
         {
@@ -253,6 +253,6 @@ namespace ReCap.Hub.ViewModels
         {
             get => _gameSettings;
             set => RASIC(ref _gameSettings, value);
-        }
+        }*/
     }
 }

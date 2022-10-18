@@ -34,7 +34,7 @@ namespace ReCap.CommonUI
             
             CornerRadiusProperty.Changed.AddClassHandler<AngledBorder>(changedHandler);
 
-            AffectsRender<AngledBorderBase>(CornerRadiusProperty);
+            AffectsRender<AngledBorder>(CornerRadiusProperty);
         }
 
         protected override (Geometry, Geometry, RoundedRect) RefreshGeometry()
@@ -95,7 +95,8 @@ namespace ReCap.CommonUI
                 }
 
                 //_averageBorderThickness = realAverageBorderThickness;
-                strokeGeometry = new CombinedGeometry(GeometryCombineMode.Xor, strokeOuterGeometry, fillGeometry/*, new TranslateTransform(0, 0)*/);
+                //strokeGeometry = new CombinedGeometry(GeometryCombineMode.Xor, strokeOuterGeometry, fillGeometry/*, new TranslateTransform(0, 0)*/);
+                strokeGeometry = strokeOuterGeometry;
             }
             
             return 
@@ -107,7 +108,7 @@ namespace ReCap.CommonUI
         }
     }
 
-    public static class AngledCorners
+    public static partial class AngledCorners
     {
         public static void CreateGeometry(this StreamGeometryContext ctx, double x, double y, double width, double height, double tl, double tr, double br, double bl, bool isFilled)
         {

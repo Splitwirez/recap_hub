@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using ReCap.Hub.Models;
 
 namespace ReCap.Hub.ViewModels
 {
@@ -20,72 +23,168 @@ namespace ReCap.Hub.ViewModels
         public string Title
         {
             get => _title;
-            set => RASIC(ref _title, value);
+            set
+            {
+                RASIC(ref _title, value);
+                if (!_initComplete)
+                {
+                    Model.UserName.Value = _title;
+                    Model.EmailAddress.Value = _title;
+                }
+            }
         }
 
-        string _xmlPath = null;
-        XDocument _doc = null;
+        /*string _xmlPath = null;
+        XDocument _doc = null;*/
         public void ReadFromXml(string xmlPath)
         {
-            _xmlPath = xmlPath;
+            /*_xmlPath = xmlPath;*/
+            ReadFromXml();
+        }
+        public void ReadFromXml()
+        {
+            EditModelHeroes = false;
+            Model.RefreshFromXml();
+            EditModelHeroes = true;
+            /*Heroes = new ObservableCollection<HeroViewModel>();
             string xmlText = File.ReadAllText(_xmlPath);
             _doc = XDocument.Parse(xmlText);
 
             Title = Path.GetFileNameWithoutExtension(_xmlPath); //TODO: Please tell me using filename as email when logging in is a bug, and not the server's intended behavior...
             //_doc.Root.Element(NAME_EL).Value;
+            var creaturesEl = _doc.Root.Element(CREATURES_EL);
+            /* //_autoAddToXml = false;
+            var heroes = Heroes.ToList();
+            foreach (var hero in heroes)
+            {
+                Heroes.Remove(hero);
+            }
+            //_autoAddToXml = true;* /
+            foreach (var el in creaturesEl.Elements())
+            {
+                var hero = HeroViewModel.FromXml(el);
+                Heroes.Add(hero);
+            }
+            
+            //EnsureFSWatcher(Path.GetDirectoryName(_xmlPath));
+            */
         }
 
-        void Create(string xmlPath)
-            => Create(Title, xmlPath);
-        public void Create(string title, string xmlPath)
+        /*public bool EnableFSWatcher
         {
-            Title = title;
-            _xmlPath = xmlPath;
+            get => _watcher?.EnableRaisingEvents ?? false;
+            set
+            {
+                if (_watcher != null)
+                    _watcher.EnableRaisingEvents = value;
+            }
+        }
+        
+        void EnsureFSWatcher(string directory)
+        {
+            if (_watcher == null)
+            {
+                _watcher = new FileSystemWatcher(directory);
+                _watcher.Created += Watcher_FileOperationEventRaised;
+                _watcher.Changed += Watcher_FileOperationEventRaised;
+            }
+            else
+                _watcher.Path = directory;
+        }
+
+        void Watcher_FileOperationEventRaised(object sender, FileSystemEventArgs e)
+        {
+            if (e.FullPath.Equals(_xmlPath, StringComparison.OrdinalIgnoreCase) && File.Exists(_xmlPath))
+                ReadFromXml(_xmlPath);
+        }*/
+
+        /*void Create(string xmlPath)
+            => Create(Title, xmlPath);*/
+        public static SaveGameViewModel Create(string title, string xmlPath, int crogenitorLevel)
+        {
+            var saveGame = new SaveGameViewModel(xmlPath)
+            {
+                Title = title,
+                CrogenitorLevel = crogenitorLevel
+            };
+            return saveGame;
+            /*var saveGame = new SaveGameViewModel();
+            saveGame._autoAddToXml = false;
+            
+            saveGame.Title = title;
+            saveGame._xmlPath = xmlPath;
             XDocument doc = new XDocument();
             
             var rootEl = new XElement("user");
             rootEl.Add(new XElement(NAME_EL, title));
             rootEl.Add(new XElement(EMAIL_EL, title));
             rootEl.Add(new XElement(PASSWORD_EL, string.Empty));
-            rootEl.Add(GetAccountElement());
-            rootEl.Add(GetCreaturesElement());
+            var accountEl = saveGame.GetNewAccountElement();
+            accountEl.Element(CROGENITOR_LEVEL_EL).Value = crogenitorLevel.ToString();
+            rootEl.Add(accountEl);
+            foreach (HeroViewModel hero in heroes)
+            {
+                saveGame.Heroes.Add(hero);
+            }
+            saveGame._autoAddToXml = true;
+            rootEl.Add(saveGame.GetNewCreaturesElement());
 
             doc.Add(rootEl);
 
-            _doc = doc;
-            Save();
-            ReadFromXml(xmlPath);
+            saveGame._doc = doc;
+            saveGame.Save();
+            saveGame.ReadFromXml(xmlPath);
+            return saveGame;*/
         }
 
         public void Save()
         {
-            string dir = Path.GetDirectoryName(_xmlPath);
+            Model.SaveToXml();
+            /*string dir = Path.GetDirectoryName(_xmlPath);
             if (!Directory.Exists(dir))
-                Directory.CreateDirectory(dir);
-            _doc.Save(_xmlPath);
+                Directory.CreateDirectory(dir);*/
+            
+            /*var newHeroes = GetNewCreaturesElement();
+            
+            var oldHeroes = _doc.Element(CREATURES_EL);
+            if (oldHeroes != null)
+                oldHeroes.Remove();
+            
+            _doc.Root.Add(newHeroes);*/
+            
+            /*bool reEnableFSWatcher = EnableFSWatcher;
+            EnableFSWatcher = reEnableFSWatcher;*/
+            //////_doc.Save(_xmlPath);
+            //EnableFSWatcher = reEnableFSWatcher;
         }
 
-        public SaveGameViewModel()
+        //FileSystemWatcher _watcher = null;
+        /*private SaveGameViewModel()
+            : base()
         {
 
-        }
+        }*/
 
 
-        public SaveGameViewModel(string title, string xmlPath)
+        bool _initComplete = false;
+        public SaveGameViewModel(string xmlPath)
+            : base(new AccountModel(xmlPath)) //this()
         {
-            Title = title;
+            Title = Path.GetFileNameWithoutExtension(xmlPath);
+            /*Title = title;
 
             if (File.Exists(xmlPath))
-            {
-                ReadFromXml(xmlPath);
-            }
+            {*/
+            ////ReadFromXml(xmlPath);
+            /*}
             else
             {
                 Create(title, xmlPath);
-            }
+            }*/
+            _initComplete = true;
         }
 
-        XElement GetAccountElement()
+        /*XElement GetNewAccountElement()
         {
             XElement el = new XElement(ACCOUNT_EL);
 
@@ -125,14 +224,76 @@ namespace ReCap.Hub.ViewModels
             return el;
         }
 
-        XElement GetCreaturesElement()
+        bool _autoAddToXml = true;
+        XElement GetNewCreaturesElement()
         {
-            XElement el = new XElement(CREATURES_EL);
+            XElement el = null;
+            if ((_doc != null) && (_doc.Root != null))
+                el = _doc.Root.Element(CREATURES_EL);
+            
+            if ((el != null) && (el.Elements().Count() > 0))
+            {
+                el.RemoveAll();
+            }
+            
+            _autoAddToXml = false;
+            el = new XElement(CREATURES_EL);
             foreach (HeroViewModel hero in Heroes)
             {
                 el.Add(hero.ToXml());
             }
+            _autoAddToXml = true;
             return el;
         }
+
+
+        protected override void Heroes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (!_autoAddToXml)
+                return;
+            
+            if (_doc == null)
+                return;
+            if (_doc.Root == null)
+                return;
+            
+            XElement heroesEl = _doc.Root.Element(CREATURES_EL);
+            if (heroesEl == null)
+                return;
+            
+
+            if (e.NewItems != null)
+            {
+                foreach (HeroViewModel hero in e.NewItems)
+                {
+                    var nounID = hero.NounID;
+                    RemoveHeroElement(heroesEl, nounID);
+                    heroesEl.Add(hero.ToXml());
+                }
+            }
+
+            if (e.OldItems != null)
+            {
+                foreach (HeroViewModel hero in e.OldItems)
+                {
+                    var nounID = hero.NounID;
+                    RemoveHeroElement(heroesEl, nounID);
+                }
+            }
+        }
+
+        bool RemoveHeroElement(XElement heroesEl, string nounID)
+        {
+            foreach (var heroEl in heroesEl.Elements())
+            {
+                if (heroEl.Element(HeroViewModel.NOUN_ID_EL).Value == nounID)
+                {
+                    heroEl.Remove();
+                    return true;
+                    break;
+                }
+            }
+            return false;
+        }*/
     }
 }

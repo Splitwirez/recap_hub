@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using ReactiveUI;
+using ReCap.Hub;
 
 namespace ReCap.Hub.ViewModels
 {
-    public class ViewModelBase : ReactiveObject
+    public class ViewModelBase : RxObjectBase
     {
-        public void RASIC<TRet>(ref TRet backingField, TRet newValue, [CallerMemberName] string propertyName = null)
-            => this.RaiseAndSetIfChanged(ref backingField, newValue, propertyName);
-        
-        
-        public virtual Type GetViewTypeName()
+        public override Type GetViewType()
             => Type.GetType(GetType().FullName.Replace("ViewModel", "View"));
     }
 }

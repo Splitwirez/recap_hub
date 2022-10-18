@@ -1,0 +1,219 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:v="using:ReCap.Hub.Views">
+        <Styles.Resources>
+                <ResourceDictionary>
+                    <SolidColorBrush x:Key="DialogOverlay.BackdropFilmBrush">#D8000000</SolidColorBrush>
+                    <!--#C0001040-->
+
+                    <LinearGradientBrush x:Key="Dialog.Footer.Background"
+                                        StartPoint="0%,25%"
+                                        EndPoint="0%,100%">
+                        <GradientStop Offset="0" Color="#53D0E0E9" />
+                        <GradientStop Offset="1" Color="#2BBDD5DB" />
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="Dialog.Footer.BorderBrush">#DDD5E1E4</SolidColorBrush>
+                    <Color x:Key="Dialog.Footer.InnerGlowColor">#DDD5E1E4</Color>
+                </ResourceDictionary>
+        </Styles.Resources>
+
+    <Style Selector=":is(v|DialogOverlay)">
+        <Setter Property="Background" Value="{DynamicResource DialogOverlay.BackdropFilmBrush}"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <DockPanel Margin="1">
+                        <Rectangle DockPanel.Dock="Left" />
+                        <Rectangle DockPanel.Dock="Right" />
+                        <rctr:AngledBorder Background="{TemplateBinding Background}"
+                                        CornerRadius="5"/>
+                    </DockPanel>
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Margin="{TemplateBinding Padding}"/>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <!--:is(v|MainWindow)-->
+    <Style Selector=":is(v|DialogOverlay)">
+        <!-- > ContentControl-->
+    </Style>
+    
+    <Style Selector=":is(v|DialogOverlay) /template/ Rectangle">
+        <Setter Property="Width" Value="17" />
+        <Setter Property="Fill" Value="{Binding Background, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
+        <Setter Property="Margin" Value="0,5" />
+    </Style>
+
+    <Style Selector=":is(v|DialogOverlay) ContentControl.dialogRoot,
+                    :is(v|DialogOverlay) :is(UserControl).dialogRoot">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel Margin="2">
+                    <rctr:AngledBorder x:Name="NormalHoloShadow"
+                                    Background="#9D0D0F12"
+                                    BorderBrush="#6F5D5F62"
+                                    StrokeThickness="2"
+                                    CornerRadius="5"
+                                    Margin="2,2,-4,-4"/>
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Margin="{TemplateBinding Padding}"/>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector=":is(v|DialogOverlay) ContentControl.dialogRoot[HorizontalAlignment=Stretch][VerticalAlignment=Stretch],
+                    :is(v|DialogOverlay) :is(UserControl).dialogRoot[HorizontalAlignment=Stretch][VerticalAlignment=Stretch]">
+        <Setter Property="Margin" Value="200,100" />
+    </Style>
+
+
+
+    <Style Selector=":is(v|DialogOverlay) ContentControl.dialogBody,
+                    :is(v|DialogOverlay) ContentControl.dialogFooter">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
+    </Style>
+    
+    <!--:is(v|MainWindow)-->
+    <Style Selector=":is(v|DialogOverlay) ContentControl.dialogBody,
+                    :is(v|DialogOverlay) HeaderedContentControl.dialogBody">
+        <Setter Property="Padding" Value="12" />
+    </Style>
+    <Style Selector=":is(v|DialogOverlay) ContentControl.dialogBody">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <rctr:AngledBorder Background="#E0000000"
+                                    CornerRadius="5"
+                                    InnerGlowColor="#20FFFFFF"
+                                    InnerGlowSize="2"
+                                    BorderBrush="#7FFFFFFF"
+                                    StrokeThickness="1"/>
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Margin="{TemplateBinding Padding}"/>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector=":is(v|DialogOverlay) HeaderedContentControl.dialogBody">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <rctr:AngledBorder Background="#E0000000"
+                                    CornerRadius="5"
+                                    InnerGlowColor="#20FFFFFF"
+                                    InnerGlowSize="2"
+                                    BorderBrush="#7FFFFFFF"
+                                    StrokeThickness="1"/>
+                    <DockPanel>
+                        <ContentPresenter x:Name="PART_HeaderPresenter"
+                                        Classes="h4"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Content="{TemplateBinding Header}"
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        DockPanel.Dock="Top"
+                                        Margin="0,12,0,0"/>
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Margin="{TemplateBinding Padding}"/>
+                    </DockPanel>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector=":is(v|DialogOverlay) ContentControl.dialogFooter">
+        <Setter Property="Background" Value="{DynamicResource Dialog.Footer.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Dialog.Footer.BorderBrush}" />
+        <Setter Property="Padding" Value="9,4,9,6" />
+        <Setter Property="Margin" Value="0,-4,0,0" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Orientation="Vertical">
+                    <DockPanel LastChildFill="False"
+                            Height="5">
+                        <Panel ClipToBounds="True"
+                            DockPanel.Dock="Left">
+                            <rctr:AngledBorder Width="5"
+                                            Background="{TemplateBinding Background}"
+                                            CornerRadius="0,5,0,0"
+                                            InnerGlowColor="{DynamicResource Dialog.Footer.InnerGlowColor}"
+                                            InnerGlowSize="2"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            StrokeThickness="1"
+                                            Margin="0,0,0,-15"/>
+                        </Panel>
+
+                        <Panel ClipToBounds="True"
+                            DockPanel.Dock="Right">
+                            <rctr:AngledBorder Width="5"
+                                            Background="{TemplateBinding Background}"
+                                            CornerRadius="5,0,0,0"
+                                            InnerGlowColor="{DynamicResource Dialog.Footer.InnerGlowColor}"
+                                            InnerGlowSize="2"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            StrokeThickness="1"
+                                            Margin="0,0,0,-15"/>
+                        </Panel>
+                    </DockPanel>
+                    <Panel>
+                        <Panel ClipToBounds="True">
+                            <rctr:AngledBorder Background="{TemplateBinding Background}"
+                                            CornerRadius="0,0,5,5"
+                                            InnerGlowColor="{DynamicResource Dialog.Footer.InnerGlowColor}"
+                                            InnerGlowSize="2"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            StrokeThickness="1"
+                                            Margin="0,-1,0,0"/>
+                        </Panel>
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Margin="{TemplateBinding Padding}"/>
+                    </Panel>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

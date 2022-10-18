@@ -1,9 +1,0 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="using:ReCap.CommonUI"
-        xmlns:rctr="using:ReCap.CommonUI">
-    <StyleInclude Source="avares://ReCap.Hub/Styles/ViewSpecific/Common.axaml"/>
-    <StyleInclude Source="avares://ReCap.Hub/Styles/ViewSpecific/DialogOverlay.axaml"/>
-    <StyleInclude Source="avares://ReCap.Hub/Styles/ViewSpecific/HomePage.axaml"/>
-    <StyleInclude Source="avares://ReCap.Hub/Styles/ViewSpecific/SaveGame.axaml"/>
-</Styles>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,34 @@ namespace ReCap.Hub.ViewModels
         public ObservableCollection<SaveGameViewModel> Saves
         {
             get => _saves;
-            set => RASIC(ref _saves, value);
+            set
+            {
+                if (_saves != null)
+                    _saves.CollectionChanged -= Saves_CollectionChanged;
+                RASIC(ref _saves, value);
+
+                if (value != null)
+                    value.CollectionChanged += Saves_CollectionChanged;
+            }
+        }
+
+        protected void Saves_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (SaveGameViewModel save in e.NewItems)
+                {
+                    //save.EnableFSWatcher = true;
+                }
+            }
+
+            if (e.OldItems != null)
+            {
+                foreach (SaveGameViewModel save in e.OldItems)
+                {
+                    //save.EnableFSWatcher = false;
+                }
+            }
         }
 
 
@@ -50,11 +78,11 @@ namespace ReCap.Hub.ViewModels
             get => _savesPath;
             set => RASIC(ref _savesPath, value);
         }
-        public GameConfigViewModel(string gameInstallPath, string savesPath)
-            : base()
+        public GameConfigViewModel(string gameInstallPath) //, string savesPath)
+            : this()
         {
             GameInstallPath = gameInstallPath;
-            SavesPath = savesPath;
+            SavesPath = HubGlobalPaths.ServerAccountsDir; //savesPath;
             if (Directory.Exists(SavesPath))
             {
                 List<string> filePaths = Directory.EnumerateFiles(SavesPath)
@@ -70,8 +98,7 @@ namespace ReCap.Hub.ViewModels
 
                     try
                     {
-                        var save = new SaveGameViewModel();
-                        save.ReadFromXml(f);
+                        var save = new SaveGameViewModel(f);
                         Saves.Add(save);
                     }
                     catch (XmlException ex)
@@ -87,11 +114,74 @@ namespace ReCap.Hub.ViewModels
         public GameConfigViewModel()
         : base()
         {
+            /*LocalServer.InstanceCreated += LocalServer_InstanceCreated;
+            try
+            {
+                
+            }
+            catch (NullReferenceException ex)
+            {
+                
+            }*/
+            EnsureServerExitedHandler(LocalServer.Instance);
         }
 
-        public async void NewSaveGame(object parameter)
+        /*private void LocalServer_InstanceCreated(object sender, EventArgs e)
+        {
+            
+            LocalServer.InstanceCreated -= LocalServer_InstanceCreated;
+        }*/
+        void EnsureServerExitedHandler(LocalServer server)
+        {
+            LocalServer.ServerExited += (s, e) =>
+            {
+                foreach (var save in Saves)
+                {
+                    save.ReadFromXml();
+                }
+            };
+        }
+
+        public async void NewSaveGameCommand(object parameter)
         {
             await CreateSaveGame(true);
+        }
+
+        public async void DeleteSaveGameCommand(object parameter)
+        {
+            if (parameter is SaveGameViewModel deletThis)
+                await DeleteSaveGame(deletThis);
+        }
+        public async Task DeleteSaveGame(SaveGameViewModel saveGame)
+        {
+            if (Saves.Contains(saveGame))
+            {
+                if (await DialogDisplay.ShowDialog(new YesNoDialogViewModel("Delete save game", "Are you sure you want to DELETE this save game?")))
+                {
+                    Saves.Remove(saveGame);
+                    saveGame.Delete();
+                }
+            }
+        }
+
+        public async void RenameSaveGameCommand(object parameter)
+        {
+            Debug.WriteLine(nameof(RenameSaveGameCommand));
+            Console.WriteLine(nameof(RenameSaveGameCommand));
+            if (parameter is SaveGameViewModel ren)
+                await RenameSaveGame(ren);
+        }
+        public async Task RenameSaveGame(SaveGameViewModel saveGame)
+        {
+            if (Saves.Contains(saveGame))
+            {
+                string oldTitle = saveGame.Title;
+                string newTitle = await DialogDisplay.ShowDialog(new TextBoxDialogViewModel("Rename save game", string.Empty, oldTitle));
+                if ((newTitle != null) && (newTitle != oldTitle) && (!(string.IsNullOrEmpty(newTitle) || string.IsNullOrWhiteSpace(newTitle))))
+                {
+                    saveGame.Rename(newTitle);
+                }
+            }
         }
 
         public async Task<SaveGameViewModel> CreateSaveGame(bool allowsCancel = true)
@@ -107,11 +197,14 @@ namespace ReCap.Hub.ViewModels
             if (parameter is SaveGameViewModel save)
             {
 
-                string loginPropPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DarksporeData", "Preferences", "login.prop");
+                string prefsDirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DarksporeData", "Preferences");
+				string loginPropPath = Path.Combine(prefsDirPath, "login.prop");
                 string loginPropText = $"UserName \"{save.Title}\"\n";
                 Debug.WriteLine($"Launching Darkspore for save: '{save.Title}'");
 
-                File.WriteAllText(loginPropPath, loginPropText);
+                if (!Directory.Exists(prefsDirPath))
+					Directory.CreateDirectory(prefsDirPath);
+				File.WriteAllText(loginPropPath, loginPropText);
                 //Debug.WriteLine($"path: '{loginPropPath}'\n\ntext:\n{loginPropText}");
 
                 string gameBinPath = Path.Combine(GameInstallPath, "DarksporeBin");
@@ -139,7 +232,7 @@ namespace ReCap.Hub.ViewModels
                 var serverProcess = LocalServer.Instance.Start();
 
 
-                ProcessStartInfo darksporeStartInfo = new ProcessStartInfo(gameExePath, "-nolauncher")
+                ProcessStartInfo darksporeStartInfo = new ProcessStartInfo(gameExePath) //, "-nolauncher")
                 {
                     WorkingDirectory = gameBinPath
                 };

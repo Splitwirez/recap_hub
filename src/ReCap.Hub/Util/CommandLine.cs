@@ -50,7 +50,8 @@ namespace ReCap.Hub
             //Debug.WriteLine($"CLI argument count: {args.Length}");
 
             int argCount = args.Length;
-            NMessageBox.DebugShow(IntPtr.Zero, $"argCount: {argCount}", "# of args", 0);
+            if (argCount > 0)
+                NMessageBox.DebugShow(IntPtr.Zero, $"argCount: {argCount}", "# of args", 0);
 
             for (int argsIndex = 0; argsIndex < argCount; argsIndex++)
             {
@@ -201,19 +202,25 @@ namespace ReCap.Hub
         }
 
 
-        public static string PrepareArgsForCLI(IEnumerable<string> args)
+        public static string PrepareArgsForCLI(IEnumerable<string> args, bool ensureArgsEscaped = true)
         {
             string retArgs = string.Empty;
             int argCount = args.Count();
             if (argCount <= 0)
                 return retArgs;
 
-            retArgs += PrepareArgForCLI(args.First());
+            string firstArg = args.First();
+            if (ensureArgsEscaped)
+                firstArg = PrepareArgForCLI(firstArg);
+            retArgs += firstArg;
 
             var afterArgs = args.Skip(1);
             foreach (string arg in afterArgs)
             {
-                retArgs += " " + PrepareArgForCLI(arg);
+                string prepArg = arg;
+                if (ensureArgsEscaped)
+                    prepArg = PrepareArgForCLI(prepArg);
+                retArgs += " " + prepArg;
             }
 
             return retArgs;

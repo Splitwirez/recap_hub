@@ -6,7 +6,7 @@
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Panel>
+				<Panel x:Name="Root">
 					<ScrollViewer Name="PART_ScrollViewer"
 									HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
 									VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
@@ -29,5 +29,8 @@
 	</Style>
 	<Style Selector="ListBox /template/ StackPanel#PART_ItemsPanel">
 		<Setter Property="Spacing" Value="2"/>
+	</Style>
+	<Style Selector="ListBox.fitts-law-list">
+		<Setter Property="Margin" Value="-8,0,0,0"/>
 	</Style>
 </Styles>

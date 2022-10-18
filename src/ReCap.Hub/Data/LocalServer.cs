@@ -16,19 +16,24 @@ namespace ReCap.Hub.Data
         const string SRV_RES_PREFIX = "recap-server?";
         
         public static readonly string AUTO_LOGIN_PACKAGE_RESNAME = $"{DBPF_RES_PREFIX}{Patcher.AUTO_LOGIN_PACKAGE_NAME}";
-        public static readonly LocalServer Instance = new LocalServer();
+        public static readonly LocalServer Instance = null;
 
-        string _serverDirPath = string.Empty;
-        string _serverExePath = string.Empty;
-        public string ServerDirPath
+        /*string _serverDirPath = string.Empty;
+        string _serverExePath = string.Empty;*/
+        
+        
+        static LocalServer()
         {
-            get => _serverDirPath;
+            Instance = new LocalServer();
+            //InstanceCreated?.Invoke(Instance, new EventArgs());
         }
+        //public static event EventHandler InstanceCreated;
         private LocalServer()
         {
-            _serverDirPath = Path.Combine(HubData.Instance.CfgPath, "Server");
-            if (!Directory.Exists(_serverDirPath))
-                Directory.CreateDirectory(_serverDirPath);
+            //_serverDirPath = Path.Combine(HubData.Instance.CfgPath, "Server");
+            string serverDir = HubGlobalPaths.ServerDir;
+            if (!Directory.Exists(serverDir))
+                Directory.CreateDirectory(serverDir);
 
             foreach (string resName in GetResourceNames())
             {
@@ -36,7 +41,7 @@ namespace ReCap.Hub.Data
                     continue;
 
                 string resFileName = resName.Substring(SRV_RES_PREFIX.Length);
-                string destinationPath = Path.Combine(_serverDirPath, resFileName);
+                string destinationPath = Path.Combine(serverDir, resFileName);
                 
                 if (Path.GetFileName(resFileName).Equals("placekeeper", StringComparison.OrdinalIgnoreCase))
                 {
@@ -49,8 +54,6 @@ namespace ReCap.Hub.Data
 
                 ExtractResource(resName, destinationPath);
             }
-
-            _serverExePath = Path.Combine(_serverDirPath, "recap_server.exe");
         }
 
         static IEnumerable<string> GetResourceNames()
@@ -134,9 +137,11 @@ namespace ReCap.Hub.Data
 
         public Process Start()
         {
-            ProcessStartInfo serverStartInfo = new ProcessStartInfo(_serverExePath)
+            string serverDir = HubGlobalPaths.ServerDir;
+            string serverExePath = Path.Combine(serverDir, "recap_server.exe");
+            ProcessStartInfo serverStartInfo = new ProcessStartInfo(serverExePath)
             {
-                WorkingDirectory = _serverDirPath,
+                WorkingDirectory = serverDir,
                 //CreateNoWindow = true,
                 //UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -163,7 +168,7 @@ namespace ReCap.Hub.Data
             return serverProcess;
         }
 
-        public event EventHandler ServerStarted;
-        public event EventHandler ServerExited;
+        public static event EventHandler ServerStarted;
+        public static event EventHandler ServerExited;
     }
 }

@@ -9,4 +9,9 @@
 
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources.axaml"/>
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/StandardControls.axaml"/>
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Standard/SidePane.axaml"/>
+
+  <Style Selector=":is(FlyoutPresenter)">
+    <Setter Property="rctr:FlyoutBehavior.SetPresenterForFlyout" Value="True" />
+  </Style>
 </Styles>

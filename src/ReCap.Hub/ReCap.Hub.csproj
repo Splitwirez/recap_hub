@@ -5,10 +5,10 @@
 		<ApplicationIcon>Assets/ReCap.ico</ApplicationIcon>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<DefineConstantsEx> </DefineConstantsEx>
-		<AssemblyName>ReCap.Hub</AssemblyName>
+		<AssemblyName>ResurrectionCapsule.Hub</AssemblyName>
 	</PropertyGroup>
 	
-	<Import Project="../../shared/avalonia.props"/>
+	<Import Project="../../build/avalonia.props" />
 
 	<PropertyGroup>
 		<!-- Condition=" '$(LocalOnly)' == 'True' "-->
@@ -30,13 +30,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Models/" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<AvaloniaResource Include="Assets/Hero/*.png" />
+		<AvaloniaResource Include="Assets/**/*.png" />
 		<AvaloniaResource Include="Assets/*.ico" />
-		<AvaloniaResource Include="Res/UI/**/*.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -47,7 +42,16 @@
 			<LogicalName>dbpf?%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 		</EmbeddedResource>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\Dialog\TextBoxDialogView.axaml.cs">
+	    <DependentUpon>TextBoxDialogView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Dialog\YesNoDialogView.axaml.cs">
+	    <DependentUpon>YesNoDialogView.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
 	
-	<Import Project="../../shared/editorconfig.props"/>
-	<Import Project="../../shared/publish.props"/>
+	<Import Project="../../build/editorconfig.props" />
+	<Import Project="../../build/publish.props" />
 </Project>

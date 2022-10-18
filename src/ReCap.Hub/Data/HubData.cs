@@ -16,7 +16,7 @@ namespace ReCap.Hub.Data
         const string SAVES_PATH_ATTR = "savesPath";
 
 
-        static string DefaultCfgPath
+        /*static string DefaultCfgPath
         {
             get => Path.Combine(
                   OperatingSystem.IsWindows()
@@ -27,10 +27,10 @@ namespace ReCap.Hub.Data
             );
         }
 
-        const string OVERRIDE_CFG_PATH = "overrideCfgPath.txt";
+        const string OVERRIDE_CFG_PATH = "overrideCfgPath.txt";*/
         static string GetCfgPath()
         {
-            string cfgPath = DefaultCfgPath;
+            /*string cfgPath = DefaultCfgPath;
             string cfgPathOverride = Path.Combine(cfgPath, OVERRIDE_CFG_PATH);
             
             if (!Directory.Exists(cfgPath))
@@ -43,7 +43,8 @@ namespace ReCap.Hub.Data
                 cfgPath = altCfgPath;
             }
             
-            return cfgPath;
+            return cfgPath;*/
+            return HubGlobalPaths.CfgPath;
         }
 
         public static readonly HubData Instance = new HubData(GetCfgPath());
@@ -95,7 +96,10 @@ namespace ReCap.Hub.Data
                     if (gameConfigEl.TryGetAttributeValue(GAME_PATH_ATTR, out string gamePath)
                         && gameConfigEl.TryGetAttributeValue(SAVES_PATH_ATTR, out string savesPath))
                     {
-                        GameConfigs.Add(new GameConfigViewModel(gamePath, savesPath));
+                        GameConfigs.Add(
+                            new GameConfigViewModel(gamePath)
+                            //new GameConfigViewModel(gamePath, savesPath)
+                            );
                     }
                 }
             }

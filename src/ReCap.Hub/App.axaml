@@ -8,6 +8,6 @@
     </Application.DataTemplates>
     <Application.Styles>
         <StyleInclude Source="avares://ReCap.CommonUI/Styles/DsStyles.axaml"/>
-        <StyleInclude Source="avares://ReCap.Hub/Styles/ViewSpecific.axaml"/>
+        <StyleInclude Source="avares://ResurrectionCapsule.Hub/ViewSpecificStyles/All.axaml"/>
     </Application.Styles>
 </Application>

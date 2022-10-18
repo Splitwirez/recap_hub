@@ -13,7 +13,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             "OS-COMMENT4": "If you have changed target frameworks, make sure to update the program path.",
-            "program": "${workspaceFolder}/src/ReCap.Hub/bin/Debug/net5.0/ReCap.Hub.dll",
+            "program": "${workspaceFolder}/src/ReCap.Hub/bin/Debug/net5.0/ResurrectionCapsule.Hub.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/ReCap.Hub/bin/Debug/net5.0",
             "OS-COMMENT5": "For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console",

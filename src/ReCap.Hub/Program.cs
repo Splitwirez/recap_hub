@@ -9,7 +9,7 @@ using ReCap.Hub.Data;
 
 namespace ReCap.Hub
 {
-    class Program
+    partial class Program
     {
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -18,6 +18,11 @@ namespace ReCap.Hub
         {
             if (OperatingSystem.IsWindows())
             {
+                AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+                {
+
+                };
+
                 IntPtr console = WindowsPInvoke.GetConsoleWindow();
 
                 if (!WindowsPInvoke.IsWindow(console))
@@ -35,6 +40,10 @@ namespace ReCap.Hub
                 }
 
                 WindowsPInvoke.ShowWindow(console, 0);
+            }
+            else if (OperatingSystem.IsLinux())
+            {
+                NMessageBox.DebugShow(IntPtr.Zero, "bottom text", "top text", NMessageBoxButtons.CancelTryagainContinue);
             }
             
             
@@ -61,7 +70,14 @@ namespace ReCap.Hub
             return AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
-                .UseReactiveUI();
+                .UseReactiveUI()
+                .With(new Win32PlatformOptions()
+                {
+                    OverlayPopups = true
+                }).With(new X11PlatformOptions()
+                {
+                    OverlayPopups = true
+                });
         }
     }
 }

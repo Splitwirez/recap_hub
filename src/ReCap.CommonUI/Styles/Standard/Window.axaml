@@ -1,100 +1,218 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:ReCap.CommonUI"
-        xmlns:rctr="using:ReCap.CommonUI">    
+        xmlns:rctr="using:ReCap.CommonUI"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d">
+	<Design.PreviewWith>
+		<UniformGrid Columns="4">
+			<UniformGrid.Styles>
+				<Style Selector="Window /template/ rctr|AngledBorderEx">
+					<Setter Property="Background" Value="#E0202020" />
+					<Setter Property="InnerGlowColor" Value="#20FFFFFF" />
+					<Setter Property="BorderBrush" Value="#C0FFFFFF" />
+					<Setter Property="StrokeThickness" Value="1" />
+					
+					<!--Setter Property="TopLeftCut" Value="5" />
+					<Setter Property="TopRightCut" Value="10" />
+					<Setter Property="BottomRightCut" Value="15" />
+					<Setter Property="BottomLeftCut" Value="20" /-->
+					<!--Setter Property="TopLeftInset" Value="18" />
+					<Setter Property="TopRightInset" Value="27" />
+					<Setter Property="BottomRightInset" Value="36" />
+					<Setter Property="BottomLeftInset" Value="45" /-->
+
+					<Setter Property="Margin" Value="40" />
+				</Style>
+				<Style Selector="Window /template/ rctr|AngledBorderEx.sampleCut">
+					<Setter Property="TopLeftCut" Value="5" />
+					<Setter Property="TopRightCut" Value="5" />
+					<Setter Property="BottomRightCut" Value="5" />
+					<Setter Property="BottomLeftCut" Value="5" />
+				</Style>
+				<Style Selector="Window /template/ rctr|AngledBorderEx.sampleInset">
+					<Setter Property="TopLeftInset" Value="17" />
+					<Setter Property="TopRightInset" Value="17" />
+					<Setter Property="BottomRightInset" Value="17" />
+					<Setter Property="BottomLeftInset" Value="17" />
+				</Style>
+			</UniformGrid.Styles>
+			<rctr:AngledBorderEx Classes="sampleCut sampleInset" InvertSide="Top" />
+			<rctr:AngledBorderEx Classes="sampleCut sampleInset" InvertSide="Bottom" />
+			<rctr:AngledBorderEx Classes="sampleCut sampleInset" InvertSide="Left" />
+			<rctr:AngledBorderEx Classes="sampleCut sampleInset" InvertSide="Right" />
+			
+			<rctr:AngledBorderEx Classes="sampleCut" InvertSide="Top" />
+			<rctr:AngledBorderEx Classes="sampleCut" InvertSide="Bottom" />
+			<rctr:AngledBorderEx Classes="sampleCut" InvertSide="Left" />
+			<rctr:AngledBorderEx Classes="sampleCut" InvertSide="Right" />
+
+			<rctr:AngledBorderEx TopLeftCut="5" BottomRightCut="5" />
+			<rctr:AngledBorderEx TopLeftCut="5" TopRightCut="5" />
+			<rctr:AngledBorderEx TopLeftCut="5" BottomRightCut="5" />
+			<rctr:AngledBorderEx TopRightCut="5" BottomLeftCut="5" />
+		</UniformGrid>
+	</Design.PreviewWith>
 	<Style Selector="rctr|TitleBar2">
 		<Setter Property="Margin" Value="0,0,0,-4"/>
-		<Setter Property="VerticalAlignment" Value="Top"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
 		<Setter Property="Padding" Value="20,2"/>
-		<Setter Property="MinHeight" Value="38"/>
+		<!--Setter Property="MinHeight" Value="38"/-->
 		<Setter Property="HorizontalContentAlignment" Value="Left"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Panel>
-					<TemplatedControl x:Name="PART_DragGrip"/>
-					<DockPanel>
-						<Panel DockPanel.Dock="Right">
-							<rctr:ImagePresenter Classes="topTabs"
-													Source="{DynamicResource Window.TitleBar.Right}"
-													IsHitTestVisible="False"/>
-							<Panel Classes="captionButtons"
-									Margin="0,0,0,5"
-									VerticalAlignment="Top">
-								<StackPanel Spacing="2" Orientation="Horizontal">
-									<Button x:Name="PART_MinimizeButton" Classes="captionButton">
-										<Path Data="M 0 0 L 13 0 L 13 4 L 0 4 Z"/>
-									</Button>
-									<Button x:Name="PART_MaximizeButton" Classes="captionButton">
-										<Path/>
-									</Button>
-									<Button x:Name="PART_CloseButton" Classes="captionButton">
-										<Path Data="M 0 0 L 3 0 L 5 2 L 7 0 L 10 0
-															L 10 0.5 L 7 4.5 L 10 8.5 L 10 9
-															L 7 9 L 5 7 L 3 9 L 0 9
-															L 0 8.5 L 3 4.5 L 0 0.5 Z"/>
-												<!--M 0 0 L 4 0 L 5.5 2 L 7 0 L 11 0
-															L 9 4.5 L 11 9
-															L 7 9 L 5.5 7 L 4 9 L 0 9
-															L 2 4.5 Z-->
-									</Button>
-								</StackPanel>
-							</Panel>
-						</Panel>
-						<Panel>
-							<DockPanel Classes="nonTopTabs"
-										IsHitTestVisible="False">
-								<Panel x:Name="LeftEndContainer" DockPanel.Dock="Left" ClipToBounds="True">
-									<rctr:AngledBorder x:Name="LeftEnd" BorderBrush="{DynamicResource Window.TitleBar.BorderBrush}" StrokeThickness="1" Margin="0,0,-2,0"/>
-								</Panel>
-								<Panel Margin="0,0,0,5" ClipToBounds="True">
-									<rctr:AngledBorder BorderBrush="{DynamicResource Window.TitleBar.BorderBrush}" StrokeThickness="1" CornerRadius="0,33,0,0" Margin="-2,0,0,0"/>
-								</Panel>
-								<!--Panel Width="26" Height="33" HorizontalAlignment="Left" ClipToBounds="True">
-									<rctr:AngledBorder BorderBrush="{DynamicResource TitleBarBorderBrush}" BorderThickness="1" CornerRadius="9,0,0,0" Height="35" VerticalAlignment="Top"/>
-								</Panel>
-								<Panel Width="26" Height="5" Margin="0,0,0,-5" HorizontalAlignment="Left" VerticalAlignment="Bottom" ClipToBounds="True">
-									<rctr:AngledBorder Background="{DynamicResource TitleBarBackgroundLowerBrush}" BorderBrush="{DynamicResource TitleBarBorderLowerBrush}" BorderThickness="1" CornerRadius="0,0,6,0" Margin="0,-1,0,0"/>
-								</Panel-->
-							</DockPanel>
-							<rctr:ImagePresenter Classes="topTabs" IsHitTestVisible="False" Source="{DynamicResource Window.TitleBar.Main}"/>
-							<Panel x:Name="TitleBarTextArea"
-									IsHitTestVisible="False">
-								<TextBlock Text="{TemplateBinding Content}"
-										FontFamily="{DynamicResource HeaderFont}"
-										FontSize="15"
-										Margin="{TemplateBinding Padding}"
-										HorizontalAlignment="Stretch"
-										TextAlignment="Left"
-										VerticalAlignment="Center"/>
-						</Panel>
-						<!--ContentPresenter x:Name="PART_ContentPresenter"
-											TextBlock.FontFamily="{DynamicResource HeaderFont}"  
-											Height="40"
+				<Grid ColumnDefinitions="*,Auto"
+					RowDefinitions="38,*">
+					<TemplatedControl x:Name="PART_DragGrip"
+									Grid.RowSpan="2"
+									Grid.ColumnSpan="2"/>
+					<StackPanel x:Name="CaptionButtons"
+						Classes="captionButtons"
+						Margin="0,0,0,5"
+						VerticalAlignment="Top"
+						DockPanel.Dock="Right"
+						Grid.Column="1"
+						Grid.Row="0"
+						Spacing="2"
+						Orientation="Horizontal"
+						ZIndex="99999999">
+						<Button x:Name="PART_MinimizeButton" Classes="captionButton">
+							<Path Data="M 0 0 L 13 0 L 13 4 L 0 4 Z"/>
+						</Button>
+						<Button x:Name="PART_MaximizeButton" Classes="captionButton">
+							<Path/>
+						</Button>
+						<Button x:Name="PART_CloseButton" Classes="captionButton">
+							<Path Data="M 0 0 L 3 0 L 5 2 L 7 0 L 10 0
+												L 10 0.5 L 7 4.5 L 10 8.5 L 10 9
+												L 7 9 L 5 7 L 3 9 L 0 9
+												L 0 8.5 L 3 4.5 L 0 0.5 Z"/>
+									<!--M 0 0 L 4 0 L 5.5 2 L 7 0 L 11 0
+												L 9 4.5 L 11 9
+												L 7 9 L 5.5 7 L 4 9 L 0 9
+												L 2 4.5 Z-->
+						</Button>
+					</StackPanel>
+					<Panel x:Name="TitleBarBackgroundMainContainer"
+						Grid.Column="0"
+						Grid.RowSpan="2">
+						<rctr:AngledBorderEx x:Name="TitleBarBackgroundMain"
+											Classes="activateColoration"
+											BorderBrush="{DynamicResource Window.TitleBar.BorderBrush}"
+											IsHitTestVisible="False"
+											TopRightCut="32"
+											BottomLeftInset="18"
+											BottomLeftCut="6"
+											InvertSide="Bottom"/>
+											<!--
+											TopRightInset="{Binding #CaptionButtons.Bounds.Width, Mode=OneWay}"-->
+					</Panel>
+					<!--Panel ClipToBounds="True"
+						Classes="titlebarWhenExtended"
+						Grid.Column="1"
+						Grid.Row="0"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Top"
+						Width="6">
+							<Path x:Name="TitleBarRightClip1" Data="M -4 40 L -4 0 L -5 28 L 7 38 L 7 40 Z"
+								Stroke="{DynamicResource Window.TitleBar.BorderBrush}"
+								StrokeThickness="1"
+								Width="6"
+								HorizontalAlignment="Right"
+								VerticalAlignment="Top"
+								Margin="-24,0,0,0" />
+							<Rectangle
+								Fill="{Binding #TitleBarBackgroundMain.Background, Mode=OneWay}"
+								Height="{Binding #TitleBarBackgroundMainContainer.Bounds.Height, Mode=OneWay}"
+								ZIndex="-1"
+								Clip="{Binding #TitleBarRightClip1.Data, Mode=OneWay}"
+								HorizontalAlignment="Stretch"
+								VerticalAlignment="Top" />
+					</Panel-->
+					<Panel ClipToBounds="True"
+						Classes="titlebarWhenExtended"
+						Grid.Column="1"
+						Grid.RowSpan="2"
+						Width="8"
+						HorizontalAlignment="Right">
+						<rctr:AngledBorderEx Classes="activateColoration"
+											BorderBrush="{DynamicResource Window.TitleBar.BorderBrush}"
+											IsHitTestVisible="False"
+											TopRightCut="40"
+											BottomRightInset="18"
+											BottomRightCut="6"
+											InvertSide="Bottom"
+											Margin="-128,0,0,0"
 											VerticalAlignment="Top"
-											Background="#FFFF00FF"
-											BorderBrush="Transparent"
-											BorderThickness="0"
-											Content="{TemplateBinding Content}"
-											ContentTemplate="{TemplateBinding ContentTemplate}"
-											Padding="{TemplateBinding Padding}"
-											HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-											VerticalContentAlignment="Center"
-											IsHitTestVisible="False"/-->
-						</Panel>
-					</DockPanel>
-				</Panel>
+											Height="{Binding #TitleBarBackgroundMainContainer.Bounds.Height, Mode=OneWay}"/>
+					</Panel>
+					<Panel ClipToBounds="True"
+						Classes="titlebarWhenExtended"
+						Grid.Column="1"
+						Grid.RowSpan="2"
+						Margin="0,0,8,0">
+						<rctr:AngledBorderEx Classes="activateColoration"
+											BorderBrush="{DynamicResource Window.TitleBar.BorderBrush}"
+											IsHitTestVisible="False"
+											TopRightInset="{Binding #CaptionButtons.Bounds.Width, Mode=OneWay}"
+											TopRightCut="32"
+											BottomRightInset="18"
+											BottomRightCut="6"
+											InvertSide="Bottom"
+											Margin="-1,0,-8,0"/>
+					</Panel>
+					<!--Panel ClipToBounds="True"
+						Classes="titlebarWhenExtended"
+						Grid.Column="1"
+						Grid.RowSpan="2"
+						HorizontalAlignment="Right"
+						Width="6"
+						Margin="0,38,0,0">
+						<rctr:AngledBorderEx Classes="activateColoration"
+											BorderBrush="{DynamicResource Window.TitleBar.BorderBrush}"
+											IsHitTestVisible="False"
+											BottomRightInset="18"
+											BottomRightCut="6"
+											InvertSide="Bottom"
+											Margin="-128,-38,0,0"/>
+											<!- -
+											Margin="0,0,-1,0"- ->
+					</Panel-->
+					<!--Panel ClipToBounds="True"
+						Grid.Column="1"
+						Grid.Row="1">
+						<rctr:AngledBorderEx Classes="activateColoration"
+											BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"
+											IsHitTestVisible="False"
+											TopLeftCut="10"
+											BottomLeftInset="18"
+											BottomLeftCut="6"
+											TopRightCut="32"
+											InvertSide="Bottom"
+											Margin="0,0,-1,0"/>
+					</Panel-->
+					<Panel x:Name="TitleBarTextArea"
+							VerticalAlignment="Top"
+							Margin="{TemplateBinding Padding}">
+						<TextBlock Text="{TemplateBinding Content}"
+								FontFamily="{DynamicResource HeaderFont}"
+								FontSize="15"
+								Margin="0,8,0,0"
+								HorizontalAlignment="Stretch"
+								TextAlignment="Left"
+								VerticalAlignment="Center"
+								IsHitTestVisible="False"/>
+					</Panel>
+				</Grid>
 			</ControlTemplate>
 		</Setter>
 	</Style>
-	<Style Selector="Window[IsActive=False] /template/ rctr|TitleBar2 /template/ ContentPresenter#PART_ContentPresenter">
-		<Setter Property="Opacity" Value="0.5"/>
+	<Style Selector="Window:not(Window[SystemDecorations=None]) rctr|TitleBar2,
+					Window.noTitleBar rctr|TitleBar2">
+		<Setter Property="IsVisible" Value="False" />
 	</Style>
-
-	<Style Selector="Window[WindowState=Maximized] /template/ rctr|TitleBar2">
-		<Setter Property="Margin" Value="-2,-3,-3,-3"/>
-	</Style>
-
 	<Style Selector="rctr|TitleBar2 /template/ TemplatedControl#PART_DragGrip">
 		<Setter Property="Template">
 			<ControlTemplate>
@@ -102,26 +220,8 @@
 			</ControlTemplate>
 		</Setter>
 	</Style>
-	<Style Selector="rctr|TitleBar2 /template/ rctr|ImagePresenter.topTabs">
-		<Setter Property="IsVisible" Value="False"/>
-	</Style>
-	<Style Selector="Window[IsActive=True] /template/ rctr|TitleBar2 /template/ rctr|AngledBorder">
-		<Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Active}"/>
-	</Style>
-	<Style Selector="Window[IsActive=False] /template/ rctr|TitleBar2 /template/ rctr|AngledBorder">
-		<Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Inactive}"/>
-	</Style>
-	<Style Selector="rctr|TitleBar2 /template/ Panel#LeftEndContainer">
-		<Setter Property="Width" Value="21"/>
-	</Style>
-	<Style Selector="Window[WindowState=Maximized] /template/ rctr|TitleBar2 /template/ Panel#LeftEndContainer">
-		<Setter Property="Width" Value="22"/>
-	</Style>
-	<Style Selector="rctr|TitleBar2 /template/ rctr|AngledBorder#LeftEnd">
-		<Setter Property="CornerRadius" Value="9,0,5,0"/>
-	</Style>
-	<Style Selector="Window[WindowState=Maximized] /template/ rctr|TitleBar2 /template/ rctr|AngledBorder#LeftEnd">
-		<Setter Property="CornerRadius" Value="0,0,5,0"/>
+	<Style Selector="Window[IsActive=False] rctr|TitleBar2 /template/ Panel#TitleBarTextArea > TextBlock">
+		<Setter Property="Opacity" Value="0.5" />
 	</Style>
 
 	<Style Selector="Button.captionButton">
@@ -214,190 +314,196 @@
 		<Setter Property="Foreground" Value="{DynamicResource StrongForegroundBrush}"/>
 		<Setter Property="TransparencyLevelHint" Value="Transparent"/>
 		<Setter Property="SystemDecorations" Value="None"/>
+		<Setter Property="TransparencyBackgroundFallback" Value="Black"/>
 		<!--Setter Property="ExtendClientAreaTitleBarHeightHint" Value="34"/>
 		<Setter Property="ExtendClientAreaChromeHints" Value="34"/-->
 		<Setter Property="Template">
-		<ControlTemplate>
-			<Panel Background="#01000000">
-				<Panel x:Name="Root" Margin="{TemplateBinding WindowDecorationMargin}">
+			<ControlTemplate>
+				<Panel Background="#01000000">
 					<Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
-					<!--rctr:ImagePresenter x:Name="NormalHoloShadow"
-												Source="{DynamicResource Window.Underlay}"
-												Margin="0,3,4,0"/-->
-					<rctr:AngledBorder x:Name="NormalHoloShadow"
-										Background="#9D0D0F12"
-										BorderBrush="#6F5D5F62"
-										StrokeThickness="2"
-										CornerRadius="9"
-										Margin="-3,3,4,-6"/>
-					<!--Margin="0,3,4,0"-->
-					<Rectangle x:Name="MaxHoloShadow" Fill="#FF0D0F12"/>
-					<DockPanel x:Name="Frame">
-						<rctr:TitleBar2 Content="{TemplateBinding Title}"
-										DockPanel.Dock="Top"/>
-						<rctr:ImagePresenter x:Name="BottomEdgeTrim" Source="{DynamicResource Window.BottomEdgeTrim}"
-												DockPanel.Dock="Bottom"
-												Height="11"
-												Margin="0,-4,0,0"/>
-						<Panel>
-							<TemplatedControl Classes="windowSegment toBottom"/>
-							<!--Margin="0,30,0,0"-->
+					<rctr:AngledBorder x:Name="HoloShadow"
+										IsHitTestVisible="False"/>
+					<Panel x:Name="ChromeRoot" Margin="{TemplateBinding WindowDecorationMargin}">
+						<Rectangle x:Name="MaxHoloShadow" IsVisible="{Binding !#HoloShadow.IsVisible, Mode=OneWay}"/>
+						<!--Rectangle x:Name="MaxHoloShadow" Fill="#FF0D0F12"/-->
+						<DockPanel x:Name="Frame">
+							<!--rctr:ImagePresenter x:Name="BottomEdgeTrim" Source="{DynamicResource Window.BottomEdgeTrim}"
+													DockPanel.Dock="Bottom"
+													Height="11"
+													Margin="0,-4,0,0"/-->
+							<!--Rectangle Height="{Binding #TitleBar.Bounds.Height, Mode=OneWay}"
+									Margin="{Binding #TitleBar.Margin, Mode=OneWay}"
+									Opacity="0"
+									IsHitTestVisible="False"
+									IsEnabled="False"
+									Focusable="False"
+									IsTabStop="False"
+									DockPanel.Dock="Top" /-->
+							<Border x:Name="TitleBarHost"
+									DockPanel.Dock="Top">
+							<rctr:TitleBar2 x:Name="TitleBar"
+											Content="{TemplateBinding Title}"/>
+							</Border>
+							<!--BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"-->
+							<rctr:AngledBorderEx x:Name="BottomEdgeTrim"
+												Classes="activateColoration"
+												BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"
+												Height="14"
+												InvertSide="Top"
+												
+												TopLeftCut="6"
+												TopRightCut="6"
+												
+												TopLeftInset="18"
+												TopRightInset="18"
+												
+												DockPanel.Dock="Bottom" />
 							<VisualLayerManager>
 								<VisualLayerManager.ChromeOverlayLayer>
+									
 								</VisualLayerManager.ChromeOverlayLayer>
-								<ContentPresenter x:Name="PART_ContentPresenter"
-												Content="{TemplateBinding Content}"
-												ContentTemplate="{TemplateBinding ContentTemplate}"
-												Background="Transparent"
-												BorderBrush="Transparent"
-												BorderThickness="0"
-												Padding="{TemplateBinding Padding}"
-												HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-												VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+								<Panel>
+									<rctr:AngledBorderEx TopLeftCut="6"
+														TopRightCut="6"
+														BottomRightCut="6"
+														BottomLeftCut="6"
+														TopLeftInset="18"
+														TopRightInset="18"
+														BottomRightInset="18"
+														BottomLeftInset="18"
+														Background="{DynamicResource Window.Body.Background}"
+														BorderBrush="{DynamicResource Window.Body.BorderBrush}"
+														StrokeThickness="1"
+														InnerGlowColor="#20FFFFFF" />
+									
+									<!--TemplatedControl Classes="windowSegment toBottom"/-->
+									<!--Margin="0,30,0,0"-->
+									<ContentPresenter x:Name="PART_ContentPresenter"
+													Content="{TemplateBinding Content}"
+													ContentTemplate="{TemplateBinding ContentTemplate}"
+													Background="Transparent"
+													BorderBrush="Transparent"
+													BorderThickness="0"
+													Padding="{TemplateBinding Padding}"
+													HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+													VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+								</Panel>
 							</VisualLayerManager>
-						</Panel>
-					</DockPanel>
-				</Panel>
-				<rctr:ResizeEdge/>
-			</Panel>
-		</ControlTemplate>
-		</Setter>
-		<!--Setter Property="Template">
-		<ControlTemplate>
-			<Panel x:Name="Root">
-				<Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
-				<rctr:AngledBorder x:Name="NormalHoloShadow" Background="#6D0D0F12" BorderBrush="#4F5D5F62" BorderThickness="2" CornerRadius="9" Margin="0,3,4,0"/>
-				<Rectangle x:Name="MaxHoloShadow" Fill="#FF0D0F12"/>
-				<Panel Background="Transparent" Margin="{TemplateBinding WindowDecorationMargin}"/>
-				<DockPanel x:Name="Frame">
-					<rctr:TitleBar2 Content="{TemplateBinding Title}" DockPanel.Dock="Top"/>
-					<Panel>
-						<TemplatedControl x:Name="WindowBody"/>
-						<VisualLayerManager>
-							<ContentPresenter Name="PART_ContentPresenter"
-												Background="Transparent"
-												BorderBrush="Transparent"
-												BorderThickness="0"
-												Margin="{TemplateBinding Padding}"
-												HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-												VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-						</VisualLayerManager>
+						</DockPanel>
 					</Panel>
-				</DockPanel>
-				<rctr:ResizeEdge/>
-				</Panel>
-			</ControlTemplate>
-		</Setter-->
-	</Style>
-	<!--Style Selector="Window[IsVisible=True] /template/ Panel#Root">
-		<Style.Animations>
-			<Animation Duration="0:0:0.75" FillMode="Forward">
-				<KeyFrame Cue="0%">
-					<Setter Property="ScaleTransform.ScaleY" Value="0"/>
-				</KeyFrame>
-				<KeyFrame Cue="50%">
-					<Setter Property="ScaleTransform.ScaleY" Value="0"/>
-				</KeyFrame>
-				<KeyFrame Cue="75%">
-					<Setter Property="ScaleTransform.ScaleY" Value="1"/>
-				</KeyFrame>
-			</Animation>
-		</Style.Animations>
-	</Style-->
-	<Style Selector="Window:not(Window[WindowState=Maximized]) /template/ Panel#Root">
-		<Setter Property="Margin" Value="8,0,8,8"/>
-	</Style>
-	<!--Style Selector="Window[IsVisible=True] /template/ ContentPresenter#PART_ContentPresenter">
-		<Style.Animations>
-			<Animation Duration="0:0:0.75" FillMode="Forward">
-				<KeyFrame Cue="0%">
-					<Setter Property="IsVisible" Value="False"/>
-				</KeyFrame>
-				<KeyFrame Cue="75%">
-					<Setter Property="IsVisible" Value="True"/>
-				</KeyFrame>
-			</Animation>
-		</Style.Animations>
-	</Style>
-	<Style Selector="Window /template/ ContentPresenter#PART_ContentPresenter[IsVisible=True]">
-		<Setter Property="Content" Value="{TemplateBinding Content}"/>
-		<Setter Property="ContentTemplate" Value="{TemplateBinding ContentTemplate}"/>
-	</Style-->
-
-	<Style Selector="Window[WindowState=Maximized] /template/ :is(Control)#NormalHoloShadow">
-		<Setter Property="IsVisible" Value="False"/>
-	</Style>
-	<Style Selector="Window[WindowState=Maximized] /template/ :is(Control)#BottomEdgeTrim">
-		<Setter Property="IsVisible" Value="False"/>
-	</Style>
-	<Style Selector="Window:not(Window[WindowState=Maximized]) /template/ Rectangle#MaxHoloShadow">
-		<Setter Property="IsVisible" Value="False"/>
-	</Style>
-
-	<!--Style Selector="Window:not(Window[WindowState=Maximized]) /template/ :is(Panel)#Frame">
-		<Setter Property="Margin" Value="3,0,0,6"/>
-	</Style-->
-
-	<Style Selector="TemplatedControl.windowSegment">
-	<Setter Property="Template">
-		<ControlTemplate>
-			<DockPanel>
-				<Rectangle x:Name="LowerTrim"
-							Fill="#73E0E2E2"
-							Height="1"
-							DockPanel.Dock="Bottom"/>
-				<Panel ClipToBounds="True">
-					<rctr:ImagePresenter x:Name="Background"/>
-				</Panel>
-			</DockPanel>
-		</ControlTemplate>
-	</Setter>
-	</Style>
-	<Style Selector="TemplatedControl.windowSegment:not(.footer) /template/ rctr|ImagePresenter#Background">
-		<Setter Property="Source" Value="{DynamicResource Window.Body}"/>
-	</Style>
-	<Style Selector="TemplatedControl.windowSegment.footer /template/ rctr|ImagePresenter#Background">
-		<Setter Property="Source" Value="{DynamicResource Window.Footer}"/>
-	</Style>
-	<Style Selector="TemplatedControl.windowSegment:not(.toTop):not(.toBottom)">
-		<Setter Property="Margin" Value="0,-4,0,0"/>
-	</Style>
-	<Style Selector="TemplatedControl.windowSegment /template/ Rectangle#LowerTrim">
-		<Setter Property="IsVisible" Value="False"/>
-	</Style>
-
-	<Style Selector=":is(Window)[WindowState=Maximized] TemplatedControl.windowSegment.toBottom /template/ Rectangle#LowerTrim">
-		<Setter Property="IsVisible" Value="True"/>
-	</Style>
-	<Style Selector=":is(Window)[WindowState=Maximized] TemplatedControl.windowSegment.toBottom /template/ rctr|ImagePresenter#Background">
-		<Setter Property="Margin" Value="0,0,0,-6"/>
-	</Style>
-
-
-	<!--Style Selector="Window[WindowState=Maximized] /template/ TemplatedControl#WindowBody">
-		<Setter Property="Template">
-			<ControlTemplate>
-				<Panel>
-					<!-Top Left->
-					<Path Data="M 0 20 L 0 4 L 24 4 L 28 0 L 38 0 L 38 20 Z" Fill="{DynamicResource WindowBodyBackgroundBrush}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-					<Path Data="M 0.5 4.5 L 24.5 4.5 L 28 0.5 L 38 0.5" StrokeThickness="1" Stroke="{DynamicResource WindowBodyBorderBrush}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-					
-					<!-Top Center->
-					<Border Margin="38,0,21,0" Height="20" Background="{DynamicResource WindowBodyBackgroundBrush}" BorderBrush="{DynamicResource WindowBodyBorderBrush}" BorderThickness="0,1,0,0" VerticalAlignment="Top"/>
-
-					<!-Top Right->
-					<Path Data="M 0 0 L 10 0 L 21 11 L 21 20 L 0 20 Z" Fill="{DynamicResource WindowBodyBackgroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-					<Path Data="M 0 0.5 L 9.5 0.5 L 20.5 11.5" StrokeThickness="1" Stroke="{DynamicResource WindowBodyBorderBrush}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,1,0"/>
-
-					<!-Below->
-					<Border Background="{DynamicResource WindowBodyBackgroundBrush}" Margin="0,20,0,0"/>
+					<rctr:ResizeEdge/>
 				</Panel>
 			</ControlTemplate>
 		</Setter>
+	</Style>
+	<Style Selector="Window:not(Window[ExtendClientAreaTitleBarHeightHint=-1]) /template/ Border#TitleBarHost">
+		<Setter Property="Height" Value="{TemplateBinding Window.ExtendClientAreaTitleBarHeightHint}"/>
+	</Style>
+	<Style Selector="Window[ExtendClientAreaTitleBarHeightHint=-1] /template/ Border#TitleBarHost > rctr|TitleBar2">
+		<Setter Property="Height" Value="38"/>
+	</Style>
+	<Style Selector="Window:not(Window[WindowState=Maximized], Window[WindowState=FullScreen]) /template/ rctr|TitleBar2 /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
+		<Setter Property="TopLeftCut" Value="10"/>
+	</Style>
+	
+	<Style Selector="Window /template/ rctr|AngledBorderEx#BottomEdgeTrim">
+		<Setter Property="BottomRightCut" Value="6" />
+		<Setter Property="BottomLeftCut" Value="6" />
+		<Setter Property="Margin" Value="0,-4,0,-10" />
+	</Style>
+	<Style Selector="Window:not(Window[WindowState=Maximized], Window[WindowState=FullScreen]) /template/ rctr|AngledBorderEx#BottomEdgeTrim">
+		<Setter Property="BottomRightCut" Value="6" />
+		<Setter Property="BottomLeftCut" Value="6" />
+		<Setter Property="Margin" Value="0,-4,0,0" />
+	</Style>
+											
+	<Style Selector="Window[ExtendClientAreaTitleBarHeightHint=-1] /template/ rctr|TitleBar2 /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
+		<!--Setter Property="TopRightCut" Value="32"/-->
+	</Style>
+	<Style Selector="Window:not(Window[ExtendClientAreaTitleBarHeightHint=-1]) /template/ rctr|TitleBar2 /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
+		<!--Setter Property="TopRightInset" Value="{Binding #CaptionButtons.Bounds.Width, FallbackValue=30.0}"/-->
+		<!--Setter Property="BottomRightInset" Value="18"/>
+		<Setter Property="BottomRightCut" Value="6"/-->
+		<Setter Property="Margin" Value="0,0,-1,0"/>
+		<!--Setter Property="TopRightCut" Value="32"/-->
+		<Setter Property="TopRightInset" Value="1"/>
+	</Style>
+	<Style Selector="Window:not(Window[ExtendClientAreaTitleBarHeightHint=-1]) /template/ rctr|TitleBar2 /template/ Panel#TitleBarBackgroundMainContainer">
+		<!--Setter Property="Grid.ColumnSpan" Value="2"/-->
+		<Setter Property="ClipToBounds" Value="True"/>
+		<!--Setter Property="Margin" Value="0,0,6,0"/-->
+	</Style>
+	<Style Selector="Window[ExtendClientAreaTitleBarHeightHint=-1] /template/ rctr|TitleBar2 /template/ :is(Control).titlebarWhenExtended">
+		<Setter Property="IsVisible" Value="False" />
+	</Style>
+	<Style Selector="Window:not(Window[WindowState=Maximized], Window[WindowState=FullScreen])">
+		<!--Setter Property="TransparencyLevelHint" Value="Transparent"/-->
+	</Style>
+	<Style Selector="Window[WindowState=Maximized] /template/ Panel#ChromeRoot,
+					Window[WindowState=FullScreen] /template/ Panel#ChromeRoot">
+		<Setter Property="Background" Value="Black"/>
+	</Style>
+	<!--Style Selector="Window:not(Window[ActualTransparencyLevel=Transparent], Window[WindowState=Maximized], Window[WindowState=FullScreen]) /template/ rctr|AngledBorder#HoloShadow">
+		<Setter Property="TransparencyLevelHint" Value="Transparent"/>
 	</Style-->
 
-	<Style Selector="Window /template/ Path">
-		<Setter Property="Stretch" Value="None"/>
+	<Style Selector="Window /template/ rctr|AngledBorder#HoloShadow">
+		<Setter Property="Background" Value="{DynamicResource Window.HoloShadow.Background.Translucent}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource Window.HoloShadow.BorderBrush.Translucent}"/>
+		<Setter Property="StrokeThickness" Value="2"/>
+	</Style>
+	<Style Selector="Window[ActualTransparencyLevel=None] /template/ rctr|AngledBorder#HoloShadow">
+		<Setter Property="Background" Value="{DynamicResource Window.HoloShadow.Background.Opaque.Active}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource Window.HoloShadow.BorderBrush.Opaque}"/>
+	</Style>
+	<Style Selector="Window[ActualTransparencyLevel=None][IsActive=False] /template/ rctr|AngledBorder#HoloShadow">
+		<Setter Property="Background" Value="{DynamicResource Window.HoloShadow.Background.Opaque.Inactive}"/>
+	</Style>
+
+	<Style Selector="Window[ActualTransparencyLevel=Transparent] /template/ rctr|AngledBorder#HoloShadow">
+		<Setter Property="CornerRadius" Value="9"/>
+		<Setter Property="Margin" Value="0,2,4,0"/>
+	</Style>
+
+	<Style Selector="Window[IsActive=False]:not(Window[ActualTransparencyLevel=None]) /template/ rctr|AngledBorder#HoloShadow">
+		<Setter Property="Opacity" Value="0.5"/>
+	</Style>
+
+	<Style Selector="Window /template/ Rectangle#MaxHoloShadow">
+		<Setter Property="Fill" Value="{DynamicResource Window.HoloShadow.Background.Opaque.Active}"/>
+	</Style>
+	<Style Selector="Window[IsActive=False] /template/ Rectangle#MaxHoloShadow">
+		<Setter Property="Fill" Value="{DynamicResource Window.HoloShadow.Background.Opaque.Inactive}"/>
+	</Style>
+	
+	<Style Selector="Window[WindowState=Maximized] /template/ rctr|AngledBorder#HoloShadow,
+					Window[WindowState=FullScreen] /template/ rctr|AngledBorder#HoloShadow">
+		<Setter Property="IsVisible" Value="False"/>
+	</Style>
+	<!--Style Selector="Window[WindowState=Maximized] /template/ Panel#TemplateRoot,
+					Window[WindowState=FullScreen] /template/ Panel#TemplateRoot">
+		<Setter Property="IsVisible" Value="False"/>
+	</Style-->
+
+
+
+
+	<Style Selector="Window rctr|AngledBorderEx.activateColoration">
+		<Setter Property="StrokeThickness" Value="1" />
+		<!--Setter Property="BorderBrush" Value="{DynamicResource Window.TitleBar.BorderBrush}" /-->
+	</Style>
+	<Style Selector="Window[IsActive=True] rctr|AngledBorderEx.activateColoration">
+		<Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Active}" />
+	</Style>
+	<Style Selector="Window[IsActive=False] rctr|AngledBorderEx.activateColoration">
+		<Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Inactive}" />
+	</Style>
+
+	<Style Selector="Window /template/ DockPanel#Frame">
+		<Setter Property="Margin" Value="-1" />
+	</Style>
+	<Style Selector="Window[ActualTransparencyLevel=Transparent]:not(Window[WindowState=Maximized], Window[WindowState=FullScreen]) /template/ DockPanel#Frame">
+		<Setter Property="Margin" Value="4,0,0,6" />
 	</Style>
 
 

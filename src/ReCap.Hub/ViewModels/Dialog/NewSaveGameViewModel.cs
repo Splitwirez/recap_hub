@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using ReCap.Hub.Models;
 
 namespace ReCap.Hub.ViewModels
 {
@@ -54,32 +55,29 @@ namespace ReCap.Hub.ViewModels
             {
                 fileTitle = fileTitle.Replace(c, '-');
             }
-            var save = new SaveGameViewModel(Title, Path.Combine(_savePath, fileTitle + ".xml"))
-            {
-                CrogenitorLevel = 1,
-                Heroes =
-                {
-                    blitzAlpha,
-                    sageAlpha
-                }
-            };
+            
+            string xmlPath = Path.Combine(_savePath, fileTitle + ".xml");
+            var save = SaveGameViewModel.Create(Title, xmlPath, 3);
+
+            save.Heroes.Add(blitzAlpha);
+            save.Heroes.Add(sageAlpha);
+            
+            save.Save();
             _tcs.TrySetResult(save);
         }
 
         HeroViewModel CreateHero(string nounId, int id)
         {
-
-            string url = $"{HeroViewModel.PNG_URL_PRE}{nounId}{HeroViewModel.PNG_URL_POST}";
-            string urlLarge = $"{url}{HeroViewModel.PNG_URL_POST_LARGE}";
+            CreatureModel mdl = new CreatureModel();
+            mdl.NounID.Value = nounId;
+            mdl.ID.Value = id;
+            string url = $"{CreatureModel.PNG_URL_PRE}{nounId}{CreatureModel.PNG_URL_POST}";
+            string urlLarge = $"{url}{CreatureModel.PNG_URL_POST_LARGE}";
             string urlSmall = urlLarge; //TODO: this is what the ReCap server does, but is that really...correct?
-            var hero = new HeroViewModel()
-            {
-                PngLargeUrl = urlLarge,
-                PngSmallUrl = urlSmall,
-                NounID = nounId,
-                ID = id
-            };
-            return hero;
+            mdl.PngLargeUrl.Value = urlLarge;
+            mdl.PngThumbUrl.Value = urlSmall;
+            
+            return new HeroViewModel(mdl);
         }
     }
 }

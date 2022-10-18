@@ -13,16 +13,22 @@ namespace ReCap.Hub
         {
             IControl ret = null;
             
-            var type = ((ViewModelBase)data).GetViewTypeName();
+            if ((data != null) && (data is RxObjectBase rxData))
+            {
+                var type = rxData.GetViewType();
             
-            if (type != null)
-                ret = (IControl)Activator.CreateInstance(type);
+                if ((type != null) && type.IsAssignableTo(typeof(IControl)))
+                {
+                    var inst = Activator.CreateInstance(type);
+                    ret = (IControl)inst;
+                }
+            }
             
             return (ret != null)
                 ? ret
                 : new TextBlock
                     {
-                        Text = $"Not Found: {data.GetType().FullName}"
+                        Text = $"Couldn't find view for type '{data.GetType().FullName}'"
                     };
         }
 

@@ -41,5 +41,18 @@ namespace ReCap.Hub
 
             return false;
         }
+
+        public static bool TryGetElementValue(this XElement element, XName name, out string value)
+        {
+            value = null;
+            var subEl = element.Element(name);
+            if (subEl != null)
+            {
+                var subElValue = subEl.Value;
+                if (subElValue != null)
+                    value = subElValue;
+            }
+            return value != null;
+        }
     }
 }
