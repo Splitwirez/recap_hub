@@ -15,14 +15,16 @@ using Timer = System.Timers.Timer;
 
 namespace ReCap.Hub.ViewModels
 {
-    public class LocateDarksporeViewModel : ViewModelBase, IDialogViewModel<string>
+    public class LocateDarksporeViewModel : ViewModelBase, IDialogViewModel<(string winePrefix, string wineExecutable, string darksporeInstallPath)>
     {
-        TaskCompletionSource<string> _tcs = new TaskCompletionSource<string>();
-        public TaskCompletionSource<string> GetCompletionSource()
+        TaskCompletionSource<(string winePrefix, string wineExecutable, string darksporeInstallPath)> _tcs = new TaskCompletionSource<(string winePrefix, string wineExecutable, string darksporeInstallPath)>();
+        public TaskCompletionSource<(string winePrefix, string wineExecutable, string darksporeInstallPath)> GetCompletionSource()
         {
             return _tcs;
         }
 
+        string _winePrefix = null;
+        string _wineExecutable = null;
         string _gamePath = null;
         public string GamePath
         {
@@ -85,6 +87,8 @@ namespace ReCap.Hub.ViewModels
             {
                 if (TryGetDarksporeInstallPathFromProcess(process, out string winePrefix, out string wineExecutable, out string darksporeInstallPath))
                 {
+                    _wineExecutable = wineExecutable;
+                    _winePrefix = winePrefix;
                     GamePath = darksporeInstallPath;
                     Accept();
                 }
@@ -114,18 +118,8 @@ namespace ReCap.Hub.ViewModels
             
             if (exePath == null)
                 return false;
-            string exeName = Path.GetFileNameWithoutExtension(exePath);
-
-            bool containsDarkspore = exeName.Contains("darkspore", StringComparison.OrdinalIgnoreCase);
-            bool notServer = !exeName.Contains("server", StringComparison.OrdinalIgnoreCase);
-            bool isExe = Path.GetExtension(exePath).Equals(".exe", StringComparison.OrdinalIgnoreCase);
-            if (containsDarkspore)
-                Debug.WriteLine($"'{exePath}':\n\t{containsDarkspore}\n\t{notServer}\n\t{isExe}");
-
-            if (containsDarkspore
-            && notServer
-            && isExe
-            )
+            
+            if (IsProcessDarkspore(exePath))
             {
                 bool showMsgBoxes = false;
                 /*if (_showMsgBoxes)
@@ -187,6 +181,22 @@ namespace ReCap.Hub.ViewModels
                 return darksporeInstallPath != null;
             }
             return false;
+        }
+
+        public static bool IsProcessDarkspore(string exePath)
+        {
+            string exeName = Path.GetFileNameWithoutExtension(exePath);
+
+            bool containsDarkspore = exeName.Contains("darkspore", StringComparison.OrdinalIgnoreCase);
+            bool notServer = !exeName.Contains("server", StringComparison.OrdinalIgnoreCase);
+            bool isExe = Path.GetExtension(exePath).Equals(".exe", StringComparison.OrdinalIgnoreCase);
+            if (containsDarkspore)
+                Debug.WriteLine($"'{exePath}':\n\t{containsDarkspore}\n\t{notServer}\n\t{isExe}");
+
+            return containsDarkspore
+                && notServer
+                && isExe
+            ;
         }
 
         [SupportedOSPlatform("windows")]
@@ -314,10 +324,10 @@ namespace ReCap.Hub.ViewModels
                 if (line.Contains(EXE_EXT, StringComparison.OrdinalIgnoreCase) && (programExecutable == null))
                 {
                     string exePath = line.Substring(0, line.LastIndexOf(EXE_EXT, StringComparison.OrdinalIgnoreCase) + EXE_EXT.Length);
-                    Debug.WriteLine($"exePath: '{exePath}'");
                     if ((exePath != null) && exePath.Contains('/'))
                     {
                         exePath = exePath.Substring(exePath.IndexOf('/')).Trim().Trim('\'', '"').Trim();
+                        Debug.WriteLine($"exePath: '{exePath}'");
                         
                         if (File.Exists(exePath) && Path.GetExtension(exePath).Equals(EXE_EXT, StringComparison.OrdinalIgnoreCase))
                         {
@@ -405,18 +415,18 @@ namespace ReCap.Hub.ViewModels
         static string SProcFor(int pid, string subCmd)
             => $"/proc/{pid}/{subCmd}";
 
-        void TrySetResult(string result)
+        void TrySetResult(string winePrefix, string wineExecutable, string darksporeInstallPath)
         {
-            _tcs.TrySetResult(result);
+            _tcs.TrySetResult((winePrefix, wineExecutable, darksporeInstallPath));
             
             _darksporeProcessTimer?.Stop();
         }
 
         
         public void Cancel(object parameter = null)
-            => TrySetResult(null);
+            => TrySetResult(null, null, null);
 
         public void Accept(object parameter = null)
-            => TrySetResult(GamePath);
+            => TrySetResult(_winePrefix, _wineExecutable, GamePath);
     }
 }

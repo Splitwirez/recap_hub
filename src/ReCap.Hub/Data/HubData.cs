@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,12 @@ namespace ReCap.Hub.Data
 {
     public class HubData : ViewModelBase
     {
-        const string GAME_CONFIGS_EL = "gameConfigs";
-        const string GAME_PATH_ATTR = "gameInstallPath";
-        const string SAVES_PATH_ATTR = "savesPath";
+        public const string GAME_CONFIGS_EL = "gameConfigs";
+        public const string GAME_CONFIG_EL = "gameConfig";
+        public const string GAME_PATH_ATTR = "gameInstallPath";
+        public const string SAVES_PATH_ATTR = "savesPath";
+        public const string WINE_PFX_ATTR = "winePrefix";
+        public const string WINE_EX_ATTR = "wineExecutable";
 
 
         /*static string DefaultCfgPath
@@ -70,6 +74,11 @@ namespace ReCap.Hub.Data
             ReadXml();
         }
 
+        public string UserDisplayName
+        {
+            get => "Splitwirez"; //TODO: Don't hardcode yourself, idiot
+        }
+
         void ReadXml()
         {
             bool immediatelyWrite = false;
@@ -93,13 +102,20 @@ namespace ReCap.Hub.Data
             {
                 foreach (XElement gameConfigEl in gameConfigsEl.Elements())
                 {
+                    XElement el = gameConfigEl;
                     if (gameConfigEl.TryGetAttributeValue(GAME_PATH_ATTR, out string gamePath)
                         && gameConfigEl.TryGetAttributeValue(SAVES_PATH_ATTR, out string savesPath))
                     {
                         GameConfigs.Add(
-                            new GameConfigViewModel(gamePath)
+                            new GameConfigViewModel(gamePath,
                             //new GameConfigViewModel(gamePath, savesPath)
-                            );
+                            gameConfigEl.TryGetAttributeValue(WINE_EX_ATTR, out string wineExec)
+                            ? wineExec
+                            : null,
+                            gameConfigEl.TryGetAttributeValue(WINE_PFX_ATTR, out string winePrefix)
+                            ? winePrefix
+                            : null
+                            , ref el));
                     }
                 }
             }
@@ -110,40 +126,55 @@ namespace ReCap.Hub.Data
                 Save();
         }
 
-        private void GameConfigs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void GameConfigs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             var el = _doc.Root.Element(GAME_CONFIGS_EL);
             var els = el.Elements();
-            if (e.NewItems != null)
+            
+            /*if ((e.NewItems != null) || (e.Action == NotifyCollectionChangedAction.Reset))
             {
+                el.RemoveNodes();
+
                 foreach (GameConfigViewModel gameConfig in e.NewItems)
                 {
-                    if (!els.Any(x => XElementIsGameConfig(x, gameConfig)))
-                    {
-                        var gameConfigEl = new XElement("gameConfig");
-                        gameConfigEl.SetAttributeValue(GAME_PATH_ATTR, gameConfig.GameInstallPath);
-                        gameConfigEl.SetAttributeValue(SAVES_PATH_ATTR, gameConfig.SavesPath);
+                    /*var gameConfigEl = els.FirstOrDefault(x => XElementIsGameConfig(x, gameConfig));
 
+                    if (gameConfigEl != null)
+                    {
+                        /*gameConfigEl.SetAttributeValue(WINE_PFX_ATTR, gameConfig.WinePrefixPath);
+                        gameConfigEl.SetAttributeValue(WINE_EX_ATTR, gameConfig.WineExecPath);
+                        gameConfigEl.SetAttributeValue(GAME_PATH_ATTR, gameConfig.GameInstallPath);
+                        gameConfigEl.SetAttributeValue(SAVES_PATH_ATTR, gameConfig.SavesPath);* /
+                        gameConfig.WriteToXml(ref gameConfigEl);
+                        gameConfigEl.Remove();
                         el.Add(gameConfigEl);
                     }
+                    else
+                    {* /
+                        XElement newElement = new XElement(GAME_CONFIG_EL);
+                        gameConfig.WriteToXml(ref newElement);
+                        el.Add(newElement);
+                    //}
                 }
             }
-            
-            els = el.Elements();
-            if (e.OldItems != null)
+            else
             {
-                foreach (GameConfigViewModel gameConfig in e.OldItems)
+                els = el.Elements();
+                if (e.OldItems != null)
                 {
-                    foreach (XElement gameConfigEl in els)
+                    foreach (GameConfigViewModel gameConfig in e.OldItems)
                     {
-                        if (XElementIsGameConfig(gameConfigEl, gameConfig))
+                        foreach (XElement gameConfigEl in els)
                         {
-                            gameConfigEl.Remove();
-                            break;
+                            if (XElementIsGameConfig(gameConfigEl, gameConfig))
+                            {
+                                gameConfigEl.Remove();
+                                break;
+                            }
                         }
                     }
                 }
-            }
+            }*/
 
             Save();
         }
@@ -165,6 +196,15 @@ namespace ReCap.Hub.Data
 
         public void Save()
         {
+            var el = _doc.Root.Element(GAME_CONFIGS_EL);
+            el.RemoveNodes();
+            foreach (var gameConfig in GameConfigs.OrderBy(x => x.LastLaunchTime))
+            {
+                var childEl = new XElement(GAME_CONFIG_EL);
+                gameConfig.WriteToXml(ref childEl);
+                //e.NewItems.Cast<GameConfigViewModel>().OrderBy(x => x.LastLaunchTime)
+                el.Add(childEl);
+            }
             if (!Directory.Exists(_cfgPath))
                 Directory.CreateDirectory(_cfgPath);
             _doc.Save(_xmlPath);

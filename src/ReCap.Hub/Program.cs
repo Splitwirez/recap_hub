@@ -73,10 +73,14 @@ namespace ReCap.Hub
                 .UseReactiveUI()
                 .With(new Win32PlatformOptions()
                 {
-                    OverlayPopups = true
-                }).With(new X11PlatformOptions()
+                    OverlayPopups = true,
+                    AllowEglInitialization = false,
+                    UseWindowsUIComposition = false,
+                    UseWgl = false,
+                })
+                .With(new X11PlatformOptions()
                 {
-                    OverlayPopups = true
+                    OverlayPopups = true,
                 });
         }
     }

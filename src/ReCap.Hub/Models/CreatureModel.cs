@@ -12,6 +12,95 @@ namespace ReCap.Hub.Models
         public const string PNG_URL_POST = @"&size=";
         public const string PNG_URL_POST_LARGE = @"large";
 
+        /*public const string PNG_LARGE_URL_EL = "png_large_url";
+        readonly XmlStringProperty _PngLargeUrl = new(string.Empty, PNG_LARGE_URL_EL);
+        public string PngLargeUrl
+        {
+            get => _PngLargeUrl.Value;
+            set => this.XmlRASIC(_PngLargeUrl, value);
+        }
+
+        public const string PNG_THUMB_URL_EL = "png_thumb_url";
+        readonly XmlStringProperty _PngThumbUrl = new(string.Empty, PNG_THUMB_URL_EL);
+        public string PngThumbUrl
+        {
+            get => _PngThumbUrl.Value;
+            set => this.XmlRASIC(_PngThumbUrl, value);
+        }
+
+        public const string LEVEL_EL = "gear_score";
+        readonly XmlProperty<double> _Level = new(0, LEVEL_EL);
+        public double Level
+        {
+            get => _Level.Value;
+            set => this.XmlRASIC(_Level, value);
+        }
+
+        public const string ITEM_POINTS_EL = "item_points";
+        readonly XmlProperty<double> _ItemPoints = new(0, ITEM_POINTS_EL);
+        public double ItemPoints
+        {
+            get => _ItemPoints.Value;
+            set => this.XmlRASIC(_ItemPoints, value);
+        }
+
+        public const string ID_EL = "id";
+        readonly XmlProperty<int> _ID = new(0, ID_EL);
+        public int ID
+        {
+            get => _ID.Value;
+            set => this.XmlRASIC(_ID, value);
+        }
+
+        public const string NOUN_ID_EL = "noun_id";
+        readonly XmlStringProperty _NounID = new(string.Empty, NOUN_ID_EL);
+        public string NounID
+        {
+            get => _NounID.Value;
+            set => this.XmlRASIC(_NounID, value);
+        }
+
+        public const string VERSION_EL = "version";
+        readonly XmlProperty<int> _Version = new(0, VERSION_EL);
+        public int Version
+        {
+            get => _Version.Value;
+            set => this.XmlRASIC(_Version, value);
+        }
+
+        public const string STATS_EL = "stats";
+        readonly XmlStringProperty _Stats = new(string.Empty, STATS_EL);
+        public string Stats
+        {
+            get => _Stats.Value;
+            set => this.XmlRASIC(_Stats, value);
+        }
+
+        public const string STATS_ABILITY_KEYVALUES_EL = "stats_ability_keyvalues";
+        readonly XmlStringProperty _StatsAbilityKeyValues = new(string.Empty, STATS_ABILITY_KEYVALUES_EL);
+        public string StatsAbilityKeyValues
+        {
+            get => _StatsAbilityKeyValues.Value;
+            set => this.XmlRASIC(_StatsAbilityKeyValues, value);
+        }
+
+        public const string STATS_TEMPLATE_ABILITY_EL = "stats_template_ability";
+        readonly XmlStringProperty _StatsTemplateAbility = new(string.Empty, STATS_TEMPLATE_ABILITY_EL);
+        public string StatsTemplateAbility
+        {
+            get => _StatsTemplateAbility.Value;
+            set => this.XmlRASIC(_StatsTemplateAbility, value);
+        }
+
+        public const string STATS_TEMPLATE_ABILITY_KEYVALUES_EL = "stats_template_ability_keyvalues";
+        readonly XmlStringProperty _StatsTemplateAbilityKeyValues = new(string.Empty, STATS_TEMPLATE_ABILITY_KEYVALUES_EL);
+        public string StatsTemplateAbilityKeyValues
+        {
+            get => _StatsTemplateAbilityKeyValues.Value;
+            set => this.XmlRASIC(_StatsTemplateAbilityKeyValues, value);
+        }*/
+        
+
         public const string PNG_LARGE_URL_EL = "png_large_url";
         public readonly XmlStringProperty PngLargeUrl = new(string.Empty, PNG_LARGE_URL_EL);
 
@@ -94,6 +183,17 @@ namespace ReCap.Hub.Models
         List<XmlPropertyBase> _xmlProperties = new List<XmlPropertyBase>();
         public CreatureModel()
         {
+            /*_xmlProperties.Add(_PngLargeUrl);
+            _xmlProperties.Add(_PngThumbUrl);
+            _xmlProperties.Add(_Level);
+            _xmlProperties.Add(_ItemPoints);
+            _xmlProperties.Add(_ID);
+            _xmlProperties.Add(_NounID);
+            _xmlProperties.Add(_Version);
+            _xmlProperties.Add(_Stats);
+            _xmlProperties.Add(_StatsAbilityKeyValues);
+            _xmlProperties.Add(_StatsTemplateAbility);
+            _xmlProperties.Add(_StatsTemplateAbilityKeyValues);*/
             _xmlProperties.Add(PngLargeUrl);
             _xmlProperties.Add(PngThumbUrl);
             _xmlProperties.Add(Level);
@@ -110,15 +210,15 @@ namespace ReCap.Hub.Models
         public static CreatureModel FromXml(XElement el)
         {
             var model = new CreatureModel();
-            model.RefreshFromXml(el);
+            model.RefreshFromXml(el, false);
             return model;
         }
 
-        public void RefreshFromXml(XElement element)
+        public void RefreshFromXml(XElement element, bool notify)
         {
             foreach (var prop in _xmlProperties)
             {
-                prop.Read(element);
+                prop.ReadFromXml(element, notify);
             }
         }
 
@@ -126,7 +226,7 @@ namespace ReCap.Hub.Models
         {
             foreach (var prop in _xmlProperties)
             {
-                prop.Write(ref element);
+                prop.WriteToXml(ref element);
             }
         }
     }

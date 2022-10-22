@@ -12,12 +12,12 @@
                     HorizontalContentAlignment="Stretch"
                     DockPanel.Dock="Bottom">
       <DockPanel LastChildFill="False">
-        <Button Command="{Binding YesCommand}"
-                Classes="left"
-                DockPanel.Dock="Left">Yes</Button>
         <Button Command="{Binding NoCommand}"
+                Classes="left"
+                DockPanel.Dock="Left">No</Button>
+        <Button Command="{Binding YesCommand}"
                 Classes="right"
-                DockPanel.Dock="Right">No</Button>
+                DockPanel.Dock="Right">Yes</Button>
       </DockPanel>
     </ContentControl>
     <HeaderedContentControl Classes="dialogBody"

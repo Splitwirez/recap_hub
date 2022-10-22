@@ -331,7 +331,7 @@ namespace ReCap.Hub.Models
         public readonly XmlNumericalBoolProperty UnlockCatalysts = new(false, ACCOUNT_DETAILS_EL, "unlock_catalysts");
         public readonly XmlNumericalBoolProperty UnlockDiagonalCatalysts = new(false, ACCOUNT_DETAILS_EL, "unlock_diagonal_catalysts");
         public readonly XmlNumericalBoolProperty UnlockFuelTanks = new(false, ACCOUNT_DETAILS_EL, "unlock_fuel_tanks");
-        public readonly XmlProperty<int> InventoryCapacity = new(9001, ACCOUNT_DETAILS_EL, "unlock_inventory");
+        public readonly XmlProperty<int> InventoryCapacity = new(0, ACCOUNT_DETAILS_EL, "unlock_inventory");
         public readonly XmlProperty<int> UnlockPvEDecks = new(0, ACCOUNT_DETAILS_EL, "unlock_pve_decks");
         public readonly XmlProperty<int> UnlockPvPDecks = new(0, ACCOUNT_DETAILS_EL, "unlock_pvp_decks");
         public readonly XmlProperty<int> UnlockStats = new(0, ACCOUNT_DETAILS_EL, "unlock_stats");
@@ -391,6 +391,10 @@ namespace ReCap.Hub.Models
                     seq.Add(hero);
             },*/
             HEROES_EL);
+        public readonly XmlElementsProperty<XElement> Squads = new(
+            (XElement inVal) => inVal,
+            (XElement data) => data,
+            SQUADS_EL);
 
         /*string _displayName = string.Empty;
         public string DisplayName
@@ -410,7 +414,7 @@ namespace ReCap.Hub.Models
         {
             return FromXmlInternalAct(doc);
         }*/
-        
+
 
 
         public readonly string XmlPath = string.Empty;
@@ -459,6 +463,7 @@ namespace ReCap.Hub.Models
             _xmlProperties.Add(CapProgression);
             _xmlProperties.Add(Settings);
             _xmlProperties.Add(Heroes);
+            //_xmlProperties.Add(Squads);
 
             if (!File.Exists(XmlPath))
             {
@@ -479,26 +484,47 @@ namespace ReCap.Hub.Models
                 userEl.Add(new XElement(PASSWORD_EL));
                 userEl.Add(new XElement(ACCOUNT_DETAILS_EL));
                 userEl.Add(new XElement(HEROES_EL));
-                userEl.Add(new XElement(SQUADS_EL));
+                //userEl.Add(new XElement(SQUADS_EL));
+                //Heroes.WriteToXml(ref userEl);
+
+                Squads.Sequence.Add(CreateSquad());
+                Squads.WriteToXml(ref userEl);
                 userEl.Add(feedEl);
 
                 _doc.Add(userEl);
                 SaveToXml();
             }
-            RefreshFromXml();
+            RefreshFromXml(false);
+        }
+
+        XElement CreateSquad(params CreatureModel[] heroes)
+        {
+            var heroesEl = new XElement("creatures");
+            foreach (var hero in heroes)
+            {
+                heroesEl.Add(hero.ToXml());
+            };
+
+            return new XElement("deck",
+                new XElement("name", "Slot 1"),
+                new XElement("id", 1),
+                new XElement("slot", 1),
+                new XElement("locked", 0),
+                heroesEl
+            );
         }
 
 
-        public void RefreshFromXml()
+        public void RefreshFromXml(bool notify)
         {
             string xmlText = File.ReadAllText(XmlPath);
             _doc = XDocument.Parse(xmlText);
             
-            RefreshFromXml(_doc);
+            RefreshFromXml(_doc, notify);
         }
         
         bool _firstRefresh = true;
-        void RefreshFromXml(XDocument doc)
+        void RefreshFromXml(XDocument doc, bool notify)
         {
             var root = doc.Root;
 
@@ -508,7 +534,7 @@ namespace ReCap.Hub.Models
             var rootEl = doc.Root;
             foreach (var prop in _xmlProperties)
             {
-                prop.Read(root);
+                prop.ReadFromXml(root, notify);
                 if (_firstRefresh)
                     prop.PropertyChanged += WhenXmlPropertyChanged;
             }
@@ -528,7 +554,7 @@ namespace ReCap.Hub.Models
             var rootEl = _doc.Root;
             foreach (var prop in _xmlProperties)
             {
-                prop.Write(ref rootEl);
+                prop.WriteToXml(ref rootEl);
             }
 
             //TODO: Fix stuff so writing doesn't have to be restricted like this...can't even tell if it's the hub or server that's broken tbh
@@ -552,7 +578,7 @@ namespace ReCap.Hub.Models
         {
             string oldPath = XmlPath;
             string newPath = Path.Combine(Path.GetDirectoryName(oldPath), newName + Path.GetExtension(oldPath));
-            UserName.Value = newName;
+            //UserName.Value = newName;
             EmailAddress.Value = newName;
             File.Move(oldPath, newPath);
         }

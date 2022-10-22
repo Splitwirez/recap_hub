@@ -219,7 +219,7 @@ namespace ReCap.Hub.ViewModels
         public HeroViewModel(CreatureModel model)
         {
             _model = model;
-            ShortName = _model.ID.Value.ToString();
+            ShortName = _model.ID.ToString();
             LoreTitle = _model.NounID.Value;
         }
     }

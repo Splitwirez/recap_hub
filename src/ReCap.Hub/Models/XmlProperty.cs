@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -20,8 +21,25 @@ namespace ReCap.Hub.Models
             get => _tagPath;
         }
 
-        public abstract bool Read(XElement root);
-        public abstract void Write(ref XElement root);
+        protected abstract bool ReadFromXmlCore(XElement root);
+        public bool ReadFromXml(XElement root, bool notify)
+        {
+            bool retVal = ReadFromXmlCore(root);
+            if (retVal && notify)
+                NotifyChanged();
+            return retVal;
+        }
+        protected abstract void WriteToXmlCore(ref XElement root);
+        public void WriteToXml(ref XElement root)
+        {
+            WriteToXmlCore(ref root);
+        }
+
+        public event EventHandler ValueChanged;
+        public void NotifyChanged()
+        {
+            ValueChanged?.Invoke(this, new EventArgs());
+        }
 
         public static XElement GetElementForTagPath(XElement root, XName[] tagPath, bool createPath)
         {
@@ -50,7 +68,7 @@ namespace ReCap.Hub.Models
         }
     }
 
-    public class XmlElementsProperty<TSeq, TItem> : XmlPropertyBase where TSeq : ObservableCollection<TItem>, new()
+    public abstract class XmlElementsProperty<TSeq, TItem> : XmlPropertyBase where TSeq : ObservableCollection<TItem>, new()
     {
         readonly TSeq _sequence = new TSeq();
         public TSeq Sequence
@@ -59,8 +77,9 @@ namespace ReCap.Hub.Models
         }
 
         
-        public override bool Read(XElement root)
+        protected override bool ReadFromXmlCore(XElement root)
         {
+            Debug.WriteLine($"'{TagPath.Last().ToString()}' count before read: {Sequence.Count}");
             bool retVal = false;
             _suppressWrite = true;
             XElement el = XmlPropertyBase.GetElementForTagPath(root, TagPath, false);
@@ -70,7 +89,11 @@ namespace ReCap.Hub.Models
                 goto ret;
             }
             var bkpSeq = Sequence.ToList();
-            Sequence.Clear();
+            //Sequence.Clear();
+            foreach (var child in bkpSeq)
+            {
+                Sequence.Remove(child);
+            }
             //var newSeq = new List<TItem>();
             XName xName = el.Name;
             //Debug.WriteLine($"xName: '{xName}'");
@@ -93,16 +116,18 @@ namespace ReCap.Hub.Models
 
             ret:
             _suppressWrite = false;
+            Debug.WriteLine($"'{TagPath.Last().ToString()}' count after read: {Sequence.Count}");
             return retVal;
         }
 
         bool _suppressWrite = false;
-        public override void Write(ref XElement root)
+        protected override void WriteToXmlCore(ref XElement root)
         {
             /*if (_suppressWrite)
                 return;*/
 
             XElement el = XmlPropertyBase.GetElementForTagPath(root, TagPath, true);
+            el.RemoveNodes();
 
             foreach (var item in Sequence)
             {
@@ -160,7 +185,7 @@ namespace ReCap.Hub.Models
             set => RASIC(ref _rawValue, value);
         }
 
-        public override bool Read(XElement root)
+        protected override bool ReadFromXmlCore(XElement root)
         {
             XElement el = XmlPropertyBase.GetElementForTagPath(root, TagPath, false);
             if (el == null)
@@ -170,7 +195,7 @@ namespace ReCap.Hub.Models
             return true;
         }
 
-        public override void Write(ref XElement root)
+        protected override void WriteToXmlCore(ref XElement root)
         {
             XElement el = XmlPropertyBase.GetElementForTagPath(root, TagPath, true);
 
@@ -357,7 +382,20 @@ namespace ReCap.Hub.Models
 
     public interface IXmlElementModel
     {
-        void RefreshFromXml(XElement element);
-        void SaveToXml(ref XElement element);
+        /*void RefreshFromXml(XElement element);
+        void SaveToXml(ref XElement element);*/
+    }
+
+    public static class XmlPropExtensions
+    {
+        public static void XmlRASIC<TRet, TXmlProperty>(this RxObjectBase obj, TXmlProperty backingProperty, TRet newValue, [CallerMemberName] string propertyName = null) where TXmlProperty : XmlSingularPropertyBase<TRet>
+        {
+            //XmlPropertyBase
+            var value = backingProperty.Value;
+            bool changed = !(value.Equals(newValue));
+            obj.RASIC(ref value, newValue, propertyName);
+            backingProperty.NotifyChanged();
+            Debug.WriteLine($"XmlRASIC propertyName = '{propertyName}', changed = {changed}");
+        }
     }
 }

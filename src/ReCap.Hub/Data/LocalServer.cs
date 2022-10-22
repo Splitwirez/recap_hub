@@ -135,37 +135,55 @@ namespace ReCap.Hub.Data
             }
         }*/
 
-        public Process Start()
+        public ActionableDisposable Start(string winePrefix, string wineExecutable)
         {
+            bool useWine = !OperatingSystem.IsWindows();
             string serverDir = HubGlobalPaths.ServerDir;
-            string serverExePath = Path.Combine(serverDir, "recap_server.exe");
-            ProcessStartInfo serverStartInfo = new ProcessStartInfo(serverExePath)
-            {
-                WorkingDirectory = serverDir,
-                //CreateNoWindow = true,
-                //UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true
-            };
-            Process serverProcess = new Process()
-            {
-                StartInfo = serverStartInfo
-            };
+            string serverExeName = useWine
+                ? "recap_server-wine.exe" //TODO: swap dumb temporary executable that attaches to the wrong port so it can start at all under WINE for a native server executable
+                : "recap_server.exe"
+            ;
+            string serverExePath = Path.Combine(serverDir, serverExeName);
+            Process serverProcess = WineHelper.PrepareRunUnderWINE(winePrefix, wineExecutable, serverExePath, serverDir, null, true);
+
+            /*serverProcess.StartInfo.CreateNoWindow = true;
+            serverProcess.StartInfo.UseShellExecute = false;*/
+            //serverProcess.StartInfo.RedirectStandardInput = true;
+            serverProcess.StartInfo.RedirectStandardOutput = true;
+            serverProcess.StartInfo.RedirectStandardError = true;
+            if (useWine)
+                serverProcess.StartInfo.CreateNoWindow = true;
             SynchronizationContext ctx = SynchronizationContext.Current;
+
+
             //serverProcess.Exited += (s, e) => ServerExited?.Invoke(this, new EventArgs());
             serverProcess.OutputDataReceived += (s, e) => Debug.WriteLine("==== SERVER LOG\n\t" + e.Data);
             serverProcess.ErrorDataReceived += (s, e) => Debug.WriteLine("==== SERVER ERROR\n\t" + e.Data);
             var thread = new Thread(() =>
-           {
-               serverProcess.WaitForExit();
-               //ctx.Post(_ => {
-                   ServerExited?.Invoke(this, new EventArgs());
-               //}, null);
-           });
-            serverProcess.Start();
-            thread.Start();
-            ServerStarted?.Invoke(this, new EventArgs());
-            return serverProcess;
+            {
+                serverProcess.WaitForExit();
+                //ctx.Post(_ => {
+                    ServerExited?.Invoke(this, new EventArgs());
+                //}, null);
+            });
+            try
+            {
+                serverProcess.Start();
+                thread.Start();
+                ServerStarted?.Invoke(this, new EventArgs());
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.StackTrace);
+            }
+
+            return new ActionableDisposable(() =>
+            {
+                if (useWine)
+                    Process.Start("killall", serverExeName)?.WaitForExit();
+                else
+                    serverProcess.Kill(true);
+            });
         }
 
         public static event EventHandler ServerStarted;

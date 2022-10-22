@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ReCap.Hub.Data;
 
@@ -9,7 +10,7 @@ namespace ReCap.Hub
 {
     public class CommandLine
     {
-        const char QUOT = '"';
+        static readonly char QUOT = OperatingSystem.IsWindows() ? '"' : '\'';
 
 
         public const string OPT_PATCH_EXE = "--patch-darkspore-exe";
@@ -202,8 +203,43 @@ namespace ReCap.Hub
         }
 
 
+        static string EscapeArguments(params string[] args)
+        {
+            //http://csharptest.net/529/how-to-correctly-escape-command-line-arguments-in-c/index.html
+            StringBuilder arguments = new StringBuilder();
+            Regex invalidChar = new Regex("[\x00\x0a\x0d]");//  these can not be escaped
+            Regex needsQuotes = new Regex(@"\s|""");//          contains whitespace or two quote characters
+            Regex escapeQuote = new Regex(@"(\\*)(""|$)");//    one or more '\' followed with a quote or end of string
+            for (int carg = 0; args != null && carg < args.Length; carg++)
+            {
+                if (args[carg] == null)
+                    throw new ArgumentNullException("args[" + carg + "]");
+                if (invalidChar.IsMatch(args[carg]))
+                    throw new ArgumentOutOfRangeException("args[" + carg + "]");
+                if (args[carg] == String.Empty)
+                    arguments.Append("\"\"");
+                else if (!needsQuotes.IsMatch(args[carg]))
+                    arguments.Append(args[carg]);
+                else
+                {
+                    arguments.Append('"');
+                    arguments.Append(escapeQuote.Replace(args[carg], m =>
+                    m.Groups[1].Value + m.Groups[1].Value +
+                        (m.Groups[2].Value == "\"" ? "\\\"" : "")
+                    ));
+                    arguments.Append('"');
+                }
+                if (carg + 1 < args.Length)
+                    arguments.Append(' ');
+            }
+            return arguments.ToString();
+        }
         public static string PrepareArgsForCLI(IEnumerable<string> args, bool ensureArgsEscaped = true)
         {
+            if (ensureArgsEscaped)
+                return EscapeArguments(args.ToArray());
+
+
             string retArgs = string.Empty;
             int argCount = args.Count();
             if (argCount <= 0)
@@ -249,6 +285,8 @@ namespace ReCap.Hub
 
         public static string PrepareArgForCLI(string arg)
         {
+            return EscapeArguments(arg);
+            
             string retArg = arg;
 
             if (INVALID_CLI_CHARS.Any(x => retArg.Contains(x)))

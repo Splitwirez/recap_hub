@@ -34,17 +34,27 @@ namespace ReCap.Hub.ViewModels
             }
         }
 
+        public string EmailAddress
+        {
+            get => Model.EmailAddress.Value;
+        }
+
         /*string _xmlPath = null;
         XDocument _doc = null;*/
-        public void ReadFromXml(string xmlPath)
+        /*public void ReadFromXml(string xmlPath, double lastLaunchTime)
+        {
+            LastLaunchTime = lastLaunchTime;
+            ReadFromXml(xmlPath);
+        }*/
+        public void ReadFromXml(string xmlPath, bool notify)
         {
             /*_xmlPath = xmlPath;*/
-            ReadFromXml();
+            ReadFromXml(notify);
         }
-        public void ReadFromXml()
+        public void ReadFromXml(bool notify)
         {
             EditModelHeroes = false;
-            Model.RefreshFromXml();
+            Model.RefreshFromXml(notify);
             EditModelHeroes = true;
             /*Heroes = new ObservableCollection<HeroViewModel>();
             string xmlText = File.ReadAllText(_xmlPath);
@@ -137,6 +147,12 @@ namespace ReCap.Hub.ViewModels
             return saveGame;*/
         }
 
+        public void WriteToXml(ref XElement el)
+        {
+            //Save();
+            el.SetAttributeValue("id", Title);
+            el.SetAttributeValue("lastLaunchTime", LastLaunchTime);
+        }
         public void Save()
         {
             Model.SaveToXml();
@@ -166,6 +182,13 @@ namespace ReCap.Hub.ViewModels
         }*/
 
 
+        double _lastLaunchTime = -1;
+        public double LastLaunchTime
+        {
+            get => _lastLaunchTime;
+            set => _lastLaunchTime = value;
+        }
+        
         bool _initComplete = false;
         public SaveGameViewModel(string xmlPath)
             : base(new AccountModel(xmlPath)) //this()
@@ -182,6 +205,25 @@ namespace ReCap.Hub.ViewModels
                 Create(title, xmlPath);
             }*/
             _initComplete = true;
+        }
+
+        public void CreateSquad(params CreatureModel[] heroes)
+        {
+            var heroesEl = new XElement("creatures");
+            foreach (var hero in heroes)
+            {
+                heroesEl.Add(hero.ToXml());
+            };
+
+            Model.Squads.Sequence.Add(
+                new XElement("deck",
+                    new XElement("name", "Slot 1"),
+                    new XElement("id", 1),
+                    new XElement("slot", 1),
+                    new XElement("locked", 0),
+                    heroesEl
+                )
+            );
         }
 
         /*XElement GetNewAccountElement()

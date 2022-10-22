@@ -61,6 +61,7 @@ namespace ReCap.Hub
 
                 LocalServer.ServerExited += (s, e) => Dispatcher.UIThread.Post(() =>
                 {
+#if PERSIST_AFTER_GAME_EXIT
                     desktop.MainWindow?.Show();
 
                     if (OperatingSystem.IsWindows())
@@ -83,14 +84,17 @@ namespace ReCap.Hub
                     {
                         Dispatcher.UIThread.Post(() => desktop.MainWindow?.Activate(), DispatcherPriority.Render);
                     }
+#else
+                    Dispatcher.UIThread.Post(() => Environment.Exit(0));
+#endif
                 });
 
 
                 if (HubData.Instance.GameConfigs.Count == 0)
                 {
                     desktop.MainWindow?.Hide();
-                    string gamePath = null;
-                    string savesPath = null;
+                    //string gamePath = null;
+                    //string savesPath = null;
 
                     //TEMPORARY
                     //gamePath = @"E:\Programs (x86)\Electronic Arts\Darkspore";
@@ -99,10 +103,10 @@ namespace ReCap.Hub
 
                     Task.Run(async () =>
                     {
-                        gamePath = await DialogDisplay.ShowDialog(new LocateDarksporeViewModel(false));
+                        var gamePaths = await DialogDisplay.ShowDialog(new LocateDarksporeViewModel(false));
 
                         GameConfigViewModel gameConfig = 
-                            new GameConfigViewModel(gamePath)
+                            new GameConfigViewModel(gamePaths.darksporeInstallPath, gamePaths.wineExecutable, gamePaths.winePrefix)
                             //new GameConfigViewModel(gamePath, savesPath)
                         ;
                         HubData.Instance.GameConfigs.Add(gameConfig);

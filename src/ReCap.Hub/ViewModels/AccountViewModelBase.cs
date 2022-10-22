@@ -49,6 +49,12 @@ namespace ReCap.Hub.ViewModels
         {
             get => _model;
         }
+
+        public void UpdateUserDisplayName(string newName)
+        {
+            Model.UserName.Value = newName;
+            Model.SaveToXml();
+        }
         public AccountViewModelBase(AccountModel model)
         {
             _model = model;

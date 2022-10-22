@@ -45,9 +45,9 @@ namespace ReCap.Hub.ViewModels
         public void Accept(object parameter)
         {
             int id = 2;
-            var blitzAlpha = CreateHero("1667741389", id);
+            var blitzAlpha = CreateHero("1667741389", id, out CreatureModel blitzModel);
             id++;
-            var sageAlpha = CreateHero("749013658", id);
+            var sageAlpha = CreateHero("749013658", id, out CreatureModel sageModel);
             id++;
 
             string fileTitle = Title;
@@ -61,12 +61,14 @@ namespace ReCap.Hub.ViewModels
 
             save.Heroes.Add(blitzAlpha);
             save.Heroes.Add(sageAlpha);
-            
+
+            //save.CreateSquad(blitzModel, sageModel);
+
             save.Save();
             _tcs.TrySetResult(save);
         }
 
-        HeroViewModel CreateHero(string nounId, int id)
+        HeroViewModel CreateHero(string nounId, int id, out CreatureModel model)
         {
             CreatureModel mdl = new CreatureModel();
             mdl.NounID.Value = nounId;
@@ -76,7 +78,7 @@ namespace ReCap.Hub.ViewModels
             string urlSmall = urlLarge; //TODO: this is what the ReCap server does, but is that really...correct?
             mdl.PngLargeUrl.Value = urlLarge;
             mdl.PngThumbUrl.Value = urlSmall;
-            
+            model = mdl;
             return new HeroViewModel(mdl);
         }
     }
