@@ -1,0 +1,29 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:v="using:ReCap.Hub.Views"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+            mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+            x:Class="ReCap.Hub.Views.SquadView"
+			HorizontalAlignment="Center">
+	<HeaderedItemsControl Header="{Binding DisplayTitle, Mode=OneWay}"
+						Items="{Binding Heroes, Mode=OneWay}"
+						Classes="squadFrame heroes">
+	<!--StackPanel Orientation="Vertical">
+		<TextBlock Text="{Binding DisplayTitle, Mode=OneWay}" />
+		<!- -Text="{Binding DisplayNumber, StringFormat='Squad {}{0}'}"- ->
+		-->
+			<HeaderedItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<WrapPanel x:Name="PART_ItemsPanel" HorizontalAlignment="Center"/>
+				</ItemsPanelTemplate>
+			</HeaderedItemsControl.ItemsPanel>
+			<!--ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<v:HeroView DatContext="{Binding}"/>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate-->
+	<!--/StackPanel-->
+	</HeaderedItemsControl>
+</UserControl>

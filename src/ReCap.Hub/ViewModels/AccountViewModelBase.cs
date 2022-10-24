@@ -42,6 +42,12 @@ namespace ReCap.Hub.ViewModels
             }*/
         }
 
+        readonly ObservableCollection<SquadViewModel> _squads = new ObservableCollection<SquadViewModel>();
+        public ObservableCollection<SquadViewModel> Squads
+        {
+            get => _squads;
+        }
+
         //protected abstract void Heroes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e);
 
         AccountModel _model = null;
@@ -64,8 +70,13 @@ namespace ReCap.Hub.ViewModels
             {
                 Heroes.Add(new HeroViewModel(m));
             }
+            foreach (DeckModel d in Model.Squads.Sequence)
+            {
+                Squads.Add(new SquadViewModel(d));
+            }
             EditModelHeroes = true;
             Model.Heroes.Sequence.CollectionChanged += Model_Heroes_CollectionChanged;
+            Model.Squads.Sequence.CollectionChanged += Model_Squads_CollectionChanged;
 
             /*Model.Heroes.PropertyChanging += (s, e) => RefreshHeroes(true);
             
@@ -98,7 +109,8 @@ namespace ReCap.Hub.ViewModels
             {
                 foreach (HeroViewModel hero in e.NewItems)
                 {
-                    Model.Heroes.Sequence.Add(hero.Model);
+                    if (hero.Model is CreatureModel creatureModel)
+                        Model.Heroes.Sequence.Add(creatureModel);
                 }
             }
 
@@ -106,10 +118,10 @@ namespace ReCap.Hub.ViewModels
             {
                 foreach (HeroViewModel hero in e.OldItems)
                 {
-                    CreatureModel hModel = hero.Model;
+                    var hModel = hero.Model;
                     foreach (CreatureModel model in Model.Heroes.Sequence)
                     {
-                        if (hModel.NounID == model.NounID)
+                        if ((hModel.NounID == model.NounID) && (hModel is CreatureModel creatureModel))
                         {
                             Model.Heroes.Sequence.Remove(model);
                             break;
@@ -169,11 +181,52 @@ namespace ReCap.Hub.ViewModels
                 {
                     foreach (CreatureModel model in e.OldItems)
                     {
+                        var nounID = model.NounID;
                         foreach (HeroViewModel vm in Heroes)
                         {
-                            if (vm.Model.NounID == model.NounID)
+                            if (nounID == vm.Model.NounID)
                             {
                                 Heroes.Remove(vm);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Model_Squads_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            var act = e.Action;
+
+            if (act == NotifyCollectionChangedAction.Reset)
+            {
+                Squads.Clear();
+                foreach (DeckModel model in Model.Squads.Sequence)
+                {
+                    Squads.Add(new SquadViewModel(model));
+                }
+            }
+            else
+            {
+                if (e.NewItems != null)
+                {
+                    foreach (DeckModel model in e.NewItems)
+                    {
+                        Squads.Add(new SquadViewModel(model));
+                    }
+                }
+                
+                if (e.OldItems != null)
+                {
+                    foreach (DeckModel model in e.OldItems)
+                    {
+                        var deckID = model.ID;
+                        foreach (SquadViewModel vm in Squads)
+                        {
+                            if (deckID == vm.Model.ID)
+                            {
+                                Squads.Remove(vm);
                                 break;
                             }
                         }

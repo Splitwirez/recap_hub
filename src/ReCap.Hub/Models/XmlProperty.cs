@@ -88,6 +88,8 @@ namespace ReCap.Hub.Models
                 retVal = false;
                 goto ret;
             }
+            else
+                Debug.WriteLine($"XmlElementsProperty.ReadFromXmlCore element name: {el.Name}");
             var bkpSeq = Sequence.ToList();
             //Sequence.Clear();
             foreach (var child in bkpSeq)
@@ -106,6 +108,7 @@ namespace ReCap.Hub.Models
                     //_insertElement(Sequence, item);
                     Debug.WriteLine($"item added: '{item}'");
                 }
+                //Debug.WriteLine($"XmlElementsProperty.ReadFromXmlCore element name: {el.Name}");
             }
             /*Sequence.Clear();
             foreach (var item in newSeq)
@@ -137,8 +140,8 @@ namespace ReCap.Hub.Models
             }
         }
 
-        readonly Func<XElement, TItem> _fromElement;
-        readonly Func<TItem, XElement> _toElement;
+        protected Func<XElement, TItem> _fromElement;
+        protected Func<TItem, XElement> _toElement;
         readonly Action<TSeq, TItem> _insertElement = (seq, item) =>
         {
             seq.Add(item);
@@ -157,16 +160,63 @@ namespace ReCap.Hub.Models
         }
     }
 
-    public class XmlElementsProperty<T> : XmlElementsProperty<ObservableCollection<T>, T>
+    public class XmlElementsProperty<TItem> : XmlElementsProperty<ObservableCollection<TItem>, TItem>
     {
-        public XmlElementsProperty(Func<XElement, T> fromElement, Func<T, XElement> toElement, params XName[] tagPath)
+        public XmlElementsProperty(Func<XElement, TItem> fromElement, Func<TItem, XElement> toElement, params XName[] tagPath)
             : base(fromElement, toElement, tagPath)
         {
         }
 
-        public XmlElementsProperty(Func<XElement, T> fromElement, Func<T, XElement> toElement, Action<ObservableCollection<T>, T> insertElement, params XName[] tagPath)
+        public XmlElementsProperty(Func<XElement, TItem> fromElement, Func<TItem, XElement> toElement, Action<ObservableCollection<TItem>, TItem> insertElement, params XName[] tagPath)
             : this(fromElement, toElement, tagPath)
         {
+        }
+
+        /*public XmlElementsProperty(Action<ObservableCollection<TItem>, TItem> insertElement, params XName[] tagPath)
+            : this(null, null, insertElement, tagPath)
+        {
+
+        }*/
+    }
+
+    public class XmlICanIntoXmlElementsProperty<TItem> : XmlElementsProperty<TItem> where TItem : ICanIntoXml//, new()
+    {
+        Func<TItem> _create = null;
+
+        /*Func<XElement, TItem> _fromICanIntoXmlElement = inVal =>
+        {
+            var ret = _create();
+            ret.RefreshFromXml(inVal);
+            return ret;
+        };*/
+
+
+
+        public XmlICanIntoXmlElementsProperty(params XName[] tagPath)
+            : this(null, null, tagPath)
+        { }
+        public XmlICanIntoXmlElementsProperty(Action<ObservableCollection<TItem>, TItem> insertElement, params XName[] tagPath)
+            : this(null, insertElement, tagPath)
+        { }
+        public XmlICanIntoXmlElementsProperty(Func<TItem> create, params XName[] tagPath)
+            : this(create, null, tagPath)
+        { }
+        public XmlICanIntoXmlElementsProperty(Func<TItem> create, Action<ObservableCollection<TItem>, TItem> insertElement, params XName[] tagPath)
+            : base(null, null, insertElement, tagPath)
+        {
+            if (create == null)
+                _create = () => Activator.CreateInstance<TItem>();
+            else
+                _create = create;
+
+
+            _fromElement = inVal =>
+            {
+                var ret = _create();
+                ret.RefreshFromXml(inVal);
+                return ret;
+            };
+            _toElement = data => data.SaveToXml();
         }
     }
 
@@ -380,11 +430,31 @@ namespace ReCap.Hub.Models
         }
     }*/
 
-    public interface IXmlElementModel
+    public interface ICanIntoXml
     {
-        /*void RefreshFromXml(XElement element);
-        void SaveToXml(ref XElement element);*/
+        void RefreshFromXml(XElement element);
+        string XmlElementTagName { get; }
+        //XElement SaveToXml();
+        void SaveToXml(ref XElement element);
     }
+
+    /*public interface ICanIntoYourXDocumentPath : ICanIntoXml
+    {
+        public void ReadFromXml(string xmlPath);
+        public void SaveToXml(string xmlPath);
+    }
+
+    public interface ICanIntoYourXDocument : ICanIntoXml
+    {
+        public void ReadFromXml(XDocument document);
+        public void SaveToXml(ref XDocument document);
+    }
+
+    public interface ICanIntoMyXDocument : ICanIntoXml
+    {
+        public void ReadFromXml();
+        public void SaveToXml();
+    }*/
 
     public static class XmlPropExtensions
     {
@@ -396,6 +466,22 @@ namespace ReCap.Hub.Models
             obj.RASIC(ref value, newValue, propertyName);
             backingProperty.NotifyChanged();
             Debug.WriteLine($"XmlRASIC propertyName = '{propertyName}', changed = {changed}");
+        }
+
+        public static XElement SaveToXml(this ICanIntoXml model, ref XElement element, bool createIfNonexistent = false)
+        {
+            if (element == null)
+                return model.SaveToXml();
+            
+            model.SaveToXml(ref element);
+            return element;
+        }
+
+        public static XElement SaveToXml(this ICanIntoXml model)
+        {
+            XElement modelEl = new XElement(model.XmlElementTagName);
+            model.SaveToXml(ref modelEl);
+            return modelEl;
         }
     }
 }

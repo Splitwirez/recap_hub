@@ -1,0 +1,45 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:v="using:ReCap.Hub.Views"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+            mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+            x:Class="ReCap.Hub.Views.HeroView"
+            Classes="heroCard">
+	<!--UserControl.Styles>
+		<Style Selector="StackPanel.modelInfo > StackPanel">
+			<Setter Property="DataContext" Value="{Binding Model, Mode=OneWay}" />
+		</Style>
+		<Style Selector="StackPanel.modelInfo.isRefModel > StackPanel">
+			<Setter Property="DataContext" Value="{Binding Model.Creature, Mode=OneWay}" />
+		</Style>
+	</UserControl.Styles-->
+	<StackPanel Orientation="Vertical">
+		<TemplatedControl Classes="heroImage" />
+		<!-- Width="128"
+						Height="128"
+		"{Binding Thumbnail, Mode=OneWay}"/-->
+		<TextBlock Text="{Binding ShortName, Mode=OneWay}"
+				Classes="h4"
+				TextWrapping="NoWrap"/>
+		<TextBlock Text="{Binding LoreTitle, Mode=OneWay}"
+				TextWrapping="Wrap"/>
+		
+		<!--TextBlock x:Name="ModelInfo"
+				Text="REF MODEL"
+				IsVisible="{Binding ModelIsRefModel, Mode=OneWay, FallbackValue=False}" />
+		<StackPanel Orientation="Vertical"
+					Classes="modelInfo"
+					Classes.isRefModel="{Binding #ModelInfo.IsVisible, Mode=OneWay}">
+			<StackPanel Orientation="Vertical">
+						<!- -IsHitTestVisible="{Binding Path=DataContext.ModelIsRefModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:HeroView}}, Mode=OneWay}"- ->
+			<!- -$parent[v:HeroView].DataContext.ModelIsRefModel- ->
+				<TextBlock Classes="nounid" Text="{Binding NounID.Value, Mode=OneWay}"/>
+				<!- -StringFormat='NounID: {}{0}', - ->
+				<TextBlock Classes="id" Text="{Binding ID.Value, Mode=OneWay}"/>
+				<!- -StringFormat='ID: {}{0}', - ->
+			</StackPanel>
+		</StackPanel-->
+	</StackPanel>
+</UserControl>

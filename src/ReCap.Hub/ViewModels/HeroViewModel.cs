@@ -1,9 +1,13 @@
-﻿using Avalonia.Media.Imaging;
-using ReCap.Hub.Models;
+﻿using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Xml.Linq;
+using ReCap.Hub.Data;
+using ReCap.Hub.Models;
 
 namespace ReCap.Hub.ViewModels
 {
@@ -28,11 +32,11 @@ namespace ReCap.Hub.ViewModels
             set => RASIC(ref _loreTitle, value);
         }
 
-        Bitmap _thumbnail = null;
-        public Bitmap Thumbnail
+        IImage _thumbnail = null;
+        public IImage Thumbnail
         {
             get => _thumbnail;
-            set => RASIC(ref _thumbnail, value);
+            protected set => RASIC(ref _thumbnail, value);
         }
 
         /*public const string PNG_LARGE_URL_EL = "png_large_url";
@@ -211,16 +215,104 @@ namespace ReCap.Hub.ViewModels
         }*/
 
 
-        readonly CreatureModel _model = null;
-        public CreatureModel Model
+        CreatureModelBase _model = null;
+        public CreatureModelBase Model
         {
             get => _model;
+            protected set
+            {
+                RASIC(ref _model, value);
+                if (value != null)
+                {
+                    var textModel = value;
+                    if (value is CreatureModelRefModel refModel)
+                    {
+                        textModel = refModel;
+                        ModelIsRefModel = true;
+                    }
+                    else
+                        ModelIsRefModel = false;
+                    ShortName = $"ID: {textModel.ID.Value}";
+                    LoreTitle = $"NounID: {textModel.NounID.Value}"; //_model.NounID.Value;
+                    
+                    EnsureThumbnail(textModel);
+                }
+                else
+                {
+                    ModelIsRefModel = false;
+                    ShortName = string.Empty;
+                    LoreTitle = string.Empty;
+                }
+            }
         }
-        public HeroViewModel(CreatureModel model)
+
+        bool _modelIsRefModel = false;
+        public bool ModelIsRefModel
         {
-            _model = model;
-            ShortName = _model.ID.ToString();
-            LoreTitle = _model.NounID.Value;
+            get => _modelIsRefModel;
+            protected set => RASIC(ref _modelIsRefModel, value);
+        }
+
+        //http://127.0.0.1/game/service/png?template_id=1667741389&size=large
+        const string PNG_URL_START = "/game/service/png?template_id=";
+        const string PNG_URL_END = "&size=large";
+        public HeroViewModel(CreatureModelBase model)
+        {
+            
+            Model = model;
+            //if (ModelIsRefModel)
+            {
+                
+                //ShortName = "(Titles NYI)"; //_model.ID.ToString();
+                
+
+                EnsureThumbnail(_model);
+            }
+        }
+
+        void EnsureThumbnail(CreatureModelBase model)
+        {
+            try
+            {
+                var oldThumbnail = Thumbnail;
+
+                string pngUrlStr = model.PngThumbUrl.Value;
+                //Debug.WriteLine($"HeroViewModel PNG URL: '{pngUrlStr}'");
+                if (pngUrlStr.Contains(PNG_URL_START) && (pngUrlStr.EndsWith(PNG_URL_END)));
+                {
+                    string pngFileName = pngUrlStr;
+                    int pngUrlIdStart = pngUrlStr.LastIndexOf(PNG_URL_START) + PNG_URL_START.Length;
+                    pngFileName = pngFileName.Substring(pngUrlIdStart, pngFileName.Length - (pngUrlIdStart + PNG_URL_END.Length));
+                    pngFileName += "_thumb.png";
+                    string pngPathStr = Path.Combine(HubGlobalPaths.ServerDir, "storage", "template_png", pngFileName);
+                    //Debug.WriteLine($"HeroViewModel PNG local path: '{pngPathStr}'");
+                    
+                    if (File.Exists(pngPathStr))
+                    {
+                        using (MemoryStream memStream = new MemoryStream())
+                        {
+                            using (FileStream fileStream = File.OpenRead(pngPathStr))
+                            {
+                                fileStream.CopyTo(memStream);
+                                memStream.Seek(0, SeekOrigin.Begin);
+                            }
+                            Thumbnail = new Bitmap(memStream);
+                            if ((oldThumbnail != null) && (oldThumbnail is IDisposable oldThumbnailDisp))
+                            {
+                                oldThumbnailDisp.Dispose();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"File '{pngPathStr}' not found");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
         }
     }
 }

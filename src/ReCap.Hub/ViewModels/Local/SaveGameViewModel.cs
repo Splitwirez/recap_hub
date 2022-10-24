@@ -209,20 +209,21 @@ namespace ReCap.Hub.ViewModels
 
         public void CreateSquad(params CreatureModel[] heroes)
         {
-            var heroesEl = new XElement("creatures");
+            /*var heroesEl = new XElement("creatures");
             foreach (var hero in heroes)
             {
                 heroesEl.Add(hero.ToXml());
-            };
+            };*/
 
             Model.Squads.Sequence.Add(
-                new XElement("deck",
+                new DeckModel(1, heroes)
+                /*new XElement("deck",
                     new XElement("name", "Slot 1"),
                     new XElement("id", 1),
                     new XElement("slot", 1),
                     new XElement("locked", 0),
                     heroesEl
-                )
+                )*/
             );
         }
 

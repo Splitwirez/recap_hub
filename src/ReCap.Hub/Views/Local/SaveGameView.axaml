@@ -4,6 +4,7 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:v="using:ReCap.Hub.Views"
             xmlns:vm="using:ReCap.Hub.ViewModels"
+            xmlns:rctr="using:ReCap.CommonUI"
             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
             x:Class="ReCap.Hub.Views.SaveGameView">
     <Grid>
@@ -12,33 +13,61 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" MinHeight="30" SharedSizeGroup="Footer" />
         </Grid.RowDefinitions>
-        <TemplatedControl Classes="threatBanner"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Top"
-                        Grid.Row="0"
-                        Grid.RowSpan="2">
-            <TemplatedControl.Background>
-                <ImageBrush Source="avares://ResurrectionCapsule.Hub/Assets/Level/zelems_3.png"
-                    AlignmentY="Center" Stretch="UniformToFill"/>
-            </TemplatedControl.Background>
-        </TemplatedControl>
-        <StackPanel Orientation="Vertical"
-                    Spacing="5"
-                    Margin="28,28,28,0"
-                    Grid.Row="0">
-            <TextBlock Text="{Binding Title}" Classes="h1" />
-            <TextBlock Text="{Binding CrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
-            <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore threat {0}'}"/>
-        </StackPanel>
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                    Grid.Row="1">
-            <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="28" Spacing="32">
+        <Rectangle x:Name="SaveHeaderAreaSizeHelper"
+                    VerticalAlignment="Stretch"
+                    Grid.Row="0"
+                    Fill="Transparent"
+                    Stroke="Transparent"
+                    StrokeThickness="0"
+                    IsHitTestVisible="False"
+                    Opacity="0" />
+        <ScrollViewer x:Name="MainContentArea"
+                    Padding="28,28,28,0"
+                    HorizontalScrollBarVisibility="Disabled"
+                    Grid.Row="0"
+                    Grid.RowSpan="2">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top" Spacing="32">
+                <Rectangle Width="0"
+                        Height="{Binding #SaveHeaderAreaSizeHelper.Bounds.Height}"
+                        Fill="Transparent"
+                        Stroke="Transparent"
+                        StrokeThickness="0"
+                        IsHitTestVisible="False"
+                        Opacity="0" />
+                <!--Margin="{Binding #SaveHeaderArea.Margin}"-->
                 <StackPanel Orientation="Vertical" Spacing="5">
-                    <TextBlock Text="Heroes"
-                                        Classes="h3"/>
-                    <TextBlock Text="{Binding Heroes.Count, StringFormat='{}{0} Activated'}"/>
-                    <ItemsControl Items="{Binding Heroes}">
-                        <ItemsControl.ItemTemplate>
+                    <DockPanel>
+                        <TextBlock Text="{Binding Squads.Count, StringFormat='{}{0}/3'}"
+                                Classes="h3"
+                                TextAlignment="Right"
+                                DockPanel.Dock="Right" />
+                        <TextBlock Text="Squads"
+                                Classes="h3"
+                                TextAlignment="Left" />
+                    </DockPanel>
+                    <ItemsControl Classes="squads" Items="{Binding Squads}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <!--StackPanel x:Name="PART_ItemsPanel" Orientation="Vertical"/-->
+                                <rctr:AlignableWrapPanel x:Name="PART_ItemsPanel"
+                                                        HorizontalAlignment="Center"
+                                                        HorizontalContentAlignment="Center"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Spacing="5">
+                    <DockPanel>
+                        <TextBlock Text="{Binding Heroes.Count, StringFormat='{}{0}/100'}"
+                                Classes="h3"
+                                TextAlignment="Right"
+                                DockPanel.Dock="Right" />
+                        <TextBlock Text="Heroes"
+                                Classes="h3"
+                                TextAlignment="Left" />
+                    </DockPanel>
+                    <ItemsControl Classes="heroes" Items="{Binding Heroes}">
+                        <!--ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <ContentControl Classes="heroCard">
                                     <StackPanel Orientation="Vertical">
@@ -53,16 +82,38 @@
                                     </StackPanel>
                                 </ContentControl>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
+                        </ItemsControl.ItemTemplate-->
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel HorizontalAlignment="Center"/>
+                                <WrapPanel x:Name="PART_ItemsPanel" HorizontalAlignment="Center"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
+        <TemplatedControl Classes="threatBanner"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        Grid.Row="0"
+                        Grid.RowSpan="2">
+            <TemplatedControl.Background>
+                <ImageBrush Source="avares://ResurrectionCapsule.Hub/Assets/Level/zelems_3.png"
+                    AlignmentY="Center" Stretch="UniformToFill"/>
+            </TemplatedControl.Background>
+        </TemplatedControl>
+        <StackPanel Classes="saveHeaderArea"
+                    Orientation="Vertical"
+                    Spacing="5"
+                    Margin="{Binding #MainContentArea.Padding, Mode=OneWay}"
+                    Grid.Row="0">
+            <TextBlock Text="{Binding Title}" Classes="h1" />
+            <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore threat {0}'}"
+                    Classes="h4"/>
+            <TextBlock Text="{Binding CrogenitorLevel, StringFormat='Crogenitor level {0}'}"
+                    Classes="h4"/>
+        </StackPanel>
+        
         <ContentControl Classes="pane bottom right-outermost"
                         Grid.Row="2">
             <DockPanel>

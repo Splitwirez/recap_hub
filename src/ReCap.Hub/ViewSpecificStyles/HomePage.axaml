@@ -15,7 +15,7 @@
         </Setter>
         <Setter Property="ItemsPanel">
             <ItemsPanelTemplate>
-                <StackPanel Orientation="Horizontal" Spacing="-2"/>
+                <StackPanel x:Name="PART_ItemsPanel" Orientation="Horizontal" Spacing="-2"/>
             </ItemsPanelTemplate>
         </Setter>
     </Style>
