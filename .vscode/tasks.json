@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/ReCap.Hub/ReCap.Hub.csproj",
+                "${workspaceFolder}/build/ReCap.Builder/ReCap.Builder.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
                 "/p:LocalOnly=True",
@@ -20,7 +20,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/src/ReCap.Hub/ReCap.Hub.csproj",
+                "${workspaceFolder}/build/ReCap.Builder/ReCap.Builder.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
             ],
@@ -33,7 +33,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/src/ReCap.Hub/ReCap.Hub.csproj",
+                "${workspaceFolder}/build/ReCap.Builder/ReCap.Builder.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

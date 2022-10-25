@@ -118,10 +118,10 @@ namespace ReCap.Hub.Models
             Creature = matchedCreature;
             return matchedCreature != null;
         }
-
+        
         bool IsMe(CreatureModelBase creature, bool strict)
         {
-            bool matchedNounID = NounID == creature.NounID;
+            bool matchedNounID = (NounID == creature.NounID);
             if (strict)
             {
                 bool matchedID = ID == creature.ID;

@@ -1,16 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<PublishDirName>$(PublishTarget)</PublishDirName>
+		<AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+		<!--PublishDirName>$(PublishTarget)</PublishDirName-->
 		<!--IsPublish>False</IsPublish-->
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(PublishTarget)' == 'Windows' ">
 		<RuntimeIdentifier>win7-x64</RuntimeIdentifier>
 		<!--IsPublish>True</IsPublish-->
 	</PropertyGroup>
+	<PropertyGroup Condition=" '$(PublishTarget)' == 'Linux' ">
+		<RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+		<!--IsPublish>True</IsPublish-->
+	</PropertyGroup>
 	
 	
 	
-	<PropertyGroup Condition=" '$(PublishTarget)' != '' ">
+	<!--PropertyGroup Condition=" '$(PublishTarget)' != '' ">
 		<Configuration>Release</Configuration>
 		<SelfContained>true</SelfContained>
 		<PublishSingleFile>true</PublishSingleFile>
@@ -21,6 +27,6 @@
 		<EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
 		<EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
 		<MetadataUpdaterSupport>false</MetadataUpdaterSupport>
-		<!--OutputPath>../../publish/demo/$(PublishDirName)</OutputPath-->
-	</PropertyGroup>
+		<!- -OutputPath>../../publish/demo/$(PublishDirName)</OutputPath- ->
+	</PropertyGroup-->
 </Project>

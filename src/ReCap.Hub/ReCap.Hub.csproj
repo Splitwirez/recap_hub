@@ -42,15 +42,6 @@
 			<LogicalName>dbpf?%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 		</EmbeddedResource>
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="Views\Dialog\TextBoxDialogView.axaml.cs">
-	    <DependentUpon>TextBoxDialogView.axaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Dialog\YesNoDialogView.axaml.cs">
-	    <DependentUpon>YesNoDialogView.axaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
 	
 	<Import Project="../../build/editorconfig.props" />
 	<Import Project="../../build/publish.props" />
