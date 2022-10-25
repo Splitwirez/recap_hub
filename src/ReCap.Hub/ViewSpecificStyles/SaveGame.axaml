@@ -4,7 +4,9 @@
         xmlns:rctr="using:ReCap.CommonUI"
         xmlns:v="using:ReCap.Hub.Views">
     <Styles.Resources>
-        <local:LessThanConverter x:Key="LessThanConverter"/>
+        <ResourceDictionary>
+            <local:LessThanConverter x:Key="LessThanConverter"/>
+        </ResourceDictionary>
     </Styles.Resources>
     <Style Selector="TemplatedControl.threatBanner">
         <Setter Property="Margin" Value="10,10,10,0"/>

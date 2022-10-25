@@ -3,21 +3,21 @@
         xmlns:local="using:ReCap.CommonUI"
         xmlns:rctr="using:ReCap.CommonUI"
         xmlns:v="using:ReCap.Hub.Views">
-        <Styles.Resources>
-                <ResourceDictionary>
-                    <SolidColorBrush x:Key="DialogOverlay.BackdropFilmBrush">#D8000000</SolidColorBrush>
-                    <!--#C0001040-->
+    <Styles.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="DialogOverlay.BackdropFilmBrush">#D8000000</SolidColorBrush>
+            <!--#C0001040-->
 
-                    <LinearGradientBrush x:Key="Dialog.Footer.Background"
-                                        StartPoint="0%,25%"
-                                        EndPoint="0%,100%">
-                        <GradientStop Offset="0" Color="#53D0E0E9" />
-                        <GradientStop Offset="1" Color="#2BBDD5DB" />
-                    </LinearGradientBrush>
-                    <SolidColorBrush x:Key="Dialog.Footer.BorderBrush">#DDD5E1E4</SolidColorBrush>
-                    <Color x:Key="Dialog.Footer.InnerGlowColor">#DDD5E1E4</Color>
-                </ResourceDictionary>
-        </Styles.Resources>
+            <LinearGradientBrush x:Key="Dialog.Footer.Background"
+                                StartPoint="0%,25%"
+                                EndPoint="0%,100%">
+                <GradientStop Offset="0" Color="#53D0E0E9" />
+                <GradientStop Offset="1" Color="#2BBDD5DB" />
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="Dialog.Footer.BorderBrush">#DDD5E1E4</SolidColorBrush>
+            <Color x:Key="Dialog.Footer.InnerGlowColor">#DDD5E1E4</Color>
+        </ResourceDictionary>
+    </Styles.Resources>
 
     <Style Selector=":is(v|DialogOverlay)">
         <Setter Property="Background" Value="{DynamicResource DialogOverlay.BackdropFilmBrush}"/>

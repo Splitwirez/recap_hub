@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<AvVer>0.10.18</AvVer>
+		<AvVer>11.0.0-preview2</AvVer>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="$(AvVer)" />
 		<PackageReference Include="Avalonia.Desktop" Version="$(AvVer)" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvVer)" />
 		<PackageReference Include="Avalonia.Diagnostics" Version="$(AvVer)" />
 		<PackageReference Include="Avalonia.ReactiveUI" Version="$(AvVer)" />
 	</ItemGroup>

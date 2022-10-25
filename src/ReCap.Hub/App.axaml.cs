@@ -2,12 +2,15 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Styling;
 using Avalonia.Media;
 using Avalonia.Threading;
 using ReCap.Hub.Data;
 using ReCap.Hub.ViewModels;
 using ReCap.Hub.Views;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -32,6 +35,7 @@ namespace ReCap.Hub
         public override void OnFrameworkInitializationCompleted()
         {
             base.OnFrameworkInitializationCompleted();
+            
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow()

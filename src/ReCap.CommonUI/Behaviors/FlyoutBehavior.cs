@@ -1,4 +1,5 @@
-﻿using Avalonia;
+﻿#if LMAO_NO
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
@@ -472,3 +473,4 @@ namespace ReCap.CommonUI
         }
     }
 }
+#endif
