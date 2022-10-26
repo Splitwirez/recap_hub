@@ -412,83 +412,91 @@
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Panel Background="#01000000">
-					<Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
-					<rctr:AngledBorder x:Name="HoloShadow"
-										IsHitTestVisible="False"/>
-					<Panel x:Name="ChromeRoot" Margin="{TemplateBinding WindowDecorationMargin}">
-						<Rectangle x:Name="MaxHoloShadow" IsVisible="{Binding !#HoloShadow.IsVisible, Mode=OneWay}"/>
-						<!--Rectangle x:Name="MaxHoloShadow" Fill="#FF0D0F12"/-->
-						<DockPanel x:Name="Frame">
-							<!--rctr:ImagePresenter x:Name="BottomEdgeTrim" Source="{DynamicResource Window.BottomEdgeTrim}"
-													DockPanel.Dock="Bottom"
-													Height="11"
-													Margin="0,-4,0,0"/-->
-							<!--Rectangle Height="{Binding #TitleBar.Bounds.Height, Mode=OneWay}"
-									Margin="{Binding #TitleBar.Margin, Mode=OneWay}"
-									Opacity="0"
-									IsHitTestVisible="False"
-									IsEnabled="False"
-									Focusable="False"
-									IsTabStop="False"
-									DockPanel.Dock="Top" /-->
-							<Border x:Name="TitleBarHost"
-									DockPanel.Dock="Top">
-							<rctr:TitleBar2 x:Name="TitleBar"
-											Content="{TemplateBinding Title}"/>
-							</Border>
-							<!--BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"-->
-							<rctr:AngledBorderEx x:Name="BottomEdgeTrim"
-												Classes="activateColoration"
-												BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"
-												Height="14"
-												InvertSide="Top"
+          <Panel Classes="nonMaxInset">
+						<Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+						<rctr:AngledBorder x:Name="HoloShadow"
+											IsHitTestVisible="False"/>
+						<Panel x:Name="ChromeRoot" Margin="{TemplateBinding WindowDecorationMargin}">
+							<Rectangle x:Name="MaxHoloShadow" IsVisible="{Binding !#HoloShadow.IsVisible, Mode=OneWay}"/>
+							<!--Rectangle x:Name="MaxHoloShadow" Fill="#FF0D0F12"/-->
+							<DockPanel x:Name="Frame">
+								<!--rctr:ImagePresenter x:Name="BottomEdgeTrim" Source="{DynamicResource Window.BottomEdgeTrim}"
+														DockPanel.Dock="Bottom"
+														Height="11"
+														Margin="0,-4,0,0"/-->
+								<!--Rectangle Height="{Binding #TitleBar.Bounds.Height, Mode=OneWay}"
+										Margin="{Binding #TitleBar.Margin, Mode=OneWay}"
+										Opacity="0"
+										IsHitTestVisible="False"
+										IsEnabled="False"
+										Focusable="False"
+										IsTabStop="False"
+										DockPanel.Dock="Top" /-->
+								<Border x:Name="TitleBarHost"
+										DockPanel.Dock="Top">
+								<rctr:TitleBar2 x:Name="TitleBar"
+												Content="{TemplateBinding Title}"
+												ResizeEdge="{Binding ElementName=PART_ResizeEdge, Mode=OneWay}"/>
+								</Border>
+								<!--BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"-->
+								<rctr:AngledBorderEx x:Name="BottomEdgeTrim"
+													Classes="activateColoration"
+													BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"
+													Height="14"
+													InvertSide="Top"
 												
-												TopLeftCut="6"
-												TopRightCut="6"
+													TopLeftCut="6"
+													TopRightCut="6"
 												
-												TopLeftInset="18"
-												TopRightInset="18"
+													TopLeftInset="18"
+													TopRightInset="18"
 												
-												DockPanel.Dock="Bottom" />
-							<VisualLayerManager>
-								<VisualLayerManager.ChromeOverlayLayer>
+													DockPanel.Dock="Bottom" />
+								<VisualLayerManager>
+									<VisualLayerManager.ChromeOverlayLayer>
 									
-								</VisualLayerManager.ChromeOverlayLayer>
-								<Panel>
-									<rctr:AngledBorderEx TopLeftCut="6"
-														TopRightCut="6"
-														BottomRightCut="6"
-														BottomLeftCut="6"
-														TopLeftInset="18"
-														TopRightInset="18"
-														BottomRightInset="18"
-														BottomLeftInset="18"
-														Background="{DynamicResource Window.Body.Background}"
-														BorderBrush="{DynamicResource Window.Body.BorderBrush}"
-														StrokeThickness="1"
-														InnerGlowColor="#20FFFFFF" />
+									</VisualLayerManager.ChromeOverlayLayer>
+									<Panel>
+										<rctr:AngledBorderEx TopLeftCut="6"
+															TopRightCut="6"
+															BottomRightCut="6"
+															BottomLeftCut="6"
+															TopLeftInset="18"
+															TopRightInset="18"
+															BottomRightInset="18"
+															BottomLeftInset="18"
+															Background="{DynamicResource Window.Body.Background}"
+															BorderBrush="{DynamicResource Window.Body.BorderBrush}"
+															StrokeThickness="1"
+															InnerGlowColor="#20FFFFFF" />
 									
-									<!--TemplatedControl Classes="windowSegment toBottom"/-->
-									<!--Margin="0,30,0,0"-->
-									<ContentPresenter x:Name="PART_ContentPresenter"
-													Content="{TemplateBinding Content}"
-													ContentTemplate="{TemplateBinding ContentTemplate}"
-													Background="Transparent"
-													BorderBrush="Transparent"
-													BorderThickness="0"
-													Padding="{TemplateBinding Padding}"
-													HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-													VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-								</Panel>
-							</VisualLayerManager>
-						</DockPanel>
-					</Panel>
-					<rctr:ResizeEdge/>
+										<!--TemplatedControl Classes="windowSegment toBottom"/-->
+										<!--Margin="0,30,0,0"-->
+										<ContentPresenter x:Name="PART_ContentPresenter"
+														Content="{TemplateBinding Content}"
+														ContentTemplate="{TemplateBinding ContentTemplate}"
+														Background="Transparent"
+														BorderBrush="Transparent"
+														BorderThickness="0"
+														Padding="{TemplateBinding Padding}"
+														HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+														VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+									</Panel>
+								</VisualLayerManager>
+							</DockPanel>
+						</Panel>
+          </Panel>
+					<rctr:ResizeEdge x:Name="PART_ResizeEdge"
+                           BorderThickness="8"
+                           ZIndex="99999999"/>
 				</Panel>
 			</ControlTemplate>
 		</Setter>
 	</Style>
-	<Style Selector="Window:not(Window[ExtendClientAreaTitleBarHeightHint=-1]) /template/ Border#TitleBarHost">
+  <Style Selector="Window:not(Window[ActualTransparencyLevel=None], Window[WindowState=Maximized], Window[WindowState=FullScreen]) /template/ Panel.nonMaxInset">
+    <Setter Property="Margin" Value="0,0,8,0"/>
+  </Style>
+  <Style Selector="Window:not(Window[ExtendClientAreaTitleBarHeightHint=-1]) /template/ Border#TitleBarHost">
 		<Setter Property="Height" Value="{TemplateBinding Window.ExtendClientAreaTitleBarHeightHint}"/>
 	</Style>
 	<Style Selector="Window[ExtendClientAreaTitleBarHeightHint=-1] /template/ Border#TitleBarHost > rctr|TitleBar2">
@@ -601,9 +609,10 @@
 
 
 	<Style Selector="rctr|ResizeEdge">
-		<Setter Property="Template">
+    <!--Setter Property="Template">
 			<ControlTemplate>
-				<Grid Name="ResizeGrid" ColumnDefinitions="8,*,8" RowDefinitions="8,*,8">
+        <Border BorderBrush="Red" BorderThickness="{TemplateBinding BorderThickness}"/>
+        <!- -Grid Name="ResizeGrid" ColumnDefinitions="8,*,8" RowDefinitions="8,*,8">
 					<Border
 						Name="Top"
 						Grid.Column="1"/>
@@ -643,15 +652,15 @@
 						Name="BottomRight"
 						Grid.Row="2"
 						Grid.Column="2"/>
-				</Grid>
+				</Grid- ->
 			</ControlTemplate>
-		</Setter>
+		</Setter-->
 	</Style>
 	<Style Selector="rctr|ResizeEdge /template/ Grid#ResizeGrid Border">
 		<Setter Property="Background" Value="#01000000"/>
 	</Style>
-	<Style Selector="Window[WindowState=Maximized] /template/ rctr|ResizeEdge,
+  <!--Style Selector="Window[WindowState=Maximized] /template/ rctr|ResizeEdge,
 						Window[WindowState=FullScreen] /template/ rctr|ResizeEdge">
 		<Setter Property="IsVisible" Value="False"/>
-	</Style>
+	</Style-->
 </Styles>
