@@ -35,6 +35,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Include="Assets/Hero/0x6E76B39A.png">
+			<LogicalName>0x6E76B39A.png</LogicalName>
+		</EmbeddedResource>
 		<EmbeddedResource Include="../../content/server/**/*.*">
 			<LogicalName>recap-server?%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 		</EmbeddedResource>

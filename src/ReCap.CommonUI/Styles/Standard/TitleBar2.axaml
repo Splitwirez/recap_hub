@@ -1,0 +1,210 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d">
+	<Style Selector="rctr|TitleBar2">
+		<Setter Property="Margin" Value="0,0,0,-4"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="Padding" Value="20,2"/>
+		<!--Setter Property="MinHeight" Value="38"/-->
+		<Setter Property="HorizontalContentAlignment" Value="Left"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Grid ColumnDefinitions="*,Auto"
+					RowDefinitions="38,*">
+					<TemplatedControl x:Name="PART_DragGrip"
+									Grid.RowSpan="2"
+									Grid.ColumnSpan="2"/>
+					<!--StackPanel x:Name="CaptionButtons"
+						Classes="captionButtons"
+						Margin="0,0,0,5"
+						VerticalAlignment="Top"
+						DockPanel.Dock="Right"
+						Grid.Column="1"
+						Grid.Row="0"
+						Spacing="2"
+						Orientation="Horizontal"
+						ZIndex="99999999">
+						<Button x:Name="PART_MinimizeButton" Classes="captionButton">
+							<Path Data="M 0 0 L 13 0 L 13 4 L 0 4 Z"/>
+						</Button>
+						<Button x:Name="PART_MaximizeButton" Classes="captionButton">
+							<Path/>
+						</Button>
+						<Button x:Name="PART_CloseButton" Classes="captionButton">
+							<Path Data="M 0 0 L 3 0 L 5 2 L 7 0 L 10 0
+												L 10 0.5 L 7 4.5 L 10 8.5 L 10 9
+												L 7 9 L 5 7 L 3 9 L 0 9
+												L 0 8.5 L 3 4.5 L 0 0.5 Z"/>
+									<!- -M 0 0 L 4 0 L 5.5 2 L 7 0 L 11 0
+												L 9 4.5 L 11 9
+												L 7 9 L 5.5 7 L 4 9 L 0 9
+												L 2 4.5 Z- ->
+						</Button>
+					</StackPanel-->
+					<CaptionButtons x:Name="PART_CaptionButtons" 
+									Grid.Column="1"
+									Grid.Row="0"
+									ZIndex="99999999"/>
+					<Panel x:Name="TitleBarBackgroundMainContainer"
+						Grid.Column="0"
+						Grid.RowSpan="2">
+						<rctr:AngledBorderEx x:Name="TitleBarBackgroundMain"
+											Classes="activateColoration"
+											BorderBrush="{DynamicResource Window.TitleBar.BorderBrush}"
+											IsHitTestVisible="False"
+											TopRightCut="32"
+											BottomLeftInset="18"
+											BottomLeftCut="6"
+											InvertSide="Bottom"/>
+											<!--
+											TopRightInset="{Binding #CaptionButtons.Bounds.Width, Mode=OneWay}"-->
+					</Panel>
+					<!--Panel ClipToBounds="True"
+						Classes="titlebarWhenExtended"
+						Grid.Column="1"
+						Grid.Row="0"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Top"
+						Width="6">
+							<Path x:Name="TitleBarRightClip1" Data="M -4 40 L -4 0 L -5 28 L 7 38 L 7 40 Z"
+								Stroke="{DynamicResource Window.TitleBar.BorderBrush}"
+								StrokeThickness="1"
+								Width="6"
+								HorizontalAlignment="Right"
+								VerticalAlignment="Top"
+								Margin="-24,0,0,0" />
+							<Rectangle
+								Fill="{Binding #TitleBarBackgroundMain.Background, Mode=OneWay}"
+								Height="{Binding #TitleBarBackgroundMainContainer.Bounds.Height, Mode=OneWay}"
+								ZIndex="-1"
+								Clip="{Binding #TitleBarRightClip1.Data, Mode=OneWay}"
+								HorizontalAlignment="Stretch"
+								VerticalAlignment="Top" />
+					</Panel-->
+					<Panel ClipToBounds="True"
+						Classes="titlebarWhenExtended"
+						Grid.Column="1"
+						Grid.RowSpan="2"
+						Width="8"
+						HorizontalAlignment="Right">
+						<rctr:AngledBorderEx Classes="activateColoration"
+											BorderBrush="{DynamicResource Window.TitleBar.BorderBrush}"
+											IsHitTestVisible="False"
+											TopRightCut="40"
+											BottomRightInset="18"
+											BottomRightCut="6"
+											InvertSide="Bottom"
+											Margin="-128,0,0,0"
+											VerticalAlignment="Top"
+											Height="{Binding #TitleBarBackgroundMainContainer.Bounds.Height, Mode=OneWay}"/>
+					</Panel>
+					<Panel ClipToBounds="True"
+						Classes="titlebarWhenExtended"
+						Grid.Column="1"
+						Grid.RowSpan="2"
+						Margin="0,0,8,0">
+						<rctr:AngledBorderEx Classes="activateColoration"
+											BorderBrush="{DynamicResource Window.TitleBar.BorderBrush}"
+											IsHitTestVisible="False"
+											TopRightInset="{Binding #CaptionButtons.Bounds.Width, Mode=OneWay}"
+											TopRightCut="32"
+											BottomRightInset="18"
+											BottomRightCut="6"
+											InvertSide="Bottom"
+											Margin="-1,0,-8,0"/>
+					</Panel>
+					<!--Panel ClipToBounds="True"
+						Classes="titlebarWhenExtended"
+						Grid.Column="1"
+						Grid.RowSpan="2"
+						HorizontalAlignment="Right"
+						Width="6"
+						Margin="0,38,0,0">
+						<rctr:AngledBorderEx Classes="activateColoration"
+											BorderBrush="{DynamicResource Window.TitleBar.BorderBrush}"
+											IsHitTestVisible="False"
+											BottomRightInset="18"
+											BottomRightCut="6"
+											InvertSide="Bottom"
+											Margin="-128,-38,0,0"/>
+											<!- -
+											Margin="0,0,-1,0"- ->
+					</Panel-->
+					<!--Panel ClipToBounds="True"
+						Grid.Column="1"
+						Grid.Row="1">
+						<rctr:AngledBorderEx Classes="activateColoration"
+											BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"
+											IsHitTestVisible="False"
+											TopLeftCut="10"
+											BottomLeftInset="18"
+											BottomLeftCut="6"
+											TopRightCut="32"
+											InvertSide="Bottom"
+											Margin="0,0,-1,0"/>
+					</Panel-->
+					<Panel x:Name="TitleBarTextArea"
+							VerticalAlignment="Top"
+							Margin="{TemplateBinding Padding}">
+						<TextBlock Text="{TemplateBinding Content}"
+								FontFamily="{DynamicResource HeaderFont}"
+								FontSize="15"
+								Margin="0,8,0,0"
+								HorizontalAlignment="Stretch"
+								TextAlignment="Left"
+								VerticalAlignment="Center"
+								IsHitTestVisible="False"/>
+					</Panel>
+				</Grid>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+
+	
+	<Style Selector="Window:not(Window[SystemDecorations=None]) rctr|TitleBar2,
+					Window.noTitleBar rctr|TitleBar2">
+		<Setter Property="IsVisible" Value="False" />
+	</Style>
+	<Style Selector="rctr|TitleBar2 /template/ TemplatedControl#PART_DragGrip">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Rectangle Fill="#01000000"/>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+	<Style Selector="Window[IsActive=False] rctr|TitleBar2 /template/ Panel#TitleBarTextArea > TextBlock">
+		<Setter Property="Opacity" Value="0.5" />
+	</Style>
+
+	<Style Selector="Window[ExtendClientAreaTitleBarHeightHint=-1] /template/ Border#TitleBarHost > rctr|TitleBar2">
+		<Setter Property="Height" Value="38"/>
+	</Style>
+	<Style Selector="Window:not(Window[WindowState=Maximized], Window[WindowState=FullScreen]) /template/ rctr|TitleBar2 /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
+		<Setter Property="TopLeftCut" Value="10"/>
+	</Style>
+											
+	<Style Selector="Window[ExtendClientAreaTitleBarHeightHint=-1] /template/ rctr|TitleBar2 /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
+		<!--Setter Property="TopRightCut" Value="32"/-->
+	</Style>
+	<Style Selector="Window:not(Window[ExtendClientAreaTitleBarHeightHint=-1]) /template/ rctr|TitleBar2 /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
+		<!--Setter Property="TopRightInset" Value="{Binding #CaptionButtons.Bounds.Width, FallbackValue=30.0}"/-->
+		<!--Setter Property="BottomRightInset" Value="18"/>
+		<Setter Property="BottomRightCut" Value="6"/-->
+		<Setter Property="Margin" Value="0,0,-1,0"/>
+		<!--Setter Property="TopRightCut" Value="32"/-->
+		<Setter Property="TopRightInset" Value="1"/>
+	</Style>
+	<Style Selector="Window:not(Window[ExtendClientAreaTitleBarHeightHint=-1]) /template/ rctr|TitleBar2 /template/ Panel#TitleBarBackgroundMainContainer">
+		<!--Setter Property="Grid.ColumnSpan" Value="2"/-->
+		<Setter Property="ClipToBounds" Value="True"/>
+		<!--Setter Property="Margin" Value="0,0,6,0"/-->
+	</Style>
+	<Style Selector="Window[ExtendClientAreaTitleBarHeightHint=-1] /template/ rctr|TitleBar2 /template/ :is(Control).titlebarWhenExtended">
+		<Setter Property="IsVisible" Value="False" />
+	</Style>
+</Styles>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using ReCap.Hub.ViewModels;
@@ -70,7 +71,7 @@ namespace ReCap.Hub.Data
 
 
 
-
+        public static readonly Assembly ReCapHubAssembly = Assembly.GetExecutingAssembly();
         const string OVERRIDE_CFG_PATH = "overrideCfgPath.txt";
         public static string CfgPath
         {

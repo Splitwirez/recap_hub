@@ -86,8 +86,24 @@
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="{Binding Title}" Classes="h4"/>
-                                <TextBlock Text="{Binding CurrentCrogenitorLevel, StringFormat='Crogenitor level {0}'}"/>
-                                <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore Threat {0}'}"/>
+                                <Grid ColumnDefinitions="Auto,8,Auto"
+                                    RowDefinitions="*,*"
+                                    HorizontalAlignment="Left">
+                                    <TextBlock Text="{Binding CurrentThreatLevel, Mode=OneWay}"
+                                            Grid.Column="2"
+                                            Grid.Row="0" />
+                                    <TextBlock Text="Darkspore threat"
+                                            Grid.Column="0"
+                                            Grid.Row="0" />
+                                    <!--TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore threat {0}'}" /-->
+                                    <TextBlock Text="{Binding CrogenitorLevel, Mode=OneWay}"
+                                            Grid.Column="2"
+                                            Grid.Row="1" />
+                                    <TextBlock Text="Crogenitor level"
+                                            Grid.Column="0"
+                                            Grid.Row="1" />
+                                    <!--TextBlock Text="{Binding CrogenitorLevel, StringFormat='Crogenitor level {0}'}"/-->
+                                </Grid>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

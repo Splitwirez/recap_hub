@@ -1,0 +1,49 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d">
+	<Styles.Resources>
+		<rctr:ThicknessToColumnDefinitionsConverter x:Key="ThicknessToColumnDefinitionsConverter"/>
+		<rctr:ThicknessToRowDefinitionsConverter x:Key="ThicknessToRowDefinitionsConverter"/>
+	</Styles.Resources>
+	<Style Selector="rctr|ResizeEdge">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Grid x:Name="PART_ResizeSurface"
+					rctr:GridHelper.BindColumns="{TemplateBinding BorderThickness, Converter={StaticResource ThicknessToColumnDefinitionsConverter}}"
+					rctr:GridHelper.BindRows="{TemplateBinding BorderThickness, Converter={StaticResource ThicknessToRowDefinitionsConverter}}">
+					<Rectangle x:Name="PART_Left"
+						Grid.Column="0"
+						Grid.Row="1" />
+					<Rectangle x:Name="PART_TopLeft"
+						Grid.Column="0"
+						Grid.Row="0" />
+					<Rectangle x:Name="PART_Top"
+						Grid.Column="1"
+						Grid.Row="0" />
+					<Rectangle x:Name="PART_TopRight"
+						Grid.Column="2"
+						Grid.Row="0" />
+					<Rectangle x:Name="PART_Right"
+						Grid.Column="2"
+						Grid.Row="1" />
+					<Rectangle x:Name="PART_BottomRight"
+						Grid.Column="2"
+						Grid.Row="2" />
+					<Rectangle x:Name="PART_Bottom"
+						Grid.Column="1"
+						Grid.Row="2" />
+					<Rectangle x:Name="PART_BottomLeft"
+						Grid.Column="0"
+						Grid.Row="2" />
+				</Grid>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+	<Style Selector="rctr|ResizeEdge /template/ Grid#PART_ResizeSurface Rectangle">
+		<Setter Property="Fill" Value="#01000000"/>
+	</Style>
+</Styles>

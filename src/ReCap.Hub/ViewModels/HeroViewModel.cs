@@ -32,7 +32,18 @@ namespace ReCap.Hub.ViewModels
             set => RASIC(ref _loreTitle, value);
         }
 
-        IImage _thumbnail = null;
+        
+        static readonly IImage FALLBACK_THUMBNAIL = new Func<IImage>(() =>
+        {
+            IImage ret = null;
+            using (Stream resStream = HubGlobalPaths.ReCapHubAssembly.GetManifestResourceStream("0x6E76B39A.png"))
+            {
+                ret = new Bitmap(resStream);
+            }
+            return ret;
+        })();
+
+        IImage _thumbnail = FALLBACK_THUMBNAIL;
         public IImage Thumbnail
         {
             get => _thumbnail;

@@ -132,7 +132,8 @@
             <ControlTemplate>
                 <Panel>
                     <Panel.Resources>
-                        <ImageBrush x:Key="HeroThumbnailBrush" Source="{Binding Thumbnail, Mode=OneWay, FallbackValue='avares://ResurrectionCapsule.Hub/Assets/Hero/0x6E76B39A.png'}" />
+                        <ImageBrush x:Key="HeroThumbnailBrush" Source="{Binding Thumbnail, Mode=OneWay}" />
+                        <!--, FallbackValue='avares://ResurrectionCapsule.Hub/Assets/Hero/0x6E76B39A.png'-->
                     </Panel.Resources>
                     <rctr:AngledBorder x:Name="ImageFrame"
                                     BorderBrush="#40FFFFFF"

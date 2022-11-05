@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<AvVer>11.0.0-preview2</AvVer>
+		<AvVer>11.0.0-preview3</AvVer>
 	</PropertyGroup>
 
 	<ItemGroup>
