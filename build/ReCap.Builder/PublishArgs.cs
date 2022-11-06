@@ -16,6 +16,9 @@ namespace ReCap.Builder
 			"-h",
 			"/?"
 		}.AsReadOnly();
+
+		public const string HELP_TYPE_MODES = "modes";
+		public const string HELP_TYPE_OPTIONS = "options";
 		
 		public const string EXTRA_OPTIONS = "--";
 		public const string PUB_TARGET = "--platform";
@@ -23,6 +26,17 @@ namespace ReCap.Builder
 		public const string SINGLE_FILE = "--single-file";
 		public const string TRIM = "--trim";
 		public const string CONFIGURATION = "--configuration";
+		
+		public const string PUB_MODE = "as";
+
+		public const string PUB_PLATFORM = "for";
+
+		public const string MODE_DEV_PREFIX = "DEV__";
+		public const string MODE_DEV_DEMO_SUFFIX = "DEMO";
+		
+		public const string MODE_PUBLIC_PREFIX = "PUBLIC__";
+		public const string MODE_PUBLIC_LOCAL_SUFFIX = "PHASE1_LOCAL";
+		public const string MODE_PUBLIC_ONLINE_SUFFIX = "PHASE2_ONLINE";
 		
 		public static readonly IReadOnlyList<PublishTarget> VALID_PUB_TARGETS
 			= new List<PublishTarget>()

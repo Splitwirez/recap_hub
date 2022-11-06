@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/home/splitwirez/.dotnet/store/|arch|/|tfm|",
+      "/home/splitwirez/.nuget/packages"
+    ]
+  }
+}

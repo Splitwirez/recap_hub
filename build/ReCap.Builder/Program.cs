@@ -8,123 +8,181 @@ using System.Linq;
 
 namespace ReCap.Builder
 {
-	public class Program
+	public enum ExitReason : int
+	{
+		Success = 0,
+		Failure = 1,
+		StillWorkingOnThisCodePath = 9001
+	}
+
+
+	public static class Program
     {
 		//public static readonly char S = PublishArgs.DIR_SEPARATOR;
-
+		public static void Exit(ExitReason reason)
+			=> Environment.Exit((int)reason);
 
         static void Main(string[] args)
         {
 			/*var helpArg = args.FirstOrDefault(arg => PublishArgs.GET_HELP.Any(help => arg == help));
 			if (helpArg != null)*/
-			if (args.Any(arg => PublishArgs.GET_HELP.Any(help => arg == help)))
+			int argCount = args.Length;
+			if (argCount == 0)
 			{
-				PrintHelp();
-				Environment.Exit(2);
+				Console.WriteLine("In future, do");
+				CLIHelp.PrintTopLevelHelp();
+				
+				if (GetBoolReply("Produce a build for this machine now?"))
+				{
+					PublishForMe();
+				}
+				else
+					Exit(ExitReason.Success);
 			}
-
-			PublishParams param = new PublishParams();
-			
-			try
+			else if (NeedsHelp(args))
 			{
-				int argCount = args.Length;
-				int extraOptionsStart = -1;
-				//string extraOptionsArg = args.FirstOrDefault(x => )
-				//if ()
-				for (int i = 0; i < argCount; i++)
-				{
-					int remainingArgs = argCount - (i + 1);
-					string arg = args[i];
-					if (PublishArgs.UnEscape(arg) == PublishArgs.EXTRA_OPTIONS)
-					{
-						extraOptionsStart = i;
-						break;
-					}
-					else if (remainingArgs > 0)
-					{
-						string nextArg = PublishArgs.UnEscape(args[i + 1]);
-						if (string.IsNullOrEmpty(nextArg) || string.IsNullOrWhiteSpace(nextArg))
-							continue;
-						
-						if (PublishArgs.IsArg(arg, PublishArgs.PUB_TARGET))
-						{
-							if (Enum.TryParse<PublishTarget>(nextArg, out PublishTarget target))
-							{
-								param.Target = target;
-							}
-							else
-							{
-								
-								throw new PublishArgsException(arg, nextArg, $"Invalid publish target. Valid options are as follows:{PublishArgs.PLATFORM_VALUES}.");
-							}
-						}
-						else if (PublishArgs.IsArg(arg, PublishArgs.SELF_CONTAINED))
-						{
-							if (!bool.TryParse(nextArg, out param.SelfContained))
-							{
-								throw new PublishArgsException(arg, nextArg, $"Invalid boolean.");
-							}
-						}
-						else if (PublishArgs.IsArg(arg, PublishArgs.TRIM))
-						{
-							if (!bool.TryParse(nextArg, out param.EnableTrimming))
-							{
-								throw new PublishArgsException(arg, nextArg, $"Invalid boolean.");
-							}
-						}
-						else if (PublishArgs.IsArg(arg, PublishArgs.SINGLE_FILE))
-						{
-							if (!bool.TryParse(nextArg, out param.SingleFile))
-							{
-								throw new PublishArgsException(arg, nextArg, $"Invalid boolean.");
-							}
-						}
-						else if (PublishArgs.IsArg(arg, PublishArgs.CONFIGURATION))
-						{
-							param.Configuration = nextArg;
-						}
-						i++;
-					}
-				}
-				if (extraOptionsStart >= 0)
-				{
-					string dotnetExtraArgs = null;
-					var extraArgs = args.Skip(extraOptionsStart).ToArray();
-					if (extraArgs.Length > 0)
-					{
-						var first = extraArgs.First();
-						if (PublishArgs.UnEscape(first) != PublishArgs.EXTRA_OPTIONS)
-						{
-							dotnetExtraArgs = first;
-							for (int i = 1; i < extraArgs.Length; i++)
-							{
-								string extraArg = extraArgs[i];
-								dotnetExtraArgs += $" {extraArg}";
-								/*if (extraArg == PublishArgs.EXTRA_OPTIONS)
-								{
-									extraArgs = extraArgs.Skip(i).ToArray();
-									break;
-								}
-								else
-								{
-									dotnetExtraArgs
-								}*/
-							}
-						}
-					}
-
-					if (dotnetExtraArgs != null)
-						param.ExtraArgs = dotnetExtraArgs;
-				}
-
+				
+			}
+			else if (PublishFromMode(args))
+			{
+				
+			}
+			else if 
+			(
+				(argCount == 2)
+			 	&& PublishArgs.UnEscape(args[0]).Equals("for", StringComparison.OrdinalIgnoreCase)
+				&& PublishArgs.UnEscape(args[1]).Equals("me", StringComparison.OrdinalIgnoreCase)
+			)
+			{
+				PublishForMe();
+			}
+			else if (PublishParams.TryGetFromCLI(args, out PublishParams param, out Exception exception))
+			{
 				PublishHub(param);
 			}
-			catch (PublishArgsException ex)
+			else if (exception is PublishArgsException ex)
 			{
 				Console.WriteLine(ex.Message);
-				Environment.Exit(1);
+				Exit(ExitReason.Failure);
 			}
         }
+
+		public static bool PublishFromMode(string[] args)
+		{
+			int argCount = args.Length;
+			if (argCount < 2)
+				return false;
+			else if (!args.FirstOrDefault().Equals(PublishArgs.PUB_MODE))
+				return false;
+			
+			
+			string mode = args[1];
+
+			if (string.IsNullOrEmpty(mode) || string.IsNullOrWhiteSpace(mode))
+				return false;
+
+			string[] extraArgs = new string[0];
+
+			PublishTarget? target = null;
+			int extraArgsStart = 2;
+			if (argCount > 2)
+			{
+				string thirdArg = args[3];
+				if (thirdArg == PublishArgs.PUB_PLATFORM)
+				{
+					if (Enum.TryParse<PublishTarget>(args[4], out PublishTarget publishTarget))
+					{
+						target = publishTarget;
+					}
+					extraArgsStart = 4;
+				}
+				else if (thirdArg != PublishArgs.EXTRA_OPTIONS)
+				{
+					return false;
+				}
+			}
+
+			if (argCount > extraArgsStart)
+				extraArgs = args.Skip(extraArgsStart).ToArray();
+
+
+			Console.WriteLine($"would publish as {mode} for ");
+			Exit(ExitReason.StillWorkingOnThisCodePath);
+			//return false;
+			if (PublishParams.TryGetParamsForMode(mode, target, out PublishParams param))
+			{
+				PublishHub(param);
+				return true;
+			}
+			else
+				return false;
+		}
+
+		static void PublishForMe()
+		{
+			if (PublishParams.TryGetParamsForMode("DEV__DEMO", null, out PublishParams forMeParam))
+			{
+				PublishHub(forMeParam);
+			}
+			else
+				Exit(ExitReason.Failure);
+		}
+
+		public static bool NeedsHelp(string[] args)
+		{
+			int argCount = args.Length;
+			
+			if (!((argCount > 0) && (argCount <= 2) && args.Any(arg => PublishArgs.GET_HELP.Any(help => arg == help))))
+				return false;
+
+
+			bool helpRequestUnderstood = false;
+				
+			if (argCount == 1)
+			{
+				helpRequestUnderstood = true;
+				CLIHelp.PrintHelp(true, true);
+			}
+			else if (argCount == 2)
+			{
+				string helpType = args.LastOrDefault();
+				
+				if (string.IsNullOrEmpty(helpType) || string.IsNullOrWhiteSpace(helpType))
+				{
+
+				}
+				else if (helpType == PublishArgs.HELP_TYPE_MODES)
+				{
+					helpRequestUnderstood = true;
+					CLIHelp.PrintHelp
+					(
+						showModes: true,
+						showOptions: false
+					);
+				}
+				else if (helpType == PublishArgs.HELP_TYPE_OPTIONS)
+				{
+					helpRequestUnderstood = true;
+					CLIHelp.PrintHelp
+					(
+						showModes: false,
+						showOptions: true
+					);
+				}
+			}
+
+			if (helpRequestUnderstood)
+			{
+				Exit(ExitReason.Success);
+				return true;
+			}
+			else
+			{
+				Console.WriteLine("Help request not understood");
+				Exit(ExitReason.Failure);
+				return false;
+			}
+		}
         
         public static void PublishHub(PublishParams param)
         {
@@ -143,7 +201,7 @@ namespace ReCap.Builder
 				else
 				{
 					Console.WriteLine("Specify a target platform. Pass --help for more information.");
-					Environment.Exit(1);
+					Exit(ExitReason.Failure);
 				}
 			}
 			/*if (targetPlatform == PublishTarget.MacOS)
@@ -152,7 +210,7 @@ namespace ReCap.Builder
 				if (GetBoolReply("Publish for Windows instead?"))
 					targetPlatform = PublishTarget.Windows;
 				else
-					Environment.Exit(1);
+					Exit(ExitReason.Failure);
 			}*/
 
 			bool publishForWindowsOnNotWindows = (targetPlatform == PublishTarget.Windows) && !OperatingSystem.IsWindows();
@@ -264,21 +322,22 @@ namespace ReCap.Builder
 			Environment.Exit(dotnetPublish.ExitCode);
 		}
 
-		/*static bool GetBoolReply(string question)
+		static bool GetBoolReply(string question)
 		{
 			bool? answer = null;
 			//string response = string.Empty;
-			while (answer == null) //(string.IsNullOrEmpty(response) || string.IsNullOrWhiteSpace(response))
+			while (!answer.HasValue) //(string.IsNullOrEmpty(response) || string.IsNullOrWhiteSpace(response))
 			{
 				Console.WriteLine(question);
 				string response = Console.ReadLine();
+
 				if (string.IsNullOrEmpty(response) || string.IsNullOrWhiteSpace(response))
 				{
-
 				}
 				else if (bool.TryParse(response, out bool ans))
 				{
 					answer = ans;
+					continue;
 				}
 				else if
 				(
@@ -287,6 +346,7 @@ namespace ReCap.Builder
 				)
 				{
 					answer = true;
+					continue;
 				}
 				else if
 				(
@@ -295,103 +355,12 @@ namespace ReCap.Builder
 				)
 				{
 					answer = false;
+					continue;
 				}
-				else
-				{
-					Console.WriteLine("Invalid response.");
-				}
+				
+				Console.WriteLine($"\n'{response}' is not a valid response - this is a yes or no question, so answer 'yes' or 'no'.\n");
 			}
 			return answer.GetValueOrDefault();
-		}*/
-
-		static void PrintHelp()
-		{
-			string boolValues = " <true|false>";
-			Console.WriteLine("==== DOCUMENTATION FOR RESURRECTION CAPSULE PUBLISH ASSISTANT ====");
-			Console.WriteLine("\n");
-
-			bool isWindows = OperatingSystem.IsWindows();
-			string scriptFileName = "publish";
-			scriptFileName += isWindows
-				? ".bat"
-				: ".sh"
-			;
-
-			if (!isWindows)
-				scriptFileName = $"./{scriptFileName}";
-			
-
-			Console.WriteLine($"\tCommand usage:\n\t{scriptFileName} [OPTIONS, IF DESIRED]");
-			Console.WriteLine("\n");
-			Console.WriteLine($"== AVAILABLE OPTIONS ==");
-			Console.WriteLine("\n");
-
-			
-			string argTitle = PublishArgs.GET_HELP.First();
-			foreach (string argAltName in PublishArgs.GET_HELP.Skip(1))
-			{
-				argTitle += "|" + argAltName;
-			}
-			Console.WriteLine(argTitle);
-			Console.WriteLine("\tShow the help information you're looking at right now.");
-			Console.WriteLine($"\tNo publishing will be performed if this option is passed by any of its {PublishArgs.GET_HELP.Count} names.");
-			
-			Console.WriteLine("\n");
-			argTitle = PublishArgs.PUB_TARGET + " <";
-			var platformValues = PublishArgs.PLATFORM_VALUES.Replace(" ", string.Empty).Replace("'", string.Empty).Trim(',').Split(",");
-			argTitle += platformValues[0];
-			foreach (string targetName in platformValues.Skip(1))
-			{
-				argTitle += "|" + targetName;//$"\t\t{targetName}");
-			}
-			argTitle += ">";
-			Console.WriteLine(argTitle);
-			Console.WriteLine("\tSelect which OS/platform to publish for."); //Acceptable values are as follows:");
-			//Console.WriteLine($",".Replace(", ", "\n\t\t"));
-			Console.WriteLine("\tCurrent OS is used if this option is not specified on a supported OS. On an unsupported OS, publishing will be aborted.");
-			Console.WriteLine("\tIMPORTANT FRUIT WARNING:");
-			Console.WriteLine($"\t\tThe {PublishTarget.MacOS.ToString()} target is planned, but is not fully implemented into the publish assistant at this time."
-			+ "\n\t\tVitor, I'll probably need you to pass that one so we can figure stuff out."
-			+ "\n\t\tAnyone else reading this, pretend there's no such target until further notice, unless you know .NET development on macOS better than I do (aka \"at all\").");
-			
-			
-			Console.WriteLine("\n");
-			Console.WriteLine(PublishArgs.SELF_CONTAINED + boolValues);
-			Console.WriteLine("\tIf true, packages the .NET runtime in with the Resurrection Capsule Hub, avoiding the need for it to be installed separately. (larger file size)");
-			Console.WriteLine("\tIf false, requires a compatible .NET runtime to be installed separately. (smaller file size)");
-			Console.WriteLine("\tDefaults to true if not specified.");
-			
-			
-			Console.WriteLine("\n");
-			Console.WriteLine(PublishArgs.SINGLE_FILE + boolValues);
-			Console.WriteLine("\tIf true, smooshes the Resurrection Capsule Hub down to as few files as possible (one file, ideally).");
-			Console.WriteLine("\tIf false, leaves all files separated from one another.");
-			Console.WriteLine("\tDefaults to false if not specified.");
-			
-			
-			Console.WriteLine("\n");
-			Console.WriteLine(PublishArgs.TRIM + boolValues);
-			Console.WriteLine("\tIf true, trims out unused portions of the .NET runtime and any other dependencies to reduce file size.");
-			Console.WriteLine("\tIf false, leaves everything in.");
-			Console.WriteLine("\tDefaults to false if not specified.");
-			Console.WriteLine($"\tIgnored if {PublishArgs.SELF_CONTAINED} is false.");
-			
-			
-			Console.WriteLine("\n");
-			argTitle = PublishArgs.CONFIGURATION + " <";
-			argTitle += "Debug";
-			argTitle += "|";
-			argTitle += "Release";
-			argTitle += ">";
-			Console.WriteLine(argTitle);
-			Console.WriteLine("\tSpecifies the build configuration to use when publishing. Currently, acceptable values are as follows:");
-			Console.WriteLine("\tDefaults to Release if not specified.");
-			
-			//PublishArgs.PLATFORM_VALUES
-		/*PublishArgs.SELF_CONTAINED
-		PublishArgs.SINGLE_FILE
-		PublishArgs.TRIM
-		PublishArgs.CONFIGURATION*/
 		}
     }
 }

@@ -5,7 +5,7 @@
     <OutputType>Exe</OutputType>
     <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
-    <OutputPath>../builder/</OutputPath>
+    <OutputPath>bin/</OutputPath>
   </PropertyGroup>
 
 </Project>
