@@ -1,8 +1,8 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="using:ReCap.CommonUI"
-        xmlns:rctr="using:ReCap.CommonUI">
-	<Style Selector=":is(Button)">
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:local="using:ReCap.CommonUI"
+					xmlns:rctr="using:ReCap.CommonUI">
+	<ControlTheme x:Key="{x:Type Button}" TargetType="Button">
 		<Setter Property="HorizontalContentAlignment" Value="Center"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 		<Setter Property="Padding" Value="20,4"/>
@@ -33,92 +33,106 @@
 				</Panel>
 			</ControlTemplate>
 		</Setter>
-	</Style>
-	<Style Selector=":is(Button) /template/ rctr|AngledBorder#HoverGlow">
-		<Setter Property="IsVisible" Value="False"/>
-	</Style>
-	<Style Selector=":is(Button) /template/ rctr|AngledBorder#Background">
-		<Setter Property="Background" Value="{TemplateBinding Background}"/>
-		<Setter Property="BorderBrush" Value="#A3FFFFFF"/>
-		<Setter Property="StrokeThickness" Value="2"/>
-		<Setter Property="InnerGlowColor" Value="#40FFFFFF"/>
-	</Style>
-	<Style Selector=":is(Button) /template/ rctr|AngledBorder#Background,
-					StackPanel.rightButtons > :is(Button):nth-child(1):nth-last-child(1) /template/ rctr|AngledBorder#Background">
-		<Setter Property="CornerRadius" Value="4,0,4,0"/>
-	</Style>
-	<Style Selector=":is(Button) /template/ ContentPresenter#PART_ContentPresenter">
-		<Setter Property="TextBlock.Foreground" Value="{TemplateBinding TextBlock.Foreground}"/>
-	</Style>
+		
+
+		<Style Selector="^ /template/ rctr|AngledBorder#HoverGlow">
+			<Setter Property="IsVisible" Value="False"/>
+		</Style>
+		<Style Selector="^ /template/ rctr|AngledBorder#Background">
+			<Setter Property="Background" Value="{TemplateBinding Background}"/>
+			<Setter Property="BorderBrush" Value="#A3FFFFFF"/>
+			<Setter Property="StrokeThickness" Value="2"/>
+			<Setter Property="InnerGlowColor" Value="#40FFFFFF"/>
+		</Style>
+		<Style Selector="^ /template/ rctr|AngledBorder#Background">
+			<Setter Property="CornerRadius" Value="4,0,4,0"/>
+		</Style>
+		<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="TextBlock.Foreground" Value="{TemplateBinding TextBlock.Foreground}"/>
+		</Style>
 
 
-	<Style Selector=":is(Button):pointerover:not(:pressed) /template/ rctr|AngledBorder#Background">
-		<Setter Property="BorderBrush" Value="#C0FFFFFF"/>
-	</Style>
-	<Style Selector=":is(Button):pointerover:not(:pressed) /template/ rctr|AngledBorder#HoverGlow">
-		<Setter Property="IsVisible" Value="True"/>
-		<Style.Animations>
-			<Animation Duration="0:0:1" FillMode="Both" IterationCount="INFINITE" PlaybackDirection="Alternate">
-				<KeyFrame Cue="0%">
-					<Setter Property="Opacity" Value="1"/>
-				</KeyFrame>
-				<KeyFrame Cue="100%">
-					<Setter Property="Opacity" Value="0"/>
-				</KeyFrame>
-			</Animation>
-		</Style.Animations>
-	</Style>
-	<Style Selector=":is(Button):pointerover /template/ ContentPresenter#PART_ContentPresenter">
-		<Setter Property="TextBlock.Foreground" Value="{DynamicResource StrongForegroundBrush}"/>
-	</Style>
+		<Style Selector="^:pointerover:not(:pressed) /template/ rctr|AngledBorder#Background">
+			<Setter Property="BorderBrush" Value="#C0FFFFFF"/>
+		</Style>
+		<Style Selector="^:pointerover:not(:pressed) /template/ rctr|AngledBorder#HoverGlow">
+			<Setter Property="IsVisible" Value="True"/>
+			<Style.Animations>
+				<Animation Duration="0:0:1" FillMode="Both" IterationCount="INFINITE" PlaybackDirection="Alternate">
+					<KeyFrame Cue="0%">
+						<Setter Property="Opacity" Value="1"/>
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="Opacity" Value="0"/>
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+		<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="TextBlock.Foreground" Value="{DynamicResource StrongForegroundBrush}"/>
+		</Style>
 
 
-	<Style Selector=":is(Button):disabled /template/ rctr|AngledBorder#Background">
-		<Setter Property="Background" Value="#40C9C9C9"/>
-		<Setter Property="BorderBrush" Value="#51FFFFFF"/>
-		<Setter Property="InnerGlowColor" Value="#20FFFFFF"/>
-	</Style>
-	<Style Selector=":is(Button):disabled /template/ ContentPresenter#PART_ContentPresenter">
-		<Setter Property="TextBlock.Foreground" Value="{DynamicResource Weak2ForegroundBrush}"/>
-	</Style>
+		<Style Selector="^:disabled /template/ rctr|AngledBorder#Background">
+			<Setter Property="Background" Value="#40C9C9C9"/>
+			<Setter Property="BorderBrush" Value="#51FFFFFF"/>
+			<Setter Property="InnerGlowColor" Value="#20FFFFFF"/>
+		</Style>
+		<Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="TextBlock.Foreground" Value="{DynamicResource Weak2ForegroundBrush}"/>
+		</Style>
 
 
-	<Style Selector="StackPanel.leftButtons,
-					StackPanel.rightButtons">
-		<Setter Property="Orientation" Value="Horizontal"/>
-		<Setter Property="Spacing" Value="0"/>
-	</Style>
-
-	<Style Selector="StackPanel.leftButtons,
-					:is(Button).left">
-		<Setter Property="DockPanel.Dock" Value="Left"/>
-	</Style>
-	<Style Selector="StackPanel.rightButtons,
-					:is(Button).right">
-		<Setter Property="DockPanel.Dock" Value="Right"/>
-	</Style>
+		<Style Selector="^.left">
+			<Setter Property="DockPanel.Dock" Value="Left"/>
+		</Style>
+		<Style Selector="^.right">
+			<Setter Property="DockPanel.Dock" Value="Right"/>
+		</Style>
 
 
 
-	<Style Selector="StackPanel.leftButtons > :is(Button) /template/ rctr|AngledBorder#Background,
-					StackPanel.rightButtons > :is(Button) /template/ rctr|AngledBorder#Background">
-		<Setter Property="CornerRadius" Value="0"/>
-	</Style>
-	<Style Selector="StackPanel.leftButtons > :is(Button):nth-child(1) /template/ rctr|AngledBorder#Background">
-		<Setter Property="CornerRadius" Value="0,0,0,4"/>
-	</Style>
-	<Style Selector="StackPanel.leftButtons > :is(Button):nth-last-child(1) /template/ rctr|AngledBorder#Background">
-		<Setter Property="CornerRadius" Value="0,4,0,0"/>
-	</Style>
-	<Style Selector="StackPanel.rightButtons > :is(Button):nth-child(1) /template/ rctr|AngledBorder#Background">
-		<Setter Property="CornerRadius" Value="4,0,0,0"/>
-	</Style>
-	<Style Selector="StackPanel.rightButtons > :is(Button):nth-last-child(1) /template/ rctr|AngledBorder#Background">
-		<Setter Property="CornerRadius" Value="0,0,4,0"/>
-	</Style>
+		<Style Selector="StackPanel.leftButtons > ^ /template/ rctr|AngledBorder#Background,
+						StackPanel.rightButtons > ^ /template/ rctr|AngledBorder#Background">
+			<Setter Property="CornerRadius" Value="0"/>
+		</Style>
+		<Style Selector="StackPanel.leftButtons > ^:nth-child(1):not(:nth-last-child(1)) /template/ rctr|AngledBorder#Background">
+			<Setter Property="CornerRadius" Value="0,0,0,4"/>
+		</Style>
+		<Style Selector="StackPanel.leftButtons > ^:nth-last-child(1):not(:nth-child(1)) /template/ rctr|AngledBorder#Background">
+			<Setter Property="CornerRadius" Value="0,4,0,0"/>
+		</Style>
+		<Style Selector="StackPanel.rightButtons > ^:nth-child(1):not(:nth-last-child(1)) /template/ rctr|AngledBorder#Background">
+			<Setter Property="CornerRadius" Value="4,0,0,0"/>
+		</Style>
+		<Style Selector="StackPanel.rightButtons > ^:nth-last-child(1):not(:nth-child(1)) /template/ rctr|AngledBorder#Background">
+			<Setter Property="CornerRadius" Value="0,0,4,0"/>
+		</Style>
 
-	<Style Selector=":is(Button).left /template/ rctr|AngledBorder#Background,
-					StackPanel.leftButtons > :is(Button):nth-child(1):nth-last-child(1) /template/ rctr|AngledBorder#Background">
-		<Setter Property="CornerRadius" Value="0,4,0,4"/>
-	</Style>
-</Styles>
+		<Style Selector="^.left /template/ rctr|AngledBorder#Background,
+						StackPanel.leftButtons > ^:nth-child(1):nth-last-child(1) /template/ rctr|AngledBorder#Background">
+			<Setter Property="CornerRadius" Value="0,4,0,4"/>
+		</Style>
+
+		<Style Selector="^.right /template/ rctr|AngledBorder#Background,
+						StackPanel.rightButtons > ^:nth-child(1):nth-last-child(1) /template/ rctr|AngledBorder#Background">
+			<Setter Property="CornerRadius" Value="4,0,4,0"/>
+		</Style>
+	</ControlTheme>
+	<ControlTheme x:Key="{x:Type RepeatButton}" TargetType="RepeatButton" BasedOn="{StaticResource {x:Type Button}}" />
+
+	<ControlTheme x:Key="{x:Type ToggleButton}" TargetType="ToggleButton" BasedOn="{StaticResource {x:Type Button}}">
+		<Style Selector="^:checked /template/ rctr|AngledBorder#Background">
+			<Setter Property="Background" Value="#C0809CAD"/>
+			<Setter Property="InnerGlowColor" Value="#7FA7CBE2"/>
+		</Style>
+		<Style Selector="^:checked /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="TextBlock.Foreground" Value="{DynamicResource Weak1ForegroundBrush}"/>
+		</Style>
+
+		<Style Selector="^:checked:disabled /template/ rctr|AngledBorder#Background">
+			<Setter Property="Background" Value="#C0AAAAAA"/>
+			<Setter Property="InnerGlowColor" Value="#7FE0E0E0"/>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

@@ -13,7 +13,6 @@ namespace ReCap.CommonUI
         {
             double val = NumberConvUtils.ObjectToDouble(value);
             double param = NumberConvUtils.ObjectToDouble(parameter);
-            Debug.WriteLine($"LessThanConverter: {val}, {param}");
             return val < param;
         }
 

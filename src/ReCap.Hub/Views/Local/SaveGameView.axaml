@@ -7,6 +7,12 @@
             xmlns:rctr="using:ReCap.CommonUI"
             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
             x:Class="ReCap.Hub.Views.SaveGameView">
+    <UserControl.Styles>
+        <Style Selector="ScrollViewer#MainContentArea /template/ :is(Control)#VerticalScrollBarFudge">
+            <Setter Property="Height" Value="{Binding #SaveHeaderAreaSizeHelper.Bounds.Height}" />
+            <Setter Property="Margin" Value="{Binding #MainContentArea.Padding, Mode=OneWay}" />
+        </Style>
+    </UserControl.Styles>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -119,7 +125,7 @@
                         Grid.Row="2">
             <DockPanel>
                 <Button x:Name="LaunchGameButton"
-                        Classes="play"
+                        Classes="play right"
                         Content="Play"
                         Command="{Binding DataContext.PlayGameWithSave, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}, FallbackValue={x:Null}}"
                         CommandParameter="{Binding}"

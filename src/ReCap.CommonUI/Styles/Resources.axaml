@@ -5,6 +5,8 @@
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/Button.axaml"/>
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/ListBoxItem.axaml"/>
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/Window.axaml"/>
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/TextBox.axaml"/>
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/ScrollBar.axaml"/>
 
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/SidePane.axaml"/>
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/TopTabs.axaml"/>

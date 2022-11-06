@@ -160,4 +160,22 @@
     <Style Selector="ContentControl.saveGameFooter > StackPanel">
         <Setter Property="Spacing" Value="10"/>
     </Style>
+
+
+    <Style Selector="Button.play">
+        <!--Setter Property="FontSize" Value="{DynamicResource H2FontSize}"/-->
+        <Setter Property="Background" Value="#FF2AC10A"/>
+    </Style>
+    <!--Style Selector="Button.play /template/ rctr|AngledBorder#ExtBackground">
+        <Style.Animations>
+            <Animation Duration="0:0:1" FillMode="Both" IterationCount="INFINITE" PlaybackDirection="Alternate">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="1"/>
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style-->
 </Styles>

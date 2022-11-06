@@ -10,6 +10,7 @@
 
 
 
+			<sys:Double x:Key="ControlContentThemeFontSize">12</sys:Double>
 			<sys:Double x:Key="H1FontSize">30</sys:Double>
 			<sys:Double x:Key="H2FontSize">22</sys:Double>
 			<sys:Double x:Key="H3FontSize">15</sys:Double>
