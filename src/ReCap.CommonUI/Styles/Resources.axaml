@@ -1,13 +1,19 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/Global.axaml"/>
+	<Styles.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/Global.axaml"/>
 
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/Button.axaml"/>
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/ListBoxItem.axaml"/>
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/Window.axaml"/>
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/TextBox.axaml"/>
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/ScrollBar.axaml"/>
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/Button.axaml"/>
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/ListBoxItem.axaml"/>
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/Window.axaml"/>
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/TextBox.axaml"/>
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/ScrollBar.axaml"/>
 
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/SidePane.axaml"/>
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources/TopTabs.axaml"/>
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/SidePane.axaml"/>
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/TopTabs.axaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Styles.Resources>
 </Styles>

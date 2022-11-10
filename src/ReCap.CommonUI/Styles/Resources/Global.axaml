@@ -1,37 +1,33 @@
-<Styles xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:rctr="using:ReCap.CommonUI"
         xmlns:sys="using:System">
-	<Styles.Resources>
-		<ResourceDictionary>
-			<FontWeight x:Key="ComboBoxHeaderThemeFontWeight">Normal</FontWeight>
-			<FontWeight x:Key="SliderHeaderThemeFontWeight">Normal</FontWeight>
-			<FontWeight x:Key="TabItemHeaderThemeFontWeight">Normal</FontWeight>
+	<FontWeight x:Key="ComboBoxHeaderThemeFontWeight">Normal</FontWeight>
+	<FontWeight x:Key="SliderHeaderThemeFontWeight">Normal</FontWeight>
+	<FontWeight x:Key="TabItemHeaderThemeFontWeight">Normal</FontWeight>
 
 
 
-			<sys:Double x:Key="ControlContentThemeFontSize">12</sys:Double>
-			<sys:Double x:Key="H1FontSize">30</sys:Double>
-			<sys:Double x:Key="H2FontSize">22</sys:Double>
-			<sys:Double x:Key="H3FontSize">15</sys:Double>
+	<sys:Double x:Key="ControlContentThemeFontSize">12</sys:Double>
+	<sys:Double x:Key="H1FontSize">30</sys:Double>
+	<sys:Double x:Key="H2FontSize">22</sys:Double>
+	<sys:Double x:Key="H3FontSize">15</sys:Double>
 
 
 
-			<Color x:Key="StrongForegroundColor">#FFFFFFFF</Color>
-			<SolidColorBrush x:Key="StrongForegroundBrush"
-							Color="{DynamicResource StrongForegroundColor}"/>
+	<Color x:Key="StrongForegroundColor">#FFFFFFFF</Color>
+	<SolidColorBrush x:Key="StrongForegroundBrush"
+					Color="{DynamicResource StrongForegroundColor}"/>
 
-			<Color x:Key="Weak1ForegroundColor">#E0FFFFFF</Color>
-			<SolidColorBrush x:Key="Weak1ForegroundBrush"
-							Color="{DynamicResource Weak1ForegroundColor}"/>
+	<Color x:Key="Weak1ForegroundColor">#E0FFFFFF</Color>
+	<SolidColorBrush x:Key="Weak1ForegroundBrush"
+					Color="{DynamicResource Weak1ForegroundColor}"/>
 
-			<Color x:Key="Weak2ForegroundColor">#96FFFFFF</Color>
-			<SolidColorBrush x:Key="Weak2ForegroundBrush"
-							Color="{DynamicResource Weak2ForegroundColor}"/>
+	<Color x:Key="Weak2ForegroundColor">#96FFFFFF</Color>
+	<SolidColorBrush x:Key="Weak2ForegroundBrush"
+					Color="{DynamicResource Weak2ForegroundColor}"/>
 
 
-			<FontFamily x:Key="HeaderFont">avares://ReCap.CommonUI/Res/UI/Font/Header#Pirulen</FontFamily>
-			<FontFamily x:Key="BodyFont">avares://ReCap.CommonUI/Res/UI/Font/Body#RobotoCondensed</FontFamily>
-		</ResourceDictionary>
-	</Styles.Resources>
-</Styles>
+	<FontFamily x:Key="HeaderFont">avares://ReCap.CommonUI/Res/UI/Font/Header#Pirulen</FontFamily>
+	<FontFamily x:Key="BodyFont">avares://ReCap.CommonUI/Res/UI/Font/Body#RobotoCondensed</FontFamily>
+</ResourceDictionary>

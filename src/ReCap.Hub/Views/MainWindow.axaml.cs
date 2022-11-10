@@ -1,3 +1,4 @@
+using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -15,11 +16,16 @@ namespace ReCap.Hub.Views
             this.AttachDevTools();
 #endif
 
-#if !LOCAL_ONLY
-            Classes.Add("topTabs");
-#else
+#if LOCAL_ONLY
             Width -= 194;
             Height -= 67;
+
+            if (System.Environment.GetCommandLineArgs().Any(x => x == "--ui-test"))
+            {
+                Content = new UITestView();
+            }
+#else
+            Classes.Add("topTabs");
 #endif
 
             /*var layerManager = this.FindDescendantOfType<VisualLayerManager>();

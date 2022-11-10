@@ -3,7 +3,7 @@
     <Styles.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Standard/Button.axaml" />
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/Button.axaml" />
 
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/RadioButton.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/Expander.axaml" />
@@ -36,7 +36,7 @@
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/PathIcon.axaml" />
                 <!--ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/RepeatButton.axaml" /-->
                 
-                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Standard/ScrollBar.axaml" />
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/ScrollBar.axaml" />
                 
                 <!--ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/ScrollViewer.axaml" /-->
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/Separator.axaml" />
@@ -47,17 +47,21 @@
                 <!--ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/TabStrip.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/TabStripItem.axaml" /-->
                 
-                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Standard/TextBox.axaml" />
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/TextBox.axaml" />
                 
                 <!--ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/ToggleButton.axaml" /-->
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/ToggleSwitch.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/ToolTip.axaml" />
+                
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/TitleBar.axaml" />
+                
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/TransitioningContentControl.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/TreeView.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/TreeViewItem.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/WindowNotificationManager.axaml" />
-                <!--ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/Window.axaml" /-->
+                
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/Window.axaml" />
+                
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/ComboBox.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/ComboBoxItem.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/ContentControl.axaml" />
@@ -91,8 +95,8 @@
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/ItemsControl.axaml"/>
 	-->
 
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Standard/ListBox.axaml"/>
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Standard/ListBoxItem.axaml"/>
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Controls/ListBox.axaml"/>
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Controls/ListBoxItem.axaml"/>
 
 	<!--
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/Menu.axaml"/>
@@ -102,12 +106,12 @@
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/PathIcon.axaml" />
 	-->
 
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Standard/PopupRoot.axaml"/>
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Controls/PopupRoot.axaml"/>
 
 	<!--
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/ProgressBar.axaml"/>
 	-->
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Standard/ProgressBar.axaml"/>
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Controls/ProgressBar.axaml"/>
 
 	<!--
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/RadioButton.axaml"/>
@@ -116,10 +120,10 @@
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/Slider.axaml"/>
 	-->
 
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Standard/ScrollViewer.axaml"/>
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Controls/ScrollViewer.axaml"/>
 	
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Standard/TabStrip.axaml"/>
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Standard/TabStripItem.axaml"/>
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Controls/TabStrip.axaml"/>
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Controls/TabStripItem.axaml"/>
 
 	<!-- TabControl needs to come after TabStrip as it redefines the inner TabStrip.ItemsPanel-->
 	<!--
@@ -128,7 +132,7 @@
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/TextBox.axaml"/>
 	-->
 
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Standard/ToggleButton.axaml"/>
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Controls/ToggleButton.axaml"/>
 
 	<!--
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/Expander.axaml"/>
@@ -138,7 +142,7 @@
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/UserControl.axaml"/>
 	-->
 
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Standard/Window.axaml"/>
+	<!--StyleInclude Source="avares://ReCap.CommonUI/Styles/Controls/Window.axaml"/-->
 
 	<!--
 	<StyleInclude Source="avares://ReCap.CommonUI/Styles/FluentPlaceholders/Controls/EmbeddableControlRoot.axaml"/>

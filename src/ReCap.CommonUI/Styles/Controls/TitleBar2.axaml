@@ -1,11 +1,15 @@
-<Styles xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:ReCap.CommonUI"
         xmlns:rctr="using:ReCap.CommonUI"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d">
-	<Style Selector="rctr|TitleBar2">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/CaptionButtons.axaml" />
+	</ResourceDictionary.MergedDictionaries>
+	
+	<ControlTheme x:Key="{x:Type rctr:TitleBar2}" TargetType="{x:Type rctr:TitleBar2}">
 		<Setter Property="Margin" Value="0,0,0,-4"/>
 		<Setter Property="VerticalAlignment" Value="Stretch"/>
 		<Setter Property="Padding" Value="20,2"/>
@@ -163,48 +167,34 @@
 				</Grid>
 			</ControlTemplate>
 		</Setter>
-	</Style>
+		<Style Selector="^ /template/ TemplatedControl#PART_DragGrip">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Rectangle Fill="#01000000"/>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+
+		<Style Selector="^ /template/ rctr|AngledBorderEx.activateColoration">
+			<Setter Property="StrokeThickness" Value="1" />
+			<!--Setter Property="BorderBrush" Value="{DynamicResource Window.TitleBar.BorderBrush}" /-->
+			<Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Active}" />
+		</Style>
 
 	
-	<Style Selector="Window:not(Window[SystemDecorations=None]) rctr|TitleBar2,
-					Window.noTitleBar rctr|TitleBar2">
-		<Setter Property="IsVisible" Value="False" />
-	</Style>
-	<Style Selector="rctr|TitleBar2 /template/ TemplatedControl#PART_DragGrip">
-		<Setter Property="Template">
-			<ControlTemplate>
-				<Rectangle Fill="#01000000"/>
-			</ControlTemplate>
-		</Setter>
-	</Style>
-	<Style Selector="Window[IsActive=False] rctr|TitleBar2 /template/ Panel#TitleBarTextArea > TextBlock">
-		<Setter Property="Opacity" Value="0.5" />
-	</Style>
+		<Style Selector="^:not(:active)">
+			<Style Selector="^ /template/ Panel#TitleBarTextArea > TextBlock">
+				<Setter Property="Opacity" Value="0.5" />
+			</Style>
+			
+			<Style Selector="^ /template/ rctr|AngledBorderEx.activateColoration">
+				<Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Inactive}" />
+			</Style>
+		</Style>
 
-	<Style Selector="Window[ExtendClientAreaTitleBarHeightHint=-1] /template/ Border#TitleBarHost > rctr|TitleBar2">
-		<Setter Property="Height" Value="38"/>
-	</Style>
-	<Style Selector="Window:not(Window[WindowState=Maximized], Window[WindowState=FullScreen]) /template/ rctr|TitleBar2 /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
-		<Setter Property="TopLeftCut" Value="10"/>
-	</Style>
-											
-	<Style Selector="Window[ExtendClientAreaTitleBarHeightHint=-1] /template/ rctr|TitleBar2 /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
-		<!--Setter Property="TopRightCut" Value="32"/-->
-	</Style>
-	<Style Selector="Window:not(Window[ExtendClientAreaTitleBarHeightHint=-1]) /template/ rctr|TitleBar2 /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
-		<!--Setter Property="TopRightInset" Value="{Binding #CaptionButtons.Bounds.Width, FallbackValue=30.0}"/-->
-		<!--Setter Property="BottomRightInset" Value="18"/>
-		<Setter Property="BottomRightCut" Value="6"/-->
-		<Setter Property="Margin" Value="0,0,-1,0"/>
-		<!--Setter Property="TopRightCut" Value="32"/-->
-		<Setter Property="TopRightInset" Value="1"/>
-	</Style>
-	<Style Selector="Window:not(Window[ExtendClientAreaTitleBarHeightHint=-1]) /template/ rctr|TitleBar2 /template/ Panel#TitleBarBackgroundMainContainer">
-		<!--Setter Property="Grid.ColumnSpan" Value="2"/-->
-		<Setter Property="ClipToBounds" Value="True"/>
-		<!--Setter Property="Margin" Value="0,0,6,0"/-->
-	</Style>
-	<Style Selector="Window[ExtendClientAreaTitleBarHeightHint=-1] /template/ rctr|TitleBar2 /template/ :is(Control).titlebarWhenExtended">
-		<Setter Property="IsVisible" Value="False" />
-	</Style>
-</Styles>
+		<Style Selector="^:not(:fillScreen) /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
+			<Setter Property="TopLeftCut" Value="10"/>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

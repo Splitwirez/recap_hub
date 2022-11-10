@@ -1,7 +1,22 @@
-<Styles xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<Styles.Resources>
-		<ResourceDictionary>
-		</ResourceDictionary>
-	</Styles.Resources>
-</Styles>
+	<Color x:Key="Button.Background.Idle">#40A7CBE2</Color>
+	<Color x:Key="Button.BorderBrush.Idle">#A3FFFFFF</Color>
+	<Color x:Key="Button.InnerGlow.Idle">#40FFFFFF</Color>
+
+	
+	<Color x:Key="Button.BorderBrush.Hover">#C0FFFFFF</Color>
+	<Color x:Key="Button.InnerGlow.Hover">#7FFFFFFF</Color>
+
+	<Color x:Key="Button.Background.Checked">#C0809CAD</Color>
+	<Color x:Key="Button.InnerGlow.Checked">#7FA7CBE2</Color>
+
+	
+	<Color x:Key="Button.Background.Disabled">#40C9C9C9</Color>
+	<Color x:Key="Button.BorderBrush.Disabled">#51FFFFFF</Color>
+	<Color x:Key="Button.InnerGlow.Disabled">#20FFFFFF</Color>
+
+
+	<Color x:Key="Button.Background.DisabledChecked">#C0AAAAAA</Color>
+	<Color x:Key="Button.InnerGlow.DisabledChecked">#7FE0E0E0</Color>
+</ResourceDictionary>

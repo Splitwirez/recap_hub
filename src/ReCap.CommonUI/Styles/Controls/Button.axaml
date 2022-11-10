@@ -8,17 +8,17 @@
 		<Setter Property="Padding" Value="20,4"/>
 		<!--Setter Property="FontSize" Value="36"/>
 		<Setter Property="Foreground" Value="#96FFFFFF"/-->
-		<Setter Property="Background" Value="#40A7CBE2"/>
+		<Setter Property="Background" Value="{DynamicResource Button.Background.Idle}"/>
 		<Setter Property="Foreground" Value="{DynamicResource Weak1ForegroundBrush}"/>
 		<Setter Property="FontFamily" Value="{DynamicResource HeaderFont}"/>
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Panel>
-					<rctr:AngledBorder x:Name="Background"/>
+					<rctr:AngledBorder x:Name="AutoCornerBackground"/>
 					<rctr:AngledBorder x:Name="HoverGlow"
-									StrokeThickness="{Binding #Background.StrokeThickness, Mode=OneWay}"
-									CornerRadius="{Binding #Background.CornerRadius, Mode=OneWay}"
-									InnerGlowColor="#7FFFFFFF"
+									StrokeThickness="{Binding #AutoCornerBackground.StrokeThickness, Mode=OneWay}"
+									CornerRadius="{Binding #AutoCornerBackground.CornerRadius, Mode=OneWay}"
+									InnerGlowColor="{DynamicResource Button.InnerGlow.Hover}"
 									InnerGlowSize="2"
 									/>
 					<ContentPresenter x:Name="PART_ContentPresenter"
@@ -38,13 +38,13 @@
 		<Style Selector="^ /template/ rctr|AngledBorder#HoverGlow">
 			<Setter Property="IsVisible" Value="False"/>
 		</Style>
-		<Style Selector="^ /template/ rctr|AngledBorder#Background">
+		<Style Selector="^ /template/ rctr|AngledBorder#AutoCornerBackground">
 			<Setter Property="Background" Value="{TemplateBinding Background}"/>
-			<Setter Property="BorderBrush" Value="#A3FFFFFF"/>
+			<Setter Property="BorderBrush" Value="{DynamicResource Button.BorderBrush.Idle}"/>
 			<Setter Property="StrokeThickness" Value="2"/>
-			<Setter Property="InnerGlowColor" Value="#40FFFFFF"/>
+			<Setter Property="InnerGlowColor" Value="{DynamicResource Button.InnerGlow.Idle}"/>
 		</Style>
-		<Style Selector="^ /template/ rctr|AngledBorder#Background">
+		<Style Selector="^ /template/ rctr|AngledBorder#AutoCornerBackground">
 			<Setter Property="CornerRadius" Value="4,0,4,0"/>
 		</Style>
 		<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
@@ -52,8 +52,8 @@
 		</Style>
 
 
-		<Style Selector="^:pointerover:not(:pressed) /template/ rctr|AngledBorder#Background">
-			<Setter Property="BorderBrush" Value="#C0FFFFFF"/>
+		<Style Selector="^:pointerover:not(:pressed) /template/ rctr|AngledBorder#AutoCornerBackground">
+			<Setter Property="BorderBrush" Value="{DynamicResource Button.BorderBrush.Hover}"/>
 		</Style>
 		<Style Selector="^:pointerover:not(:pressed) /template/ rctr|AngledBorder#HoverGlow">
 			<Setter Property="IsVisible" Value="True"/>
@@ -73,10 +73,10 @@
 		</Style>
 
 
-		<Style Selector="^:disabled /template/ rctr|AngledBorder#Background">
-			<Setter Property="Background" Value="#40C9C9C9"/>
-			<Setter Property="BorderBrush" Value="#51FFFFFF"/>
-			<Setter Property="InnerGlowColor" Value="#20FFFFFF"/>
+		<Style Selector="^:disabled /template/ rctr|AngledBorder#AutoCornerBackground">
+			<Setter Property="Background" Value="{DynamicResource Button.Background.Disabled}"/>
+			<Setter Property="BorderBrush" Value="{DynamicResource Button.BorderBrush.Disabled}"/>
+			<Setter Property="InnerGlowColor" Value="{DynamicResource Button.InnerGlow.Disabled}"/>
 		</Style>
 		<Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
 			<Setter Property="TextBlock.Foreground" Value="{DynamicResource Weak2ForegroundBrush}"/>
@@ -85,54 +85,35 @@
 
 		<Style Selector="^.left">
 			<Setter Property="DockPanel.Dock" Value="Left"/>
+			
+			<Style Selector="^ /template/ rctr|AngledBorder#AutoCornerBackground">
+				<Setter Property="CornerRadius" Value="0,4,0,4"/>
+			</Style>
 		</Style>
 		<Style Selector="^.right">
 			<Setter Property="DockPanel.Dock" Value="Right"/>
+
+			<Style Selector="^ /template/ rctr|AngledBorder#AutoCornerBackground">
+				<Setter Property="CornerRadius" Value="4,0,4,0"/>
+			</Style>
 		</Style>
 
 
-
-		<Style Selector="StackPanel.leftButtons > ^ /template/ rctr|AngledBorder#Background,
-						StackPanel.rightButtons > ^ /template/ rctr|AngledBorder#Background">
-			<Setter Property="CornerRadius" Value="0"/>
-		</Style>
-		<Style Selector="StackPanel.leftButtons > ^:nth-child(1):not(:nth-last-child(1)) /template/ rctr|AngledBorder#Background">
-			<Setter Property="CornerRadius" Value="0,0,0,4"/>
-		</Style>
-		<Style Selector="StackPanel.leftButtons > ^:nth-last-child(1):not(:nth-child(1)) /template/ rctr|AngledBorder#Background">
-			<Setter Property="CornerRadius" Value="0,4,0,0"/>
-		</Style>
-		<Style Selector="StackPanel.rightButtons > ^:nth-child(1):not(:nth-last-child(1)) /template/ rctr|AngledBorder#Background">
-			<Setter Property="CornerRadius" Value="4,0,0,0"/>
-		</Style>
-		<Style Selector="StackPanel.rightButtons > ^:nth-last-child(1):not(:nth-child(1)) /template/ rctr|AngledBorder#Background">
-			<Setter Property="CornerRadius" Value="0,0,4,0"/>
-		</Style>
-
-		<Style Selector="^.left /template/ rctr|AngledBorder#Background,
-						StackPanel.leftButtons > ^:nth-child(1):nth-last-child(1) /template/ rctr|AngledBorder#Background">
-			<Setter Property="CornerRadius" Value="0,4,0,4"/>
-		</Style>
-
-		<Style Selector="^.right /template/ rctr|AngledBorder#Background,
-						StackPanel.rightButtons > ^:nth-child(1):nth-last-child(1) /template/ rctr|AngledBorder#Background">
-			<Setter Property="CornerRadius" Value="4,0,4,0"/>
-		</Style>
 	</ControlTheme>
 	<ControlTheme x:Key="{x:Type RepeatButton}" TargetType="RepeatButton" BasedOn="{StaticResource {x:Type Button}}" />
 
 	<ControlTheme x:Key="{x:Type ToggleButton}" TargetType="ToggleButton" BasedOn="{StaticResource {x:Type Button}}">
-		<Style Selector="^:checked /template/ rctr|AngledBorder#Background">
-			<Setter Property="Background" Value="#C0809CAD"/>
-			<Setter Property="InnerGlowColor" Value="#7FA7CBE2"/>
+		<Style Selector="^:checked /template/ rctr|AngledBorder#AutoCornerBackground">
+			<Setter Property="Background" Value="{DynamicResource Button.Background.Checked}"/>
+			<Setter Property="InnerGlowColor" Value="{DynamicResource Button.InnerGlow.Checked}"/>
 		</Style>
 		<Style Selector="^:checked /template/ ContentPresenter#PART_ContentPresenter">
 			<Setter Property="TextBlock.Foreground" Value="{DynamicResource Weak1ForegroundBrush}"/>
 		</Style>
 
-		<Style Selector="^:checked:disabled /template/ rctr|AngledBorder#Background">
-			<Setter Property="Background" Value="#C0AAAAAA"/>
-			<Setter Property="InnerGlowColor" Value="#7FE0E0E0"/>
+		<Style Selector="^:checked:disabled /template/ rctr|AngledBorder#AutoCornerBackground">
+			<Setter Property="Background" Value="{DynamicResource Button.Background.DisabledChecked}"/>
+			<Setter Property="InnerGlowColor" Value="{DynamicResource Button.InnerGlow.DisabledChecked}"/>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

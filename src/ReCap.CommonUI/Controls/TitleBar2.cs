@@ -32,6 +32,9 @@ namespace ReCap.CommonUI
     [TemplatePart("PART_CaptionButtons", typeof(CaptionButtons))]
     public partial class TitleBar2 : ContentControl
     {
+        const string PSE_ACTIVE = ":active";
+        const string PSE_FILL_SCREEN = ":fillScreen";
+
         static bool DefaultToLeftSideButtons => RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
         public static readonly StyledProperty<bool> LeftSideButtonsProperty =
             AvaloniaProperty.Register<TitleBar2, bool>(nameof(LeftSideButtons), defaultValue: DefaultToLeftSideButtons);
@@ -127,6 +130,65 @@ namespace ReCap.CommonUI
                 });
             }
         }
+
+        protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
+        {
+            base.OnAttachedToLogicalTree(e);
+            if (e.Root is Window win)
+            {
+                Attach(win);
+            }
+        }
+
+        protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
+        {
+            base.OnDetachedFromLogicalTree(e);
+            Detach();
+        }
+
+        Window _rootWindow = null;
+        IDisposable _stateChangedHandler = null;
+        void Attach(Window window)
+        {
+            if (window == null)
+                return;
+            
+            _stateChangedHandler = window.GetPropertyChangedObservable(Window.WindowStateProperty).Subscribe(e => 
+            {
+                if (e.Sender is Window win)
+                    FillsScreen(win);
+            });
+
+            window.Activated += RootWindow_Activated;
+            window.Deactivated += RootWindow_Deactivated;
+            
+            _rootWindow = window;
+            PseudoClasses.Set(PSE_ACTIVE, window.IsActive);
+            FillsScreen(window);
+        }
+
+        void FillsScreen(Window win)
+            => PseudoClasses.Set(PSE_FILL_SCREEN, (win.WindowState == WindowState.Maximized) || (win.WindowState == WindowState.FullScreen));
+
+        void Detach()
+        {
+            if (_stateChangedHandler != null)
+                _stateChangedHandler.Dispose();
+            
+            if (_rootWindow == null)
+                return;
+            
+            _rootWindow.Activated -= RootWindow_Activated;
+            _rootWindow.Deactivated -= RootWindow_Deactivated;
+
+            _rootWindow = null;
+        }
+
+        void RootWindow_Activated(object sender, EventArgs e)
+            => PseudoClasses.Set(PSE_ACTIVE, true);
+
+        void RootWindow_Deactivated(object sender, EventArgs e)
+            => PseudoClasses.Set(PSE_ACTIVE, false);
 
         
 

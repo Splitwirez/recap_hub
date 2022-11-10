@@ -1,135 +1,131 @@
-<Styles xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:ReCap.CommonUI"
         xmlns:rctr="using:ReCap.CommonUI"
         xmlns:sys="using:System">
-	<Styles.Resources>
-		<ResourceDictionary>
-			<SolidColorBrush x:Key="WindowBodyBorderBrush">#FFC0C0C0</SolidColorBrush>
+	<SolidColorBrush x:Key="WindowBodyBorderBrush">#FFC0C0C0</SolidColorBrush>
 
-			<Color x:Key="WindowBodyBackgroundColor">#F7111213</Color>
-			<Color x:Key="WindowBodyBackgroundGlowColor">#7FFFFFFF</Color>
-			<Color x:Key="WindowBodyBackgroundGlowMidColor">#40FFFFFF</Color>
-			<Color x:Key="WindowBodyBackgroundGlowEndColor">#00FFFFFF</Color>
-			<SolidColorBrush x:Key="WindowBodyBackgroundBrush" Color="{DynamicResource WindowBodyBackgroundColor}"/>
-			<GradientStops x:Key="WindowBodyBackgroundGlowStops">
-				<GradientStop Offset="0" Color="{DynamicResource WindowBodyBackgroundGlowColor}"/>
-				<GradientStop Offset="0.375" Color="{DynamicResource WindowBodyBackgroundGlowMidColor}"/>
-				<GradientStop Offset="1" Color="{DynamicResource WindowBodyBackgroundGlowEndColor}"/>
-			</GradientStops>
+	<Color x:Key="WindowBodyBackgroundColor">#F7111213</Color>
+	<Color x:Key="WindowBodyBackgroundGlowColor">#7FFFFFFF</Color>
+	<Color x:Key="WindowBodyBackgroundGlowMidColor">#40FFFFFF</Color>
+	<Color x:Key="WindowBodyBackgroundGlowEndColor">#00FFFFFF</Color>
+	<SolidColorBrush x:Key="WindowBodyBackgroundBrush" Color="{DynamicResource WindowBodyBackgroundColor}"/>
+	<GradientStops x:Key="WindowBodyBackgroundGlowStops">
+		<GradientStop Offset="0" Color="{DynamicResource WindowBodyBackgroundGlowColor}"/>
+		<GradientStop Offset="0.375" Color="{DynamicResource WindowBodyBackgroundGlowMidColor}"/>
+		<GradientStop Offset="1" Color="{DynamicResource WindowBodyBackgroundGlowEndColor}"/>
+	</GradientStops>
 
 
 
-			<LinearGradientBrush x:Key="Window.TitleBar.BackgroundBrush.Active"
-								StartPoint="0%,0%"
-								EndPoint="0%,100%">
-				<GradientStop Offset="0" Color="#BBB7CFDA"/>
-				<GradientStop Offset="1" Color="#7C93A5AD"/>
-				<!--GradientStop Offset="0.38" Color="#72BBD2DC"/-->
-			</LinearGradientBrush>
-			<LinearGradientBrush x:Key="Window.TitleBar.BackgroundBrush.Inactive"
-								StartPoint="0%,0%"
-								EndPoint="0%,100%">
-				<GradientStop Offset="0" Color="#BBD8D8D8"/>
-				<GradientStop Offset="1" Color="#7CAAAAAA"/>
-				<!--GradientStop Offset="0.38" Color="#72DBDBDB"/-->
-			</LinearGradientBrush>
-			<Color x:Key="Window.Chrome.BorderBrush.Color0">#40FFFFFF</Color>
-			<Color x:Key="Window.Chrome.BorderBrush.Color1">#BDA4B2B9</Color>
-			<Color x:Key="Window.Chrome.BorderBrush.Color2">#C0FFFFFF</Color>
-			<GradientStops x:Key="Window.Chrome.BorderBrush.GradientStops">
-				<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
-				<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
-				<!--GradientStop Offset="0" Color=""/>
-				<GradientStop Offset="0.5" Color="#E0FFFFFF"/>
-				<GradientStop Offset="0.5" Color="#EDA4B2B9"/>
-				<GradientStop Offset="1" Color="#E0FFFFFF"/-->
-			</GradientStops>
-			<LinearGradientBrush x:Key="Window.TitleBar.BorderBrush"
-								StartPoint="0,0"
-								EndPoint="0,40"
-								GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}" />
-			<!--
-								StartPoint="0%,0%"
-								EndPoint="0%,100%"-->
-			<!--
-				<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
-				<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
-			</LinearGradientBrush-->
-			<!--
-								StartPoint="0%,0%"
-								EndPoint="0%,300%"
-								GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}"/-->
-			<!--
-								StartPoint="0,0"
-								EndPoint="0,100"-->
+	<LinearGradientBrush x:Key="Window.TitleBar.BackgroundBrush.Active"
+						StartPoint="0%,0%"
+						EndPoint="0%,100%">
+		<GradientStop Offset="0" Color="#BBB7CFDA"/>
+		<GradientStop Offset="1" Color="#7C93A5AD"/>
+		<!--GradientStop Offset="0.38" Color="#72BBD2DC"/-->
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="Window.TitleBar.BackgroundBrush.Inactive"
+						StartPoint="0%,0%"
+						EndPoint="0%,100%">
+		<GradientStop Offset="0" Color="#BBD8D8D8"/>
+		<GradientStop Offset="1" Color="#7CAAAAAA"/>
+		<!--GradientStop Offset="0.38" Color="#72DBDBDB"/-->
+	</LinearGradientBrush>
+	<Color x:Key="Window.Chrome.BorderBrush.Color0">#40FFFFFF</Color>
+	<Color x:Key="Window.Chrome.BorderBrush.Color1">#BDA4B2B9</Color>
+	<Color x:Key="Window.Chrome.BorderBrush.Color2">#C0FFFFFF</Color>
+	<GradientStops x:Key="Window.Chrome.BorderBrush.GradientStops">
+		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
+		<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
+		<!--GradientStop Offset="0" Color=""/>
+		<GradientStop Offset="0.5" Color="#E0FFFFFF"/>
+		<GradientStop Offset="0.5" Color="#EDA4B2B9"/>
+		<GradientStop Offset="1" Color="#E0FFFFFF"/-->
+	</GradientStops>
+	<LinearGradientBrush x:Key="Window.TitleBar.BorderBrush"
+						StartPoint="0,0"
+						EndPoint="0,40"
+						GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}" />
+	<!--
+						StartPoint="0%,0%"
+						EndPoint="0%,100%"-->
+	<!--
+		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
+		<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
+	</LinearGradientBrush-->
+	<!--
+						StartPoint="0%,0%"
+						EndPoint="0%,300%"
+						GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}"/-->
+	<!--
+						StartPoint="0,0"
+						EndPoint="0,100"-->
 
 
 
 
 
-			<!--rctr:SlicedImage x:Key="Window.TitleBar.Main"
-							Source="avares://ReCap.CommonUI/Res/UI/Window/TitleBarMain.png"
-							BorderThickness="12,42,0,10"/>
-			<rctr:SlicedImage x:Key="Window.TitleBar.Right"
-							Source="avares://ReCap.CommonUI/Res/UI/Window/TitleBarRight.png"
-							BorderThickness="38,42,12,10"/>
+	<!--rctr:SlicedImage x:Key="Window.TitleBar.Main"
+					Source="avares://ReCap.CommonUI/Res/UI/Window/TitleBarMain.png"
+					BorderThickness="12,42,0,10"/>
+	<rctr:SlicedImage x:Key="Window.TitleBar.Right"
+					Source="avares://ReCap.CommonUI/Res/UI/Window/TitleBarRight.png"
+					BorderThickness="38,42,12,10"/>
 
 
 
-			<rctr:SlicedImage x:Key="Window.Body"
-							Source="avares://ReCap.CommonUI/Res/UI/Window/Body.png"
-							BorderThickness="24,6"/>
-			<rctr:SlicedImage x:Key="Window.Footer"
-							Source="avares://ReCap.CommonUI/Res/UI/Window/Footer.png"
-							BorderThickness="24,6"/>
-			<rctr:SlicedImage x:Key="Window.Underlay"
-							Source="avares://ReCap.CommonUI/Res/UI/Window/Underlay.png"
-							BorderThickness="10"/>
-			<rctr:SlicedImage x:Key="Window.BottomEdgeTrim"
-							Source="avares://ReCap.CommonUI/Res/UI/Window/BottomEdgeTrim.png"
-							BorderThickness="22,0"/-->
-			<LinearGradientBrush x:Key="Window.Body.Background"
-								StartPoint="0,0"
-								EndPoint="0,4"
-								SpreadMethod="Repeat">
-				<GradientStop Offset="0.5" Color="#C0030303"/>
-				<GradientStop Offset="0.75" Color="#C0070707"/>
-			</LinearGradientBrush>
-			<!--e0000000-->
-			<LinearGradientBrush x:Key="Window.Body.BorderBrush"
-								StartPoint="0%,-50%"
-								EndPoint="0%,150%">
-				<GradientStop Offset="-0.25" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
-				<GradientStop Offset="0.5" Color="{DynamicResource Window.Chrome.BorderBrush.Color1}" />
-				<GradientStop Offset="1.25" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
-			</LinearGradientBrush>
-			<!--
-								StartPoint="0%,-200%"
-								EndPoint="0%,200%"
-								GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}"/-->
-			<!--SolidColorBrush x:Key="Window.Body.BorderBrush">#EDA4B2B9</SolidColorBrush-->
+	<rctr:SlicedImage x:Key="Window.Body"
+					Source="avares://ReCap.CommonUI/Res/UI/Window/Body.png"
+					BorderThickness="24,6"/>
+	<rctr:SlicedImage x:Key="Window.Footer"
+					Source="avares://ReCap.CommonUI/Res/UI/Window/Footer.png"
+					BorderThickness="24,6"/>
+	<rctr:SlicedImage x:Key="Window.Underlay"
+					Source="avares://ReCap.CommonUI/Res/UI/Window/Underlay.png"
+					BorderThickness="10"/>
+	<rctr:SlicedImage x:Key="Window.BottomEdgeTrim"
+					Source="avares://ReCap.CommonUI/Res/UI/Window/BottomEdgeTrim.png"
+					BorderThickness="22,0"/-->
+	<LinearGradientBrush x:Key="Window.Body.Background"
+						StartPoint="0,0"
+						EndPoint="0,4"
+						SpreadMethod="Repeat">
+		<GradientStop Offset="0.5" Color="#C0030303"/>
+		<GradientStop Offset="0.75" Color="#C0070707"/>
+	</LinearGradientBrush>
+	<!--e0000000-->
+	<LinearGradientBrush x:Key="Window.Body.BorderBrush"
+						StartPoint="0%,-50%"
+						EndPoint="0%,150%">
+		<GradientStop Offset="-0.25" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
+		<GradientStop Offset="0.5" Color="{DynamicResource Window.Chrome.BorderBrush.Color1}" />
+		<GradientStop Offset="1.25" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
+	</LinearGradientBrush>
+	<!--
+						StartPoint="0%,-200%"
+						EndPoint="0%,200%"
+						GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}"/-->
+	<!--SolidColorBrush x:Key="Window.Body.BorderBrush">#EDA4B2B9</SolidColorBrush-->
 
-			<LinearGradientBrush x:Key="Window.BottomEdgeTrim.BorderBrush"
-								StartPoint="0%,-25%"
-								EndPoint="0%,100%"
-								GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}" />
-			<!--
-				<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
-				<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
-			</LinearGradientBrush-->
-			<!--
-								StartPoint="0%,-300%"
-								EndPoint="0%,100%"
-								GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}"/-->
-			
-			
-			<SolidColorBrush x:Key="Window.HoloShadow.Background.Translucent">#9D0D0F12</SolidColorBrush>
-			<SolidColorBrush x:Key="Window.HoloShadow.BorderBrush.Translucent">#6F5D5F62</SolidColorBrush>
-			
-			<SolidColorBrush x:Key="Window.HoloShadow.Background.Opaque.Active">#FF25272A</SolidColorBrush>
-			<SolidColorBrush x:Key="Window.HoloShadow.Background.Opaque.Inactive">#FF3D3F42</SolidColorBrush>
-			<SolidColorBrush x:Key="Window.HoloShadow.BorderBrush.Opaque">#FF515356</SolidColorBrush>
-		</ResourceDictionary>
-	</Styles.Resources>
-</Styles>
+	<LinearGradientBrush x:Key="Window.BottomEdgeTrim.BorderBrush"
+						StartPoint="0%,-25%"
+						EndPoint="0%,100%"
+						GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}" />
+	<!--
+		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
+		<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
+	</LinearGradientBrush-->
+	<!--
+						StartPoint="0%,-300%"
+						EndPoint="0%,100%"
+						GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}"/-->
+	
+	
+	<SolidColorBrush x:Key="Window.HoloShadow.Background.Translucent">#9D0D0F12</SolidColorBrush>
+	<SolidColorBrush x:Key="Window.HoloShadow.BorderBrush.Translucent">#6F5D5F62</SolidColorBrush>
+	
+	<SolidColorBrush x:Key="Window.HoloShadow.Background.Opaque.Active">#FF25272A</SolidColorBrush>
+	<SolidColorBrush x:Key="Window.HoloShadow.Background.Opaque.Inactive">#FF3D3F42</SolidColorBrush>
+	<SolidColorBrush x:Key="Window.HoloShadow.BorderBrush.Opaque">#FF515356</SolidColorBrush>
+</ResourceDictionary>

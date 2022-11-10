@@ -1,0 +1,266 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d">
+	<rctr:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+	<WindowState x:Key="MaxState">Maximized</WindowState>
+	<rctr:CompareToConverter x:Key="IsMaxStateConverter">
+		<rctr:CompareToConverter.CompareTo>
+			<WindowState>Maximized</WindowState>
+		</rctr:CompareToConverter.CompareTo>
+	</rctr:CompareToConverter>
+
+	<ControlTheme x:Key="CaptionButton" TargetType="Button">
+
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="VerticalAlignment" Value="Top"/>
+		<Setter Property="Padding" Value="0,8,0,0"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel Background="#01000000">
+					<rctr:AngledBorder x:Name="BgElement"
+									StrokeThickness="2"
+									CornerRadius="0,5,0,5"
+									Width="43"
+									Height="23"
+									Margin="{TemplateBinding Padding}">
+						<!--
+									Background="{TemplateBinding Background}"
+									BorderBrush="{TemplateBinding BorderBrush}"
+						-->
+						<ContentPresenter x:Name="PART_ContentPresenter"
+										Background="Transparent"
+										BorderBrush="Transparent"
+										BorderThickness="0"
+										Content="{TemplateBinding Content}"
+										ContentTemplate="{TemplateBinding ContentTemplate}"
+										Padding="0"
+										HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+										VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+					</rctr:AngledBorder>
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+		
+		
+		<!--Style Selector="Window[IsActive=false] /template/ rctr|TitleBar2 /template/ CaptionButtons /template/ ^ /template/ rctr|AngledBorder#BgElement">
+			<Setter Property="Background">
+				<RadialGradientBrush Center="50%,50%" GradientOrigin="50%,50%" Radius="0.625">
+					<GradientStop Offset="0.125" Color="#FF964B4B"/>
+					<GradientStop Offset="1" Color="#FF562B2B"/>
+				</RadialGradientBrush>
+			</Setter>
+			<Setter Property="BorderBrush" Value="#FFDDD4D4"/>
+		</Style>
+		<Style Selector="rctr|TitleBar2:not(:active) ^ /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Foreground" Value="#FFDD6E6E"/>
+		</Style-->
+
+
+		<!--rctr|TitleBar2:not(:active) /template/ -->
+		<Style Selector="^:not(.active)">
+		<!--:not(:pointerover, :pressed, :disabled)-->
+			<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
+				<Setter Property="Background">
+					<RadialGradientBrush Center="50%,50%" GradientOrigin="50%,50%" Radius="0.625">
+						<GradientStop Offset="0.125" Color="#FF964B4B"/>
+						<GradientStop Offset="1" Color="#FF562B2B"/>
+					</RadialGradientBrush>
+				</Setter>
+			</Style>
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="BorderBrush" Value="#FFDDD4D4"/>
+				<Setter Property="Foreground" Value="#FFDD6E6E"/>
+			</Style>
+		</Style>
+		
+		
+		<Style Selector="rctr|TitleBar2.active /template/ ^,
+						^:pressed">
+			<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
+				<Setter Property="Background">
+					<RadialGradientBrush Center="50%,50%" GradientOrigin="50%,50%" Radius="0.625">
+						<GradientStop Offset="0.125" Color="#FF970000"/>
+						<GradientStop Offset="1" Color="#FF590000"/>
+					</RadialGradientBrush>
+				</Setter>
+				<Setter Property="BorderBrush" Value="#FFDECCCC"/>
+			</Style>
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Foreground" Value="#FFDE0000"/>
+			</Style>
+		</Style>
+
+		<Style Selector="^:pointerover:not(:pressed)">
+			<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
+				<Setter Property="Background">
+					<RadialGradientBrush Center="50%,50%" GradientOrigin="50%,50%" Radius="0.625">
+						<GradientStop Offset="0.125" Color="#FFFF0000"/>
+						<GradientStop Offset="1" Color="#FFFD0E0E"/>
+					</RadialGradientBrush>
+				</Setter>
+				<Setter Property="BorderBrush" Value="#FFFFCCCC"/>
+			</Style>
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Foreground" Value="White"/>
+			</Style>
+		</Style>
+
+		<Style Selector="^:pressed">
+			<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
+				<Setter Property="BorderBrush" Value="#FFA00000"/>
+			</Style>
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Foreground" Value="#FF120000"/>
+			</Style>
+		</Style>
+	</ControlTheme>
+
+
+	<ControlTheme x:Key="{x:Type CaptionButtons}" TargetType="CaptionButtons">
+    	<Setter Property="Template">
+      		<ControlTemplate>
+			<!--StackPanel Spacing="2" VerticalAlignment="Stretch" TextElement.FontSize="10" Orientation="Horizontal">
+				<Button x:Name="PART_FullScreenButton"
+						Theme="{StaticResource FluentCaptionButton}"
+						IsVisible="False">
+					<Viewbox Width="11" Margin="2">
+						<Path Name="FullScreenButtonPath"
+							Stretch="UniformToFill"
+							Fill="{TemplateBinding Foreground}"
+							Data="M2048 2048v-819h-205v469l-1493 -1493h469v-205h-819v819h205v-469l1493 1493h-469v205h819z" />
+					</Viewbox>
+				</Button>
+				<Button x:Name="PART_MinimiseButton"
+						Theme="{StaticResource FluentCaptionButton}">
+					<Viewbox Width="11" Margin="2">
+						<Path Stretch="UniformToFill"
+							Fill="{TemplateBinding Foreground}"
+							Data="M2048 1229v-205h-2048v205h2048z" />
+					</Viewbox>
+				</Button>
+				<Button x:Name="PART_RestoreButton"
+						Theme="{StaticResource FluentCaptionButton}">
+					<Viewbox Width="11" Margin="2">
+						<Viewbox.RenderTransform>
+							<RotateTransform Angle="-90" />
+						</Viewbox.RenderTransform>
+						<Path Name="RestoreButtonPath"
+							Stretch="UniformToFill"
+							Fill="{TemplateBinding Foreground}"
+							Data="M2048 2048v-2048h-2048v2048h2048zM1843 1843h-1638v-1638h1638v1638z"/>
+					</Viewbox>
+				</Button>
+				<Button x:Name="PART_CloseButton"
+						Background="#ffe81123"
+						BorderBrush="#fff1707a"
+						Theme="{StaticResource FluentCaptionButton}">
+						<Viewbox Width="11" Margin="2">
+						<Path Stretch="UniformToFill"
+							Fill="{TemplateBinding Foreground}"
+							Data="M1169 1024l879 -879l-145 -145l-879 879l-879 -879l-145 145l879 879l-879 879l145 145l879 -879l879 879l145 -145z" />
+					</Viewbox>
+				</Button>
+			</StackPanel-->
+			<StackPanel x:Name="CaptionButtons"
+						Classes="captionButtons"
+						Margin="0,0,0,5"
+						VerticalAlignment="Top"
+						Spacing="2"
+						Orientation="Horizontal"
+						ZIndex="99999999"
+						DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay}">
+					<Button x:Name="PART_FullScreenButton"
+							Theme="{DynamicResource CaptionButton}"
+							IsVisible="False"
+							Classes.active="{Binding IsActive, FallbackValue=True}">
+					</Button>
+					<!--
+							Classes.active="{Binding $parent[Window].IsActive}"
+					-->
+					<Button x:Name="PART_MinimiseButton"
+							Theme="{DynamicResource CaptionButton}"
+							Classes.active="{Binding IsActive, FallbackValue=True}">
+						<Path Data="M 0 0 L 13 0 L 13 4 L 0 4 Z"/>
+					</Button>
+					<Button x:Name="PART_RestoreButton"
+							Theme="{DynamicResource CaptionButton}"
+							Classes.active="{Binding IsActive, FallbackValue=True}">
+						<Path Classes="maxRestoreIcon"
+							Classes.maximized="{Binding WindowState, Converter={StaticResource IsMaxStateConverter}}"
+							Data="M 0 8 H 11 V -1 H 0 Z M 2 1 H 9 V 6 H 2 Z"/>
+					</Button>
+					<Button x:Name="PART_CloseButton"
+							Theme="{DynamicResource CaptionButton}"
+							Classes.active="{Binding IsActive, FallbackValue=True}">
+						<Path Data="M 0 0 L 3 0 L 5 2 L 7 0 L 10 0
+											L 10 0.5 L 7 4.5 L 10 8.5 L 10 9
+											L 7 9 L 5 7 L 3 9 L 0 9
+											L 0 8.5 L 3 4.5 L 0 0.5 Z"/>
+								<!--M 0 0 L 4 0 L 5.5 2 L 7 0 L 11 0
+											L 9 4.5 L 11 9
+											L 7 9 L 5.5 7 L 4 9 L 0 9
+											L 2 4.5 Z-->
+					</Button>
+				</StackPanel>
+			</ControlTemplate>
+		</Setter>
+
+
+
+		<Style Selector="^:fullscreen /template/ Path#FullScreenButtonPath">
+			<Setter Property="IsVisible" Value="True" />
+			<Setter Property="Data" Value="M205 1024h819v-819h-205v469l-674 -674l-145 145l674 674h-469v205zM1374 1229h469v-205h-819v819h205v-469l674 674l145 -145z" />
+		</Style>
+		<Style Selector="^:fullscreen /template/ Button#PART_RestoreButton">
+			<Setter Property="IsVisible" Value="False" />
+		</Style>
+		<Style Selector="^:fullscreen /template/ Button#PART_MinimiseButton">
+			<Setter Property="IsVisible" Value="False" />
+		</Style>
+
+		
+
+		<Style Selector="^ /template/ Button > Path">
+			<Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWay}"/>
+		</Style>
+		<!--Style Selector="^ /template/ Button > Path.maxRestoreIcon">
+			<Setter Property="Fill" Value="Transparent" />
+			<Setter Property="Stroke" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWay}"/>
+			<Setter Property="StrokeThickness" Value="2"/>
+			<!- -M 0 0 L 11 0 L 11 9 L 0 9 L 0 2 L 2 2 L 2 7 L 9 7 L 9 2 L 0 2 Z- ->
+		</Style-->
+			
+		<!--Style Selector="Window[WindowState=Maximized] ^ /template/ Button#PART_RestoreButton > Path"-->
+		<Style Selector="^ /template/ Path.maxRestoreIcon.maximized">
+			<!--Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWay}"/-->
+			<!--Setter Property="Data" Value="M 1 4 L 7 4 L 7 8 L 1 8 Z
+											M 3 1 L 10 1 L 10 6"/-->
+			<!--Setter Property="Data" Value="M 0 9 L 8 9 L 8 3 L 0 3
+										M 2 5 L 6 5 L 6 7 L 2 7 Z
+										
+										M 3 0 L 11 0 L 11 6 L 9 6 L 9 2 L 3 2 Z"/-->
+			
+			
+			<Setter Property="Data" Value="m 3 0 v 2 h 6 v 4 h 2 V 0 Z M 0 3 V 9 H 8 V 3 Z M 2 5 H 6 V 7 H 2 Z"/>
+		</Style>
+			
+		<Style Selector="^ /template/ Path.maxRestoreIcon:not(.maximized)">
+			<!--Setter Property="Data" Value="M 1 0 L 10 0 L 10 7 L 1 7 Z"/-->
+			<!--Setter Property="Data" Value="M 0 8 L 11 8 L 1 -1 L 0 -1
+											M 2 1 L 9 1 L 9 6 L 2 6 Z"/-->
+			<!--Setter Property="Data" Value="M 0 8 H 11 V -1 H 0 Z M 2 1 H 9 V 6 H 2 Z"/-->
+		</Style>
+		
+		
+		
+
+		<Style Selector="^ /template/ Button#PART_CloseButton">
+			<Setter Property="Padding" Value="0,8,13,0"/>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>
