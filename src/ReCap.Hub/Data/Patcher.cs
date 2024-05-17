@@ -134,6 +134,7 @@ namespace ReCap.Hub.Data
                         argsList.Insert(0, CommandLine.OPT_NO_GUI);
                     
                         string args = CommandLine.PrepareArgsForCLI(argsList);
+                        NMessageBox.DebugShow(IntPtr.Zero, args, "Administrator relaunch");
                         var process = Permissions.RerunAsAdministrator(args);
                         process.WaitForExit();
                         return process.ExitCode;

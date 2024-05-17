@@ -5,10 +5,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Icon="avares://ResurrectionCapsule.Hub/Assets/ReCap.ico"
+        Icon="avares://ResurrectionCapsuleHub/Assets/ReCap.ico"
         x:Class="ReCap.Hub.Views.MainWindow"
         Title="Resurrection Capsule Hub"
-        Width="1024" Height="600">
+        Width="1024" Height="600"
+		Classes.topTabs="{Binding EnableMP, Mode=OneWay}">
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>

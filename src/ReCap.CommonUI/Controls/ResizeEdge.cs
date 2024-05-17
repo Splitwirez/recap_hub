@@ -272,7 +272,7 @@ namespace ReCap.CommonUI
         void BeginResizeDrag(WindowEdge edge, PointerPressedEventArgs e)
         {
             //_rootWindow.BeginResizeDrag(edge, e);
-            _rootWindow.PlatformImpl?.BeginResizeDrag(edge, e);
+            _rootWindow.BeginResizeDrag(edge, e);
         }
 
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)

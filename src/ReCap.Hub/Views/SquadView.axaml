@@ -8,7 +8,7 @@
             x:Class="ReCap.Hub.Views.SquadView"
 			HorizontalAlignment="Center">
 	<HeaderedItemsControl Header="{Binding DisplayTitle, Mode=OneWay}"
-						Items="{Binding Heroes, Mode=OneWay}"
+						ItemsSource="{Binding Heroes, Mode=OneWay}"
 						Classes="squadFrame heroes">
 	<!--StackPanel Orientation="Vertical">
 		<TextBlock Text="{Binding DisplayTitle, Mode=OneWay}" />

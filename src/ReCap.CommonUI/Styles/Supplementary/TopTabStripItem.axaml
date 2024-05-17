@@ -1,0 +1,33 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rctr="using:ReCap.CommonUI">
+	<ControlTheme x:Key="TopTabStripItem"
+				TargetType="{x:Type TabStripItem}">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="MinWidth" Value="180" />
+        <Setter Property="MinHeight" Value="28" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel Margin="8,0"
+                    Background="#01000000">
+                    <rctr:ImagePresenter Source="{DynamicResource TopTabs.SelectedBackground}"
+                                        IsVisible="{TemplateBinding IsSelected}"
+                                        Margin="-8,0"/>
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Margin="{TemplateBinding Padding}"
+                                    TextBlock.Foreground="{TemplateBinding Foreground}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Content="{TemplateBinding Content}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

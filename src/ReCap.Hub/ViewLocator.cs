@@ -9,18 +9,18 @@ namespace ReCap.Hub
     {
         public bool SupportsRecycling => false;
 
-        public IControl Build(object data)
+        public Control Build(object data)
         {
-            IControl ret = null;
+            Control ret = null;
             
             if ((data != null) && (data is RxObjectBase rxData))
             {
                 var type = rxData.GetViewType();
             
-                if ((type != null) && type.IsAssignableTo(typeof(IControl)))
+                if ((type != null) && type.IsAssignableTo(typeof(Control)))
                 {
                     var inst = Activator.CreateInstance(type);
-                    ret = (IControl)inst;
+                    ret = (Control)inst;
                 }
             }
             

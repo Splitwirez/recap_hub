@@ -79,7 +79,7 @@
                 </Grid.RowDefinitions>
                 <ListBox x:Name="SaveGamesList"
                         Classes="fitts-law-list"
-                        Items="{Binding Saves}"
+                        ItemsSource="{Binding Saves}"
                         SelectedItem="{Binding SelectedSave, Mode=TwoWay}"
                         Grid.Row="0">
                     <ListBox.ItemTemplate>

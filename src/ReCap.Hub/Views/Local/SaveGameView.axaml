@@ -51,13 +51,11 @@
                                 Classes="h3"
                                 TextAlignment="Left" />
                     </DockPanel>
-                    <ItemsControl Classes="squads" Items="{Binding Squads}">
+                    <ItemsControl Classes="squads" ItemsSource="{Binding Squads}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <!--StackPanel x:Name="PART_ItemsPanel" Orientation="Vertical"/-->
-                                <rctr:AlignableWrapPanel x:Name="PART_ItemsPanel"
-                                                        HorizontalAlignment="Center"
-                                                        HorizontalContentAlignment="Center"/>
+                                <rctr:AlignableWrapPanel HorizontalAlignment="Center"
+                                                        HorizontalContentAlignment="Center" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
@@ -72,7 +70,7 @@
                                 Classes="h3"
                                 TextAlignment="Left" />
                     </DockPanel>
-                    <ItemsControl Classes="heroes" Items="{Binding Heroes}">
+                    <ItemsControl Classes="heroes" ItemsSource="{Binding Heroes}">
                         <!--ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <ContentControl Classes="heroCard">
@@ -91,7 +89,7 @@
                         </ItemsControl.ItemTemplate-->
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel x:Name="PART_ItemsPanel" HorizontalAlignment="Center"/>
+                                <WrapPanel HorizontalAlignment="Center" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
@@ -105,7 +103,7 @@
                         Grid.Row="0"
                         Grid.RowSpan="2">
             <TemplatedControl.Background>
-                <ImageBrush Source="avares://ResurrectionCapsule.Hub/Assets/Level/zelems_3.png"
+                <ImageBrush Source="avares://ResurrectionCapsuleHub/Assets/Level/zelems_3.png"
                     AlignmentY="Center" Stretch="UniformToFill"/>
             </TemplatedControl.Background>
         </TemplatedControl>

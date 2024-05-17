@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCap.CommonUI", "src\ReCap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCap.Hub", "src\ReCap.Hub\ReCap.Hub.csproj", "{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCap.Builder", "build\ReCap.Builder\ReCap.Builder.csproj", "{1AF4D892-6C85-43FC-A670-DF33D073D43D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

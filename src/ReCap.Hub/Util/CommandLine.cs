@@ -10,7 +10,8 @@ namespace ReCap.Hub
 {
     public class CommandLine
     {
-        static readonly char QUOT = OperatingSystem.IsWindows() ? '"' : '\'';
+        static readonly char _ARG_QUOT = OperatingSystem.IsWindows() ? '"' : '\'';
+        static readonly char[] _ARG_QUOT_ALL = { '"', '\'' };
 
 
         public const string OPT_PATCH_EXE = "--patch-darkspore-exe";
@@ -20,6 +21,14 @@ namespace ReCap.Hub
         public const string OPT_DEBUG = "--debug";
 
         public static readonly CommandLine Instance = new CommandLine();
+
+        const string _ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        static readonly IReadOnlyList<char> _SAFE_TO_NOT_ESCAPE = (
+            _ALPHABET.ToUpperInvariant() +
+            _ALPHABET.ToLowerInvariant() +
+            "1234567890" +
+            "-_"
+        ).ToCharArray();
 
 
 
@@ -66,9 +75,8 @@ namespace ReCap.Hub
                     NMessageBox.DebugShow(IntPtr.Zero, $"src: '{patchExeSrcPath}'\ndest: '{patchExeDestPath}'\nargIndex: {argIndex}", "Patch executable", 0);
                     argsIndex = argIndex;
                 }
-                else if (CommandLine.TryParseArg_CopyPackages(ref args, ref argIndex, out Dictionary<string, string> copyPackagePathsO))
+                else if (CommandLine.TryParseArg_CopyPackages(ref args, ref argIndex, out copyPackagePaths))
                 {
-                    copyPackagePaths = copyPackagePathsO;
                     NMessageBox.DebugShow(IntPtr.Zero, $"entry count: {copyPackagePaths.Keys.Count}\nargIndex: {argIndex}", "Copy packages", 0);
                     argsIndex = argIndex;
                 }
@@ -87,7 +95,9 @@ namespace ReCap.Hub
                         _showDebugInfo = true;
                     }
                     else
-                        NMessageBox.DebugShow(IntPtr.Zero, $"raw: '{args[argIndex]}'\nprocessed: '{arg}'", $"{nameof(args)}[{argIndex}]", 0);
+                    {
+                        //NMessageBox.DebugShow(IntPtr.Zero, $"raw: '{args[argIndex]}'\nprocessed: '{arg}'", $"{nameof(args)}[{argIndex}]", 0);
+                    }
                 }
             }
 
@@ -107,13 +117,15 @@ namespace ReCap.Hub
 
             if (copyPackagePaths != null)
             {
+                NMessageBox.DebugShow(IntPtr.Zero, "Copying packages...", string.Empty);
                 try
                 {
                     Patcher.CopyPackages(copyPackagePaths);
-
+                    NMessageBox.DebugShow(IntPtr.Zero, "Copying packages succeeded!", string.Empty);
                 }
                 catch (Exception ex)
                 {
+                    NMessageBox.DebugShow(IntPtr.Zero, "Copying packages FAILED :(", string.Empty);
                     //TODO: Record exception
                     exs.Add(ex);
                     _exitCode -= 100;
@@ -159,22 +171,37 @@ namespace ReCap.Hub
         public static bool TryParseArg_CopyPackages(ref string[] args, ref int optIndex, out Dictionary<string, string> paths)
         {
             paths = null;
-            if (!GetArgFromCLI(args[optIndex]).Equals(OPT_COPY_PACKAGES, StringComparison.OrdinalIgnoreCase))
+            string argAtIndex = GetArgFromCLI(args[optIndex]);
+            if (!argAtIndex.Equals(OPT_COPY_PACKAGES, StringComparison.OrdinalIgnoreCase))
+            {
+                //NMessageBox.DebugShow(IntPtr.Zero, $"nameof(argAtIndex): {argAtIndex} != {OPT_COPY_PACKAGES}", nameof(TryParseArg_CopyPackages));
                 return false;
+            }
 
             int index = optIndex + 1;
 
             if (index >= args.Length)
+            {
+                NMessageBox.DebugShow(IntPtr.Zero, $"index:{index} >= args.Length:{args.Length}", nameof(TryParseArg_CopyPackages));
                 return false;
+            }
 
-            if (!int.TryParse(GetArgFromCLI(args[index]), out int copyCount))
+            string copyCountStr = GetArgFromCLI(args[index]);
+            if (!int.TryParse(copyCountStr, out int copyCount))
+            {
+                NMessageBox.DebugShow(IntPtr.Zero, $"Couldn't parse copyCount!", nameof(TryParseArg_CopyPackages));
                 return false;
+            }
+
+            int pathArgsCount = copyCount * 2;
+            int pathArgsEnd = (index + pathArgsCount);
+            if (pathArgsEnd >= args.Length)
+            {
+                NMessageBox.DebugShow(IntPtr.Zero, $"pathArgsEnd:{pathArgsEnd} >= args.Length:{args.Length}", nameof(TryParseArg_CopyPackages));
+                return false;
+            }
 
             index++;
-            int pathArgsCount = copyCount * 2;
-            if ((index + pathArgsCount) >= args.Length)
-                return false;
-
             paths = new Dictionary<string, string>();
 
             int addToOptIndex = 0;
@@ -204,6 +231,43 @@ namespace ReCap.Hub
 
 
         static string EscapeArguments(params string[] args)
+        {
+            string retArgs = string.Empty;
+            int argCount = args.Length;
+            for (int i = 0; i < argCount; i++)
+            {
+                retArgs += " " + EscapeArgument(args[i]);
+            }
+            
+            return retArgs;
+        }
+        static string EscapeArgument(string arg)
+        {
+            int argCount = arg.Length;
+            if (argCount >= 1)
+            {
+                if (
+                    _ARG_QUOT_ALL.Contains(arg[0])
+                    &&
+                    _ARG_QUOT_ALL.Contains(arg[argCount - 1])
+                    )
+                {
+                    return arg;
+                }
+            }
+
+
+            for (int i = 0; i < argCount; i++)
+            {
+                char ch = arg[i];
+                if (!_SAFE_TO_NOT_ESCAPE.Contains(ch))
+                {
+                    return $"{_ARG_QUOT}{arg}{_ARG_QUOT}";
+                }
+            }
+            return arg;
+        }
+        static string zEscapeArguments(params string[] args)
         {
             //http://csharptest.net/529/how-to-correctly-escape-command-line-arguments-in-c/index.html
             StringBuilder arguments = new StringBuilder();
@@ -285,17 +349,17 @@ namespace ReCap.Hub
 
         public static string PrepareArgForCLI(string arg)
         {
-            return EscapeArguments(arg);
+            return EscapeArgument(arg);
             
             string retArg = arg;
 
             if (INVALID_CLI_CHARS.Any(x => retArg.Contains(x)))
             {
-                if (!retArg.StartsWith(QUOT))
-                    retArg = QUOT + retArg;
+                if (!retArg.StartsWith(_ARG_QUOT))
+                    retArg = _ARG_QUOT + retArg;
 
-                if (!retArg.EndsWith(QUOT))
-                    retArg = retArg + QUOT;
+                if (!retArg.EndsWith(_ARG_QUOT))
+                    retArg = retArg + _ARG_QUOT;
             }
 
             return retArg;
@@ -303,14 +367,21 @@ namespace ReCap.Hub
 
         public static string GetArgFromCLI(string arg)
         {
+            return arg
+                .TrimStart(_ARG_QUOT_ALL)
+                .TrimEnd(_ARG_QUOT_ALL)
+            ;
+
             string retArg = arg;
-            while (retArg.StartsWith(QUOT))
+            while (_ARG_QUOT_ALL.Any(x => retArg.StartsWith(x)))
             {
-                retArg = retArg.Substring(1);
+                retArg = retArg.TrimStart(_ARG_QUOT_ALL);
             }
-            while (retArg.EndsWith(QUOT))
+
+
+            while (_ARG_QUOT_ALL.Any(x => retArg.EndsWith(x)))
             {
-                retArg = retArg.Substring(0, retArg.Length - 2);
+                retArg = retArg.TrimEnd(_ARG_QUOT_ALL);
             }
             return retArg;
         }

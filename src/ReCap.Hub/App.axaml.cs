@@ -2,22 +2,23 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Avalonia.Markup.Xaml.Styling;
-using Avalonia.Styling;
-using Avalonia.Media;
 using Avalonia.Threading;
 using ReCap.Hub.Data;
 using ReCap.Hub.ViewModels;
 using ReCap.Hub.Views;
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
+using ReCap.CommonUI;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace ReCap.Hub
 {
-    public class App : Application
+    public partial class App
+        : Application
     {
+        Window _mainWindow = null;
+
         public override void Initialize()
         {
             /*var bodyFont = new FontFamily("avares://ReCap.Hub/Res/UI/Font/Body/SingleBold#RobotoCondensed");
@@ -32,111 +33,112 @@ namespace ReCap.Hub
             AvaloniaXamlLoader.Load(this);
         }
 
-        public override void OnFrameworkInitializationCompleted()
+        ReCapTheme _reCapTheme = null;
+        public bool UseManagedWindowChrome
         {
-            base.OnFrameworkInitializationCompleted();
-            
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            get => _reCapTheme?.UseManagedChrome ?? false;
+            set
             {
-                desktop.MainWindow = new MainWindow()
-                {
-                };
-
-//#if BACKEND_POC
-                LocalServer.ServerStarted += (s, e) =>
-                {
-                    if (OperatingSystem.IsWindows())
-                    {
-                        IntPtr cmd = WindowsPInvoke.GetConsoleWindow();
-                        WindowsPInvoke.ShowWindow(cmd, 4);
-                        if (desktop.MainWindow != null)
-                        {
-                            IntPtr mainWin = desktop.MainWindow.PlatformImpl.Handle.Handle;
-                            if (WindowsPInvoke.GetWindowRect(mainWin, out WindowsPInvoke.RECT mainWinRect))
-                            {
-                                var flags = WindowsPInvoke.SetWindowPosFlags.IgnoreResize;
-                                WindowsPInvoke.SetWindowPos(cmd, mainWin, mainWinRect.X, mainWinRect.Y, 0, 0, flags);
-                            }
-                        }
-                    }
-
-                    desktop.MainWindow?.Hide();
-                };
-
-                LocalServer.ServerExited += (s, e) => Dispatcher.UIThread.Post(() =>
-                {
-#if PERSIST_AFTER_GAME_EXIT
-                    desktop.MainWindow?.Show();
-
-                    if (OperatingSystem.IsWindows())
-                    {
-                        IntPtr cmd = WindowsPInvoke.GetConsoleWindow();
-                        WindowsPInvoke.ShowWindow(cmd, 0);
-                        if (desktop.MainWindow != null)
-                        {
-                            IntPtr mainWin = desktop.MainWindow.PlatformImpl.Handle.Handle;
-                            if (WindowsPInvoke.GetWindowRect(cmd, out WindowsPInvoke.RECT cmdRect))
-                            {
-                                var flags = WindowsPInvoke.SetWindowPosFlags.IgnoreResize | WindowsPInvoke.SetWindowPosFlags.ShowWindow;
-                                    // | PInvoke.SetWindowPosFlags.HideWindow); //| PInvoke.SetWindowPosFlags.DoNotActivate | PInvoke.SetWindowPosFlags.DoNotSendChangingEvent | PInvoke.SetWindowPosFlags.DoNotRedraw); // | PInvoke.SetWindowPosFlags.ShowWindow);
-                                
-                                WindowsPInvoke.SetWindowPos(mainWin, cmd, cmdRect.X, cmdRect.Y, 0, 0, flags);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Dispatcher.UIThread.Post(() => desktop.MainWindow?.Activate(), DispatcherPriority.Render);
-                    }
-#else
-                    Dispatcher.UIThread.Post(() => Environment.Exit(0));
-#endif
-                });
-
-
-                if (HubData.Instance.GameConfigs.Count == 0)
-                {
-                    desktop.MainWindow?.Hide();
-                    //string gamePath = null;
-                    //string savesPath = null;
-
-                    //TEMPORARY
-                    //gamePath = @"E:\Programs (x86)\Electronic Arts\Darkspore";
-                    ////////savesPath = Path.Combine(LocalServer.Instance.ServerDirPath, "storage", "users");
-
-
-                    Task.Run(async () =>
-                    {
-                        var gamePaths = await DialogDisplay.ShowDialog(new LocateDarksporeViewModel(false));
-
-                        GameConfigViewModel gameConfig = 
-                            new GameConfigViewModel(gamePaths.darksporeInstallPath, gamePaths.wineExecutable, gamePaths.winePrefix)
-                            //new GameConfigViewModel(gamePath, savesPath)
-                        ;
-                        HubData.Instance.GameConfigs.Add(gameConfig);
-
-                        if (gameConfig.Saves.Count <= 0)
-                        {
-                            var saveGame = await gameConfig.CreateSaveGame(false);
-                            gameConfig.SelectedSave = saveGame;
-                        }
-                        
-                        HubData.Instance.Save();
-                        Dispatcher.UIThread.Post(() => ShowMainWindow(desktop));
-                    });
-                }
-                else
-                    ShowMainWindow(desktop);
-//#endif
+                if (_reCapTheme != null)
+                    _reCapTheme.UseManagedChrome = value;
             }
         }
 
-//#if BACKEND_POC
+        public override void OnFrameworkInitializationCompleted()
+        {
+            base.OnFrameworkInitializationCompleted();
+            var styles = Styles;
+            foreach (var style in styles)
+            {
+                if (style is ReCapTheme reCapTheme)
+                {
+                    _reCapTheme = reCapTheme;
+                    break;
+                }
+            }
+            // TODO: Restore once managed decorations actually work
+            //UseManagedWindowChrome = GetShouldUseManagedWindowDecorationsByDefault();
+            
+            var lifetime = ApplicationLifetime;
+            if (lifetime == null)
+                throw new NullReferenceException($"{nameof(lifetime)} must not be null.");
+            
+            if (!(lifetime is IClassicDesktopStyleApplicationLifetime desktop))
+                throw new Exception($"{nameof(lifetime)} must implement {nameof(IClassicDesktopStyleApplicationLifetime)}, but was of type {lifetime.GetType().FullName} which doesn't.");
+            
+            
+            _mainWindow = new MainWindow()
+            {
+            };
+            desktop.MainWindow = _mainWindow;
+
+            LocalServer.ServerStarted += OnLocalServerStarted;
+            LocalServer.ServerExited += OnLocalServerExited;
+
+
+            if (HubData.Instance.GameConfigs.Count == 0)
+            {
+                _mainWindow?.Hide();
+                //string gamePath = null;
+                //string savesPath = null;
+
+                //TEMPORARY
+                //gamePath = @"E:\Programs (x86)\Electronic Arts\Darkspore";
+                ////////savesPath = Path.Combine(LocalServer.Instance.ServerDirPath, "storage", "users");
+
+
+                Task.Run(async () =>
+                {
+                    var gamePaths = await DialogDisplay.ShowDialog(new LocateDarksporeViewModel(false));
+
+                    GameConfigViewModel gameConfig = 
+                        new GameConfigViewModel(gamePaths.darksporeInstallPath, gamePaths.wineExecutable, gamePaths.winePrefix)
+                        //new GameConfigViewModel(gamePath, savesPath)
+                    ;
+                    HubData.Instance.GameConfigs.Add(gameConfig);
+
+                    if (gameConfig.Saves.Count <= 0)
+                    {
+                        var saveGame = await gameConfig.CreateSaveGame(false);
+                        gameConfig.SelectedSave = saveGame;
+                    }
+                    
+                    HubData.Instance.Save();
+                    Dispatcher.UIThread.Post(() => ShowMainWindow(desktop));
+                });
+            }
+            else
+                ShowMainWindow(desktop);
+        }
+
         void ShowMainWindow(IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow.DataContext = new MainWindowViewModel(HubData.Instance.GameConfigs[0]);
-            desktop.MainWindow?.Show();
+            _mainWindow.DataContext = new MainWindowViewModel(
+#if RECAP_ONLINE
+                new HomePageViewModel()
+#else
+                HubData.Instance.GameConfigs[0]
+#endif
+            );
+            _mainWindow?.Show();
         }
-//#endif
+
+        public static bool GetShouldUseManagedWindowDecorationsByDefault()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return GetShouldUseManagedWindowDecorationsByDefault_Windows();
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return GetShouldUseManagedWindowDecorationsByDefault_Linux();
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return GetShouldUseManagedWindowDecorationsByDefault_macOS();
+            }
+            
+            return false;
+        }
     }
 }

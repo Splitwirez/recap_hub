@@ -117,13 +117,13 @@
                           HorizontalAlignment="Stretch" VerticalAlignment="Center">
                             <Button Command="{Binding BrowseForWineExecutableCommand}"
                                     DockPanel.Dock="Right">Browse...</Button>
-                            <TextBox  Watermark="Path to 'wine executable'" Text="{Binding WineExecutableFromBrowseDialog, Mode=TwoWay}"/>
+                            <TextBox Watermark="Path to 'wine executable'" Text="{Binding WineExecutableFromBrowseDialog, Mode=TwoWay}"/>
                         </DockPanel>
                     </StackPanel>
 
                     <!--Detect by launching-->
                     <DockPanel IsVisible="{Binding !#BrowseForDarksporePrompt.IsVisible, Mode=OneWay}">
-                        <ProgressBar Classes="wheel"
+                        <ProgressBar Theme="{DynamicResource HexagonRingProgressBar}"
                                     IsIndeterminate="True"
                                     VerticalAlignment="Center"
                                     DockPanel.Dock="Right"/>

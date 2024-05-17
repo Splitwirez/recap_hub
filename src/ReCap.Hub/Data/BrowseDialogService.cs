@@ -18,14 +18,22 @@ namespace ReCap.Hub.Data
     #nullable enable
     public static class BrowseDialogService
     {
+        public static bool TryGetUriString(this IStorageFile file, out string uriStr)
+        {
+#nullable restore
+                uriStr = file.TryGetLocalPath();
+#nullable enable
+                return uriStr != null;
+        }
+
+
         public static async Task<string?> OpenFileAsync(FilePickerOpenOptions options, Window? window = null)
         {
             options.AllowMultiple = false;
             var files = await InternalOpenFilesAsync(options, window);
-            if ((files.Count > 0) && files.First().TryGetUri(out Uri? fileUri) && (fileUri != null))
-            {
-                return CleanUriPath(fileUri);
-            }
+            if ((files.Count > 0) && files.First().TryGetUriString(out string filePath))
+                return CleanUriPath(filePath);
+            
             return null;
         }
 
@@ -58,9 +66,9 @@ namespace ReCap.Hub.Data
             List<string> filePaths = new List<string>();
             foreach (var file in files)
             {
-                if (file.TryGetUri(out var fileUri) && (fileUri != null))
+                if (file.TryGetUriString(out string filePath))
                 {
-                    filePaths.Add(CleanUriPath(fileUri));
+                    filePaths.Add(CleanUriPath(filePath));
                 }
             }
             return filePaths.AsReadOnly();

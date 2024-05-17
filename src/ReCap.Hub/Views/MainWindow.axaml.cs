@@ -7,7 +7,7 @@ using Avalonia.VisualTree;
 
 namespace ReCap.Hub.Views
 {
-    public class MainWindow : Window
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
@@ -16,7 +16,7 @@ namespace ReCap.Hub.Views
             this.AttachDevTools();
 #endif
 
-#if LOCAL_ONLY
+#if !RECAP_ONLINE
             Width -= 194;
             Height -= 67;
 
@@ -24,8 +24,6 @@ namespace ReCap.Hub.Views
             {
                 Content = new UITestView();
             }
-#else
-            Classes.Add("topTabs");
 #endif
 
             /*var layerManager = this.FindDescendantOfType<VisualLayerManager>();

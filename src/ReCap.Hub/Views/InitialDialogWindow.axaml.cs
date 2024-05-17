@@ -6,7 +6,7 @@ using Avalonia.VisualTree;
 
 namespace ReCap.Hub.Views
 {
-    public class InitialDialogWindow : Window
+    public partial class InitialDialogWindow : Window
     {
         public InitialDialogWindow()
         {

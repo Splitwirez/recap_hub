@@ -66,22 +66,34 @@ namespace ReCap.Hub
 
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
-        {
-            return AppBuilder.Configure<App>()
+            => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI()
+#if NO
                 .With(new Win32PlatformOptions()
                 {
-                    OverlayPopups = true,
-                    AllowEglInitialization = false,
-                    UseWindowsUIComposition = false,
-                    UseWgl = false,
+                    //OverlayPopups = true,
+                    CompositionMode = new[]
+                    {
+                        //Win32CompositionMode.LowLatencyDxgiSwapChain,
+                        Win32CompositionMode.WinUIComposition,
+                        Win32CompositionMode.RedirectionSurface,
+                    },
+                    RenderingMode = new[]
+                    {
+                        //(Win32CompositionMode)2,
+                        //Win32RenderingMode.Wgl,
+                        //Win32RenderingMode.AngleEgl,
+                        Win32RenderingMode.Software,
+                    },
                 })
-                .With(new X11PlatformOptions()
+#endif
+                /*.With(new X11PlatformOptions()
                 {
                     OverlayPopups = true,
-                });
-        }
+                })
+                */
+                ;
     }
 }

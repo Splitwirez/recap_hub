@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 
 namespace ReCap.Hub.Views
 {
-    public class LocateDarksporeView : UserControl
+    public partial class LocateDarksporeView : UserControl
     {
         public LocateDarksporeView()
         {

@@ -4,6 +4,7 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:vm="using:ReCap.Hub.ViewModels"
             xmlns:v="using:ReCap.Hub.Views"
+            xmlns:dt="using:ReCap.Hub.Data"
             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
             x:Class="ReCap.Hub.Views.LocalPlayView">
     <Design.DataContext>
@@ -34,7 +35,7 @@
                     <DockPanel>
                         <ListBox x:Name="GameConfigsList"
                                 Classes="fitts-law-list"
-                                Items="{Binding GameConfigs}"
+                                ItemsSource="{Binding Path=GameConfigs, Source={x:Static dt:HubData.Instance}, Mode=OneWay}"
                                 SelectedItem="{Binding SelectedGameConfig, Mode=TwoWay}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>

@@ -16,7 +16,7 @@
                 <Panel>
                     <!--Rectangle Fill="Black">
                         <Rectangle.OpacityMask>
-                            <ImageBrush Source="avares://ResurrectionCapsule.Hub/Assets/Level/Overlay.png" Stretch="Fill"/>
+                            <ImageBrush Source="avares://ResurrectionCapsuleHub/Assets/Level/Overlay.png" Stretch="Fill"/>
                         </Rectangle.OpacityMask>
                     </Rectangle-->
                     <Panel ClipToBounds="True">
@@ -28,12 +28,12 @@
                         </Panel.OpacityMask>
                         <Rectangle Fill="{TemplateBinding Background}">
                             <Rectangle.OpacityMask>
-                                <ImageBrush Source="avares://ResurrectionCapsule.Hub/Assets/Level/Mask.png" Stretch="Fill"/>
+                                <ImageBrush Source="avares://ResurrectionCapsuleHub/Assets/Level/Mask.png" Stretch="Fill"/>
                             </Rectangle.OpacityMask>
                         </Rectangle>
                         <Rectangle Opacity="0.5">
                             <Rectangle.Fill>
-                                <ImageBrush Source="avares://ResurrectionCapsule.Hub/Assets/Level/Overlay.png" Stretch="Fill"/>
+                                <ImageBrush Source="avares://ResurrectionCapsuleHub/Assets/Level/Overlay.png" Stretch="Fill"/>
                             </Rectangle.Fill>
                         </Rectangle>
                     </Panel>
@@ -67,7 +67,6 @@
                         <StackPanel Orientation="Horizontal"
                                     Margin="{TemplateBinding Padding}">
                             <ItemsPresenter x:Name="PART_ItemsPresenter"
-                                            Items="{TemplateBinding Items}"
                                             ItemsPanel="{TemplateBinding ItemsPanel}" />
                             <v:HeroView IsVisible="{Binding Items.Count, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource LessThanConverter}, ConverterParameter='1', Mode=OneWay}" IsEnabled="False" />
                             <v:HeroView IsVisible="{Binding Items.Count, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource LessThanConverter}, ConverterParameter='2', Mode=OneWay}" IsEnabled="False" />
@@ -133,7 +132,7 @@
                 <Panel>
                     <Panel.Resources>
                         <ImageBrush x:Key="HeroThumbnailBrush" Source="{Binding Thumbnail, Mode=OneWay}" />
-                        <!--, FallbackValue='avares://ResurrectionCapsule.Hub/Assets/Hero/0x6E76B39A.png'-->
+                        <!--, FallbackValue='avares://ResurrectionCapsuleHub/Assets/Hero/0x6E76B39A.png'-->
                     </Panel.Resources>
                     <rctr:AngledBorder x:Name="ImageFrame"
                                     BorderBrush="#40FFFFFF"
@@ -149,7 +148,7 @@
     </Style>
     <Style Selector=":is(ContentControl).heroCard TemplatedControl.heroImage /template/ rctr|AngledBorder#ImageFrame">
         <Setter Property="Background" Value="{DynamicResource HeroThumbnailBrush}"/>
-            <!--ImageBrush Source="{Binding Thumbnail, Mode=OneWay, FallbackValue='avares://ResurrectionCapsule.Hub/Assets/Hero/0x6E76B39A.png'}" /-->
+            <!--ImageBrush Source="{Binding Thumbnail, Mode=OneWay, FallbackValue='avares://ResurrectionCapsuleHub/Assets/Hero/0x6E76B39A.png'}" /-->
             <!--ImageBrush Source="avares://ReCap.CommonUI/Res/UI/Test/Test.png" /-->
         <!--/Setter-->
     </Style>

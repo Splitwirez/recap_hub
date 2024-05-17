@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 
 namespace ReCap.Hub.Views
 {
-    public class YesNoDialogView : UserControl
+    public partial class YesNoDialogView : UserControl
     {
         public YesNoDialogView()
         {

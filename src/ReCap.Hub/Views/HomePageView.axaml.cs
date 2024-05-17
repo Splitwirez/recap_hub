@@ -6,7 +6,7 @@ using Avalonia.Markup.Xaml;
 
 namespace ReCap.Hub.Views
 {
-    public class HomePageView : UserControl
+    public partial class HomePageView : UserControl
     {
         public HomePageView()
         {
@@ -17,7 +17,8 @@ namespace ReCap.Hub.Views
                 Content = "UI TESTS",
                 DataContext = new UITestView()
             };
-            (this.Find<TabStrip>("TopTabs").Items as AvaloniaList<object>).Add(uiTestItem);
+            var topTabs = this.FindControl<TabStrip>("TopTabs");
+            topTabs.Items.Add(uiTestItem);
 #endif
         }
 

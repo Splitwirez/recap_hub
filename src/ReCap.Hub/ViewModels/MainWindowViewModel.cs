@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using ReCap.Hub.ViewModels;
 using System.Collections.Generic;
 using System.Text;
@@ -16,8 +17,16 @@ namespace ReCap.Hub.ViewModels
             set => RASIC(ref _currentPage, value);
         }
 
+        bool _enableMP = false;
+        public bool EnableMP
+        {
+            get => _enableMP;
+            private set => RASIC(ref _enableMP, value);
+        }
+
+
         public MainWindowViewModel(ViewModelBase currentPage)
-            : base()
+            : this()
         {
             CurrentPage = currentPage;
         }
@@ -25,12 +34,10 @@ namespace ReCap.Hub.ViewModels
         public MainWindowViewModel()
             : base()
         {
-            HomePageViewModel currentPage = new HomePageViewModel();
-            CurrentPage = currentPage
-#if LOCAL_ONLY
-            .LocalPlayVM.GameConfigs.First()
+#if RECAP_ONLINE
+            Debug.WriteLine("RECAP_ONLINE");
+            EnableMP = true;
 #endif
-            ;
         }
     }
 }

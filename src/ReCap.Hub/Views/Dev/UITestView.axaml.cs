@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 
 namespace ReCap.Hub.Views
 {
-    public class UITestView : UserControl
+    public partial class UITestView : UserControl
     {
         public UITestView()
         {

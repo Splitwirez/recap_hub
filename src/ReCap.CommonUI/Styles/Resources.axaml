@@ -3,16 +3,16 @@
 	<Styles.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/Global.axaml"/>
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/Global.axaml" />
 
-				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/Button.axaml"/>
-				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/ListBoxItem.axaml"/>
-				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/Window.axaml"/>
-				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/TextBox.axaml"/>
-				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/ScrollBar.axaml"/>
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/Button.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/ListBoxItem.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/Window.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/TextBox.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/ScrollBar.axaml" />
 
-				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/SidePane.axaml"/>
-				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/TopTabs.axaml"/>
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/SidePane.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/TopTabStrip.axaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Styles.Resources>

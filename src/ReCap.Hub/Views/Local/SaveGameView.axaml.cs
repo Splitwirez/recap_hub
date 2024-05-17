@@ -4,11 +4,11 @@ using Avalonia.Markup.Xaml;
 
 namespace ReCap.Hub.Views
 {
-    public class SaveGameView : UserControl
+    public partial class SaveGameView : UserControl
     {
         public SaveGameView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void InitializeComponent()

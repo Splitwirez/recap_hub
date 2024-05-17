@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 
 namespace ReCap.Hub.Views
 {
-    public class NewSaveGameView : UserControl
+    public partial class NewSaveGameView : UserControl
     {
         public NewSaveGameView()
         {

@@ -4,21 +4,35 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<ApplicationIcon>Assets/ReCap.ico</ApplicationIcon>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<DefineConstantsEx> </DefineConstantsEx>
-		<AssemblyName>ResurrectionCapsule.Hub</AssemblyName>
+		<AssemblyName>ResurrectionCapsuleHub</AssemblyName>
+		<!--
+		
+		<EnableReCapOnline>True</EnableReCapOnline>
+		-->
 	</PropertyGroup>
+	
+	
+	
+	<!--
+	https://github.com/dotnet/sdk/blob/main/src/Layout/redist/PortableRuntimeIdentifierGraph.json
+	https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.NETCore.Platforms/src/runtime.json
+	https://github.com/dotnet/runtime/blob/808851b07acfa1c5c94b0d4f9fb50debedb2df70/src/libraries/Microsoft.NETCore.Platforms/src/runtime.json
+	-->
+	<!--
+	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+		<BaseArchitecture>$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)</BaseArchitecture>
+		<Architecture>x86</Architecture>
+		<Architecture Condition=" '$(BaseArchitecture)' == 'X64' ">x64</Architecture>
+		<Architecture Condition=" '$(BaseArchitecture)' == 'Arm' ">arm</Architecture>
+		<Architecture Condition=" '$(BaseArchitecture)' == 'Arm64' ">arm64</Architecture>
+		<RuntimeIdentifier Condition=" '$(OS)' == 'Windows_NT' ">win7-$(Architecture)</RuntimeIdentifier>
+	</PropertyGroup>
+	-->
 	
 	<Import Project="../../build/avalonia.props" />
 
-	<PropertyGroup>
-		<!-- Condition=" '$(LocalOnly)' == 'True' "-->
-		<DefineConstantsEx>$(DefineConstantsEx);LOCAL_ONLY</DefineConstantsEx>
-	</PropertyGroup>
-
-
-
-	<PropertyGroup>
-		<DefineConstants>$(DefineConstants)$(DefineConstantsEx)</DefineConstants>
+	<PropertyGroup Condition=" '$(EnableReCapOnline)' == 'True' ">
+		<DefineConstants>$(DefineConstants);RECAP_ONLINE</DefineConstants>
 	</PropertyGroup>
 
 

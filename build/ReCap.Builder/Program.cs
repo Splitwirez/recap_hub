@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -10,6 +7,7 @@ namespace ReCap.Builder
 {
 	public enum ExitReason : int
 	{
+		Cancelled = -1,
 		Success = 0,
 		Failure = 1,
 		StillWorkingOnThisCodePath = 9001
@@ -31,13 +29,15 @@ namespace ReCap.Builder
 			{
 				Console.WriteLine("In future, do");
 				CLIHelp.PrintTopLevelHelp();
-				
+
 				if (GetBoolReply("Produce a build for this machine now?"))
 				{
 					PublishForMe();
 				}
 				else
-					Exit(ExitReason.Success);
+				{
+					Exit(ExitReason.Cancelled);
+				}
 			}
 			else if (NeedsHelp(args))
 			{
@@ -65,6 +65,8 @@ namespace ReCap.Builder
 				Console.WriteLine(ex.Message);
 				Exit(ExitReason.Failure);
 			}
+			
+			Exit(ExitReason.StillWorkingOnThisCodePath);
         }
 
 		public static bool PublishFromMode(string[] args)

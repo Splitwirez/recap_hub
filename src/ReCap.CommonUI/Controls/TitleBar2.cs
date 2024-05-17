@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Chrome;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
@@ -7,23 +8,25 @@ using Avalonia.Controls.Utils;
 using Avalonia.Input.Raw;
 using Avalonia.Layout;
 using Avalonia.LogicalTree;
+using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
+using Avalonia.Reactive;
+using Avalonia.ReactiveUI;
+using Avalonia.Styling;
+using Avalonia.Threading;
 using Avalonia.Visuals;
 using Avalonia.VisualTree;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml;
-using Avalonia.Markup.Xaml.Styling;
-using Avalonia.Styling;
-using Avalonia.Threading;
-using System.IO;
 using System.Threading.Tasks;
+
 
 using static ReCap.CommonUI.WinUnmanagedMethods;
 
@@ -57,6 +60,17 @@ namespace ReCap.CommonUI
         }
 
 
+        public static readonly DirectProperty<TitleBar2, CaptionButtons> CaptionButtonsProperty =
+            AvaloniaProperty.RegisterDirect<TitleBar2, CaptionButtons>(nameof(CaptionButtons), s => s.CaptionButtons, (s, v) => s.CaptionButtons = v);
+
+        private CaptionButtons _captionButtons = null;
+        public CaptionButtons CaptionButtons
+        {
+            get => _captionButtons;
+            set => SetAndRaise(CaptionButtonsProperty, ref _captionButtons, value);
+        }
+
+
         static TitleBar2()
         {
             /*ResizeEdgeProperty.Changed.AddClassHandler<TitleBar2>((sender, e) =>
@@ -68,13 +82,67 @@ namespace ReCap.CommonUI
                     newEdge.
                 }
             });*/
+            CaptionButtonsProperty.Changed.AddClassHandler<TitleBar2>((s, e) => s.OnCaptionButtonsPropertyChanged(e));
+            LeftSideButtonsProperty.Changed.AddClassHandler<TitleBar2>((s, e) => s.OnLeftSideButtonsChanged(e));
+        }
+
+        void OnLeftSideButtonsChanged(AvaloniaPropertyChangedEventArgs e)
+            => RefreshCaptionButtons(_captionButtons, _captionButtonsProxy);
+
+        void OnCaptionButtonsPropertyChanged(AvaloniaPropertyChangedEventArgs e)
+        {
+            (var oldVal, var newVal) = e.GetOldAndNewValue<CaptionButtons>();
+            if (oldVal != null)
+            {
+                oldVal.Detach();
+                oldVal.TemplateApplied -= CaptionButtons_TemplateApplied;
+            }
+            RefreshCaptionButtons(newVal, _captionButtonsProxy);
         }
 
 
-        CaptionButtons _captionButtons = null;
-        Button _minimiseButton = null;
+        private CaptionButtons _prevCaptionButtons = null;
+        void RefreshCaptionButtons(CaptionButtons btn, Control captionButtonsProxy)
+        {
+            if (btn == null)
+            {
+                _prevCaptionButtons = null;
+                return;
+            }
+
+            if (captionButtonsProxy == null)
+                return;
+
+            if (_prevCaptionButtons != btn)
+            {
+                btn.TemplateApplied += CaptionButtons_TemplateApplied;
+                PrepCaptionButtonsTemplate();
+                /*var maxButton = newVal.FindNameScope().Find<Button>("PART_RestoreButton");
+            
+                maxButton.IsVisible = true;*/
+
+                if (VisualRoot is Window window)
+                    btn.Attach(window);
+
+
+                _prevCaptionButtons = btn;
+            }
+
+            captionButtonsProxy.Tag = btn;
+            
+            btn.HorizontalAlignment = LeftSideButtons
+                ? HorizontalAlignment.Left
+                : HorizontalAlignment.Right
+            ;
+
+            Debug.WriteLine(nameof(RefreshCaptionButtons));
+        }
+
+
+        Button _minimizeButton = null;
         Button _restoreButton = null;
         Button _closeButton = null;
+        Control _captionButtonsProxy = null;
         protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
         {
             base.OnApplyTemplate(e);
@@ -92,6 +160,8 @@ namespace ReCap.CommonUI
                 if (VisualRoot.GetVisualRoot() is Window win)
                     win.WindowState = WindowState.Minimized;
             };*/
+            if (!(VisualRoot is Window window))
+                return;
 
             var dragGrip = e.NameScope.Find<TemplatedControl>("PART_DragGrip");
             
@@ -99,50 +169,38 @@ namespace ReCap.CommonUI
             {
                 if (a.ClickCount <= 1)
                 {
-                    if (VisualRoot.GetVisualRoot() is Window win)
+                    if (VisualRoot is Window win)
                         win.BeginMoveDrag(a);
                 }
             };
 
             dragGrip.DoubleTapped += (s, a) => ToggleMaximize();
 
-            _captionButtons?.Detach();
-
-            _captionButtons = e.NameScope.Get<CaptionButtons>("PART_CaptionButtons");
-            _captionButtons.TemplateApplied += CaptionButtons_TemplateApplied;
-            /*var maxButton = _captionButtons.FindNameScope().Find<Button>("PART_RestoreButton");
-            
-            maxButton.IsVisible = true;*/
-
-
-            if (VisualRoot.GetVisualRoot() is Window window)
+            _captionButtonsProxy = e.NameScope.Find<Control>("PART_CaptionButtonsProxy");
+            RefreshCaptionButtons(_captionButtons, _captionButtonsProxy);
+            //var oldWinStateChanged = window.PlatformImpl.WindowStateChanged;
+            window.SizeChanged += (s, a) =>
             {
-                _captionButtons?.Attach(window);
-                var oldWinStateChanged = window.PlatformImpl.WindowStateChanged;
-                window.PlatformImpl.WindowStateChanged = new Action<WindowState>(state =>
-                {
-                    var edge = ResizeEdge;
-                    if (edge != null)
-                        edge.IsVisible = !((state == WindowState.Maximized) || (state == WindowState.FullScreen));
+                var state = window.WindowState;
 
-                    if (oldWinStateChanged != null)
-                        oldWinStateChanged(state);
-                });
-            }
+                var edge = ResizeEdge;
+                if (edge != null)
+                    edge.IsVisible = !((state == WindowState.Maximized) || (state == WindowState.FullScreen));
+            };
         }
 
-        protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
+        protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
         {
-            base.OnAttachedToLogicalTree(e);
+            base.OnAttachedToVisualTree(e);
             if (e.Root is Window win)
             {
                 Attach(win);
             }
         }
 
-        protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
+        protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
         {
-            base.OnDetachedFromLogicalTree(e);
+            base.OnDetachedFromVisualTree(e);
             Detach();
         }
 
@@ -204,17 +262,57 @@ namespace ReCap.CommonUI
         bool _prevClosePointerOver = false;
         void CaptionButtons_TemplateApplied(object sender, TemplateAppliedEventArgs e)
         {
-            _minimiseButton = e.NameScope.Find<Button>("PART_MinimiseButton");
-            TryGetPseudoClasses(_minimiseButton, out _minPseudo);
+            Debug.WriteLine(nameof(CaptionButtons_TemplateApplied));
+
+            _minimizeButton = e.NameScope.Find<Button>("PART_MinimizeButton");
+            TryGetPseudoClasses(_minimizeButton, out _minPseudo);
 
             _restoreButton = e.NameScope.Find<Button>("PART_RestoreButton");
             TryGetPseudoClasses(_restoreButton, out _maxPseudo);
-            
+
             _closeButton = e.NameScope.Find<Button>("PART_CloseButton");
             TryGetPseudoClasses(_closeButton, out _closePseudo);
+
+            PrepCaptionButtons();
+            (sender as CaptionButtons).TemplateApplied -= CaptionButtons_TemplateApplied;
+        }
+
+        void PrepCaptionButtonsTemplate()
+        {
+            var nameScope = _captionButtonsProxy.FindNameScope();
+            var descendants = _captionButtonsProxy.GetVisualDescendants();
             
-            
-            /*_minimiseButton.PointerExited += (s, _) =>
+            foreach (var descendant in descendants)
+            {
+                if (!(descendant is Button btn))
+                    continue;
+
+                string btnName = btn.Name;
+                if (btnName == "PART_MinimizeButton")
+                    _minimizeButton = btn;
+                else if (btnName == "PART_RestoreButton")
+                    _restoreButton = btn;
+                else if (btnName == "PART_CloseButton")
+                    _closeButton = btn;
+            }
+
+            //_minimizeButton = nameScope.Find<Button>("PART_MinimizeButton");
+            TryGetPseudoClasses(_minimizeButton, out _minPseudo);
+
+            //_restoreButton = nameScope.Find<Button>("PART_RestoreButton");
+            TryGetPseudoClasses(_restoreButton, out _maxPseudo);
+
+            //_closeButton = nameScope.Find<Button>("PART_CloseButton");
+            TryGetPseudoClasses(_closeButton, out _closePseudo);
+
+            PrepCaptionButtons();
+        }
+
+
+        void PrepCaptionButtons()
+        {
+            Debug.WriteLine($"{nameof(PrepCaptionButtons)}()\n{_minimizeButton != null}, {_restoreButton != null}, {_closeButton != null}");
+            /*_minimizeButton.PointerExited += (s, _) =>
             {
                 _minPseudo.Set(PS_POINTER, false);
                 _prevMinPointerOver = false;
@@ -236,58 +334,56 @@ namespace ReCap.CommonUI
 
 
             //https://gist.github.com/AlexanderBaggett/d1504da93727a1778e8b5b3453946fc1
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) //OperatingSystem.IsWindows())
+            if (
+                RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                &&
+                (VisualRoot is Window win)
+                &&
+                win.TryGetHWnd(out IntPtr hWnd)
+            ) //OperatingSystem.IsWindows())
             {
-                if (VisualRoot.GetVisualRoot() is Window win)
+                //SetWindowLongPtr(hWnd, (int)WindowLongParam.GWL_WNDPROC, );
+                _wndProc = CaptionButtonsWndProc; //new WndProc(CaptionButtonsWndProc);
+                _newProcPtr = Marshal.GetFunctionPointerForDelegate(_wndProc);
+                _oldWndProc = SetWindowLongPtr(hWnd, (int)(WindowLongParam.GWL_WNDPROC), _newProcPtr);
+                // = Marshal.GetDelegateForFunctionPointer<WndProcDelegate>(_oldWndProc);
+
+
+                /*Action<Rect> winPrevWhenPainted = win.PlatformImpl.Paint;
+                Action<Rect> winWhenPainted;
+                winWhenPainted = aRect =>
                 {
-                    IntPtr hWnd = win.PlatformImpl.Handle.Handle;
-                    //SetWindowLongPtr(hWnd, (int)WindowLongParam.GWL_WNDPROC, );
-
-                    _wndProc = CaptionButtonsWndProc; //new WndProc(CaptionButtonsWndProc);
-                    _newProcPtr = Marshal.GetFunctionPointerForDelegate(_wndProc);
-                    _oldWndProc = SetWindowLongPtr(hWnd, (int)(WindowLongParam.GWL_WNDPROC), _newProcPtr);
-                    // = Marshal.GetDelegateForFunctionPointer<WndProcDelegate>(_oldWndProc);
-
-
-                    /*Action<Rect> winPrevWhenPainted = win.PlatformImpl.Paint;
-                    Action<Rect> winWhenPainted;
-                    winWhenPainted = aRect =>
-                    {
-                        var rect = PixelRect.FromRectWithDpi(aRect, win.PlatformImpl.DesktopScaling);
-                    /*var winSizeQ = win.FrameSize;
-                    if (winSizeQ.HasValue)
-                    {
-                        var winPos = win.Position;
-                        var winSize = win.FrameSize.GetValueOrDefault().;* /
-                        /*var winTl = win.PointToScreen(win.Bounds.TopLeft);
-                        var winBr = win.PointToScreen(win.Bounds.BottomRight);* /
-                        MoveWindow(hWnd,
-                            //winTl.X, winTl.Y, winBr.X - winTl.X, winBr.Y - winTl.Y
-                            rect.X, rect.Y, rect.Width, rect.Height - 1
-                            //winPos.X, winPos.Y, winSize.Width, winSize.Height
-                            , true
-                        );
-                        win.PlatformImpl.Paint = winPrevWhenPainted;
-                    //}
-                    };
-                    win.PlatformImpl.Paint = winWhenPainted;*/
-                    var gwlStyle =  (int)(WindowLongParam.GWL_STYLE);
-                    var winStyle = GetWindowLongPtr(hWnd, gwlStyle);
-                    winStyle |= WS_CAPTION;
-                    SetWindowLongPtr(hWnd, gwlStyle, new IntPtr(winStyle));
-                }
+                    var rect = PixelRect.FromRectWithDpi(aRect, win.PlatformImpl.DesktopScaling);
+                /*var winSizeQ = win.FrameSize;
+                if (winSizeQ.HasValue)
+                {
+                    var winPos = win.Position;
+                    var winSize = win.FrameSize.GetValueOrDefault().;* /
+                    /*var winTl = win.PointToScreen(win.Bounds.TopLeft);
+                    var winBr = win.PointToScreen(win.Bounds.BottomRight);* /
+                    MoveWindow(hWnd,
+                        //winTl.X, winTl.Y, winBr.X - winTl.X, winBr.Y - winTl.Y
+                        rect.X, rect.Y, rect.Width, rect.Height - 1
+                        //winPos.X, winPos.Y, winSize.Width, winSize.Height
+                        , true
+                    );
+                    win.PlatformImpl.Paint = winPrevWhenPainted;
+                //}
+                };
+                win.PlatformImpl.Paint = winWhenPainted;*/
+                var gwlStyle =  (int)(WindowLongParam.GWL_STYLE);
+                var winStyle = GetWindowLongPtr(hWnd, gwlStyle);
+                winStyle |= WS_CAPTION;
+                SetWindowLongPtr(hWnd, gwlStyle, new IntPtr(winStyle));
             }
-            (sender as CaptionButtons).TemplateApplied -= CaptionButtons_TemplateApplied;
         }
 
         public IntPtr CaptionButtonsWndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
         {
-            if (VisualRoot != null)
-            {
-                var root = VisualRoot.GetVisualRoot();
-                if ((root != null) && (root is Window win) && TryHandleWmNcMessages(win, hWnd, msg, ref wParam, ref lParam, out IntPtr wmNcRet))
-                    return wmNcRet;
-            }
+            var root = VisualRoot;
+            if ((root is Window win) && TryHandleWmNcMessages(win, hWnd, msg, ref wParam, ref lParam, out IntPtr wmNcRet))
+                return wmNcRet;
+            
             return CallWindowProc(_oldWndProc, hWnd, msg, wParam, lParam);
         }
 
@@ -321,8 +417,14 @@ namespace ReCap.CommonUI
                 ret = IntPtr.Zero;
                 return true;
             }
-            if (msg == WM_NCCALCSIZE)
+            else if (msg == WM_NCCALCSIZE)
             {
+                if (wParam != IntPtr.Zero)
+                {
+                    ret = IntPtr.Zero;
+                    return true;
+                }
+                
                 if (wParam != IntPtr.Zero)
                 {
                     Debug.WriteLine("WM_NCCALCSIZE, nonzero");
@@ -422,7 +524,7 @@ namespace ReCap.CommonUI
             {
                 if (!IsCaptionButton(wParam))
                 {
-                    UnHoverCaptionButtons();
+                    //UnHoverCaptionButtons();
                     //Debug.WriteLine($"WM_MOUSEMOVE CAPTIONBUTTON {wParam}");
                 }
                 /*else
@@ -533,7 +635,6 @@ namespace ReCap.CommonUI
                 }
             }
 
-
             return false;
         }
 
@@ -564,7 +665,7 @@ namespace ReCap.CommonUI
 
         /*void SetCaptionButtonPseudoClasses(string pseudoName, bool min, bool max, bool close)
         {
-            if (TryGetPseudoClasses(_minimiseButton, out IPseudoClasses minPseudo))
+            if (TryGetPseudoClasses(_minimizeButton, out IPseudoClasses minPseudo))
             {
                 minPseudo.Set(pseudoName, min);
             }
@@ -608,7 +709,7 @@ namespace ReCap.CommonUI
             max = false;
             close = false;
             int retVal = 0;
-            if (TryGetPseudoClasses(_minimiseButton, out IPseudoClasses minPseudo))
+            if (TryGetPseudoClasses(_minimizeButton, out IPseudoClasses minPseudo))
             {
                 min = minPseudo.Contains(pseudoName);
                 retVal++;
@@ -632,9 +733,14 @@ namespace ReCap.CommonUI
         static bool TryGetPseudoClasses(StyledElement styled, out IPseudoClasses pseudoClasses)
         {
             pseudoClasses = null;
+            if (styled == null)
+                return false;
 
             var pseudosObj = PSEUDOCLASSES.GetValue(styled);
-            if ((pseudosObj != null) && (pseudosObj is IPseudoClasses pseudos))
+            if (pseudosObj == null)
+                return false;
+            
+            if (pseudosObj is IPseudoClasses pseudos)
             {
                 pseudoClasses = pseudos;
                 return true;
@@ -661,11 +767,11 @@ namespace ReCap.CommonUI
                 button = _closeButton;
                 return true;
             }
-            else if (TryGetClientBounds(_minimiseButton, hWnd, out RECT minBounds) && minBounds.Contains(lParamPos))
+            else if (TryGetClientBounds(_minimizeButton, hWnd, out RECT minBounds) && minBounds.Contains(lParamPos))
             {
                 //Console.WriteLine("INSIDE MINIMIZE BUTTON");
                 ret = HTMINBUTTON;
-                button = _minimiseButton;
+                button = _minimizeButton;
                 return true;
             }
             
@@ -675,6 +781,8 @@ namespace ReCap.CommonUI
         static bool TryGetClientBounds(Visual visual, IntPtr hWnd, /*Visual root, */out RECT resultRect)
         {
             resultRect = new RECT();
+            if (visual == null)
+                return false;
             /*if ((visual.TransformedBounds == null) || !visual.TransformedBounds.HasValue)
                 return false;
             
@@ -721,13 +829,14 @@ namespace ReCap.CommonUI
 
         void ToggleMaximize()
         {
-            if (VisualRoot.GetVisualRoot() is Window win)
-            {
-                if (win.WindowState == WindowState.Maximized)
-                    win.WindowState = WindowState.Normal;
-                else
-                    win.WindowState = WindowState.Maximized;
-            }
+            if (!(VisualRoot is Window win))
+                return;
+            
+            
+            if (win.WindowState == WindowState.Maximized)
+                win.WindowState = WindowState.Normal;
+            else
+                win.WindowState = WindowState.Maximized;
         }
     }
 }

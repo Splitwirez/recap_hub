@@ -6,7 +6,7 @@ using Avalonia.Markup.Xaml;
 
 namespace ReCap.Hub.Views
 {
-    public class DialogOverlay : UserControl
+    public partial class DialogOverlay : UserControl
     {
         public DialogOverlay()
         {

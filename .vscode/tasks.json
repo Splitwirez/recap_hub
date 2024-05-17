@@ -10,7 +10,7 @@
                 "${workspaceFolder}/src/ReCap.Hub/ReCap.Hub.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary",
-                "/p:LocalOnly=True",
+                //"-p:EnableReCapOnline=True",
             ],
             "problemMatcher": "$msCompile"
         },

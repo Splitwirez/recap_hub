@@ -135,7 +135,7 @@
 							Data="M2048 2048v-819h-205v469l-1493 -1493h469v-205h-819v819h205v-469l1493 1493h-469v205h819z" />
 					</Viewbox>
 				</Button>
-				<Button x:Name="PART_MinimiseButton"
+				<Button x:Name="PART_MinimizeButton"
 						Theme="{StaticResource FluentCaptionButton}">
 					<Viewbox Width="11" Margin="2">
 						<Path Stretch="UniformToFill"
@@ -182,7 +182,7 @@
 					<!--
 							Classes.active="{Binding $parent[Window].IsActive}"
 					-->
-					<Button x:Name="PART_MinimiseButton"
+					<Button x:Name="PART_MinimizeButton"
 							Theme="{DynamicResource CaptionButton}"
 							Classes.active="{Binding IsActive, FallbackValue=True}">
 						<Path Data="M 0 0 L 13 0 L 13 4 L 0 4 Z"/>
@@ -219,7 +219,7 @@
 		<Style Selector="^:fullscreen /template/ Button#PART_RestoreButton">
 			<Setter Property="IsVisible" Value="False" />
 		</Style>
-		<Style Selector="^:fullscreen /template/ Button#PART_MinimiseButton">
+		<Style Selector="^:fullscreen /template/ Button#PART_MinimizeButton">
 			<Setter Property="IsVisible" Value="False" />
 		</Style>
 

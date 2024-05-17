@@ -1,8 +1,7 @@
-<Styles xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="using:ReCap.CommonUI"
-        xmlns:rctr="using:ReCap.CommonUI">
-	<Style Selector="ListBoxItem">
+			xmlns:rctr="using:ReCap.CommonUI">
+	<ControlTheme x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
 		<Setter Property="Background" Value="{DynamicResource ListBoxItem.Background.Idle}" />
 		<Setter Property="Padding" Value="8" />
 		<Setter Property="BorderBrush" Value="{DynamicResource ListBoxItem.BorderBrush.Idle}" />
@@ -21,7 +20,7 @@
 												StrokeThickness="2"
 												CornerRadius="{TemplateBinding CornerRadius}"
 												InnerGlowSize="2"
-												Margin="2"/>
+												Margin="2" />
 							<ContentPresenter x:Name="PART_ContentPresenter"
 											Background="Transparent"
 											BorderBrush="Transparent"
@@ -36,27 +35,28 @@
 				</Panel>
 			</ControlTemplate>
 		</Setter>
-	</Style>
-	<Style Selector="ListBoxItem /template/ rctr|AngledBorder#Background">
-		<Setter Property="InnerGlowColor" Value="{DynamicResource ListBoxItem.Glow.Idle}" />
-	</Style>
+		
+		<Style Selector="^ /template/ rctr|AngledBorder#Background">
+			<Setter Property="InnerGlowColor" Value="{DynamicResource ListBoxItem.Glow.Idle}" />
+		</Style>
 
 
-	<Style Selector="ListBoxItem:pointerover /template/ rctr|AngledBorder#Edge">
-		<Setter Property="BorderBrush" Value="{DynamicResource ListBoxItem.BorderBrush.Hover}" />
-	</Style>
+		<Style Selector="^:pointerover /template/ rctr|AngledBorder#Edge">
+			<Setter Property="BorderBrush" Value="{DynamicResource ListBoxItem.BorderBrush.Hover}" />
+		</Style>
 
 
-	<Style Selector="ListBoxItem:selected /template/ rctr|AngledBorder#Background">
-		<Setter Property="Background" Value="{DynamicResource ListBoxItem.Background.Selected}" />
-		<Setter Property="InnerGlowColor" Value="{DynamicResource ListBoxItem.Glow.Selected}" />
-	</Style>
-	<Style Selector="ListBoxItem:selected:not(:pointerover) /template/ rctr|AngledBorder#Edge">
-		<Setter Property="BorderBrush" Value="{DynamicResource ListBoxItem.BorderBrush.Selected}" />
-	</Style>
+		<Style Selector="^:selected /template/ rctr|AngledBorder#Background">
+			<Setter Property="Background" Value="{DynamicResource ListBoxItem.Background.Selected}" />
+			<Setter Property="InnerGlowColor" Value="{DynamicResource ListBoxItem.Glow.Selected}" />
+		</Style>
+		<Style Selector="^:selected:not(:pointerover) /template/ rctr|AngledBorder#Edge">
+			<Setter Property="BorderBrush" Value="{DynamicResource ListBoxItem.BorderBrush.Selected}" />
+		</Style>
 
 
-	<Style Selector="ListBox.fitts-law-list > ListBoxItem /template/ rctr|AngledBorder#Edge">
-		<Setter Property="Margin" Value="8,0,0,0"/>
-	</Style>
-</Styles>
+		<Style Selector="ListBox.fitts-law-list > ^ /template/ rctr|AngledBorder#Edge">
+			<Setter Property="Margin" Value="8,0,0,0" />
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

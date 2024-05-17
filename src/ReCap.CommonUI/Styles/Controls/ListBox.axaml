@@ -1,36 +1,37 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="using:ReCap.CommonUI"
-        xmlns:rctr="using:ReCap.CommonUI">
-	<Style Selector="ListBox">
-		<Setter Property="Background" Value="Transparent"/>
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ControlTheme x:Key="{x:Type ListBox}" TargetType="ListBox">
+		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Panel x:Name="Root">
-					<ScrollViewer Name="PART_ScrollViewer"
-									HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
-									VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
-									AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}">
-						<ItemsPresenter Name="PART_ItemsPresenter"
-										Items="{TemplateBinding Items}"
+					<ScrollViewer x:Name="PART_ScrollViewer"
+								VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+								HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+								HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+								VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+								IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+								IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+								AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+								BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}">
+						<ItemsPresenter x:Name="PART_ItemsPresenter"
 										ItemsPanel="{TemplateBinding ItemsPanel}"
-										ItemTemplate="{TemplateBinding ItemTemplate}"
-										Margin="{TemplateBinding Padding}"
-										VirtualizationMode="{TemplateBinding VirtualizationMode}"/>
+										Margin="{TemplateBinding Padding}" />
 					</ScrollViewer>
 				</Panel>
 			</ControlTemplate>
 		</Setter>
 		<Setter Property="ItemsPanel">
 			<ItemsPanelTemplate>
-				<StackPanel x:Name="PART_ItemsPanel"/>
+				<StackPanel x:Name="PART_ItemsPanel" />
 			</ItemsPanelTemplate>
 		</Setter>
-	</Style>
-	<Style Selector="ListBox /template/ StackPanel#PART_ItemsPanel">
-		<Setter Property="Spacing" Value="2"/>
-	</Style>
-	<Style Selector="ListBox.fitts-law-list">
-		<Setter Property="Margin" Value="-8,0,0,0"/>
-	</Style>
-</Styles>
+	
+		<Style Selector="^ /template/ StackPanel#PART_ItemsPanel">
+			<Setter Property="Spacing" Value="2" />
+		</Style>
+		<Style Selector="^.fitts-law-list">
+			<Setter Property="Margin" Value="-8,0,0,0" />
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

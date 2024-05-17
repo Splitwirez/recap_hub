@@ -6,7 +6,7 @@ using Avalonia.Styling;
 
 namespace ReCap.Hub.Views
 {
-    public class GameConfigView : UserControl
+    public partial class GameConfigView : UserControl
     {
         ContentControl _saveGamesPane = null;
 

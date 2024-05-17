@@ -4,6 +4,7 @@
 		<AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
 		<!--PublishDirName>$(PublishTarget)</PublishDirName-->
 		<!--IsPublish>False</IsPublish-->
+		<BaseOutputPath>../bin/$(Configuration)</BaseOutputPath>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(PublishTarget)' == 'Windows' ">
 		<RuntimeIdentifier>win7-x64</RuntimeIdentifier>

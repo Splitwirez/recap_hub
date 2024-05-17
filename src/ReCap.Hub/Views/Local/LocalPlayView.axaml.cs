@@ -4,7 +4,7 @@ using Avalonia.Markup.Xaml;
 
 namespace ReCap.Hub.Views
 {
-    public class LocalPlayView : UserControl
+    public partial class LocalPlayView : UserControl
     {
         ContentControl _gameConfigsPane = null;
         public LocalPlayView()

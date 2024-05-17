@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using ReCap.Hub.Data;
 
 namespace ReCap.Hub.ViewModels
 {
     public class LocalPlayViewModel : ViewModelBase
     {
-        ObservableCollection<GameConfigViewModel> _gameConfigs = new ObservableCollection<GameConfigViewModel>();
+        //ObservableCollection<GameConfigViewModel> _gameConfigs = new ObservableCollection<GameConfigViewModel>();
         public ObservableCollection<GameConfigViewModel> GameConfigs
         {
-            get => _gameConfigs;
-            set => RASIC(ref _gameConfigs, value);
+            get => HubData.Instance.GameConfigs;
+            /*set
+            {
+                var prev = HubData.Instance.GameConfigs;
+                HubData.Instance.GameConfigs = value;
+                if (prev != value)
+                {
+                    //NotifyPropertyChanged
+                }
+            }*/
         }
 
 

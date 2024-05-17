@@ -22,8 +22,5 @@ namespace ReCap.Hub.ViewModels
         {
             LocalPlayVM = new LocalPlayViewModel();
         }
-
-        static Bitmap GetBitmap(string uri)
-            => new Bitmap(AvaloniaLocator.Current.GetService<IAssetLoader>().Open(new Uri(uri)));
     }
 }

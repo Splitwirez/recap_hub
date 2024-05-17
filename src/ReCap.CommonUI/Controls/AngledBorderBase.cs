@@ -206,7 +206,7 @@ namespace ReCap.CommonUI
 
             using (var idk2 = context.PushGeometryClip(_fillGeometry))
             {
-                context.PlatformImpl.DrawRectangle(null, null, _rrect, new BoxShadows(_boxShadow));
+                context.DrawRectangle(null, null, _rrect, new BoxShadows(_boxShadow));
             }
 
 
