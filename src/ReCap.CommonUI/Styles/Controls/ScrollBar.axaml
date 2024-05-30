@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ControlTheme x:Key="DsScrollBarThumb" TargetType="Thumb">
+    <ControlTheme x:Key="ReCapScrollBarThumb" TargetType="Thumb">
         <Setter Property="Background" Value="{DynamicResource ScrollBar.Thumb.Background.Idle}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource ScrollBar.Thumb.OuterBorderBrush.Idle}"/>
         <Setter Property="CornerRadius" Value="1"/>
@@ -309,7 +309,7 @@
                                                     Theme="{StaticResource DsScrollBarPageButton}"
                                                     Focusable="False" />
                                     </Track.IncreaseButton>
-                                    <Thumb Theme="{StaticResource DsScrollBarThumb}"
+                                    <Thumb Theme="{StaticResource ReCapScrollBarThumb}"
                                         Width="{DynamicResource ScrollBarSize}"
                                         MinHeight="{DynamicResource ScrollBarSize}"
                                         RenderTransform="{DynamicResource VerticalSmallScrollThumbScaleTransform}"
@@ -378,7 +378,7 @@
                                                     Theme="{StaticResource DsScrollBarPageButton}"
                                                     Focusable="False" />
                                     </Track.IncreaseButton>
-                                    <Thumb Theme="{StaticResource DsScrollBarThumb}"
+                                    <Thumb Theme="{StaticResource ReCapScrollBarThumb}"
                                         Height="{DynamicResource ScrollBarSize}"
                                         MinWidth="{DynamicResource ScrollBarSize}"
                                         RenderTransform="{DynamicResource HorizontalSmallScrollThumbScaleTransform}"

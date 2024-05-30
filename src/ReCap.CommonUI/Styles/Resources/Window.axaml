@@ -35,6 +35,7 @@
 	<Color x:Key="Window.Chrome.BorderBrush.Color0">#40FFFFFF</Color>
 	<Color x:Key="Window.Chrome.BorderBrush.Color1">#BDA4B2B9</Color>
 	<Color x:Key="Window.Chrome.BorderBrush.Color2">#C0FFFFFF</Color>
+	<Color x:Key="Window.Chrome.BorderBrush.Color4">#80FFFFFF</Color>
 	<GradientStops x:Key="Window.Chrome.BorderBrush.GradientStops">
 		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
 		<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
@@ -109,9 +110,11 @@
 	<!--SolidColorBrush x:Key="Window.Body.BorderBrush">#EDA4B2B9</SolidColorBrush-->
 
 	<LinearGradientBrush x:Key="Window.BottomEdgeTrim.BorderBrush"
-						StartPoint="0%,-25%"
-						EndPoint="0%,100%"
-						GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}" />
+						StartPoint="0%,-100%"
+						EndPoint="0%,200%">
+		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
+		<GradientStop Offset="0.5" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
+	</LinearGradientBrush>
 	<!--
 		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
 		<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />

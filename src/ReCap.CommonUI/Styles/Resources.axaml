@@ -8,6 +8,7 @@
 				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/Button.axaml" />
 				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/ListBoxItem.axaml" />
 				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/Window.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/TabControl.axaml" />
 				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/TextBox.axaml" />
 				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Resources/ScrollBar.axaml" />
 

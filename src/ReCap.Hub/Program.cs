@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
+using ReCap.CommonUI;
 using ReCap.Hub.Data;
 
 namespace ReCap.Hub
@@ -73,6 +74,19 @@ namespace ReCap.Hub
 #if NO
                 .With(new Win32PlatformOptions()
                 {
+#if !NO
+
+                    //CompositionMode = Win32CompositionMode.WinUIComposition
+                    RenderingMode = new[] {
+                        Win32RenderingMode.Wgl,
+                        Win32RenderingMode.AngleEgl,
+                        Win32RenderingMode.Software,
+                    },
+                    CompositionMode = new[]
+                    {
+                        Win32CompositionMode.RedirectionSurface
+                    }
+#else
                     //OverlayPopups = true,
                     CompositionMode = new[]
                     {
@@ -87,13 +101,9 @@ namespace ReCap.Hub
                         //Win32RenderingMode.AngleEgl,
                         Win32RenderingMode.Software,
                     },
+#endif
                 })
 #endif
-                /*.With(new X11PlatformOptions()
-                {
-                    OverlayPopups = true,
-                })
-                */
                 ;
     }
 }

@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     x:CompileBindings="True">
-    <ControlTheme x:Key="DsTextBoxButton" TargetType="Button">
+    <ControlTheme x:Key="ReCapTextBoxButton" TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource TextControlButtonBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource TextControlButtonBorderBrush}" />
         <Setter Property="Focusable" Value="False"/>
@@ -42,7 +42,7 @@
 
     <ControlTheme x:Key="DsTextBoxToggleButton"
                 TargetType="ToggleButton"
-                BasedOn="{StaticResource DsTextBoxButton}">
+                BasedOn="{StaticResource ReCapTextBoxButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
@@ -220,7 +220,7 @@
         <Style Selector="^.clearButton[AcceptsReturn=False][IsReadOnly=False]:focus:not(TextBox:empty)">
             <Setter Property="InnerRightContent">
                 <Template>
-                    <Button Theme="{StaticResource DsTextBoxButton}"
+                    <Button Theme="{StaticResource ReCapTextBoxButton}"
                             Command="{Binding $parent[TextBox].Clear}">
                         <PathIcon Data="{StaticResource TextBoxClearButtonData}" Height="10" Width="10"/>
                     </Button>

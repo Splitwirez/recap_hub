@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="ReCap.Hub.Views.UITestView"
+            xmlns="https://github.com/avaloniaui"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Panel>
+        <TemplatedControl Classes="windowSegment toBottom"/>
+
+		<TabControl x:Name="Tabs"
+				Theme="{DynamicResource TopTabControl}"
+				DockPanel.Dock="Top">
+			<TabItem Header="Buttons">
+				<StackPanel Orientation="Vertical" Spacing="20">
+					<StackPanel Orientation="Horizontal" Spacing="20">
+						<Button Content="Button"/>
+						<RepeatButton Content="RepeatButton"/>
+						<ToggleButton Content="ToggleButton"/>
+						<ToggleButton Content="...checked" IsChecked="True"/>
+					</StackPanel>
+					<StackPanel IsEnabled="False" Orientation="Horizontal" Spacing="20">
+						<Button Content="Button"/>
+						<RepeatButton Content="RepeatButton"/>
+						<ToggleButton Content="ToggleButton"/>
+						<ToggleButton Content="...checked" IsChecked="True"/>
+					</StackPanel>
+					<DockPanel LastChildFill="False">
+						<StackPanel Classes="leftButtons">
+							<Button Content="First"/>
+							<Button Content="Middle"/>
+							<Button Content="Last"/>
+						</StackPanel>
+						<StackPanel Classes="rightButtons">
+							<Button Content="First"/>
+							<Button Content="Middle"/>
+							<Button Content="Last"/>
+						</StackPanel>
+					</DockPanel>
+					<DockPanel>
+						<Button Classes="left"
+								Content="Lone"/>
+						<Button Classes="right"
+								Content="Lone"/>
+						<Button Content="Lone in center"
+								Margin="20,0"/>
+					</DockPanel>
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="ComboBox">
+				<StackPanel Orientation="Vertical" Spacing="20">
+					<ComboBox SelectedIndex="0">
+						<ComboBoxItem Content="Item 0" />
+						<ComboBoxItem Content="Item 1" />
+						<ComboBoxItem Content="Item 2" />
+						<ComboBoxItem Content="Item 3" />
+						<ComboBoxItem Content="Item 4 but disabled" IsEnabled="False" />
+					</ComboBox>
+					<ComboBox />
+					<ComboBox SelectedIndex="0"
+							IsEnabled="False">
+						<ComboBoxItem Content="Disabled item" />
+					</ComboBox>
+					<ComboBox IsEnabled="False" />
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="ListBox">
+				<StackPanel Orientation="Vertical" Spacing="20">
+					<ListBox SelectedIndex="0">
+						<ListBoxItem Content="Item 0" />
+						<ListBoxItem Content="Item 1" />
+						<ListBoxItem Content="Item 2" />
+						<ListBoxItem Content="Item 3" />
+						<ListBoxItem Content="Item 4 but disabled" IsEnabled="False" />
+					</ListBox>
+					<ListBox />
+					<ListBox SelectedIndex="0"
+							IsEnabled="False">
+						<ListBoxItem Content="Disabled item" />
+					</ListBox>
+					<ListBox IsEnabled="False" />
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="ScrollViewer">
+				<ScrollViewer HorizontalScrollBarVisibility="Auto">
+					<Rectangle Margin="20" Fill="#20FF00FF" Width="1024" Height="1024" />
+				</ScrollViewer>
+			</TabItem>
+			<TabItem Header="TextBox">
+				<StackPanel Orientation="Vertical" Spacing="20">
+					<TextBox Watermark="Type stuff here..." />
+					<TextBox Watermark="Don't type stuff here..." IsEnabled="False" />
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="Window chrome">
+				<StackPanel Orientation="Vertical" Spacing="20">
+					<Slider Value="{Binding $parent[Window].ExtendClientAreaTitleBarHeightHint, Mode=TwoWay}"
+							Minimum="-1"
+							Maximum="100" />
+				</StackPanel>
+			</TabItem>
+		</TabControl>
+    </Panel>
+</UserControl>

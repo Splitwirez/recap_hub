@@ -136,22 +136,22 @@
 		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="75" />
 	</Style>
 	<!--
-    <Style Selector="Window.topTabs /template/ rctr|TitleBar2">
+    <Style Selector="Window.topTabs /template/ TitleBar">
         <Setter Property="Height" Value="75"/>
     </Style>
     -->
-    <Style Selector="Window.topTabs /template/ rctr|TitleBar2 /template/ Panel.captionButtons > StackPanel">
+    <Style Selector="Window.topTabs /template/ TitleBar /template/ Panel.captionButtons > StackPanel">
         <Setter Property="Margin" Value="33,0,0,0"/>
     </Style>
-    <Style Selector="Window.topTabs /template/ rctr|TitleBar2 /template/ Panel#TitleBarTextArea">
+    <Style Selector="Window.topTabs /template/ TitleBar /template/ Panel#TitleBarTextArea">
         <Setter Property="Height" Value="40"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
     </Style>
 
-    <Style Selector="Window.topTabs /template/ rctr|TitleBar2 /template/ rctr|ImagePresenter.topTabs">
+    <Style Selector="Window.topTabs /template/ TitleBar /template/ rctr|ImagePresenter.topTabs">
         <Setter Property="IsVisible" Value="True"/>
     </Style>
-    <Style Selector="Window.topTabs /template/ rctr|TitleBar2 /template/ DockPanel.nonTopTabs">
+    <Style Selector="Window.topTabs /template/ TitleBar /template/ DockPanel.nonTopTabs">
         <Setter Property="IsVisible" Value="False"/>
     </Style>
 

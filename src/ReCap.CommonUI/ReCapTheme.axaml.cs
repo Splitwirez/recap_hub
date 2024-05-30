@@ -29,6 +29,7 @@ namespace ReCap.CommonUI
             AvaloniaXamlLoader.Load(sp, this);
 #nullable restore
 
+            return;
             _managedChromeStyles = (ResourceDictionary)Resources[MANAGED_CHROME_KEY];
             Resources.Remove(MANAGED_CHROME_KEY);
         }
@@ -36,6 +37,7 @@ namespace ReCap.CommonUI
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
             base.OnPropertyChanged(change);
+            return;
             if (change.Property == UseManagedChromeProperty)
             {
                 bool newUseMgChrome = change.GetNewValue<bool>();

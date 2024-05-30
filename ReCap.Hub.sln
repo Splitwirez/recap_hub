@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{166BDFC9-DE65-426E-91B5-E0248765057D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		build\avalonia.props = build\avalonia.props
+		build\builder.props = build\builder.props
+		build\editorconfig.props = build\editorconfig.props
+		build\publish.props = build\publish.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCap.CommonUI", "src\ReCap.CommonUI\ReCap.CommonUI.csproj", "{76E43A29-981C-4CA9-B295-176CC5E6944C}"

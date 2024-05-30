@@ -272,5 +272,33 @@ namespace ReCap.CommonUI
         internal static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
 
         public const uint WS_CAPTION = 0x00C00000;
+
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct RTL_OSVERSIONINFOEX
+        {
+            internal uint dwOSVersionInfoSize;
+            internal uint dwMajorVersion;
+            internal uint dwMinorVersion;
+            internal uint dwBuildNumber;
+            internal uint dwPlatformId;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+            internal string szCSDVersion;
+        }
+
+        [DllImport("ntdll.dll")]
+        internal static extern int RtlGetVersion(ref RTL_OSVERSIONINFOEX lpVersionInformation);
+
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct MARGINS
+        {
+            public int cxLeftWidth;
+            public int cxRightWidth;
+            public int cyTopHeight;
+            public int cyBottomHeight;
+        }
+        [DllImport("dwmapi.dll")]
+        internal static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS margins);
     }
 }

@@ -1,15 +1,19 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="using:ReCap.CommonUI"
         xmlns:rctr="using:ReCap.CommonUI">
     <ControlTheme x:Key="{x:Type Window}" TargetType="{x:Type Window}">
+        <Setter Property="TopLevel.SystemBarColor" Value="{DynamicResource SystemControlBackgroundAltHighBrush}"/>
 		<Setter Property="Background" Value="{DynamicResource Window.Body.Background}" />
 		<Setter Property="Foreground" Value="{DynamicResource StrongForegroundBrush}" />
+		
 		<Setter Property="FontFamily" Value="{DynamicResource BodyFont}" />
 		<Setter Property="FontSize" Value="12" />
         
-        <Setter Property="TopLevel.SystemBarColor" Value="{DynamicResource SystemControlBackgroundAltHighBrush}"/>
-        <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
+		<Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+		<Setter Property="ExtendClientAreaChromeHints" Value="PreferSystemChrome" />
+		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="32" />
+        <Setter Property="TransparencyLevelHint" Value="Transparent" />
+		<Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
@@ -21,7 +25,7 @@
                             <TitleBar />
                         </VisualLayerManager.ChromeOverlayLayer>
                         <DockPanel x:Name="Frame">
-                            <!--
+							<rctr:TitleBarUnderlay DockPanel.Dock="Top" />
                             <rctr:AngledBorderEx x:Name="BottomEdgeTrim"
                                                 Classes="activateColoration"
                                                 BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"
@@ -34,8 +38,23 @@
                                                 TopLeftInset="18"
                                                 TopRightInset="18"
                                             
-                                                DockPanel.Dock="Bottom" />
-                            -->
+                                                DockPanel.Dock="Bottom"
+												Margin="0,-5,0,0" />
+                            <rctr:AngledBorderEx x:Name="TopEdgeTrim"
+                                                Classes="activateColoration"
+                                                BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"
+                                                Height="14"
+                                                InvertSide="Bottom"
+                                            
+                                                BottomLeftCut="6"
+                                                BottomRightCut="6"
+                                            
+                                                BottomLeftInset="18"
+                                                BottomRightInset="18"
+                                            
+                                                DockPanel.Dock="Top"
+												Margin="0,0,0,-5"
+                                                IsVisible="False" />
                             <Panel>
                                 <rctr:AngledBorderEx TopLeftCut="6"
                                                     TopRightCut="6"
@@ -49,7 +68,13 @@
                                                     BorderBrush="{DynamicResource Window.Body.BorderBrush}"
                                                     StrokeThickness="1"
                                                     InnerGlowColor="#20FFFFFF" />
-                                <ContentPresenter x:Name="PART_ContentPresenter"
+								<!--
+													Padding="{Binding Padding, ElementName=PART_ContentPresenter, Mode=OneWay}"
+													Margin="{Binding Margin, ElementName=PART_ContentPresenter, Mode=OneWay}"
+													Height="{Binding Bounds.Height, ElementName=PART_ContentPresenter, Mode=OneWay}"
+													VerticalAlignment="Bottom"
+                                -->
+								<ContentPresenter x:Name="PART_ContentPresenter"
                                                 ContentTemplate="{TemplateBinding ContentTemplate}"
                                                 Content="{TemplateBinding Content}"
                                                 Margin="{TemplateBinding Padding}"
@@ -61,5 +86,36 @@
                 </Panel>
             </ControlTemplate>
         </Setter>
+        <Style Selector="^[IsExtendedIntoWindowDecorations=True]">
+            <Style Selector="^ /template/ :is(Panel)#Frame">
+                <Setter Property="Margin" Value="{Binding OffScreenMargin, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
+            </Style>
+		</Style>
+
+        <Style Selector="^[IsExtendedIntoWindowDecorations=False]">
+            <Style Selector="^ /template/ rctr|AngledBorderEx#TopEdgeTrim">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+            <Style Selector="^ /template/ :is(Panel)#Frame">
+                <Setter Property="Margin" Value="-2,-6" />
+            </Style>
+            <!--
+            <Style Selector="^ /template/ rctr|AngledBorderEx#BottomEdgeTrim">
+                <Setter Property="StrokeThickness" Value="1" />
+            </Style>
+            -->
+		</Style>
+
+		<Style Selector="^ /template/ rctr|AngledBorderEx.activateColoration">
+			<Setter Property="StrokeThickness" Value="1" />
+		</Style>
+
+		<Style Selector="^ /template/ rctr|AngledBorderEx.activateColoration">
+			<Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Inactive}" />
+		</Style>
+
+		<Style Selector="^[IsActive=True] /template/ rctr|AngledBorderEx.activateColoration">
+			<Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Active}" />
+		</Style>
     </ControlTheme>
 </ResourceDictionary>

@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+
+
+	<Import Project="../../build/avalonia.props" />
+
+
+	<ItemGroup>
+		<ProjectReference Include="../ReCap.CommonUI/ReCap.CommonUI.csproj" />
+    </ItemGroup>
+
+
+	<ItemGroup>
+        <Compile Include="../ReCap.Hub/RxObjectBase.cs" />
+        <Compile Include="../ReCap.Hub/ViewLocator.cs" />
+        <Compile Include="../ReCap.Hub/Models/ModelBase.cs" />
+        <Compile Include="../ReCap.Hub/ViewModels/ViewModelBase.cs" />
+    </ItemGroup>
+</Project>

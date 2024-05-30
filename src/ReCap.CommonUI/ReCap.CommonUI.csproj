@@ -7,6 +7,9 @@
 	</PropertyGroup>
 	
 	<Import Project="../../build/avalonia.props" />
+	<ItemGroup>
+		<PackageReference Include="System.Reflection.DispatchProxy" Version="4.7.1" />
+	</ItemGroup>
 	
 	<ItemGroup>
 		<AvaloniaResource Include="Styles/**/*.axaml" />

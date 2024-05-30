@@ -19,11 +19,6 @@ namespace ReCap.Hub.Views
 #if !RECAP_ONLINE
             Width -= 194;
             Height -= 67;
-
-            if (System.Environment.GetCommandLineArgs().Any(x => x == "--ui-test"))
-            {
-                Content = new UITestView();
-            }
 #endif
 
             /*var layerManager = this.FindDescendantOfType<VisualLayerManager>();

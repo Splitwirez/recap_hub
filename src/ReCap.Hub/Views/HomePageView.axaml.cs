@@ -11,15 +11,6 @@ namespace ReCap.Hub.Views
         public HomePageView()
         {
             InitializeComponent();
-#if DEBUG
-            TabStripItem uiTestItem = new TabStripItem()
-            {
-                Content = "UI TESTS",
-                DataContext = new UITestView()
-            };
-            var topTabs = this.FindControl<TabStrip>("TopTabs");
-            topTabs.Items.Add(uiTestItem);
-#endif
         }
 
         private void InitializeComponent()

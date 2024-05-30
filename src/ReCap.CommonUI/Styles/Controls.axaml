@@ -3,12 +3,21 @@
     <Styles.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/Button.axaml" />
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/Button_RepeatButton_ToggleButton.axaml" />
 	            <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/ListBox.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/ListBoxItem.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/ScrollBar.axaml" />
 	            <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/ScrollViewer.axaml" />
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/TabControl.axaml" />
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/TabItem_TabStripItem.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/TextBox.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/CaptionButtons.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/TitleBar.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/TitleBarUnderlay.axaml" />
+				<!--
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/ToggleButton.axaml" />
+				-->
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/Window.axaml" />
             </ResourceDictionary.MergedDictionaries>
 
 			<!--
@@ -24,7 +33,4 @@
 			-->
         </ResourceDictionary>
     </Styles.Resources>
-    
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Controls/TabStripItem.axaml" />
-	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Controls/ToggleButton.axaml" />
 </Styles>

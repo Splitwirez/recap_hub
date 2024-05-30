@@ -38,6 +38,19 @@
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
-        }
+        },
+        {
+            "label": "build-uitest",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/ReCap.UITest/ReCap.UITest.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+                //"-p:EnableReCapOnline=True",
+            ],
+            "problemMatcher": "$msCompile"
+        },
     ]
 }

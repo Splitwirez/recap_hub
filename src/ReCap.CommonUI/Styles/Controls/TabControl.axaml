@@ -1,0 +1,66 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rctr="clr-namespace:ReCap.CommonUI">
+    <ControlTheme x:Key="{x:Type TabControl}"
+                    TargetType="TabControl">
+        <Setter Property="Padding" Value="12" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Background="{TemplateBinding Background}"
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                    <DockPanel>
+                        <Panel DockPanel.Dock="{TemplateBinding TabStripPlacement}">
+                            <rctr:AngledBorderEx InvertSide="Bottom"
+                                                Background="{DynamicResource Window.TitleBar.BackgroundBrush.Active}"
+                                                BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"
+                                                StrokeThickness="1"
+                                                TopLeftCut="14"
+                                                TopRightCut="14"
+                                                BottomLeftCut="5"
+                                                BottomRightCut="5"
+                                                BottomLeftInset="18"
+                                                BottomRightInset="18"
+                                                Margin="0,0,0,-4"
+                                                Opacity="0.6" />
+                            <ItemsPresenter x:Name="PART_ItemsPresenter"
+                                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                                            Margin="24,2,24,0" />
+                        </Panel>
+                        <Panel>
+                            <rctr:AngledBorderEx Background="{TemplateBinding Background}"
+                                                BorderBrush="{DynamicResource TabControl.Body.BorderBrush}"
+                                                StrokeThickness="1"
+                                                TopLeftCut="5"
+                                                TopRightCut="5"
+                                                TopLeftInset="18"
+                                                TopRightInset="18" />
+                            <ContentPresenter x:Name="PART_SelectedContentHost"
+                                            Margin="{TemplateBinding Padding}"
+                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            Content="{TemplateBinding SelectedContent}"
+                                            ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                        </Panel>
+                    </DockPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <ItemsPanelTemplate>
+                <rctr:AlignableWrapPanel HorizontalAlignment="Center" />
+            </ItemsPanelTemplate>
+        </Setter>
+
+        <Style Selector="^[TabStripPlacement=Left] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
+            <Setter Property="Orientation" Value="Vertical" />
+        </Style>
+        <Style Selector="^[TabStripPlacement=Right] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
+            <Setter Property="Orientation" Value="Vertical" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

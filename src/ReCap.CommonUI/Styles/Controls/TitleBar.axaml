@@ -1,17 +1,24 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:rctr="using:ReCap.CommonUI">
+					xmlns:rctr="clr-namespace:ReCap.CommonUI">
 
 	<ControlTheme x:Key="{x:Type TitleBar}" TargetType="TitleBar">
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="VerticalAlignment" Value="Top" />
+		
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Foreground" Value="{DynamicResource StrongForegroundBrush}" />
+		
 		<Setter Property="FontFamily" Value="{DynamicResource HeaderFont}" />
 		<Setter Property="FontSize" Value="15" />
-		<Setter Property="VerticalAlignment" Value="Top" />
-		<Setter Property="HorizontalAlignment" Value="Stretch" />
-		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Padding" Value="20,2" />
+
+		<Setter Property="ClipToBounds" Value="False" />
+		
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Panel HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-					   VerticalAlignment="Stretch">
+				<Panel VerticalAlignment="Top"
+					Height="{Binding ExtendClientAreaTitleBarHeightHint, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay}">
 					<Panel x:Name="PART_MouseTracker"
 						   Height="1"
 						   VerticalAlignment="Top" />
@@ -19,17 +26,19 @@
 						<Border x:Name="PART_Background"
 								Background="{TemplateBinding Background}"
 								IsHitTestVisible="False"/>
-						<DockPanel>
-							<CaptionButtons x:Name="PART_CaptionButtons"
-											VerticalAlignment="Top"
-											HorizontalAlignment="Right"
-											DockPanel.Dock="Right"
-											Classes.leftSideButtons="{Binding $parent[Window].(rctr:ChromeHelper.LeftSideButtons), Mode=OneWay}"
-											Foreground="{TemplateBinding Foreground}" />
 							<TextBlock x:Name="TitleDisplay"
 									   Text="{Binding $parent[Window].Title}"
-									   IsVisible="{Binding $parent[Window].(rctr:ChromeHelper.ManagedShowTitle), Mode=OneWay}" />
-						</DockPanel>
+									   IsHitTestVisible="False"
+									   VerticalAlignment="Center"
+									   Margin="{TemplateBinding Padding}"
+									   IsVisible="{Binding Path=(rctr:WindowChromeAddon.ManagedShowTitle), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay}"
+									   />
+						<rctr:CaptionButtonsSizeBridge HorizontalAlignment="Right"
+													   VerticalAlignment="Top">
+							<CaptionButtons x:Name="PART_CaptionButtons"
+											Foreground="{TemplateBinding Foreground}"
+											Classes.leftSideButtons="{Binding Path=(rctr:WindowChromeAddon.LeftSideButtons), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay}" />
+						</rctr:CaptionButtonsSizeBridge>
 					</Panel>
 				</Panel>
 			</ControlTemplate>

@@ -26,7 +26,9 @@
 									StrokeThickness="2"
 									CornerRadius="0,5,0,5"
 									Width="43"
-									Height="23"
+									VerticalAlignment="Top"
+									Height="{Binding Bounds.Height, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+									MaxHeight="23"
 									Margin="{TemplateBinding Padding}">
 						<!--
 									Background="{TemplateBinding Background}"
@@ -79,7 +81,7 @@
 		</Style>
 		
 		
-		<Style Selector="rctr|TitleBar2.active /template/ ^,
+		<Style Selector=":is(Window)[IsActive=True] /template/ ^,
 						^:pressed">
 			<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
 				<Setter Property="Background">
@@ -122,6 +124,7 @@
 
 
 	<ControlTheme x:Key="{x:Type CaptionButtons}" TargetType="CaptionButtons">
+		<Setter Property="ClipToBounds" Value="False" />
     	<Setter Property="Template">
       		<ControlTemplate>
 			<!--StackPanel Spacing="2" VerticalAlignment="Stretch" TextElement.FontSize="10" Orientation="Horizontal">
@@ -168,12 +171,12 @@
 			</StackPanel-->
 			<StackPanel x:Name="CaptionButtons"
 						Classes="captionButtons"
-						Margin="0,0,0,5"
 						VerticalAlignment="Top"
 						Spacing="2"
 						Orientation="Horizontal"
 						ZIndex="99999999"
-						DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay}">
+						DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay}"
+						Height="{Binding ExtendClientAreaTitleBarHeightHint, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay}">
 					<Button x:Name="PART_FullScreenButton"
 							Theme="{DynamicResource CaptionButton}"
 							IsVisible="False"
