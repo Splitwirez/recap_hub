@@ -1,11 +1,8 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl x:Class="ReCap.Hub.Views.LocateDarksporeView"
+            xmlns="https://github.com/avaloniaui"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:vm="using:ReCap.Hub.ViewModels"
-            mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-            x:Class="ReCap.Hub.Views.LocateDarksporeView"
-            Classes="dialogRoot"
+            Theme="{DynamicResource DialogRoot}"
             Width="540">
     <UserControl.Styles>
         <Style Selector="ContentControl.dialogFooter :is(Button).left">
@@ -36,7 +33,7 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
         <!--Style Selector="Panel.browseOrDetectButtons ToggleButton">
-            <Setter Property="Classes.right" Value="{Binding AllowsCancel, Mode=OneWay}" />
+            <Setter Property="Classes.right" Value="{Binding IsCloseable, Mode=OneWay}" />
         </Style-->
 
         <Style Selector="TemplatedControl.bodyShared">
@@ -67,11 +64,11 @@
     <DockPanel>
         <ContentControl Classes="dialogFooter"
                     DockPanel.Dock="Bottom">
-            <DockPanel LastChildFill="{Binding AllowsCancel, Mode=OneWay}">
+            <DockPanel LastChildFill="{Binding IsCloseable, Mode=OneWay}">
                 <Button Content="Cancel"
                         Classes="left"
                         DockPanel.Dock="Left"
-                        IsVisible="{Binding AllowsCancel, Mode=OneWay}"/>
+                        IsVisible="{Binding IsCloseable, Mode=OneWay}"/>
 
                 <Button x:Name="AcceptButton"
                         Content="Accept"
@@ -83,10 +80,10 @@
                     <ToggleButton Content="Browse manually"
                                 x:Name="BrowseManuallyButton"
                                 IsChecked="{Binding BrowseForGamePath, Mode=TwoWay}"
-                                Classes.left="{Binding !AllowsCancel, Mode=OneWay}"/>
+                                Classes.left="{Binding !IsCloseable, Mode=OneWay}"/>
                     <ToggleButton Content="Detect by launching"
                                 IsChecked="{Binding !BrowseForGamePath, Mode=TwoWay}"
-                                Classes.left="{Binding !AllowsCancel, Mode=OneWay}"/>
+                                Classes.left="{Binding !IsCloseable, Mode=OneWay}"/>
                 </Panel>
             </DockPanel>
         </ContentControl>
@@ -94,6 +91,22 @@
 
         <HeaderedContentControl Header="Welcome back, crogenitor"
                                 Classes="dialogBody">
+<!--
+            <HeaderedContentControl.Header>
+                <DockPanel>
+                    <Button x:Name="CloseButton"
+                            Theme="{DynamicResource DialogCloseButton}"
+                            DockPanel.Dock="Right" />
+                    <Control Opacity="0"
+                            IsHitTestVisible="False"
+                            IsTabStop="False"
+                            Focusable="False"
+                            Width="{Binding #CloseButton.Bounds.Width, Mode=OneWay}"
+                            DockPanel.Dock="Left" />
+                    <TextBlock Text="Welcome back, crogenitor" />
+                </DockPanel>
+            </HeaderedContentControl.Header>
+-->
             <DockPanel>
                 <TemplatedControl Classes="bodyShared"/>
 

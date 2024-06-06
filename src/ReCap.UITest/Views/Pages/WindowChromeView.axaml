@@ -1,0 +1,9 @@
+﻿<UserControl x:Class="ReCap.UITest.Views.Pages.WindowChromeView"
+            xmlns="https://github.com/avaloniaui"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<StackPanel Orientation="Vertical" Spacing="20">
+		<Slider Value="{Binding $parent[Window].ExtendClientAreaTitleBarHeightHint, Mode=TwoWay}"
+				Minimum="-1"
+				Maximum="100" />
+	</StackPanel>
+</UserControl>

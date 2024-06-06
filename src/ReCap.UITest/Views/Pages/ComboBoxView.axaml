@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="ReCap.UITest.Views.Pages.ComboBoxView"
+            xmlns="https://github.com/avaloniaui"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<StackPanel Orientation="Vertical" Spacing="20">
+		<ComboBox SelectedIndex="0">
+			<ComboBoxItem Content="Item 0" />
+			<ComboBoxItem Content="Item 1" />
+			<ComboBoxItem Content="Item 2" />
+			<ComboBoxItem Content="Item 3" />
+			<ComboBoxItem Content="Item 4 but disabled" IsEnabled="False" />
+		</ComboBox>
+		<ComboBox />
+		<ComboBox SelectedIndex="0"
+				IsEnabled="False">
+			<ComboBoxItem Content="Disabled item" />
+		</ComboBox>
+		<ComboBox IsEnabled="False" />
+	</StackPanel>
+</UserControl>

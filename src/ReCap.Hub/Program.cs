@@ -71,10 +71,9 @@ namespace ReCap.Hub
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI()
-#if NO
                 .With(new Win32PlatformOptions()
                 {
-#if !NO
+#if NO
 
                     //CompositionMode = Win32CompositionMode.WinUIComposition
                     RenderingMode = new[] {
@@ -84,9 +83,10 @@ namespace ReCap.Hub
                     },
                     CompositionMode = new[]
                     {
-                        Win32CompositionMode.RedirectionSurface
+                        Win32CompositionMode.RedirectionSurface,
+                        Win32CompositionMode.WinUIComposition,
                     }
-#else
+#elif NO
                     //OverlayPopups = true,
                     CompositionMode = new[]
                     {
@@ -103,7 +103,6 @@ namespace ReCap.Hub
                     },
 #endif
                 })
-#endif
                 ;
     }
 }

@@ -1,30 +1,27 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:ReCap.Hub.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ReCap.Hub.Views.YesNoDialogView"
-             Classes="dialogRoot"
-             Width="400">
-  <DockPanel>
-    <ContentControl Classes="dialogFooter"
-                    HorizontalContentAlignment="Stretch"
-                    DockPanel.Dock="Bottom">
-      <DockPanel LastChildFill="False">
-        <Button Command="{Binding NoCommand}"
-                Classes="left"
-                DockPanel.Dock="Left">No</Button>
-        <Button Command="{Binding YesCommand}"
-                Classes="right"
-                DockPanel.Dock="Right">Yes</Button>
-      </DockPanel>
-    </ContentControl>
-    <HeaderedContentControl Classes="dialogBody"
-                            Header="{Binding Title, Mode=OneWay}">
-      <StackPanel Orientation="Vertical">
-        <TextBlock Text="{Binding Content, Mode=OneWay}" VerticalAlignment="Center"/>
-      </StackPanel>
-    </HeaderedContentControl>
-  </DockPanel>
+﻿<UserControl x:Class="ReCap.Hub.Views.YesNoDialogView"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+            Theme="{DynamicResource DialogRoot}"
+            Width="400">
+    <DockPanel>
+        <ContentControl Classes="dialogFooter"
+                        HorizontalContentAlignment="Stretch"
+                        DockPanel.Dock="Bottom">
+            <DockPanel LastChildFill="False">
+                <Button Command="{Binding NoCommand}"
+                        Classes="left"
+                        DockPanel.Dock="Left">No</Button>
+                <Button Command="{Binding YesCommand}"
+                        Classes="right"
+                        DockPanel.Dock="Right">Yes</Button>
+            </DockPanel>
+        </ContentControl>
+        <HeaderedContentControl Classes="dialogBody"
+                                Header="{Binding Title, Mode=OneWay}">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Content, Mode=OneWay}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </HeaderedContentControl>
+    </DockPanel>
 </UserControl>

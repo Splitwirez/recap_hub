@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using ReCap.Hub.Models;
 
 namespace ReCap.Hub.ViewModels
 {
-    public class NewSaveGameViewModel : ViewModelBase, IDialogViewModel<SaveGameViewModel>
+    public class NewSaveGameViewModel
+        : ViewModelBase
+        , IDialogViewModel<SaveGameViewModel>
     {
-        TaskCompletionSource<SaveGameViewModel> _tcs = new TaskCompletionSource<SaveGameViewModel>();
-        public TaskCompletionSource<SaveGameViewModel> GetCompletionSource()
+        readonly TaskCompletionSource<SaveGameViewModel> _tcs = new TaskCompletionSource<SaveGameViewModel>();
+        public TaskCompletionSource<SaveGameViewModel> CompletionSource
         {
-            return _tcs;
+            get => _tcs;
         }
 
         string _title = "New save game";
@@ -22,27 +22,27 @@ namespace ReCap.Hub.ViewModels
             set => RASIC(ref _title, value);
         }
 
-        bool _allowsCancel = true;
-        public bool AllowsCancel
+        bool _isCloseable = true;
+        public bool IsCloseable
         {
-            get => _allowsCancel;
-            protected set => RASIC(ref _allowsCancel, value);
+            get => _isCloseable;
+            protected set => RASIC(ref _isCloseable, value);
         }
 
         string _savePath = string.Empty;
-        public NewSaveGameViewModel(string savePath, bool allowsCancel = true)
+        public NewSaveGameViewModel(string savePath, bool isCloseable = true)
         {
             _savePath = savePath;
-            AllowsCancel = allowsCancel;
+            IsCloseable = isCloseable;
         }
 
-        public void Cancel(object parameter)
+        public void Cancel(object _)
         {
-            if (AllowsCancel)
+            if (IsCloseable)
                 _tcs.TrySetResult(null);
         }
 
-        public void Accept(object parameter)
+        public void Accept(object _)
         {
             int id = 2;
             var blitzAlpha = CreateHero("1667741389", id, out CreatureModel blitzModel);

@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace ReCap.Hub.Views
 {
-    public partial class LocalPlayView : UserControl
+    public partial class LocalPlayView
+        : UserControl
     {
-        ContentControl _gameConfigsPane = null;
         public LocalPlayView()
         {
             this.InitializeComponent();
@@ -15,7 +15,6 @@ namespace ReCap.Hub.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            _gameConfigsPane = this.Find<ContentControl>("GameConfigsPane");
         }
     }
 }

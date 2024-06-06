@@ -5,9 +5,11 @@
 		<ApplicationIcon>Assets/ReCap.ico</ApplicationIcon>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<AssemblyName>ResurrectionCapsuleHub</AssemblyName>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<LangVersion>9.0</LangVersion>
 		<!--
-		<EnableReCapOnline>True</EnableReCapOnline>
 		-->
+		<EnableReCapOnline>True</EnableReCapOnline>
 	</PropertyGroup>
 
 
@@ -43,6 +45,13 @@
 		<EmbeddedResource Include="../../content/dbpf/**/*.*">
 			<LogicalName>dbpf?%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
 		</EmbeddedResource>
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Compile Update="Views\DialogOverlayView.axaml.cs">
+	    <DependentUpon>DialogOverlayView.axaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 

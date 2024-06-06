@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:v="using:ReCap.Hub.Views"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:rctr="using:ReCap.Hub.Controls"
+            mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+            x:Class="ReCap.Hub.Views.DialogOverlayView"
+            IsVisible="{Binding HasDialog}">
+    <!--
+    <UserControl.Styles>
+        <Style Selector="ContentControl#DialogContainer > :is(Control)">
+            <Setter Property="v:DialogOverlayView.SynchronizeAlignments" Value="True" />
+        </Style>
+    </UserControl.Styles>
+	<Panel
+        >
+        <!- -
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        - ->
+        <ContentControl x:Name="DialogContainer"
+                        Content="{Binding CurrentDialog}"
+                        IsTabStop="False"
+                        Focusable="False" />
+        <Panel 
+            HorizontalAlignment="{Binding #DialogContainer.HorizontalAlignment, Mode=OneWay}"
+            VerticalAlignment="{Binding #DialogContainer.VerticalAlignment, Mode=OneWay}"
+            Width="{Binding #DialogContainer.Bounds.Width, Mode=OneWay}"
+            Height="{Binding #DialogContainer.Bounds.Height, Mode=OneWay}">
+            <Button Command="{Binding CloseCommand}"
+                    Theme="{DynamicResource CaptionButton}"
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Top"
+                    IsVisible="{Binding CurrentDialog.CanClose, Mode=OneWay}"
+                    Margin="6">
+                <Path Data="{DynamicResource CloseButtonGlyphGeometry}"
+                    Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWay}" />
+            </Button>
+        </Panel>
+	</Panel>
+    -->
+    
+    <ContentControl x:Name="DialogContainer"
+                    Content="{Binding CurrentDialog}"
+                    IsTabStop="False"
+                    Focusable="False" />
+</UserControl>

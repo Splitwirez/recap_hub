@@ -2,8 +2,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:ReCap.CommonUI"
         xmlns:rctr="using:ReCap.CommonUI">
-    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/Common.axaml"/>
-    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/DialogOverlay.axaml"/>
-    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/HomePage.axaml"/>
-    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/SaveGame.axaml"/>
+    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/Common.axaml" />
+    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/DialogOverlay.axaml" />
+    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/HomePage.axaml" />
+    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/SaveGame.axaml" />
+	<StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/TabbedWindow.axaml" />
+
+	<StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/Icons.axaml" />
 </Styles>

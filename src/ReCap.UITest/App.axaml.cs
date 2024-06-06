@@ -19,7 +19,7 @@ namespace ReCap.UITest
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = new UITestViewModel(),
                 };
             }
 

@@ -3,6 +3,7 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:local="using:ReCap.Hub"
             xmlns:rctr="using:ReCap.CommonUI"
+            xmlns:dt="using:ReCap.Hub.Data"
             RequestedThemeVariant="Dark">
     <Application.DataTemplates>
         <local:ViewLocator/>
@@ -10,5 +11,9 @@
     <Application.Styles>
         <rctr:ReCapTheme />
         <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/All.axaml"/>
+
+        <Style Selector=":is(Window)">
+            <Setter Property="ExtendClientAreaToDecorationsHint" Value="{Binding Path=UseManagedDecorations, Source={x:Static dt:HubData.Instance}, Mode=OneWay}" />
+        </Style>
     </Application.Styles>
 </Application>

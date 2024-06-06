@@ -86,6 +86,32 @@ namespace ReCap.CommonUI
         }
 
 
+        /// <summary>
+        /// Defines the <see cref="FillClipBindable"/> property.
+        /// </summary>
+        public static readonly DirectProperty<AngledBorderBase, Geometry> FillClipBindableProperty =
+            AvaloniaProperty.RegisterDirect<AngledBorderBase, Geometry>(nameof(FillClipBindable), o => o._fillGeometry);
+        
+        public Geometry FillClipBindable
+        {
+            get => GetValue(FillClipBindableProperty);
+            set => SetValue(FillClipBindableProperty, value);
+        }
+
+
+        /// <summary>
+        /// Defines the <see cref="StrokeClipBindable"/> property.
+        /// </summary>
+        public static readonly DirectProperty<AngledBorderBase, Geometry> StrokeClipBindableProperty =
+            AvaloniaProperty.RegisterDirect<AngledBorderBase, Geometry>(nameof(StrokeClipBindable), o => o._strokeGeometry);
+        
+        public Geometry StrokeClipBindable
+        {
+            get => GetValue(StrokeClipBindableProperty);
+            set => SetValue(StrokeClipBindableProperty, value);
+        }
+
+
 
 
         BoxShadow _boxShadow = new BoxShadow()
@@ -95,6 +121,7 @@ namespace ReCap.CommonUI
             IsInset = true,
         };
         //BoxShadows _boxShadows = new BoxShadows();
+        static readonly Geometry _DEFAULT_GEOMETRY = new StreamGeometry();
         Geometry _fillGeometry = new StreamGeometry();
         Geometry _strokeGeometry = new StreamGeometry();
 #if DEBUG_ANGLED_BORDER
@@ -108,6 +135,8 @@ namespace ReCap.CommonUI
 
         static AngledBorderBase()
         {
+            Extensions.MakeControlTypeNonInteractive<AngledBorderBase>();
+
             Action<AngledBorderBase, AvaloniaPropertyChangedEventArgs> changedHandler = (s, e) => s.UpdateGeometry();
 
             StrokeThicknessProperty.Changed.AddClassHandler<AngledBorderBase>((s, e) => 
@@ -150,8 +179,12 @@ namespace ReCap.CommonUI
         {
             RoundedRect rrect;
             Geometry strokeGeometryOuter = null;
+            var prevFillGeometry = _fillGeometry;
             (_fillGeometry, strokeGeometryOuter, rrect) = RefreshGeometry();
+            if (prevFillGeometry != _fillGeometry)
+                RaisePropertyChanged(FillClipBindableProperty, prevFillGeometry, _fillGeometry);
             
+            var prevStrokeGeometry = _strokeGeometry;
             if (strokeGeometryOuter != null)
                 _strokeGeometry = new CombinedGeometry(GeometryCombineMode.Xor, strokeGeometryOuter, _fillGeometry);
             else
@@ -159,6 +192,15 @@ namespace ReCap.CommonUI
 #if DEBUG_ANGLED_BORDER
             _strokeGeometryOuter = strokeGeometryOuter;
 #endif
+            if (prevStrokeGeometry != _strokeGeometry)
+            {
+                var newStrokeGeometry = _strokeGeometry != null
+                    ? _strokeGeometry
+                    : _DEFAULT_GEOMETRY
+                ;
+                RaisePropertyChanged(StrokeClipBindableProperty, prevStrokeGeometry, newStrokeGeometry);
+            }
+
             //rrect.Rect
             //_rrect = new RoundedRect(rrect.Rect.Inflate(BLUR_SPREAD_OFFSET), rrect.RadiiTopLeft, rrect.RadiiTopRight, rrect.RadiiBottomRight, rrect.RadiiBottomLeft);
             _rrect = rrect.Inflate(BLUR_SPREAD_OFFSET, BLUR_SPREAD_OFFSET);

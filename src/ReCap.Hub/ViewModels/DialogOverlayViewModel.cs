@@ -1,27 +1,13 @@
-using Avalonia;
-using Avalonia.Collections;
-using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
-using Avalonia.Markup.Xaml;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ReCap.Hub.Views
+namespace ReCap.Hub.ViewModels
 {
-    public partial class DialogOverlay : UserControl
-    {
-        public DialogOverlay()
-        {
-            InitializeComponent();
-
-            DataContext = new DialogOverlayVM();
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
-    }
-
-    public class DialogOverlayVM : ViewModels.ViewModelBase
+    public class DialogOverlayViewModel
+        : ViewModelBase
     {
         IDialogViewModel _currentDialog = null;
 
@@ -40,7 +26,7 @@ namespace ReCap.Hub.Views
             set => RASIC(ref _hasDialog, value);
         }
 
-        public DialogOverlayVM()
+        public DialogOverlayViewModel()
         {
             DialogDisplay.DialogShown += DialogDisplay_DialogShown;
         }
@@ -57,6 +43,21 @@ namespace ReCap.Hub.Views
                 CurrentDialog = null;
                 HasDialog = false;
             }
+        }
+
+        public void CloseCommand(object _)
+            => CloseCurrentDialog();
+
+        public void CloseCurrentDialog()
+        {
+            if (CurrentDialog == null)
+                return;
+
+            if (!CurrentDialog.IsCloseable)
+                return;
+
+            CurrentDialog.OnClosed();
+            //CurrentDialog.GetCompletionSource
         }
     }
 }

@@ -10,10 +10,31 @@ namespace ReCap.Hub
 {
 	public interface IDialogViewModel
 	{
+		bool IsCloseable
+        {
+			get;
+        }
+
+		void OnClosed();
+
+		//TaskCompletionSource<T> GetCompletionSource<T>();
 	}
 
-	public interface IDialogViewModel<T> : IDialogViewModel
+	public interface IDialogViewModel<T>
+		: IDialogViewModel
 	{
-		TaskCompletionSource<T> GetCompletionSource();
+		TaskCompletionSource<T> CompletionSource
+		{
+			get;
+		}
+
+		/*
+		T GetReturnValueForWhenClosed()
+			=> default;
+		*/
+		void IDialogViewModel.OnClosed()
+        {
+			CompletionSource.SetResult(default);
+		}
 	}
 }

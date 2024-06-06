@@ -5,6 +5,12 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d">
+	<PathGeometry x:Key="CloseButtonGlyphGeometry">
+		M 0 0 L 3 0 L 5 2 L 7 0 L 10 0
+		L 10 0.5 L 7 4.5 L 10 8.5 L 10 9
+		L 7 9 L 5 7 L 3 9 L 0 9
+		L 0 8.5 L 3 4.5 L 0 0.5 Z
+	</PathGeometry>
 	<rctr:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
 	<WindowState x:Key="MaxState">Maximized</WindowState>
 	<rctr:CompareToConverter x:Key="IsMaxStateConverter">
@@ -13,105 +19,75 @@
 		</rctr:CompareToConverter.CompareTo>
 	</rctr:CompareToConverter>
 
-	<ControlTheme x:Key="CaptionButton" TargetType="Button">
-
-		<Setter Property="HorizontalContentAlignment" Value="Center"/>
-		<Setter Property="VerticalContentAlignment" Value="Center"/>
-		<Setter Property="VerticalAlignment" Value="Top"/>
-		<Setter Property="Padding" Value="0,8,0,0"/>
+	<ControlTheme x:Key="CaptionButton"
+				TargetType="{x:Type Button}">
+		<Setter Property="HorizontalContentAlignment" Value="Center" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="Padding" Value="16.5,7,16.5,7" />
+		<Setter Property="Background" Value="{DynamicResource CaptionButton.Background.Idle}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource CaptionButton.BorderBrush.Idle}" />
+		<Setter Property="Foreground" Value="{DynamicResource CaptionButton.Foreground.Idle}" />
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Panel Background="#01000000">
 					<rctr:AngledBorder x:Name="BgElement"
 									StrokeThickness="2"
-									CornerRadius="0,5,0,5"
-									Width="43"
-									VerticalAlignment="Top"
-									Height="{Binding Bounds.Height, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
-									MaxHeight="23"
-									Margin="{TemplateBinding Padding}">
-						<!--
-									Background="{TemplateBinding Background}"
-									BorderBrush="{TemplateBinding BorderBrush}"
-						-->
+								CornerRadius="0,5,0,5"
+								Background="{TemplateBinding Background}"
+								BorderBrush="{TemplateBinding BorderBrush}">
 						<ContentPresenter x:Name="PART_ContentPresenter"
 										Background="Transparent"
 										BorderBrush="Transparent"
 										BorderThickness="0"
 										Content="{TemplateBinding Content}"
 										ContentTemplate="{TemplateBinding ContentTemplate}"
-										Padding="0"
 										HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-										VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+										VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										Foreground="{TemplateBinding Foreground}" />
 					</rctr:AngledBorder>
 				</Panel>
 			</ControlTemplate>
 		</Setter>
-		
-		
-		<!--Style Selector="Window[IsActive=false] /template/ rctr|TitleBar2 /template/ CaptionButtons /template/ ^ /template/ rctr|AngledBorder#BgElement">
-			<Setter Property="Background">
-				<RadialGradientBrush Center="50%,50%" GradientOrigin="50%,50%" Radius="0.625">
-					<GradientStop Offset="0.125" Color="#FF964B4B"/>
-					<GradientStop Offset="1" Color="#FF562B2B"/>
-				</RadialGradientBrush>
-			</Setter>
-			<Setter Property="BorderBrush" Value="#FFDDD4D4"/>
-		</Style>
-		<Style Selector="rctr|TitleBar2:not(:active) ^ /template/ ContentPresenter#PART_ContentPresenter">
-			<Setter Property="Foreground" Value="#FFDD6E6E"/>
-		</Style-->
-
-
-		<!--rctr|TitleBar2:not(:active) /template/ -->
-		<Style Selector="^:not(.active)">
-		<!--:not(:pointerover, :pressed, :disabled)-->
-			<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
-				<Setter Property="Background">
-					<RadialGradientBrush Center="50%,50%" GradientOrigin="50%,50%" Radius="0.625">
-						<GradientStop Offset="0.125" Color="#FF964B4B"/>
-						<GradientStop Offset="1" Color="#FF562B2B"/>
-					</RadialGradientBrush>
-				</Setter>
-			</Style>
-			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
-				<Setter Property="BorderBrush" Value="#FFDDD4D4"/>
-				<Setter Property="Foreground" Value="#FFDD6E6E"/>
-			</Style>
-		</Style>
-		
-		
-		<Style Selector=":is(Window)[IsActive=True] /template/ ^,
-						^:pressed">
-			<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
-				<Setter Property="Background">
-					<RadialGradientBrush Center="50%,50%" GradientOrigin="50%,50%" Radius="0.625">
-						<GradientStop Offset="0.125" Color="#FF970000"/>
-						<GradientStop Offset="1" Color="#FF590000"/>
-					</RadialGradientBrush>
-				</Setter>
-				<Setter Property="BorderBrush" Value="#FFDECCCC"/>
-			</Style>
-			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
-				<Setter Property="Foreground" Value="#FFDE0000"/>
-			</Style>
+		<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Padding" Value="{Binding Padding, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
 		</Style>
 
+		<!-- Hover -->
 		<Style Selector="^:pointerover:not(:pressed)">
 			<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
-				<Setter Property="Background">
-					<RadialGradientBrush Center="50%,50%" GradientOrigin="50%,50%" Radius="0.625">
-						<GradientStop Offset="0.125" Color="#FFFF0000"/>
-						<GradientStop Offset="1" Color="#FFFD0E0E"/>
-					</RadialGradientBrush>
-				</Setter>
-				<Setter Property="BorderBrush" Value="#FFFFCCCC"/>
+				<Setter Property="Background" Value="{DynamicResource CaptionButton.Background.Hover}" />
+				<Setter Property="BorderBrush" Value="{DynamicResource CaptionButton.BorderBrush.Hover}" />
 			</Style>
 			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
-				<Setter Property="Foreground" Value="White"/>
+				<Setter Property="Foreground" Value="{DynamicResource CaptionButton.Foreground.Hover}" />
 			</Style>
 		</Style>
 
+
+		<!-- Pressed -->
+		<Style Selector="^:pressed">
+			<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
+				<Setter Property="Background" Value="{DynamicResource CaptionButton.Background.Pressed}" />
+				<Setter Property="BorderBrush" Value="{DynamicResource CaptionButton.BorderBrush.Pressed}" />
+			</Style>
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Foreground" Value="{DynamicResource CaptionButton.Foreground.Pressed}" />
+			</Style>
+		</Style>
+
+
+		<!-- Pressed -->
+		<Style Selector="^:disabled">
+			<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
+				<Setter Property="Background" Value="{DynamicResource CaptionButton.Background.Disabled}" />
+				<Setter Property="BorderBrush" Value="{DynamicResource CaptionButton.BorderBrush.Disabled}" />
+			</Style>
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Foreground" Value="{DynamicResource CaptionButton.Foreground.Disabled}" />
+			</Style>
+		</Style>
+
+		<!--
 		<Style Selector="^:pressed">
 			<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
 				<Setter Property="BorderBrush" Value="#FFA00000"/>
@@ -120,6 +96,36 @@
 				<Setter Property="Foreground" Value="#FF120000"/>
 			</Style>
 		</Style>
+		-->
+	</ControlTheme>
+
+	<ControlTheme x:Key="{x:Type rctr:CaptionButton}"
+				  TargetType="{x:Type rctr:CaptionButton}"
+				  BasedOn="{StaticResource CaptionButton}">
+		<Setter Property="IsActive" Value="{Binding IsActive, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay, FallbackValue=True}" />
+		<Setter Property="Padding" Value="0,8,0,0" />
+		<Setter Property="VerticalAlignment" Value="Top" />
+		
+		<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
+			<Setter Property="Width" Value="43" />
+			<Setter Property="VerticalAlignment" Value="Top" />
+			<Setter Property="Height" Value="{Binding Bounds.Height, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
+			<Setter Property="MaxHeight" Value="23" />
+			<Setter Property="Margin" Value="{Binding Padding, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
+		</Style>
+		<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Padding" Value="0" />
+		</Style>
+
+		<Style Selector="^[IsActive=False]:not(:pointerover):not(:pressed):not(:disabled)">
+			<Style Selector="^ /template/ rctr|AngledBorder#BgElement">
+				<Setter Property="Background" Value="{DynamicResource CaptionButton.Background.Idle.Inactive}" />
+				<Setter Property="BorderBrush" Value="{DynamicResource CaptionButton.BorderBrush.Idle.Inactive}" />
+			</Style>
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Foreground" Value="{DynamicResource CaptionButton.Foreground.Idle.Inactive}" />
+			</Style>
+	</Style>
 	</ControlTheme>
 
 
@@ -177,38 +183,24 @@
 						ZIndex="99999999"
 						DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay}"
 						Height="{Binding ExtendClientAreaTitleBarHeightHint, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay}">
-					<Button x:Name="PART_FullScreenButton"
-							Theme="{DynamicResource CaptionButton}"
-							IsVisible="False"
-							Classes.active="{Binding IsActive, FallbackValue=True}">
-					</Button>
-					<!--
-							Classes.active="{Binding $parent[Window].IsActive}"
-					-->
-					<Button x:Name="PART_MinimizeButton"
-							Theme="{DynamicResource CaptionButton}"
-							Classes.active="{Binding IsActive, FallbackValue=True}">
+					<rctr:CaptionButton x:Name="PART_FullScreenButton"
+							IsVisible="False">
+					</rctr:CaptionButton>
+					<rctr:CaptionButton x:Name="PART_MinimizeButton">
 						<Path Data="M 0 0 L 13 0 L 13 4 L 0 4 Z"/>
-					</Button>
-					<Button x:Name="PART_RestoreButton"
-							Theme="{DynamicResource CaptionButton}"
-							Classes.active="{Binding IsActive, FallbackValue=True}">
+					</rctr:CaptionButton>
+					<rctr:CaptionButton x:Name="PART_RestoreButton">
 						<Path Classes="maxRestoreIcon"
 							Classes.maximized="{Binding WindowState, Converter={StaticResource IsMaxStateConverter}}"
 							Data="M 0 8 H 11 V -1 H 0 Z M 2 1 H 9 V 6 H 2 Z"/>
-					</Button>
-					<Button x:Name="PART_CloseButton"
-							Theme="{DynamicResource CaptionButton}"
-							Classes.active="{Binding IsActive, FallbackValue=True}">
-						<Path Data="M 0 0 L 3 0 L 5 2 L 7 0 L 10 0
-											L 10 0.5 L 7 4.5 L 10 8.5 L 10 9
-											L 7 9 L 5 7 L 3 9 L 0 9
-											L 0 8.5 L 3 4.5 L 0 0.5 Z"/>
+					</rctr:CaptionButton>
+					<rctr:CaptionButton x:Name="PART_CloseButton">
+						<Path Data="{DynamicResource CloseButtonGlyphGeometry}" />
 								<!--M 0 0 L 4 0 L 5.5 2 L 7 0 L 11 0
 											L 9 4.5 L 11 9
 											L 7 9 L 5.5 7 L 4 9 L 0 9
 											L 2 4.5 Z-->
-					</Button>
+					</rctr:CaptionButton>
 				</StackPanel>
 			</ControlTemplate>
 		</Setter>
@@ -219,16 +211,16 @@
 			<Setter Property="IsVisible" Value="True" />
 			<Setter Property="Data" Value="M205 1024h819v-819h-205v469l-674 -674l-145 145l674 674h-469v205zM1374 1229h469v-205h-819v819h205v-469l674 674l145 -145z" />
 		</Style>
-		<Style Selector="^:fullscreen /template/ Button#PART_RestoreButton">
+		<Style Selector="^:fullscreen /template/ rctr|CaptionButton#PART_RestoreButton">
 			<Setter Property="IsVisible" Value="False" />
 		</Style>
-		<Style Selector="^:fullscreen /template/ Button#PART_MinimizeButton">
+		<Style Selector="^:fullscreen /template/ rctr|CaptionButton#PART_MinimizeButton">
 			<Setter Property="IsVisible" Value="False" />
 		</Style>
 
 		
 
-		<Style Selector="^ /template/ Button > Path">
+		<Style Selector="^ /template/ rctr|CaptionButton > Path">
 			<Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWay}"/>
 		</Style>
 		<!--Style Selector="^ /template/ Button > Path.maxRestoreIcon">
@@ -262,7 +254,7 @@
 		
 		
 
-		<Style Selector="^ /template/ Button#PART_CloseButton">
+		<Style Selector="^ /template/ rctr|CaptionButton#PART_CloseButton">
 			<Setter Property="Padding" Value="0,8,13,0"/>
 		</Style>
 	</ControlTheme>

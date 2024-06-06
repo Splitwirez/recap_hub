@@ -31,6 +31,8 @@ namespace ReCap.CommonUI
 
         static ImagePresenter()
         {
+            Extensions.MakeControlTypeNonInteractive<ImagePresenter>();
+
             AffectsRender<ImagePresenter>(SourceProperty);
             AffectsMeasure<ImagePresenter>(SourceProperty);
             SourceProperty.Changed.AddClassHandler<ImagePresenter>((s, e) => s.OnSourceChanged());

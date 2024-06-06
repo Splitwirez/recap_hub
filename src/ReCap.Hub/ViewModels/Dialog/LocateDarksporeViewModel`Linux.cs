@@ -15,16 +15,17 @@ using Timer = System.Timers.Timer;
 
 namespace ReCap.Hub.ViewModels
 {
-    public partial class LocateDarksporeViewModel : ViewModelBase, IDialogViewModel<(string winePrefix, string wineExecutable, string darksporeInstallPath)>
+    public partial class LocateDarksporeViewModel
+        : ViewModelBase
+        , IDialogViewModel<DarksporeInstallPaths>
     {   
         [SupportedOSPlatform("linux")]
-        (string WINEPrefixPath, string WINEExecutablePath, string DarksporeExePath) Linux_GetDarksporeInstallPathFromProcess(Process process)
+        DarksporeInstallPaths Linux_GetDarksporeInstallPathFromProcess(Process process)
         {
             if (TryGetWINEInfo(process, out string winePrefix, out string wineExecutable, out string programExecutable, out int wineEsync))
-            {
-                return (winePrefix, wineExecutable, programExecutable);
-            }
-            return (null, null, null);
+                return new DarksporeInstallPaths(winePrefix, wineExecutable, programExecutable);
+            else
+                return new DarksporeInstallPaths();
         }
 
         /// <summary>

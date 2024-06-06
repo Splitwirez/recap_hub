@@ -17,16 +17,16 @@ namespace ReCap.Hub.ViewModels
 
 
         public void AcceptCommand(object parameter)
-            => GetCompletionSource().TrySetResult(Value);
+            => CompletionSource.TrySetResult(Value);
 
         public void CancelCommand(object parameter)
-            => GetCompletionSource().TrySetResult(null);
+            => CompletionSource.TrySetResult(null);
 
-        public TextBoxDialogViewModel(string title, string content)
-            : base(title, content)
+        public TextBoxDialogViewModel(string title, string content, bool isCloseable)
+            : base(title, content, isCloseable)
         { }
-        public TextBoxDialogViewModel(string title, string content, string initialValue)
-            : this(title, content)
+        public TextBoxDialogViewModel(string title, string content, string initialValue, bool isCloseable)
+            : this(title, content, isCloseable)
         {
             Value = initialValue;
         }

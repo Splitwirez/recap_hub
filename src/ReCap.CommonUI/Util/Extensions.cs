@@ -1,5 +1,8 @@
 using System;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Presenters;
+using Avalonia.Input;
 
 namespace ReCap.CommonUI
 {
@@ -21,6 +24,14 @@ namespace ReCap.CommonUI
             
             hWnd = hWndMaybe.Value;
             return true;
+        }
+
+        public static void MakeControlTypeNonInteractive<T>()
+            where T : AvaloniaObject
+        {
+            InputElement.FocusableProperty.OverrideDefaultValue<T>(false);
+            InputElement.IsTabStopProperty.OverrideDefaultValue<T>(false);
+            ContentPresenter.RecognizesAccessKeyProperty.OverrideDefaultValue<T>(false);
         }
     }
 }

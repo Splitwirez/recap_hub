@@ -39,5 +39,10 @@ namespace ReCap.CommonUI
         }
 
         protected override Type StyleKeyOverride => typeof(TitleBarUnderlay);
+
+        static TitleBarUnderlay()
+        {
+            Extensions.MakeControlTypeNonInteractive<TitleBarUnderlay>();
+        }
     }
 }

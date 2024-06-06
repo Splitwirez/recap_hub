@@ -3,8 +3,8 @@
                     xmlns:rctr="clr-namespace:ReCap.CommonUI">
     <ControlTheme x:Key="{x:Type TabControl}"
                     TargetType="TabControl">
-        <Setter Property="Padding" Value="12" />
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="24,12" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border BorderBrush="{TemplateBinding BorderBrush}"
@@ -14,31 +14,41 @@
                         HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                         VerticalAlignment="{TemplateBinding VerticalAlignment}">
                     <DockPanel>
-                        <Panel DockPanel.Dock="{TemplateBinding TabStripPlacement}">
-                            <rctr:AngledBorderEx InvertSide="Bottom"
-                                                Background="{DynamicResource Window.TitleBar.BackgroundBrush.Active}"
-                                                BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"
-                                                StrokeThickness="1"
+                        <Panel x:Name="HeaderArea"
+                            DockPanel.Dock="{TemplateBinding TabStripPlacement}">
+                            <rctr:AngledBorderEx x:Name="HeaderBg"
+                                                Theme="{DynamicResource GroupBoxHeaderBackground}"
+                                                Opacity="0.6" />
+                            <ItemsPresenter x:Name="PART_ItemsPresenter"
+                                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+                        </Panel>
+                        <!--
+                        <Panel x:Name="HeaderArea"
+                            DockPanel.Dock="{TemplateBinding TabStripPlacement}"
+                            Margin="0,0,0,1">
+                            <rctr:AngledBorderEx x:Name="HeaderBg"
+                                                Theme="{DynamicResource GroupBoxHeaderBackground}"
+
                                                 TopLeftCut="14"
                                                 TopRightCut="14"
-                                                BottomLeftCut="5"
-                                                BottomRightCut="5"
-                                                BottomLeftInset="18"
+                                                
                                                 BottomRightInset="18"
-                                                Margin="0,0,0,-4"
+                                                BottomLeftInset="18"
+
                                                 Opacity="0.6" />
                             <ItemsPresenter x:Name="PART_ItemsPresenter"
                                             ItemsPanel="{TemplateBinding ItemsPanel}"
                                             Margin="24,2,24,0" />
                         </Panel>
+                        -->
                         <Panel>
-                            <rctr:AngledBorderEx Background="{TemplateBinding Background}"
-                                                BorderBrush="{DynamicResource TabControl.Body.BorderBrush}"
-                                                StrokeThickness="1"
-                                                TopLeftCut="5"
-                                                TopRightCut="5"
+                            <rctr:AngledBorderEx x:Name="BodyBg"
+                                                Theme="{DynamicResource GroupBoxBodyBackground}" />
+                            <!--
+                            <rctr:AngledBorderEx Theme="{DynamicResource GroupBoxBodyBackground}"
                                                 TopLeftInset="18"
                                                 TopRightInset="18" />
+                            -->
                             <ContentPresenter x:Name="PART_SelectedContentHost"
                                             Margin="{TemplateBinding Padding}"
                                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -56,11 +66,161 @@
             </ItemsPanelTemplate>
         </Setter>
 
-        <Style Selector="^[TabStripPlacement=Left] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
-            <Setter Property="Orientation" Value="Vertical" />
+
+
+
+        <!-- Tabs on top -->
+        <Style Selector="^[TabStripPlacement=Top]">
+            <Setter Property="BorderBrush" Value="{DynamicResource TabControl.Body.BorderBrush.Top}" />
+
+            <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter">
+                <Setter Property="Margin" Value="24,2,24,0" />
+            </Style>
+
+            <Style Selector="^ /template/ rctr|AngledBorderEx#HeaderBg">
+                <Setter Property="InvertSide" Value="Bottom" />
+                <Setter Property="Margin" Value="0,0,0,-4" />
+
+                <Setter Property="TopLeftInset" Value="0" />
+                <Setter Property="TopLeftCut" Value="14" />
+
+                <Setter Property="TopRightInset" Value="0" />
+                <Setter Property="TopRightCut" Value="14" />
+                
+                <Setter Property="BottomRightInset" Value="18" />
+                <Setter Property="BottomLeftCut" Value="5" />
+                
+                <Setter Property="BottomLeftInset" Value="18" />
+                <Setter Property="BottomRightCut" Value="5" />
+            </Style>
+
+            <Style Selector="^ /template/ rctr|AngledBorderEx#BodyBg">
+                <Setter Property="TopLeftInset" Value="18" />
+                <Setter Property="TopRightInset" Value="18" />
+
+                <Setter Property="BottomRightInset" Value="0" />
+                <Setter Property="BottomLeftInset" Value="0" />
+            </Style>
         </Style>
-        <Style Selector="^[TabStripPlacement=Right] /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
-            <Setter Property="Orientation" Value="Vertical" />
+
+
+
+
+        <!-- Tabs on bottom -->
+        <Style Selector="^[TabStripPlacement=Bottom]">
+            <Setter Property="BorderBrush" Value="{DynamicResource TabControl.Body.BorderBrush.Bottom}" />
+
+            <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter">
+                <Setter Property="Margin" Value="24,0,24,2" />
+            </Style>
+
+            <Style Selector="^ /template/ rctr|AngledBorderEx#HeaderBg">
+                <Setter Property="InvertSide" Value="Top" />
+                <Setter Property="Margin" Value="0,-4,0,0" />
+
+                <Setter Property="BottomLeftInset" Value="0" />
+                <Setter Property="BottomLeftCut" Value="14" />
+
+                <Setter Property="BottomRightInset" Value="0" />
+                <Setter Property="BottomRightCut" Value="14" />
+                
+                <Setter Property="TopRightInset" Value="18" />
+                <Setter Property="TopLeftCut" Value="5" />
+                
+                <Setter Property="TopLeftInset" Value="18" />
+                <Setter Property="TopRightCut" Value="5" />
+            </Style>
+
+            <Style Selector="^ /template/ rctr|AngledBorderEx#BodyBg">
+                <Setter Property="TopLeftInset" Value="0" />
+                <Setter Property="TopRightInset" Value="0" />
+
+                <Setter Property="BottomRightInset" Value="18" />
+                <Setter Property="BottomLeftInset" Value="18" />
+            </Style>
+        </Style>
+
+
+
+
+        <!-- Tabs on left -->
+        <Style Selector="^[TabStripPlacement=Left]">
+            <Setter Property="BorderBrush" Value="{DynamicResource TabControl.Body.BorderBrush.Left}" />
+
+            <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter">
+                <Setter Property="Margin" Value="2,24,0,24" />
+            </Style>
+
+            <Style Selector="^ /template/ rctr|AngledBorderEx#HeaderBg">
+                <Setter Property="InvertSide" Value="Right" />
+                <Setter Property="Margin" Value="0,0,-4,0" />
+
+                <Setter Property="TopLeftCut" Value="14" />
+                <Setter Property="TopRightCut" Value="5" />
+                <Setter Property="BottomRightCut" Value="5" />
+                <Setter Property="BottomLeftCut" Value="14" />
+            </Style>
+
+            <!--
+            <Style Selector="^ /template/ rctr|AngledBorderEx#BodyBg">
+                <Setter Property="TopRightCut" Value="14" />
+                <Setter Property="BottomRightCut" Value="14" />
+            </Style>
+            -->
+        </Style>
+
+
+
+
+        <!-- Tabs on right -->
+        <Style Selector="^[TabStripPlacement=Right]">
+            <Setter Property="BorderBrush" Value="{DynamicResource TabControl.Body.BorderBrush.Right}" />
+
+            <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter">
+                <Setter Property="Margin" Value="0,24,2,24" />
+            </Style>
+
+            <Style Selector="^ /template/ rctr|AngledBorderEx#HeaderBg">
+                <Setter Property="InvertSide" Value="Left" />
+                <Setter Property="Margin" Value="-4,0,0,0" />
+
+                <Setter Property="TopLeftCut" Value="5" />
+                <Setter Property="TopRightCut" Value="14" />
+                <Setter Property="BottomRightCut" Value="14" />
+                <Setter Property="BottomLeftCut" Value="5" />
+            </Style>
+
+            <!--
+            <Style Selector="^ /template/ rctr|AngledBorderEx#BodyBg">
+                <Setter Property="TopLeftCut" Value="14" />
+                <Setter Property="BottomLeftCut" Value="14" />
+            </Style>
+            -->
+        </Style>
+
+
+
+
+        <Style Selector="^[TabStripPlacement=Left], ^[TabStripPlacement=Right]">
+            <!--
+            <Style Selector="^ /template/ ItemsPresenter#PART_ItemsPresenter > WrapPanel">
+                <Setter Property="Orientation" Value="Vertical" />
+            </Style>
+            -->
+            <Setter Property="ItemsPanel">
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Center"
+                                MaxHeight="{Binding Bounds.Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsPresenter}}, Mode=OneWay}" />
+                </ItemsPanelTemplate>
+            </Setter>
+
+            <Style Selector="^ /template/ rctr|AngledBorderEx#HeaderBg, ^ /template/ rctr|AngledBorderEx#BodyBg">
+                <Setter Property="TopLeftInset" Value="0" />
+                <Setter Property="BottomLeftInset" Value="0" />
+                <Setter Property="BottomRightInset" Value="0" />
+                <Setter Property="TopRightInset" Value="0" />
+            </Style>
         </Style>
     </ControlTheme>
 </ResourceDictionary>

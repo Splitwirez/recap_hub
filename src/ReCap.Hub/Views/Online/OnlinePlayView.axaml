@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="ReCap.Hub.Views.OnlinePlayView"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+            xmlns:v="clr-namespace:ReCap.Hub.Views"
+            xmlns:dt="using:ReCap.Hub.Data">
+    <DockPanel>
+        <ContentControl Theme="{DynamicResource BelowTopTabs}"
+                        DockPanel.Dock="Top">
+            <DockPanel>
+                <Button Content="Preferences..."
+                        Classes="left"
+                        Command="{Binding $parent[v:MainView].DataContext.ShowPreferencesCommand, Mode=OneWay}"
+                        DockPanel.Dock="Right" />
+                <StackPanel Orientation="Horizontal">
+                </StackPanel>
+            </DockPanel>
+        </ContentControl>
+        <HeaderedContentControl x:Name="ServersPane"
+                                Header="Servers"
+                                Classes="pane left outermost"
+                                MinWidth="200"
+                                DockPanel.Dock="Left">
+            <DockPanel>
+                <ListBox x:Name="ServersList"
+                        Classes="fitts-law-list"
+                        ItemsSource="{Binding Path=Servers, Source={x:Static dt:HubData.Instance}, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedServer, Mode=TwoWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}" Classes="h3"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </HeaderedContentControl>
+        <v:ForeignServerView DataContext="{Binding SelectedServer, Mode=OneWay}" />
+    </DockPanel>
+</UserControl>

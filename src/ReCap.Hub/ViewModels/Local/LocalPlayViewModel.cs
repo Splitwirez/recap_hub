@@ -7,7 +7,8 @@ using ReCap.Hub.Data;
 
 namespace ReCap.Hub.ViewModels
 {
-    public class LocalPlayViewModel : ViewModelBase
+    public class LocalPlayViewModel
+        : ViewModelBase
     {
         //ObservableCollection<GameConfigViewModel> _gameConfigs = new ObservableCollection<GameConfigViewModel>();
         public ObservableCollection<GameConfigViewModel> GameConfigs
@@ -43,7 +44,8 @@ namespace ReCap.Hub.ViewModels
         public LocalPlayViewModel()
              : base()
         {
-
+            if (TimeHelper.TryGetNewest(GameConfigs, s => s.LastLaunchTime, out GameConfigViewModel lastPlayed))
+                SelectedGameConfig = lastPlayed;
         }
     }
 }

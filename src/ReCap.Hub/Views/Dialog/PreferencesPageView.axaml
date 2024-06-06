@@ -1,0 +1,12 @@
+<UserControl x:Class="ReCap.Hub.Views.PreferencesPageView"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+            Theme="{DynamicResource DialogRoot}"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+    <StackPanel>
+        <CheckBox Content="Use managed window decorations"
+                IsChecked="{Binding UseManagedDecorations}" />
+    </StackPanel>
+</UserControl>

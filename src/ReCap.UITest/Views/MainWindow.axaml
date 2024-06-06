@@ -1,10 +1,10 @@
 <Window x:Class="ReCap.UITest.Views.MainWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:v="using:ReCap.Hub.Views"
+        xmlns:v="using:ReCap.UITest.Views"
         xmlns:rctr="using:ReCap.CommonUI"
         Title="ReCap Common UI Tests"
-        Width="768" Height="262"
+        Width="1020" Height="532"
         Padding="12,8">
-	<v:UITestView />
+    <v:UITestView />
 </Window>

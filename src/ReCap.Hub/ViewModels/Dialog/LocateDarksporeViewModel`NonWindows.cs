@@ -15,7 +15,9 @@ using Timer = System.Timers.Timer;
 
 namespace ReCap.Hub.ViewModels
 {
-    public partial class LocateDarksporeViewModel : ViewModelBase, IDialogViewModel<(string winePrefix, string wineExecutable, string darksporeInstallPath)>
+    public partial class LocateDarksporeViewModel
+        : ViewModelBase
+        , IDialogViewModel<DarksporeInstallPaths>
     {
         string _wineExecutableFromBrowseDialog = new Func<string>(() => TryGetDefaultWINEExecutable(out string exec) ? exec : string.Empty)();
         public string WineExecutableFromBrowseDialog

@@ -125,6 +125,7 @@
                 <Button x:Name="LaunchGameButton"
                         Classes="play right"
                         Content="Play"
+                        IsDefault="True"
                         Command="{Binding DataContext.PlayGameWithSaveCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}, FallbackValue={x:Null}}"
                         CommandParameter="{Binding}"
                         DockPanel.Dock="Right"/>

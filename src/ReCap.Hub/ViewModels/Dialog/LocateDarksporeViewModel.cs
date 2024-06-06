@@ -17,15 +17,53 @@ using ReCap.Hub.Data;
 
 namespace ReCap.Hub.ViewModels
 {
-    public partial class LocateDarksporeViewModel : ViewModelBase, IDialogViewModel<(string winePrefix, string wineExecutable, string darksporeInstallPath)>
+    public class DarksporeInstallPaths
+    {
+        string _winePrefix = default;
+        public string WinePrefix
+        {
+            get => _winePrefix;
+            set => _winePrefix = value;
+        }
+        string _wineExecutable = default;
+        public string WineExecutable
+        {
+            get => _wineExecutable;
+            set => _wineExecutable = value;
+        }
+        string _darksporeInstallPath = default;
+        public string DarksporeInstallPath
+        {
+            get => _darksporeInstallPath;
+            set => _darksporeInstallPath = value;
+        }
+        public DarksporeInstallPaths(string winePrefix, string wineExecutable, string darksporeInstallPath)
+            : this(darksporeInstallPath)
+        {
+            WinePrefix = winePrefix;
+            WineExecutable = wineExecutable;
+        }
+        public DarksporeInstallPaths(string darksporeInstallPath)
+            : this()
+        {
+            DarksporeInstallPath = darksporeInstallPath;
+        }
+        public DarksporeInstallPaths()
+            : base()
+        {}
+    }
+
+    public partial class LocateDarksporeViewModel
+        : ViewModelBase
+        , IDialogViewModel<DarksporeInstallPaths>
     {
         const string EXE_EXT = ".exe";
 
 
-        TaskCompletionSource<(string winePrefix, string wineExecutable, string darksporeInstallPath)> _tcs = new TaskCompletionSource<(string winePrefix, string wineExecutable, string darksporeInstallPath)>();
-        public TaskCompletionSource<(string winePrefix, string wineExecutable, string darksporeInstallPath)> GetCompletionSource()
+        readonly TaskCompletionSource<DarksporeInstallPaths> _tcs = new TaskCompletionSource<DarksporeInstallPaths>();
+        public TaskCompletionSource<DarksporeInstallPaths> CompletionSource
         {
-            return _tcs;
+            get => _tcs;
         }
 
         string _winePrefix = null;
@@ -96,19 +134,19 @@ namespace ReCap.Hub.ViewModels
         }
 
 
-        bool _allowsCancel = false;
-        public bool AllowsCancel
+        bool _isCloseable = false;
+        public bool IsCloseable
         {
-            get => _allowsCancel;
-            set => RASIC(ref _allowsCancel, value);
+            get => _isCloseable;
+            set => RASIC(ref _isCloseable, value);
         }
 
 
         string _savePath = string.Empty;
         Timer _darksporeProcessTimer = null;
-        public LocateDarksporeViewModel(bool allowsCancel = false)
+        public LocateDarksporeViewModel(bool isCloseable = false)
         {
-            AllowsCancel = allowsCancel;
+            IsCloseable = isCloseable;
 
             _darksporeProcessTimer = new Timer(1000);
             _darksporeProcessTimer.Elapsed += DarksporeProcessTimer_Elapsed;
@@ -136,35 +174,32 @@ namespace ReCap.Hub.ViewModels
 
             foreach (Process process in processes)
             {
-                if (TryGetDarksporeInstallPathFromProcess(process, out string winePrefix, out string wineExecutable, out string darksporeInstallPath))
+                if (TryGetDarksporeInstallPathFromProcess(process, out DarksporeInstallPaths paths))
                 {
-                    _wineExecutable = wineExecutable;
-                    _winePrefix = winePrefix;
-                    GamePath = darksporeInstallPath;
+                    _wineExecutable = paths.WineExecutable;
+                    _winePrefix = paths.WinePrefix;
+                    GamePath = paths.DarksporeInstallPath;
                     Accept();
                 }
             }
         }
 
         //static bool _showMsgBoxes = true;
-        bool TryGetDarksporeInstallPathFromProcess(Process process, out string winePrefix, out string wineExecutable, out string darksporeInstallPath)
+        bool TryGetDarksporeInstallPathFromProcess(Process process, out DarksporeInstallPaths installPaths)
         {
-            winePrefix = null;
-            wineExecutable = null;
-            darksporeInstallPath = null;
+            //string winePrefix, out string wineExecutable, out string darksporeInstallPath
+            //winePrefix = null;
+            //wineExecutable = null;
+            //darksporeInstallPath = null;
+            installPaths = null;
             if (process == null)
                 return false;
             
-            string exePath = null;
             if (OperatingSystem.IsWindows())
-                exePath = Windows_GetDarksporeInstallPathFromProcess(process);
+                installPaths = Windows_GetDarksporeInstallPathFromProcess(process);
             else if (OperatingSystem.IsLinux())
-            {
-                var paths = Linux_GetDarksporeInstallPathFromProcess(process);
-                exePath = paths.DarksporeExePath;
-                winePrefix = paths.WINEPrefixPath;
-                wineExecutable = paths.WINEExecutablePath;
-            }
+                installPaths = Linux_GetDarksporeInstallPathFromProcess(process);
+            string exePath = installPaths?.DarksporeInstallPath;
 
             
             if (exePath == null)
@@ -216,7 +251,7 @@ namespace ReCap.Hub.ViewModels
                 string installPath = Path.GetDirectoryName(Path.GetDirectoryName(exePath));
                 /*if (OperatingSystem.IsWindows() && (!installPath.EndsWith('\\')))
                     installPath = installPath + "\\";*/
-                
+
                 /*if (Path.GetFileName(installPath).Equals("DarksporeBin", StringComparison.OrdinalIgnoreCase))
                     installPath =  Path.GetDirectoryName(installPath);
                 if (OperatingSystem.IsWindows())
@@ -224,12 +259,12 @@ namespace ReCap.Hub.ViewModels
 
                 /*if (OperatingSystem.IsWindows() && (!installPath.EndsWith('\\')))
                     installPath = installPath + "\\";*/
-                
-                darksporeInstallPath = installPath;
+
+                installPaths.DarksporeInstallPath = installPath;
                 process.Kill();
 
                 //Debug.WriteLine($"DARKSPORE INSTALL PATH: '{darksporeInstallPath}'");
-                return darksporeInstallPath != null;
+                return installPaths.DarksporeInstallPath != null;
             }
             return false;
         }
@@ -254,7 +289,7 @@ namespace ReCap.Hub.ViewModels
 
         void TrySetResult(string winePrefix, string wineExecutable, string darksporeInstallPath)
         {
-            _tcs.TrySetResult((winePrefix, wineExecutable, darksporeInstallPath));
+            _tcs.TrySetResult(new DarksporeInstallPaths(winePrefix, wineExecutable, darksporeInstallPath));
             
             _darksporeProcessTimer?.Stop();
         }

@@ -3,7 +3,7 @@
             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:vm="using:ReCap.Hub.ViewModels"
-            xmlns:v="using:ReCap.Hub.Views"
+            xmlns:v="clr-namespace:ReCap.Hub.Views"
             xmlns:dt="using:ReCap.Hub.Data"
             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
             x:Class="ReCap.Hub.Views.LocalPlayView">
@@ -12,16 +12,29 @@
     </Design.DataContext>
     <!--ContentControl Classes="tabContent"-->
     <DockPanel>
-        <ContentControl Classes="tabRow" DockPanel.Dock="Top">
-            <StackPanel Orientation="Horizontal">
-                <ToggleButton x:Name="GameConfigsToggle"
-                            Content="Show game configs"
-                            IsChecked="{Binding ShowGameConfigs, Mode=TwoWay}"
-                            IsVisible="{Binding !ShowGameConfigs}"/>
-                <ToggleButton Content="Hide game configs"
-                            IsChecked="{Binding !#GameConfigsToggle.IsChecked, Mode=TwoWay}"
-                            IsVisible="{Binding ShowGameConfigs}"/>
-            </StackPanel>
+        <ContentControl Theme="{DynamicResource BelowTopTabs}"
+                        DockPanel.Dock="Top">
+            <!--
+                Classes="belowTopTabs"
+            -->
+            <DockPanel>
+                <StackPanel Orientation="Horizontal"
+                            DockPanel.Dock="Left">
+                    <ToggleButton x:Name="GameConfigsToggle"
+                                Content="Show game configs"
+                                IsChecked="{Binding ShowGameConfigs, Mode=TwoWay}"
+                                IsVisible="{Binding !ShowGameConfigs}"/>
+                    <ToggleButton Content="Hide game configs"
+                                IsChecked="{Binding !#GameConfigsToggle.IsChecked, Mode=TwoWay}"
+                                IsVisible="{Binding ShowGameConfigs}"/>
+                </StackPanel>
+                <Button Content="Preferences..."
+                        Classes="left"
+                        Command="{Binding $parent[v:MainView].DataContext.ShowPreferencesCommand, Mode=OneWay}"
+                        DockPanel.Dock="Right" />
+                <StackPanel Orientation="Horizontal">
+                </StackPanel>
+            </DockPanel>
         </ContentControl>
         <Panel>
             <TemplatedControl Classes="windowSegment toTop toBottom"/>

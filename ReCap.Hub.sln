@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{166BDFC9-DE65-426E-91B5-E0248765057D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		build\app.manifest = build\app.manifest
 		build\avalonia.props = build\avalonia.props
 		build\builder.props = build\builder.props
 		build\editorconfig.props = build\editorconfig.props
@@ -17,6 +18,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCap.Hub", "src\ReCap.Hub\ReCap.Hub.csproj", "{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCap.Builder", "build\ReCap.Builder\ReCap.Builder.csproj", "{1AF4D892-6C85-43FC-A670-DF33D073D43D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCap.UITest", "src\ReCap.UITest\ReCap.UITest.csproj", "{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +39,10 @@ Global
 		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

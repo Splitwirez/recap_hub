@@ -1,11 +1,33 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<LinearGradientBrush x:Key="TabControl.Body.BorderBrush"
-						StartPoint="0%,22.8%"
-						EndPoint="0%,100%">
+	<GradientStops x:Key="TabControl.Body.BorderBrush.GradientStops">
 		<GradientStop Offset="0" Color="#2EFFFFFF" />
-		<GradientStop Offset="1" Color="#00FFFFFF" />
-	</LinearGradientBrush>
+		<GradientStop Offset="1" Color="#18FFFFFF" />
+		<!--
+			00FFFFFF
+			0CFFFFFF
+		-->
+	</GradientStops>
+	<LinearGradientBrush x:Key="TabControl.Body.BorderBrush.Top"
+						StartPoint="0%,22.8%"
+						EndPoint="0%,100%"
+						GradientStops="{StaticResource TabControl.Body.BorderBrush.GradientStops}"
+						 />
+	<LinearGradientBrush x:Key="TabControl.Body.BorderBrush.Left"
+						StartPoint="22.8%,0%"
+						EndPoint="100%,0%"
+						GradientStops="{StaticResource TabControl.Body.BorderBrush.GradientStops}"
+						 />
+	<LinearGradientBrush x:Key="TabControl.Body.BorderBrush.Right"
+						StartPoint="100%,0%"
+						EndPoint="22.8%,0%"
+						GradientStops="{StaticResource TabControl.Body.BorderBrush.GradientStops}"
+						 />
+	<LinearGradientBrush x:Key="TabControl.Body.BorderBrush.Bottom"
+						StartPoint="0%,100%"
+						EndPoint="0%,22.8%"
+						GradientStops="{StaticResource TabControl.Body.BorderBrush.GradientStops}"
+						 />
 
 	<Color x:Key="TabItem.Border.BottomCorner.Idle">#53CACACA</Color>
 	<LinearGradientBrush x:Key="TabItem.BorderBrush.Idle"

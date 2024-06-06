@@ -4,6 +4,9 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<LangVersion>8.0</LangVersion>
+		<!--
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		-->
 	</PropertyGroup>
 	
 	<Import Project="../../build/avalonia.props" />
@@ -15,6 +18,10 @@
 		<AvaloniaResource Include="Styles/**/*.axaml" />
 		<AvaloniaResource Include="Res/UI/**/*.png" />
 		<AvaloniaResource Include="Res/UI/**/*.ttf" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <AvaloniaResource Remove="Styles\Resources\CaptionButtons.axaml" />
 	</ItemGroup>
 	
 	<Import Project="../../build/editorconfig.props" />

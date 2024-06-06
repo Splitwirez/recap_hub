@@ -74,9 +74,18 @@ namespace ReCap.Hub.Data
             ReadXml();
         }
 
+        string _userDisplayName = "Splitwirez"; //TODO: Don't hardcode yourself, idiot
         public string UserDisplayName
         {
-            get => "Splitwirez"; //TODO: Don't hardcode yourself, idiot
+            get => _userDisplayName;
+            set => RASIC(ref _userDisplayName, value);
+        }
+
+        bool _useManagedDecorations = CommonUI.OSInfo.IsWindows;
+        public bool UseManagedDecorations
+        {
+            get => _useManagedDecorations;
+            set => RASIC(ref _useManagedDecorations, value);
         }
 
         void ReadXml()

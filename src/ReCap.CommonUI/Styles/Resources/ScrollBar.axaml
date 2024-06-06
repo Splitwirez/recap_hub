@@ -3,13 +3,33 @@
         xmlns:local="using:ReCap.CommonUI"
         xmlns:rctr="using:ReCap.CommonUI"
         xmlns:sys="using:System">
-	<LinearGradientBrush x:Key="ScrollBar.Thumb.Background.Idle"
+	<GradientStops x:Key="ScrollBar.Thumb.Background.OverlayMask.Stops">
+		<GradientStop Offset="0" Color="#00FFFFFF" />
+		<GradientStop Offset="1" Color="#FFFFFFFF" />
+	</GradientStops>
+	<LinearGradientBrush x:Key="ScrollBar.Thumb.Background.OverlayMask.Top"
 						StartPoint="0%,0%"
-						EndPoint="0%,50%"
-						SpreadMethod="Reflect">
-		<GradientStop Offset="0" Color="#FF378FB6" />
-		<GradientStop Offset="1" Color="#FF5BDEF3" />
-	</LinearGradientBrush>
+						EndPoint="0%,100%"
+						GradientStops="{StaticResource ScrollBar.Thumb.Background.OverlayMask.Stops}" />
+	<LinearGradientBrush x:Key="ScrollBar.Thumb.Background.OverlayMask.Bottom"
+						StartPoint="0%,100%"
+						EndPoint="0%,0%"
+						GradientStops="{StaticResource ScrollBar.Thumb.Background.OverlayMask.Stops}" />
+	<LinearGradientBrush x:Key="ScrollBar.Thumb.Background.OverlayMask.Left"
+						StartPoint="0%,0%"
+						EndPoint="100%,0%"
+						GradientStops="{StaticResource ScrollBar.Thumb.Background.OverlayMask.Stops}" />
+	<LinearGradientBrush x:Key="ScrollBar.Thumb.Background.OverlayMask.Right"
+						StartPoint="100%,0%"
+						EndPoint="0%,0%"
+						GradientStops="{StaticResource ScrollBar.Thumb.Background.OverlayMask.Stops}" />
+
+
+
+
+	<Color x:Key="ScrollBar.Thumb.Background.Idle">#FF378FB6</Color>
+	<Color x:Key="ScrollBar.Thumb.Background.Overlay.Idle">#FF5BDEF3</Color>
+	
 	<LinearGradientBrush x:Key="ScrollBar.Thumb.OuterBorderBrush.Idle"
 						StartPoint="0%,0%"
 						EndPoint="0%,50%"
@@ -20,13 +40,8 @@
 	<Color x:Key="ScrollBar.Thumb.InnerBorderBrush.Idle">#FF67B4E1</Color>
 
 	
-	<LinearGradientBrush x:Key="ScrollBar.Thumb.Background.Hover"
-						StartPoint="0%,0%"
-						EndPoint="0%,50%"
-						SpreadMethod="Reflect">
-		<GradientStop Offset="0" Color="#FF72BAD9" />
-		<GradientStop Offset="1" Color="#FF93F5FF" />
-	</LinearGradientBrush>
+	<Color x:Key="ScrollBar.Thumb.Background.Hover">#FF72BAD9</Color>
+	<Color x:Key="ScrollBar.Thumb.Background.Overlay.Hover">#FF93F5FF</Color>
 	<LinearGradientBrush x:Key="ScrollBar.Thumb.OuterBorderBrush.Hover"
 						StartPoint="0%,0%"
 						EndPoint="0%,50%"
@@ -36,14 +51,33 @@
 	</LinearGradientBrush>
 	<Color x:Key="ScrollBar.Thumb.InnerBorderBrush.Hover">#FF9BD7F6</Color>
 
+	<GradientStops x:Key="ScrollBar.Thumb.Lines.Stops">
+		<GradientStop Offset="0.5" Color="#C0000000" />
+		<GradientStop Offset="0.5" Color="#80FFFFFF" />
+	</GradientStops>
+	<LinearGradientBrush x:Key="ScrollBar.Thumb.Lines.Horizontal"
+						StartPoint="0%,50%"
+						EndPoint="100%,50%"
+						GradientStops="{StaticResource ScrollBar.Thumb.Lines.Stops}" />
+	<LinearGradientBrush x:Key="ScrollBar.Thumb.Lines.Vertical"
+						StartPoint="50%,0%"
+						EndPoint="50%,100%"
+						GradientStops="{StaticResource ScrollBar.Thumb.Lines.Stops}" />
 
-	<LinearGradientBrush x:Key="ScrollBar.Track.BorderBrush"
-						StartPoint="0%,0%"
-						EndPoint="0%,100%">
+
+	<GradientStops x:Key="ScrollBar.Track.BorderBrush.Stops">
 		<GradientStop Offset="0" Color="#ACFFFFFF" />
 		<GradientStop Offset="0.375" Color="#55FFFFFF" />
 		<GradientStop Offset="1" Color="#FFFFFFFF" />
-	</LinearGradientBrush>
+	</GradientStops>
+	<LinearGradientBrush x:Key="ScrollBar.Track.BorderBrush.Vertical"
+						StartPoint="0%,0%"
+						EndPoint="0%,100%"
+						GradientStops="{StaticResource ScrollBar.Track.BorderBrush.Stops}" />
+	<LinearGradientBrush x:Key="ScrollBar.Track.BorderBrush.Horizontal"
+						StartPoint="0%,0%"
+						EndPoint="100%,0%"
+						GradientStops="{StaticResource ScrollBar.Track.BorderBrush.Stops}" />
 
 
 
@@ -54,8 +88,8 @@
 		<GradientStop Offset="0.5" Color="#000B6CB2" />
 	</RadialGradientBrush>
 	
-	<StreamGeometry x:Key="ScrollBar.Arrow.PathData.Vertical">M 5 0 L 4 0 L 0 4 L 4 8 L 5 8 L 5 7 L 1 4 L 5 1 Z</StreamGeometry>
-	<StreamGeometry x:Key="ScrollBar.Arrow.PathData.Horizontal">M 0 5 L 0 4 L 4 0 L 8 4 L 8 5 L 7 5 L 4 1 L 1 5 Z</StreamGeometry>
+	<StreamGeometry x:Key="ScrollBar.Arrow.Geometry.Vertical">M 0 5 L 0 4 L 4 0 L 8 4 L 8 5 L 7 5 L 4 2 L 1 5 Z</StreamGeometry>
+	<StreamGeometry x:Key="ScrollBar.Arrow.Geometry.Horizontal">M 5 0 L 4 0 L 0 4 L 4 8 L 5 8 L 5 7 L 2 4 L 5 1 Z</StreamGeometry>
 
 	<Color x:Key="ScrollBar.Arrow.Foreground.Idle">#FF6CC0EA</Color>
 	<Color x:Key="ScrollBar.Arrow.Foreground.Hover">#FFA3DEFF</Color>

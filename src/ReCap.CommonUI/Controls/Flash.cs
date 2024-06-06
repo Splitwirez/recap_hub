@@ -81,6 +81,11 @@ namespace ReCap.CommonUI
             };
             _timer.Start();
         }
+
+        static Flash()
+        {
+            Extensions.MakeControlTypeNonInteractive<Flash>();
+        }
     }
         /*
         public static readonly StyledProperty<FlashingState> FlashStateProperty =

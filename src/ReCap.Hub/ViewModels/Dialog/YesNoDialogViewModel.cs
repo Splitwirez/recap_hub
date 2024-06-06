@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace ReCap.Hub.ViewModels
 {
-    class YesNoDialogViewModel : MessageDialogViewModelBase<bool>
+    public class YesNoDialogViewModel
+        : MessageDialogViewModelBase<bool>
     {
         public void YesCommand(object parameter)
-            => GetCompletionSource().TrySetResult(true);
+            => CompletionSource.TrySetResult(true);
 
         public void NoCommand(object parameter)
-            => GetCompletionSource().TrySetResult(false);
+            => CompletionSource.TrySetResult(false);
 
-        public YesNoDialogViewModel(string title, string content)
-            : base(title, content)
+        public YesNoDialogViewModel(string title, string content, bool isCloseable = false)
+            : base(title, content, isCloseable)
         { }
     }
 }

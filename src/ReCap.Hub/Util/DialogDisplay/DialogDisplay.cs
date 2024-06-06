@@ -17,7 +17,7 @@ namespace ReCap.Hub
 		{
 			Console.WriteLine("DIALOG OF TYPE \'" + vm.GetType().FullName + "\' SHOWN: " + vm.ToString());
 			//int count = 0;//_dialogs.Count;
-			var task = vm.GetCompletionSource().Task;
+			var task = vm.CompletionSource.Task;
 			AddToQueue(new DialogShownEventArgs(vm, task));
 			return await task;
 		}

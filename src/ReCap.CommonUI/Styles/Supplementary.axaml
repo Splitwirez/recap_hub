@@ -4,11 +4,12 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Supplementary/HexagonRingProgressBar.axaml" />
-                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Supplementary/TopTabStrip.axaml" />
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Supplementary/TopTabs.axaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Styles.Resources>
     
     <StyleInclude Source="avares://ReCap.CommonUI/Styles/Supplementary/ButtonPanels.axaml" />
     <StyleInclude Source="avares://ReCap.CommonUI/Styles/Supplementary/SidePane.axaml" />
+    <StyleInclude Source="avares://ReCap.CommonUI/Styles/Supplementary/TextBlockExtras.axaml" />
 </Styles>

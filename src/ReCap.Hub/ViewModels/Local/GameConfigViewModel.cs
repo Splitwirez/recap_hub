@@ -150,12 +150,8 @@ namespace ReCap.Hub.ViewModels
         
 
 
-            if (Saves.Count > 0)
-            {
-                var mostRecentSave = Saves.OrderBy(s => s.LastLaunchTime).FirstOrDefault();
-                if (mostRecentSave != null)
-                    SelectedSave = mostRecentSave;
-            }
+            if (TimeHelper.TryGetNewest(Saves, s => s.LastLaunchTime, out SaveGameViewModel lastPlayed))
+                SelectedSave = lastPlayed;
         }
             
         private GameConfigViewModel()
@@ -239,7 +235,7 @@ namespace ReCap.Hub.ViewModels
                 return;
             
             string oldTitle = saveGame.Title;
-            string newTitle = await DialogDisplay.ShowDialog(new TextBoxDialogViewModel("Rename save game", string.Empty, oldTitle));
+            string newTitle = await DialogDisplay.ShowDialog(new TextBoxDialogViewModel("Rename save game", string.Empty, oldTitle, true));
             if ((newTitle != null) && (newTitle != oldTitle) && (!(string.IsNullOrEmpty(newTitle) || string.IsNullOrWhiteSpace(newTitle))))
             {
                 saveGame.Rename(newTitle);
@@ -247,9 +243,9 @@ namespace ReCap.Hub.ViewModels
             }
         }
 
-        public async Task<SaveGameViewModel> CreateSaveGame(bool allowsCancel = true)
+        public async Task<SaveGameViewModel> CreateSaveGame(bool isCloseable = true)
         {
-            var saveGame = await DialogDisplay.ShowDialog(new NewSaveGameViewModel(SavesPath, allowsCancel));
+            var saveGame = await DialogDisplay.ShowDialog(new NewSaveGameViewModel(SavesPath, isCloseable));
             if (saveGame != null)
             {
                 Saves.Add(saveGame);
@@ -297,15 +293,15 @@ namespace ReCap.Hub.ViewModels
                 
                 if (!installPathOK)
                 {
-                    installPath = paths.darksporeInstallPath;
+                    installPath = paths.DarksporeInstallPath;
                     GameInstallPath = installPath;
                 }
                 
                 if (!wineExecPathOK)
-                    WineExecPath = paths.wineExecutable;
+                    WineExecPath = paths.WineExecutable;
                 
                 if (!winePrefixPathOK)
-                    WinePrefixPath = paths.winePrefix;
+                    WinePrefixPath = paths.WinePrefix;
                 
                 HubData.Instance.Save();
             }

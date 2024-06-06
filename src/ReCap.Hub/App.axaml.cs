@@ -89,10 +89,10 @@ namespace ReCap.Hub
 
                 Task.Run(async () =>
                 {
-                    var gamePaths = await DialogDisplay.ShowDialog(new LocateDarksporeViewModel(false));
+                    var gamePaths = await DialogDisplay.ShowDialog<DarksporeInstallPaths>(new LocateDarksporeViewModel(false));
 
                     GameConfigViewModel gameConfig = 
-                        new GameConfigViewModel(gamePaths.darksporeInstallPath, gamePaths.wineExecutable, gamePaths.winePrefix)
+                        new GameConfigViewModel(gamePaths.DarksporeInstallPath, gamePaths.WineExecutable, gamePaths.WinePrefix)
                         //new GameConfigViewModel(gamePath, savesPath)
                     ;
                     HubData.Instance.GameConfigs.Add(gameConfig);
@@ -113,13 +113,7 @@ namespace ReCap.Hub
 
         void ShowMainWindow(IClassicDesktopStyleApplicationLifetime desktop)
         {
-            _mainWindow.DataContext = new MainWindowViewModel(
-#if RECAP_ONLINE
-                new HomePageViewModel()
-#else
-                HubData.Instance.GameConfigs[0]
-#endif
-            );
+            _mainWindow.DataContext = new MainViewModel();
             _mainWindow?.Show();
         }
 

@@ -48,5 +48,16 @@
 		<Style Selector="^ /template/ Panel.isActive rctr|AngledBorderEx.activateColoration">
 			<Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Active}" />
 		</Style>
+
+		<Style Selector=":is(Window)[(rctr|WindowChromeAddon.ActualUseTransparencyHack)=True] /template/ ^, :is(Window)[ActualTransparencyLevel=Transparent] /template/ ^">
+			<Style Selector=":is(Window)[WindowState=Normal] /template/ ^">
+				<Style Selector="^ /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
+					<Setter Property="TopLeftCut" Value="6" />
+					<!--
+					<Setter Property="TopRightCut" Value="6" />
+					-->
+				</Style>
+			</Style>
+		</Style>
 	</ControlTheme>
 </ResourceDictionary>

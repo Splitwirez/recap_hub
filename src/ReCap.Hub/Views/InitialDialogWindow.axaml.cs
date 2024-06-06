@@ -15,7 +15,7 @@ namespace ReCap.Hub.Views
             this.AttachDevTools();
 #endif
 
-            var vm = new DialogOverlayVM();
+            var vm = new ViewModels.DialogOverlayViewModel();
             /*vm.PropertyChanged += (s, e) =>
             {
                 if ((e.PropertyName == nameof(DialogOverlayVM.HasDialog)) && (!vm.HasDialog))
