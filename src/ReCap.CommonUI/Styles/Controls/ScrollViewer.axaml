@@ -1,19 +1,19 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rctr="clr-namespace:ReCap.CommonUI"
                     xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls">
     <ControlTheme x:Key="{x:Type ScrollViewer}"
                 TargetType="ScrollViewer">
         <Setter Property="Background" Value="Transparent" />
-        <!--
-        -->
         <Setter Property="AllowAutoHide" Value="False" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,*,Auto">
-                    <Control x:Name="ScrollBarFudge"
-                        Focusable="False"
+                    <Control Opacity="0"
+						Focusable="False"
                         IsHitTestVisible="False"
-                        Opacity="0"
+                        Width="{Binding (rctr:ScrollBarInset.Horizontal), RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                        Height="{Binding (rctr:ScrollBarInset.Vertical), RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
                         Grid.Row="0"
                         Grid.Column="0" />
                     <ScrollContentPresenter x:Name="PART_ContentPresenter"

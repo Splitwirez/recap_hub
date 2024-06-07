@@ -1,16 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net5.0</TargetFramework>
 		<ApplicationIcon>Assets/ReCap.ico</ApplicationIcon>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<AssemblyName>ResurrectionCapsuleHub</AssemblyName>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<LangVersion>9.0</LangVersion>
-		<!--
-		-->
-		<EnableReCapOnline>True</EnableReCapOnline>
+		
+		<Configurations>Debug;Debug_Offline;Debug_Online;Release</Configurations>
+		<EnableReCapOnline Condition=" '$(Configuration)' == 'Release' ">False</EnableReCapOnline>
+		
+		<!-- Configurations for debugging -->
+		<EnableReCapOnline Condition=" '$(Configuration)' == 'Debug_Offline' ">False</EnableReCapOnline>
+		<EnableReCapOnline Condition=" '$(Configuration)' == 'Debug_Online' ">True</EnableReCapOnline>
+		<Configuration Condition="$(Configuration.StartsWith('Debug_'))">Debug</Configuration>
 	</PropertyGroup>
+    <Target Name="EnsureReCapHubFeatures" BeforeTargets="Compile">
+        <!--
+		<PropertyGroup>
+            <UnsupportedTarget Condition=" '$(EnableReCapOnline)' == '' ">true</UnsupportedTarget>
+        </PropertyGroup>
+        <Error Text="EnableReCapOnline unset!" Condition=" '$(UnsupportedTarget)' == 'true' " />
+		-->
+		<Error Condition=" '$(EnableReCapOnline)' == '' " Text="'EnableReCapOnline' unspecified (must be 'True' or 'False')" />
+    </Target>
 
 
 	<Import Project="../../build/avalonia.props" />

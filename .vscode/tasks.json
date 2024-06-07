@@ -2,6 +2,47 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "build-hub--offline",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/ReCap.Hub/ReCap.Hub.csproj",
+                "-c", "Debug_Offline",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+                //"-p:EnableReCapOnline=False",
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-hub--online",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/ReCap.Hub/ReCap.Hub.csproj",
+                "-c", "Debug_Online",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+                //"-p:EnableReCapOnline=True",
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-uitest",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/ReCap.UITest/ReCap.UITest.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        /*
+        {
             "label": "build-hub",
             "command": "dotnet",
             "type": "process",
@@ -14,7 +55,6 @@
             ],
             "problemMatcher": "$msCompile"
         },
-        /*
         {
             "label": "publish",
             "command": "dotnet",
@@ -41,44 +81,5 @@
             "problemMatcher": "$msCompile"
         },
         */
-        {
-            "label": "build-hub--offline",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/src/ReCap.Hub/ReCap.Hub.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary",
-                "-p:EnableReCapOnline=False",
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "build-hub--online",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/src/ReCap.Hub/ReCap.Hub.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary",
-                "-p:EnableReCapOnline=True",
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "build-uitest",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/src/ReCap.UITest/ReCap.UITest.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary",
-                //"-p:EnableReCapOnline=True",
-            ],
-            "problemMatcher": "$msCompile"
-        },
     ]
 }

@@ -7,12 +7,14 @@
             xmlns:rctr="using:ReCap.CommonUI"
             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
             x:Class="ReCap.Hub.Views.SaveGameView">
-    <UserControl.Styles>
-        <Style Selector="ScrollViewer#MainContentArea /template/ :is(Control)#VerticalScrollBarFudge">
+    <!--
+	<UserControl.Styles>
+        <Style Selector="ScrollViewer#MainContentArea /template/ :is(Control)#ScrollBarFudge">
             <Setter Property="Height" Value="{Binding #SaveHeaderAreaSizeHelper.Bounds.Height}" />
             <Setter Property="Margin" Value="{Binding #MainContentArea.Padding, Mode=OneWay}" />
         </Style>
     </UserControl.Styles>
+	-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -28,10 +30,18 @@
                     IsHitTestVisible="False"
                     Opacity="0" />
         <ScrollViewer x:Name="MainContentArea"
+                    Margin="0,28,0,0"
                     Padding="28,28,28,0"
                     HorizontalScrollBarVisibility="Disabled"
                     Grid.Row="0"
                     Grid.RowSpan="2">
+            <rctr:ScrollBarInset.Vertical>
+                <MultiBinding Converter="{x:Static rctr:AddAllConverter.Instance}" Mode="OneWay">
+                    <Binding Path="Bounds.Height" ElementName="SaveHeaderAreaSizeHelper" Mode="OneWay" />
+                    <Binding Path="Padding.Top" ElementName="MainContentArea" Mode="OneWay" />
+                    <Binding Path="Margin.Top" ElementName="MainContentArea" Mode="OneWay" />
+                </MultiBinding>
+            </rctr:ScrollBarInset.Vertical>
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" Spacing="32">
                 <Rectangle Width="0"
                         Height="{Binding #SaveHeaderAreaSizeHelper.Bounds.Height}"
