@@ -266,6 +266,7 @@ namespace ReCap.Hub.ViewModels
                 throw task.Exception;
         }
 
+        static IDisposable _lastServerInstance = null;
         public async Task PlayGameWithSave(SaveGameViewModel save)
         {
             double now = DateTime.UtcNow.ToUniversalTime().Subtract(DateTime.UnixEpoch.ToUniversalTime()).TotalMilliseconds;
@@ -345,7 +346,10 @@ namespace ReCap.Hub.ViewModels
 
             //Process.GetCurrentProcess().Kill();
             save.UpdateUserDisplayName(HubData.Instance.UserDisplayName);
-            using (var server = LocalServer.Instance.Start(WinePrefixPath, WineExecPath))
+
+            _lastServerInstance?.Dispose();
+            _lastServerInstance = LocalServer.Instance.Start(WinePrefixPath, WineExecPath);
+            
             {
                 var fail = await GameLaunchService.LaunchGame(WinePrefixPath, WineExecPath, gameExePath, gameBinPath);
                 if (fail != null)
@@ -402,6 +406,11 @@ namespace ReCap.Hub.ViewModels
                 //});
                 */
 
+            }
+            if (HubData.Instance.AutoCloseServer)
+            {
+                _lastServerInstance?.Dispose();
+                _lastServerInstance = null;
             }
             HubData.Instance.GameConfigs.Remove(this);
             HubData.Instance.GameConfigs.Insert(0, this);

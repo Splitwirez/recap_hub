@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
 		<ApplicationIcon>Assets/ReCap.ico</ApplicationIcon>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<AssemblyName>ResurrectionCapsuleHub</AssemblyName>

@@ -24,9 +24,6 @@ namespace ReCap.Hub.ViewModels
         }
 
 
-
-
-
         string GetUserDisplayName()
             => HubData.Instance.UserDisplayName;
         public string UserDisplayName
@@ -36,6 +33,19 @@ namespace ReCap.Hub.ViewModels
             {
                 if (ForwardRASIC(GetUserDisplayName, value))
                     HubData.Instance.UserDisplayName = value;
+            }
+        }
+
+
+        bool GetAutoCloseServer()
+            => HubData.Instance.AutoCloseServer;
+        public bool AutoCloseServer
+        {
+            get => GetAutoCloseServer();
+            set
+            {
+                if (ForwardRASIC(GetAutoCloseServer, value))
+                    HubData.Instance.AutoCloseServer = value;
             }
         }
 
@@ -68,5 +78,9 @@ namespace ReCap.Hub.ViewModels
         {
             get => _tcs;
         }
+
+
+        public void CloseCommand(object _)
+            => CompletionSource.TrySetResult(null);
     }
 }

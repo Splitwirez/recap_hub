@@ -2,11 +2,37 @@
             xmlns="https://github.com/avaloniaui"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:vm="using:ReCap.Hub.ViewModels"
+            xmlns:rctr="using:ReCap.CommonUI"
             Theme="{DynamicResource DialogRoot}"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
-    <StackPanel>
-        <CheckBox Content="Use managed window decorations"
-                IsChecked="{Binding UseManagedDecorations}" />
-    </StackPanel>
+	<DockPanel>
+		<ContentControl Classes="dialogFooter"
+                        HorizontalContentAlignment="Stretch"
+                        DockPanel.Dock="Bottom">
+			<Button Command="{Binding CloseCommand, Mode=OneWay}">OK</Button>
+		</ContentControl>
+		<HeaderedContentControl Classes="dialogBody"
+                                Header="Preferences">
+			<StackPanel>
+				<rctr:GroupBox Header="Player profile">
+					<StackPanel>
+						<TextBlock Text="Display name"
+								Classes="h4" />
+						<TextBox Text="{Binding UserDisplayName, Mode=TwoWay}"
+								AcceptsReturn="False"
+								AcceptsTab="False" />
+					</StackPanel>
+				</rctr:GroupBox>
+				<rctr:GroupBox Header="User Interface">
+					<StackPanel>
+						<CheckBox Content="Use managed window decorations"
+								IsChecked="{Binding UseManagedDecorations}" />
+						<CheckBox Content="Automatically close server after Darkspore exits"
+								IsChecked="{Binding AutoCloseServer}" />
+					</StackPanel>
+				</rctr:GroupBox>
+			</StackPanel>
+		</HeaderedContentControl>
+	</DockPanel>
 </UserControl>

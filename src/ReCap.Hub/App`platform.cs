@@ -27,18 +27,32 @@ namespace ReCap.Hub
         void OnLocalServerExited(object sender, EventArgs e)
             => Dispatcher.UIThread.Post(() =>
         {
-#if PERSIST_AFTER_GAME_EXIT || !PERSIST_AFTER_GAME_EXIT
-                _mainWindow?.Show();
-
-                if (OperatingSystem.IsWindows())
-                    ServerExited_Windows();
-                else
-                {
-                    Dispatcher.UIThread.Post(() => _mainWindow?.Activate(), DispatcherPriority.Render);
-                }
-#else
+#if EXIT_HUB_AFTER_GAME_EXIT
                 Dispatcher.UIThread.Post(() => Environment.Exit(0));
+#else
+                ShowMainWindow(HubData.Instance.AutoCloseServer);
 #endif
         });
+
+        void OnGameExited(object sender, EventArgs e)
+        {
+            if (HubData.Instance.AutoCloseServer)
+                return;
+            ShowMainWindow(false);
+        }
+
+        void ShowMainWindow(bool closeServer)
+        {
+            _mainWindow?.Show();
+
+            if (closeServer && OperatingSystem.IsWindows())
+            {
+                ServerExited_Windows();
+            }
+            else
+            {
+                Dispatcher.UIThread.Post(() => _mainWindow?.Activate(), DispatcherPriority.Render);
+            }
+        }
     }
 }

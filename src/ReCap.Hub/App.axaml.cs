@@ -74,6 +74,7 @@ namespace ReCap.Hub
 
             LocalServer.ServerStarted += OnLocalServerStarted;
             LocalServer.ServerExited += OnLocalServerExited;
+            GameLaunchService.GameExited += OnGameExited;
 
 
             if (HubData.Instance.GameConfigs.Count == 0)

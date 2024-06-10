@@ -54,5 +54,14 @@ namespace ReCap.Hub
             }
             return value != null;
         }
+
+        public static bool TryGetElementBool(this XElement element, XName name, out bool value)
+        {
+            value = false;
+            if (element.TryGetElementValue(name, out string valStr))
+                return bool.TryParse(valStr, out value);
+
+            return false;
+        }
     }
 }

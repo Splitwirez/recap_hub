@@ -19,6 +19,8 @@ namespace ReCap.Hub.Data
         public const string WINE_PFX_ATTR = "winePrefix";
         public const string WINE_EX_ATTR = "wineExecutable";
 
+        public const string USER_PREFS_EL = "preferences";
+
 
         /*static string DefaultCfgPath
         {
@@ -74,6 +76,7 @@ namespace ReCap.Hub.Data
             ReadXml();
         }
 
+        const string _USER_DISPLAY_NAME_EL = "userDisplayName";
         string _userDisplayName = "Splitwirez"; //TODO: Don't hardcode yourself, idiot
         public string UserDisplayName
         {
@@ -81,12 +84,32 @@ namespace ReCap.Hub.Data
             set => RASIC(ref _userDisplayName, value);
         }
 
+        const string _USE_MANAGED_DECORATIONS_EL = "useManagedWindowDecorations";
         bool _useManagedDecorations = CommonUI.OSInfo.IsWindows;
+        bool _useManagedDecorationsSet = false;
         public bool UseManagedDecorations
         {
             get => _useManagedDecorations;
-            set => RASIC(ref _useManagedDecorations, value);
+            set
+            {
+                RASIC(ref _useManagedDecorations, value);
+                _useManagedDecorationsSet = true;
+            }
         }
+
+        const string _AUTO_CLOSE_SERVER_EL = "autoCloseServer";
+        bool _autoCloseServer = true;
+        bool _autoCloseServerSet = false;
+        public bool AutoCloseServer
+        {
+            get => _autoCloseServer;
+            set
+            {
+                RASIC(ref _autoCloseServer, value);
+                _autoCloseServerSet = true;
+            }
+        }
+
 
         void ReadXml()
         {
@@ -102,7 +125,7 @@ namespace ReCap.Hub.Data
                 immediatelyWrite = true;
             }
             XElement gameConfigsEl = _doc.Root.Element(GAME_CONFIGS_EL);
-            
+
             if (gameConfigsEl == null)
             {
                 _doc.Root.Add(new XElement(GAME_CONFIGS_EL));
@@ -127,6 +150,19 @@ namespace ReCap.Hub.Data
                             , ref el));
                     }
                 }
+            }
+
+            XElement userPrefsEl = _doc.Root.Element(USER_PREFS_EL);
+            if (userPrefsEl != null)
+            {
+                if (userPrefsEl.TryGetElementValue(_USER_DISPLAY_NAME_EL, out string userDisplayName))
+                    UserDisplayName = userDisplayName;
+
+                if (userPrefsEl.TryGetElementBool(_USE_MANAGED_DECORATIONS_EL, out bool useManagedDecorations))
+                    UseManagedDecorations = useManagedDecorations;
+
+                if (userPrefsEl.TryGetElementBool(_AUTO_CLOSE_SERVER_EL, out bool autoCloseServer))
+                    AutoCloseServer = autoCloseServer;
             }
 
             GameConfigs.CollectionChanged += GameConfigs_CollectionChanged;
@@ -214,6 +250,21 @@ namespace ReCap.Hub.Data
                 //e.NewItems.Cast<GameConfigViewModel>().OrderBy(x => x.LastLaunchTime)
                 el.Add(childEl);
             }
+
+            var userPrefsEl = _doc.Root.Element(USER_PREFS_EL);
+            bool mustCreateUserPrefsEl = userPrefsEl == null;
+            if (mustCreateUserPrefsEl)
+                userPrefsEl = new XElement(USER_PREFS_EL);
+                
+            if (_useManagedDecorationsSet)
+                userPrefsEl.Add(new XElement(_USE_MANAGED_DECORATIONS_EL, UseManagedDecorations));
+
+            if (_autoCloseServerSet)
+                userPrefsEl.Add(new XElement(_AUTO_CLOSE_SERVER_EL, AutoCloseServer));
+
+            if (mustCreateUserPrefsEl)
+                _doc.Root.Add(userPrefsEl);
+
             if (!Directory.Exists(_cfgPath))
                 Directory.CreateDirectory(_cfgPath);
             _doc.Save(_xmlPath);

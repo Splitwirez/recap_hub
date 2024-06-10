@@ -9,8 +9,18 @@ namespace ReCap.Hub.Data
 {
     public static class GameLaunchService
     {
+        static void SafeRaiseGameExited(Process process, ref bool hasRaised)
+        {
+            if (hasRaised)
+                return;
+
+            GameExited?.Invoke(process, new());
+            hasRaised = true;
+        }
         public static async Task<Exception> LaunchGame(string winePrefix, string wineExecutable, string gameExecutable, string gameBinDir, params string[] commandLineOptions)
         {
+            bool hasRaisedGameExited = false;
+
             bool useWine = (!OperatingSystem.IsWindows());
             IEnumerable<string> cliOptions = commandLineOptions;
             if (useWine)
@@ -30,13 +40,16 @@ namespace ReCap.Hub.Data
             try
             {
                 darksporeProcess.Start();
+                GameStarted?.Invoke(darksporeProcess, new());
                 await darksporeProcess.WaitForExitAsync().ContinueWith(t =>
                 {
                     if (t.IsFaulted || (t.Exception != null))
                     {
+                        SafeRaiseGameExited(darksporeProcess, ref hasRaisedGameExited);
                         throw t.Exception;
                     }
                 });
+                SafeRaiseGameExited(darksporeProcess, ref hasRaisedGameExited);
                 Debug.WriteLine("DARKSPORE EXITED");
                 return null;
             }
@@ -48,5 +61,8 @@ namespace ReCap.Hub.Data
                 return ex;
             }
         }
+
+        public static event EventHandler GameStarted;
+        public static event EventHandler GameExited;
     }
 }
