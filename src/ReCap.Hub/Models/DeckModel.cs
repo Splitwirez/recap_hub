@@ -26,7 +26,7 @@ namespace ReCap.Hub.Models
 
         const string HEROES_EL = "creatures";
         bool _heroesPopulated = false;
-        public readonly XmlICanIntoXmlElementsProperty<CreatureModelRefModel> Heroes = new (HEROES_EL);
+        public readonly XmlICanIntoXmlElementsProperty<CreatureModelBase> Heroes = new (HEROES_EL);
         /*public readonly XmlElementsProperty<XElement> HeroesRaw = new(
             (el) => el,
             (el) => el,
@@ -90,8 +90,9 @@ namespace ReCap.Hub.Models
                 /*if (hero is CreatureModelRefModel heroRef)
                     Heroes.Sequence.Add(heroRef);
                 else*/
-                    Heroes.Sequence.Add(new CreatureModelRefModel(hero));
+                Heroes.Sequence.Add(new CreatureModelRefModel(hero));
             }
+            EnsureHeroes(heroes, true);
             _heroesPopulated = true;
         }
 
@@ -102,8 +103,11 @@ namespace ReCap.Hub.Models
             {
                 //heroRefs = heroRefs.Where(x => x.Creature == null);
 
-                foreach (var heroRef in Heroes.Sequence)
+                foreach (var hero in Heroes.Sequence)
                 {
+                    if (!(hero is CreatureModelRefModel heroRef))
+                        continue;
+
                     if (onlyIfNull && (heroRef.Creature != null))
                         continue;
 

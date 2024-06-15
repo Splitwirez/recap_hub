@@ -62,7 +62,7 @@ namespace ReCap.Hub.ViewModels
             save.Heroes.Add(blitzAlpha);
             save.Heroes.Add(sageAlpha);
 
-            //save.CreateSquad(blitzModel, sageModel);
+            save.CreateSquad(); //blitzModel, sageModel);
 
             save.Save();
             _tcs.TrySetResult(save);

@@ -19,7 +19,7 @@ namespace ReCap.Hub.Models
         {
             try
             {
-                Creature.SaveToXml(ref element);
+                Creature?.SaveToXml(ref element);
             }
             catch (NullReferenceException ex)
             {

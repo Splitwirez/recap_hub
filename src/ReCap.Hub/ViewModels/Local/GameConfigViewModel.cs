@@ -412,13 +412,17 @@ namespace ReCap.Hub.ViewModels
                 _lastServerInstance?.Dispose();
                 _lastServerInstance = null;
             }
+            Process.GetCurrentProcess().Kill();
+            save.ReadFromXml(true);
             HubData.Instance.GameConfigs.Remove(this);
             HubData.Instance.GameConfigs.Insert(0, this);
             //TODO: HubData.Instance.SelectedGameConfig = this;
             _lastLaunchTime = now;
             save.LastLaunchTime = now;
-            
-            
+            //save.ReadFromXml()
+
+
+
             Saves.Remove(save);
             Saves.Insert(0, save);
             SelectedSave = save;
