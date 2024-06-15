@@ -5,7 +5,7 @@
 
     <x:String x:Key="{x:Static keys:App.DisplayName}">Resurrection Capsule Hub</x:String>
 
-    <x:String x:Key="{x:Static keys:HomePage.OfflinePlayTabHeader}">PLAY DARKSPORE</x:String>
+    <x:String x:Key="{x:Static keys:HomePage.OfflinePlayTabHeader}">PLAY OFFLINE</x:String>
     <x:String x:Key="{x:Static keys:HomePage.OnlinePlayTabHeader}">JOIN ONLINE GAME</x:String>
 
     <x:String x:Key="{x:Static keys:LocateGame.Title}">Locate Darkspore</x:String>
