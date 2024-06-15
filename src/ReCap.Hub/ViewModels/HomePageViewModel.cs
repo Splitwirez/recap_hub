@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using ReCap.Hub.Localization.Keys;
 
 namespace ReCap.Hub.ViewModels
 {
@@ -27,8 +28,8 @@ namespace ReCap.Hub.ViewModels
         */
         ObservableCollection<TabViewModel> _tabs = new ObservableCollection<TabViewModel>()
         {
-            new TabViewModel("PLAY DARKSPORE", "LocalPlayTabIcon", new LocalPlayViewModel()),
-            new TabViewModel("JOIN ONLINE GAME", "OnlinePlayTabIcon", new OnlinePlayViewModel()),
+            new TabViewModel(HomePage.OfflinePlayTabHeader, "LocalPlayTabIcon", new LocalPlayViewModel()),
+            new TabViewModel(HomePage.OnlinePlayTabHeader, "OnlinePlayTabIcon", new OnlinePlayViewModel()),
             //new TabViewModel("SAMPLE TEXT", null),
         };
         public ObservableCollection<TabViewModel> Tabs

@@ -1,0 +1,16 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:keys="using:ReCap.Hub.Localization.Keys">
+    <x:String x:Key="{x:Static keys:Language.DisplayName}">English (Canada)</x:String>
+
+    <x:String x:Key="{x:Static keys:App.DisplayName}">Resurrection Capsule Hub</x:String>
+
+    <x:String x:Key="{x:Static keys:HomePage.OfflinePlayTabHeader}">PLAY DARKSPORE</x:String>
+    <x:String x:Key="{x:Static keys:HomePage.OnlinePlayTabHeader}">JOIN ONLINE GAME</x:String>
+
+    <x:String x:Key="{x:Static keys:LocateGame.Title}">Locate Darkspore</x:String>
+    <x:String x:Key="{x:Static keys:LocateGame.ShortDescription}">Provide the location of your Darkspore game install.</x:String>
+    <x:String x:Key="{x:Static keys:LocateGame.Instruction}">Launch Darkspore, as you normally would.</x:String>
+    <x:String x:Key="{x:Static keys:LocateGame.ChooseDetectByLaunch}">Detect by launching</x:String>
+    <x:String x:Key="{x:Static keys:LocateGame.ChooseBrowseForGamePath}">Browse manually</x:String>
+</ResourceDictionary>

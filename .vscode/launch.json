@@ -13,10 +13,10 @@
             "request": "launch",
             "preLaunchTask": "build-hub--offline",
             "OS-COMMENT4": "If you have changed target frameworks, make sure to update the program path.",
-            "program": "${workspaceFolder}/src/ReCap.Hub/bin/Debug_Offline/net6.0/ResurrectionCapsuleHub.dll",
+            "program": "${workspaceFolder}/src/ReCap.Hub/bin/Debug_Offline/net5.0/ResurrectionCapsuleHub.dll",
             "args": [
             ],
-            "cwd": "${workspaceFolder}/src/ReCap.Hub/bin/Debug_Offline/net6.0",
+            "cwd": "${workspaceFolder}/src/ReCap.Hub/bin/Debug_Offline/net5.0",
             "OS-COMMENT5": "For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console",
             "console": "internalConsole",
             "stopAtEntry": false
@@ -26,10 +26,10 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-hub--online",
-            "program": "${workspaceFolder}/src/ReCap.Hub/bin/Debug_Online/net6.0/ResurrectionCapsuleHub.dll",
+            "program": "${workspaceFolder}/src/ReCap.Hub/bin/Debug_Online/net5.0/ResurrectionCapsuleHub.dll",
             "args": [
             ],
-            "cwd": "${workspaceFolder}/src/ReCap.Hub/bin/Debug_Online/net6.0",
+            "cwd": "${workspaceFolder}/src/ReCap.Hub/bin/Debug_Online/net5.0",
             "console": "internalConsole",
             "stopAtEntry": false
         },
@@ -38,10 +38,10 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-uitest",
-            "program": "${workspaceFolder}/src/ReCap.UITest/bin/Debug/net6.0/ReCap.UITest.dll",
+            "program": "${workspaceFolder}/src/ReCap.UITest/bin/Debug/net5.0/ReCap.UITest.dll",
             "args": [
             ],
-            "cwd": "${workspaceFolder}/src/ReCap.UITest/bin/Debug/net6.0",
+            "cwd": "${workspaceFolder}/src/ReCap.UITest/bin/Debug/net5.0",
             "console": "internalConsole",
             "stopAtEntry": false
         },

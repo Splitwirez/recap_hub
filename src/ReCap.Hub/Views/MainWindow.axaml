@@ -4,8 +4,9 @@
         xmlns:vm="using:ReCap.Hub.ViewModels"
         xmlns:v="using:ReCap.Hub.Views"
         xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:keys="using:ReCap.Hub.Localization.Keys"
         Icon="avares://ResurrectionCapsuleHub/Assets/ReCap.ico"
-        Title="Resurrection Capsule Hub"
+        Title="{DynamicResource {x:Static keys:App.DisplayName}}"
         Width="1024" Height="592"
 		Classes.topTabs="{Binding EnableMP, Mode=OneWay}">
 	<v:MainView />

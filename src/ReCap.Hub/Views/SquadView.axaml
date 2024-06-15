@@ -7,23 +7,9 @@
             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
             x:Class="ReCap.Hub.Views.SquadView"
 			HorizontalAlignment="Center">
-	<HeaderedItemsControl Header="{Binding DisplayTitle, Mode=OneWay}"
+	<HeaderedItemsControl x:Name="SquadItems"
+						Header="{Binding DisplayTitle, Mode=OneWay}"
 						ItemsSource="{Binding Heroes, Mode=OneWay}"
 						Classes="squadFrame heroes">
-	<!--StackPanel Orientation="Vertical">
-		<TextBlock Text="{Binding DisplayTitle, Mode=OneWay}" />
-		<!- -Text="{Binding DisplayNumber, StringFormat='Squad {}{0}'}"- ->
-		-->
-			<HeaderedItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<WrapPanel x:Name="PART_ItemsPanel" HorizontalAlignment="Center"/>
-				</ItemsPanelTemplate>
-			</HeaderedItemsControl.ItemsPanel>
-			<!--ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<v:HeroView DatContext="{Binding}"/>
-				</DataTemplate>
-			</ItemsControl.ItemTemplate-->
-	<!--/StackPanel-->
 	</HeaderedItemsControl>
 </UserControl>

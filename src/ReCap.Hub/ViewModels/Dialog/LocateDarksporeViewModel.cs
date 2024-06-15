@@ -126,6 +126,37 @@ namespace ReCap.Hub.ViewModels
         }
 
 
+        bool _hasChosenProvidePathMethod = false;
+        public bool HasChosenProvidePathMethod
+        {
+            get => _hasChosenProvidePathMethod;
+            set => RASIC(ref _hasChosenProvidePathMethod, value);
+        }
+
+        public void ChooseProvidePathMethodCommand(object parameter)
+        {
+            if (parameter == null)
+                return;
+            
+            if (!(parameter is bool browse))
+            {
+                if (!(parameter is string paramStr))
+                    paramStr = parameter.ToString();
+                
+                if (!bool.TryParse(paramStr, out browse))
+                    return;
+            }
+
+            ChooseProvidePathMethod(browse);
+        }
+
+        public void ChooseProvidePathMethod(bool browse)
+        {
+            BrowseForGamePath = browse;
+            HasChosenProvidePathMethod = true;
+        }
+
+
         bool _hasGamePath = false;
         public bool HasGamePath
         {

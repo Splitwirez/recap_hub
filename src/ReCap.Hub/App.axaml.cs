@@ -3,14 +3,15 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
-using ReCap.Hub.Data;
-using ReCap.Hub.ViewModels;
-using ReCap.Hub.Views;
 using System;
 using System.Threading.Tasks;
 using ReCap.CommonUI;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using ReCap.Hub.Data;
+using ReCap.Hub.Localization;
+using ReCap.Hub.ViewModels;
+using ReCap.Hub.Views;
 
 namespace ReCap.Hub
 {
@@ -46,6 +47,9 @@ namespace ReCap.Hub
 
         public override void OnFrameworkInitializationCompleted()
         {
+            var dict = UILanguageManager.Instance.Dictionary;
+            Resources.MergedDictionaries.Add(dict);
+
             base.OnFrameworkInitializationCompleted();
             var styles = Styles;
             foreach (var style in styles)

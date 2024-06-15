@@ -10,7 +10,7 @@
     </Application.DataTemplates>
     <Application.Styles>
         <rctr:ReCapTheme />
-        <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/All.axaml"/>
+        <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/Global.axaml" />
 
         <Style Selector=":is(Window)">
             <Setter Property="ExtendClientAreaToDecorationsHint" Value="{Binding Path=UseManagedDecorations, Source={x:Static dt:HubData.Instance}, Mode=OneWay}" />

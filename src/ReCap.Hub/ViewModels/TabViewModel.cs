@@ -17,11 +17,11 @@ namespace ReCap.Hub.ViewModels
             private set => RASIC(ref _contentVM, value);
         }
 
-        string _title = null;
-        public string Title
+        string _titleKey = null;
+        public string TitleKey
         {
-            get => _title;
-            private set => RASIC(ref _title, value);
+            get => _titleKey;
+            private set => RASIC(ref _titleKey, value);
         }
 
         string _iconKey = null;
@@ -32,10 +32,10 @@ namespace ReCap.Hub.ViewModels
         }
         
 
-        public TabViewModel(string title, string iconKey, ViewModelBase contentVM)
+        public TabViewModel(string titleKey, string iconKey, ViewModelBase contentVM)
             : base()
         {
-            Title = title;
+            TitleKey = titleKey;
             IconKey = iconKey;
             ContentVM = contentVM;
         }

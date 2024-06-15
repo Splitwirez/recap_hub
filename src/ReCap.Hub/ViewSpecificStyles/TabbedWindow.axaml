@@ -1,7 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:rctr="using:ReCap.CommonUI"
-        xmlns:vm="using:ReCap.Hub.ViewModels"
         xmlns:v="using:ReCap.Hub.Views">
 	<!--
 	<Style Selector="Window.topTabs">
@@ -63,44 +62,6 @@
 	-->
 
 
-	<Style Selector="TabControl#TopTabs">
-		<Setter Property="ItemTemplate">
-			<DataTemplate DataType="{x:Type vm:TabViewModel}">
-				<StackPanel x:Name="DataTemplateRoot"
-							Orientation="Vertical">
-					<rctr:IconPresenter IconKey="{Binding IconKey, Mode=OneWay}"
-							Width="12" Height="12"
-							HorizontalAlignment="Left"
-							Shape.Fill="{Binding $parent[ContentPresenter].Foreground, Mode=OneWay}"
-							Shape.Stroke="{Binding $parent[ContentPresenter].Foreground, Mode=OneWay}" />
-					<!--
-							Spacing="2"
-							Margin="0,-3,0,0"
-					-->
-							
-				<!--
-							Orientation="Horizontal"
-							Spacing="4">
-					<rctr:IconPresenter IconKey="{Binding IconKey, Mode=OneWay}"
-							Width="24" Height="24"
-							Shape.Fill="{Binding $parent[ContentPresenter].Foreground, Mode=OneWay}"
-							Shape.Stroke="{Binding $parent[ContentPresenter].Foreground, Mode=OneWay}" />
-				-->
-					<TextBlock Text="{Binding Title, Mode=OneWay}"
-							VerticalAlignment="Center" />
-				</StackPanel>
-			</DataTemplate>
-		</Setter>
-		<Setter Property="ContentTemplate">
-			<DataTemplate DataType="{x:Type vm:TabViewModel}">
-				<ContentPresenter DataContext="{Binding ContentVM, Mode=OneWay}"
-								Content="{Binding Mode=OneWay}" />
-			</DataTemplate>
-		</Setter>
-	</Style>
-	<Style Selector="TabControl#TopTabs > TabItem /template/ StackPanel#DataTemplateRoot > :is(Control)">
-		<Setter Property="HorizontalAlignment" Value="Left" />
-	</Style>
 	<!--
 	<Style Selector="ContentControl.belowTopTabs Button,
 					ContentControl.belowTopTabs ToggleButton">

@@ -91,7 +91,7 @@
                                     ContentTemplate="{TemplateBinding ContentTemplate}"
                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                    Margin="{TemplateBinding Padding}"/>
+                                    Margin="{TemplateBinding Padding}" />
                 </Panel>
             </ControlTemplate>
         </Setter>

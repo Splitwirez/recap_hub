@@ -4,7 +4,6 @@
         xmlns:v="using:ReCap.Hub.Views"
         Icon="avares://ReCap.Hub/Res/Icon/ReCap.ico"
         x:Class="ReCap.Hub.Views.InitialDialogWindow"
-        Title="Resurrection Capsule Hub"
         Width="200" Height="100"
         CanResize="False">
   <ContentControl Content="{Binding CurrentDialog}"

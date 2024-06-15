@@ -3,8 +3,8 @@
 		<OutputType>Library</OutputType>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<LangVersion>8.0</LangVersion>
 		<!--
+		<LangVersion>8.0</LangVersion>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		-->
 	</PropertyGroup>

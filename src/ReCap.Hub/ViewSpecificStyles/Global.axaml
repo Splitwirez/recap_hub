@@ -4,8 +4,8 @@
         xmlns:rctr="using:ReCap.CommonUI">
     <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/Common.axaml" />
     <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/DialogOverlay.axaml" />
-    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/HomePage.axaml" />
     <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/SaveGame.axaml" />
+    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/Squads.axaml" />
 	<StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/TabbedWindow.axaml" />
 
 	<StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/Icons.axaml" />

@@ -2,151 +2,99 @@
             xmlns="https://github.com/avaloniaui"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:vm="using:ReCap.Hub.ViewModels"
+            xmlns:keys="using:ReCap.Hub.Localization.Keys"
             Theme="{DynamicResource DialogRoot}"
-            Width="540">
+            Width="548"
+            x:Name="LocateDarksporePrompt">
     <UserControl.Styles>
-        <Style Selector="ContentControl.dialogFooter :is(Button).left">
-            <Setter Property="Margin" Value="0,0,12,0" />
-        </Style>
-    
-        <Style Selector="ContentControl.dialogFooter :is(Button).right">
-            <Setter Property="Margin" Value="12,0,0,0" />
-        </Style>
-
-        <Style Selector="ContentControl.dialogFooter DockPanel:not(.hasCancelButton)">
-            <Setter Property="LastChildFill" Value="False" />
-        </Style>
-        <!--Style Selector="ContentControl.dialogFooter DockPanel:not(.hasCancelButton) ToggleButton.browseOrDetect">
-            <Setter Property=""/>
-        </Style-->
-        <Style Selector="Panel.browseOrDetectButtons ToggleButton[IsChecked=True]">
-            <!--For the first time in my entire life, I actually wish Avalonia had Visibility.Hidden like WPF...but only a little bit lol-->
-            <Setter Property="Opacity" Value="0" />
-            <Setter Property="IsHitTestVisible" Value="False" />
-            <Setter Property="Focusable" Value="False" />
-            <Setter Property="IsTabStop" Value="False" />
-        </Style>
-        <Style Selector="DockPanel[LastChildFill=False] Panel.browseOrDetectButtons">
-            <Setter Property="DockPanel.Dock" Value="Left" />
-        </Style>
-        <Style Selector="DockPanel:not(DockPanel[LastChildFill=False]) Panel.browseOrDetectButtons">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-        </Style>
-        <!--Style Selector="Panel.browseOrDetectButtons ToggleButton">
-            <Setter Property="Classes.right" Value="{Binding IsCloseable, Mode=OneWay}" />
-        </Style-->
-
-        <Style Selector="TemplatedControl.bodyShared">
-            <Setter Property="DockPanel.Dock" Value="Top" />
-            <Setter Property="Template">
-                <ControlTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="Critical systems are now back online. Non-critical systems require further setup."
-                                TextWrapping="Wrap"/>
-                        <!--
-                        Critical ship systems are back online.
-                        Before non-critical systems can come back online, you will need to complete a few small tasks.
-                        -->
-                    </StackPanel>
-                </ControlTemplate>
-            </Setter>
-        </Style>
-      
-        <Style Selector="StackPanel#BrowseForDarksporePrompt > DockPanel">
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
-
-        <Style Selector="Button#AcceptButton:not(.hasGamePath, .browseForGamePath)">
-            <Setter Property="IsVisible" Value="False" />
-        </Style>
+        <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/LocateDarksporePrompt.axaml" />
     </UserControl.Styles>
     <DockPanel>
         <ContentControl Classes="dialogFooter"
+                    IsVisible="{Binding !#ProvidePathMethodChoice.IsVisible, Mode=OneWay}"
+                    ClipToBounds="False"
                     DockPanel.Dock="Bottom">
             <DockPanel LastChildFill="{Binding IsCloseable, Mode=OneWay}">
                 <Button Content="Cancel"
                         Classes="left"
                         DockPanel.Dock="Left"
-                        IsVisible="{Binding IsCloseable, Mode=OneWay}"/>
+                        IsVisible="{Binding IsCloseable, Mode=OneWay}" />
 
                 <Button x:Name="AcceptButton"
                         Content="Accept"
                         DockPanel.Dock="Right"
                         Classes.hasGamePath="{Binding HasGamePath, Mode=OneWay}"
-                        Classes.browseForGamePath="{Binding BrowseForGamePath, Mode=OneWay}"/>
+                        Classes.browseForGamePath="{Binding BrowseForGamePath, Mode=OneWay}" />
                 
                 <Panel Classes="browseOrDetectButtons">
                     <ToggleButton Content="Browse manually"
                                 x:Name="BrowseManuallyButton"
                                 IsChecked="{Binding BrowseForGamePath, Mode=TwoWay}"
-                                Classes.left="{Binding !IsCloseable, Mode=OneWay}"/>
+                                Classes.left="{Binding !IsCloseable, Mode=OneWay}" />
                     <ToggleButton Content="Detect by launching"
                                 IsChecked="{Binding !BrowseForGamePath, Mode=TwoWay}"
-                                Classes.left="{Binding !IsCloseable, Mode=OneWay}"/>
+                                Classes.left="{Binding !IsCloseable, Mode=OneWay}" />
                 </Panel>
             </DockPanel>
         </ContentControl>
 
 
-        <HeaderedContentControl Header="Welcome back, crogenitor"
-                                Classes="dialogBody">
-<!--
-            <HeaderedContentControl.Header>
-                <DockPanel>
-                    <Button x:Name="CloseButton"
-                            Theme="{DynamicResource DialogCloseButton}"
-                            DockPanel.Dock="Right" />
-                    <Control Opacity="0"
-                            IsHitTestVisible="False"
-                            IsTabStop="False"
-                            Focusable="False"
-                            Width="{Binding #CloseButton.Bounds.Width, Mode=OneWay}"
-                            DockPanel.Dock="Left" />
-                    <TextBlock Text="Welcome back, crogenitor" />
-                </DockPanel>
-            </HeaderedContentControl.Header>
--->
-            <DockPanel>
-                <TemplatedControl Classes="bodyShared"/>
-
-                <Panel>
+        <HeaderedContentControl Header="{DynamicResource {x:Static keys:LocateGame.Title}}"
+                                Classes="dialogBody"
+                                ClipToBounds="False">
+            <Panel>
+                
+                <!--Initial choice-->
+                <Grid x:Name="ProvidePathMethodChoice"
+                    IsVisible="{Binding !HasChosenProvidePathMethod, Mode=OneWay}"
+                    ColumnDefinitions="*,*"
+                    RowDefinitions="Auto,*">
+                    <TextBlock Text="{DynamicResource {x:Static keys:LocateGame.ShortDescription}}"
+                            TextWrapping="Wrap"
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2" />
+                    <Button Content="{DynamicResource {x:Static keys:LocateGame.ChooseDetectByLaunch}}"
+                            Command="{Binding ChooseProvidePathMethodCommand, Mode=OneWay}"
+                            CommandParameter="False"
+                            Grid.Column="0"
+                            Grid.Row="1" />
+                    <Button Content="{DynamicResource {x:Static keys:LocateGame.ChooseBrowseForGamePath}}"
+                            Command="{Binding ChooseProvidePathMethodCommand, Mode=OneWay}"
+                            CommandParameter="True"
+                            Grid.Column="1"
+                            Grid.Row="1" />
+                </Grid>
+                <Panel IsVisible="{Binding !#ProvidePathMethodChoice.IsVisible, Mode=OneWay}">
+                    
                     <!--Browse manually-->
                     <StackPanel x:Name="BrowseForDarksporePrompt"
-                           IsVisible="{Binding BrowseForGamePath, Mode=OneWay}"
-                            Orientation="Vertical"
-                                Spacing="5">
+                                IsVisible="{Binding BrowseForGamePath, Mode=OneWay}"
+                                Orientation="Vertical">
                         <DockPanel>
                             <Button Command="{Binding BrowseForGameExeCommand}"
                                     DockPanel.Dock="Right">Browse...</Button>
-                            <TextBox Watermark="Path to 'Darkspore.exe'" Text="{Binding GamePathFromBrowseDialog, Mode=TwoWay}"/>
+                            <TextBox Watermark="Path to 'Darkspore.exe'" Text="{Binding GamePathFromBrowseDialog, Mode=TwoWay}" />
                         </DockPanel>
                         <DockPanel IsVisible="{Binding ShowWineBrowseControls, Mode=OneWay}">
                             <Button Command="{Binding BrowseForWinePrefixCommand}"
                                     DockPanel.Dock="Right">Browse...</Button>
-                          <TextBox Watermark="Path to WINE Prefix" Text="{Binding WinePrefixFromBrowseDialog, Mode=TwoWay}"/>
+                        <TextBox Watermark="Path to WINE Prefix" Text="{Binding WinePrefixFromBrowseDialog, Mode=TwoWay}" />
                         </DockPanel>
                         <DockPanel IsVisible="{Binding ShowWineBrowseControls, Mode=OneWay}"
-                          HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                        HorizontalAlignment="Stretch" VerticalAlignment="Center">
                             <Button Command="{Binding BrowseForWineExecutableCommand}"
                                     DockPanel.Dock="Right">Browse...</Button>
-                            <TextBox Watermark="Path to 'wine executable'" Text="{Binding WineExecutableFromBrowseDialog, Mode=TwoWay}"/>
+                            <TextBox Watermark="Path to 'wine executable'" Text="{Binding WineExecutableFromBrowseDialog, Mode=TwoWay}" />
                         </DockPanel>
                     </StackPanel>
 
                     <!--Detect by launching-->
-                    <DockPanel IsVisible="{Binding !#BrowseForDarksporePrompt.IsVisible, Mode=OneWay}">
-                        <ProgressBar Theme="{DynamicResource HexagonRingProgressBar}"
-                                    IsIndeterminate="True"
-                                    VerticalAlignment="Center"
-                                    DockPanel.Dock="Right"/>
-                        <TextBlock Text="Start by opening Darkspore, to re-establish connectivity."
-                                Classes="sh3"
-                                TextWrapping="Wrap"
-                                VerticalAlignment="Center"/>
-                    </DockPanel>
+                    <ContentControl Theme="{DynamicResource FlashEmphasis2}"
+                                    IsVisible="{Binding !#BrowseForDarksporePrompt.IsVisible, Mode=OneWay}"
+                                    Content="{DynamicResource {x:Static keys:LocateGame.Instruction}}" />
                 </Panel>
-            </DockPanel>
+            </Panel>
         </HeaderedContentControl>
     </DockPanel>
 </UserControl>

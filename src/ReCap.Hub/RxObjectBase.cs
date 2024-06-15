@@ -8,7 +8,7 @@ namespace ReCap.Hub
 {
     public abstract class RxObjectBase : ReactiveObject
     {
-        public void RASIC<TRet>(ref TRet backingField, TRet newValue, [CallerMemberName] string propertyName = null)
+        public T RASIC<T>(ref T backingField, T newValue, [CallerMemberName] string propertyName = null)
             => this.RaiseAndSetIfChanged(ref backingField, newValue, propertyName);
         
         
