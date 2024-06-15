@@ -10,7 +10,8 @@
 
     <x:String x:Key="{x:Static keys:LocateGame.Title}">Locate Darkspore</x:String>
     <x:String x:Key="{x:Static keys:LocateGame.ShortDescription}">Provide the location of your Darkspore game install.</x:String>
-    <x:String x:Key="{x:Static keys:LocateGame.Instruction}">Launch Darkspore, as you normally would.</x:String>
+    <x:String x:Key="{x:Static keys:LocateGame.Instruction}">Launch Darkspore to continue preparation.</x:String>
+    <!-- Afterwards, the Resurrection Capsule Hub will automatically configure according to your Darkspore install.</x:String>-->
     <x:String x:Key="{x:Static keys:LocateGame.ChooseDetectByLaunch}">Detect by launching</x:String>
     <x:String x:Key="{x:Static keys:LocateGame.ChooseBrowseForGamePath}">Browse manually</x:String>
 </ResourceDictionary>

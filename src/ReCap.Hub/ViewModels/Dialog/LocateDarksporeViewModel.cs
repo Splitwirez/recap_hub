@@ -126,7 +126,7 @@ namespace ReCap.Hub.ViewModels
         }
 
 
-        bool _hasChosenProvidePathMethod = false;
+        bool _hasChosenProvidePathMethod = true;
         public bool HasChosenProvidePathMethod
         {
             get => _hasChosenProvidePathMethod;
