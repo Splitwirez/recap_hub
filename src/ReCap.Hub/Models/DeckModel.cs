@@ -26,7 +26,7 @@ namespace ReCap.Hub.Models
 
         const string HEROES_EL = "creatures";
         bool _heroesPopulated = false;
-        public readonly XmlICanIntoXmlElementsProperty<CreatureModelBase> Heroes = new (HEROES_EL);
+        public readonly XmlICanIntoXmlElementsProperty<CreatureModelBase> Heroes = new (() => new CreatureModelRefModel(), HEROES_EL);
         /*public readonly XmlElementsProperty<XElement> HeroesRaw = new(
             (el) => el,
             (el) => el,

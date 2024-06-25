@@ -1,0 +1,95 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rctr="using:ReCap.CommonUI"
+					x:CompileBindings="True">
+	
+	<LinearGradientBrush x:Key="HelixTabs.Item.Background.Selected"
+						 StartPoint="0%,0%"
+						 EndPoint="0%,98%">
+		<GradientStop Offset="0" Color="#6BB7CFDA" />
+		<GradientStop Offset="1" Color="{DynamicResource RowBelowTabs.Background.Top}" />
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="HelixTabs.Item.BorderBrush.Selected"
+						 StartPoint="0%,0%"
+						 EndPoint="0%,100%">
+		<GradientStop Offset="0" Color="#8DBFD5DE" />
+		<GradientStop Offset="1" Color="{DynamicResource RowBelowTabs.BorderBrush.Top}" />
+	</LinearGradientBrush>
+
+
+	<ControlTheme x:Key="HelixTabItem"
+				TargetType="{x:Type TabItem}">
+		<Setter Property="Background" Value="{DynamicResource HelixTabs.Item.Background.Selected}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource HelixTabs.Item.BorderBrush.Selected}" />
+		<Setter Property="Foreground" Value="{DynamicResource Weak2ForegroundBrush}" />
+		
+		<Setter Property="FontSize" Value="15" />
+        <Setter Property="Padding" Value="15,4" />
+        <Setter Property="MinWidth" Value="182" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="Template">
+            <ControlTemplate>
+				<Panel Background="#01000000">
+					<DockPanel x:Name="BgPanel"
+							IsVisible="False"
+							ClipToBounds="True">
+						<Path Classes="bottomCorner"
+							DockPanel.Dock="Left"
+							Data="M 12 0 L 6 6 L 6 22 L 0 28 L 0 29 L 12 29"
+							Fill="{Binding #BgElement.Background, Mode=OneWay}"
+							Stroke="{Binding #BgElement.BorderBrush, Mode=OneWay}" />
+						<Path Classes="bottomCorner"
+							DockPanel.Dock="Right"
+							Data="M 0 0 L 6 6 L 6 22 L 12 28 L 12 29 L 0 29"
+							Fill="{Binding #BgElement.Background, Mode=OneWay}"
+							Stroke="{Binding #BgElement.BorderBrush, Mode=OneWay}" />
+						<Border x:Name="BgElement"
+								Background="{TemplateBinding Background}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="0,1,0,0"
+								Margin="0,0,0,-1" />
+					</DockPanel>
+					<Rectangle Height="1"
+							   Fill="{DynamicResource RowBelowTabs.BorderBrush.Top}"
+							   VerticalAlignment="Bottom"
+							   IsVisible="{Binding !IsSelected, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
+					<ContentPresenter Name="PART_ContentPresenter"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Margin="{TemplateBinding Padding}"
+                                    TextBlock.Foreground="{TemplateBinding Foreground}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    Content="{TemplateBinding Header}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+				</Panel>
+			</ControlTemplate>
+        </Setter>
+		<Style Selector="^ /template/ Path.bottomCorner">
+			<Setter Property="StrokeThickness" Value="1" />
+			<Setter Property="VerticalAlignment" Value="Stretch" />
+			<Setter Property="Stretch" Value="None" />
+		</Style>
+		<Style Selector="^ /template/ :is(Panel)#BgPanel > :is(Control)">
+			<Setter Property="Margin" Value="0,0,0,-1" />
+		</Style>
+
+		<Style Selector="^:pointerover:not(:selected)">
+			<Style Selector="^ /template/ :is(Panel)#BgPanel">
+				<Setter Property="IsVisible" Value="True" />
+				<Setter Property="Opacity" Value="0.5" />
+			</Style>
+		</Style>
+		<Style Selector="^:selected">
+			<Style Selector="^ /template/ :is(Panel)#BgPanel">
+				<Setter Property="IsVisible" Value="True" />
+			</Style>
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="TextBlock.Foreground" Value="{DynamicResource StrongForegroundBrush}" />
+			</Style>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

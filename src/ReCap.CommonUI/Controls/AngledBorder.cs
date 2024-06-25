@@ -1,17 +1,13 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Shapes;
-using Avalonia.Controls.Utils;
-using Avalonia.Layout;
-using Avalonia.Media;
-using Avalonia.Visuals;
-using Avalonia.VisualTree;
 using System;
 using System.Collections.Generic;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 
 namespace ReCap.CommonUI
 {
-    public class AngledBorder : AngledBorderBase
+    public class AngledBorder
+        : AngledBorderBase
     {
         /// <summary>
         /// Defines the <see cref="CornerRadius"/> property.
@@ -29,15 +25,11 @@ namespace ReCap.CommonUI
 
         static AngledBorder()
         {
-            Action<AngledBorder, AvaloniaPropertyChangedEventArgs> changedHandler = (s, e) => s.UpdateGeometry();
-
-            
-            CornerRadiusProperty.Changed.AddClassHandler<AngledBorder>(changedHandler);
-
+            AffectsGeometry<AngledBorder>(CornerRadiusProperty);
             AffectsRender<AngledBorder>(CornerRadiusProperty);
         }
 
-        protected override (Geometry, Geometry, RoundedRect) RefreshGeometry()
+        protected override void RefreshGeometry(out Geometry fillGeometry, out Geometry strokeGeometry, out RoundedRect glowRect)
         {
             //Console.WriteLine($"Updating geometries...");
             double width = Math.Round(Bounds.Width);
@@ -61,13 +53,14 @@ namespace ReCap.CommonUI
             double fillWidth = width - borderBothSides;
             double fillHeight = height - borderBothSides;
             var rect = new Rect(strokeThickness, strokeThickness, fillWidth, fillHeight);
-            var rrect = new RoundedRect(rect, tl, tr, br, bl);
+            glowRect = new RoundedRect(rect, tl, tr, br, bl);
             
-            var fillGeometry = new StreamGeometry();
-            using (var ctx = fillGeometry.Open())
+            var fillGeom = new StreamGeometry();
+            using (var ctx = fillGeom.Open())
             {
                 ctx.CreateGeometry(strokeThickness, strokeThickness, fillWidth, fillHeight, tl, tr, br, bl, true);
             }
+            fillGeometry = fillGeom;
 
             /*double realAverageBorderThickness = _averageBorderThickness;
             _averageBorderThickness = 4;
@@ -75,7 +68,7 @@ namespace ReCap.CommonUI
             fillWidth = width - borderBothSides;
             fillHeight = height - borderBothSides;*/
 
-            Geometry strokeGeometry = null;
+            strokeGeometry = null;
             if (strokeThickness > 0)
             {
                 double diagonalDiff = strokeThickness / 2;
@@ -98,13 +91,6 @@ namespace ReCap.CommonUI
                 //strokeGeometry = new CombinedGeometry(GeometryCombineMode.Xor, strokeOuterGeometry, fillGeometry/*, new TranslateTransform(0, 0)*/);
                 strokeGeometry = strokeOuterGeometry;
             }
-            
-            return 
-            (
-                fillGeometry,
-                strokeGeometry,
-                rrect
-            );
         }
     }
 

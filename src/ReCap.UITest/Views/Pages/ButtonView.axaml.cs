@@ -9,7 +9,7 @@ namespace ReCap.UITest.Views.Pages
     {
         public ButtonView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void InitializeComponent()

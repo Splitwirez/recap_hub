@@ -1,0 +1,37 @@
+<HeaderedItemsControl x:Class="ReCap.Hub.Views.CommandBarView"
+					xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:rctr="using:ReCap.CommonUI"
+					xmlns:v="clr-namespace:ReCap.Hub.Views"
+					xmlns:vm="using:ReCap.Hub.ViewModels"
+					xmlns:keys="using:ReCap.Hub.Localization.Keys"
+					ClipToBounds="False">
+    <HeaderedItemsControl.Tag>
+		<Button Content="{DynamicResource {x:Static keys:HomePage.ShowPreferences}}"
+				Classes="left"
+				Command="{Binding DataContext.ShowPreferencesCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:MainView}}, Mode=OneWay}" />
+    </HeaderedItemsControl.Tag>
+	<!--
+	<HeaderedItemsControl.ContentTemplate>
+		<DataTemplate>
+			<DockPanel>
+				<StackPanel Orientation="Horizontal"
+							DockPanel.Dock="Left">
+					<ToggleButton x:Name="GameConfigsToggle"
+								Content="Show game configs"
+								IsChecked="{Binding ShowGameConfigs, Mode=TwoWay}"
+								IsVisible="{Binding !ShowGameConfigs}"/>
+					<ToggleButton Content="Hide game configs"
+								IsChecked="{Binding !#GameConfigsToggle.IsChecked, Mode=TwoWay}"
+								IsVisible="{Binding ShowGameConfigs}"/>
+				</StackPanel>
+				<Button Content="Preferences..."
+						Classes="left"
+						Command="{Binding $parent[v:MainView].DataContext.ShowPreferencesCommand, Mode=OneWay}"
+						DockPanel.Dock="Right" />
+				<ContentPresenter Content="{Binding}" />
+			</DockPanel>
+		</DataTemplate>
+	</HeaderedItemsControl.ContentTemplate>
+	-->
+</HeaderedItemsControl>

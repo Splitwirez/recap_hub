@@ -9,7 +9,7 @@ namespace ReCap.UITest.Views.Pages
     {
         public WindowChromeView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void InitializeComponent()

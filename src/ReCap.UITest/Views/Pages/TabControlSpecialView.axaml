@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="ReCap.UITest.Views.Pages.TabControlSpecialView"
+            xmlns="https://github.com/avaloniaui"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:rctr="using:ReCap.CommonUI"
+			xmlns:vm="using:ReCap.UITest.ViewModels">
+	<UserControl.Styles>
+		<Style Selector="TabControl">
+			<Setter Property="ItemsSource" Value="{Binding Tabs, Mode=OneWay}" />
+			<Setter Property="SelectedIndex" Value="{Binding SelectedIndex, Mode=TwoWay}" />
+			<Setter Property="ItemTemplate">
+				<DataTemplate DataType="{x:Type vm:PageTabViewModel}">
+					<TextBlock Text="{Binding Title, Mode=OneWay}" />
+				</DataTemplate>
+			</Setter>
+			<!--
+			<Setter Property="ContentTemplate">
+				<DataTemplate DataType="{x:Type vm:PageTabViewModel}">
+					<StackPanel Orientation="Vertical">
+						<ContentControl Theme="{DynamicResource RowBelowTabs}"
+										DockPanel.Dock="Top">
+							<DockPanel IsHitTestVisible="False"
+									LastChildFill="False">
+								<Button Content="Sample content"
+										Focusable="False"
+										IsTabStop="False"
+										Classes="right"
+										DockPanel.Dock="Left" />
+								<Button Content="Sample content"
+										Focusable="False"
+										IsTabStop="False"
+										Classes="left"
+										DockPanel.Dock="Right" />
+							</DockPanel>
+						</ContentControl>
+						<TextBlock Classes="h1" Text="{Binding $parent[TabControl].Name, Mode=OneWay}" />
+						<TextBlock Classes="h2" Text="{Binding Tag, Mode=OneWay}" />
+					</StackPanel>
+				</DataTemplate>
+			</Setter>
+			-->
+		</Style>
+
+		<Style Selector="ContentControl.demoBelowTabs">
+			<Setter Property="Theme" Value="{DynamicResource RowBelowTabs}" />
+			<Setter Property="DockPanel.Dock" Value="Top" />
+			<Setter Property="ContentTemplate">
+				<DataTemplate>
+					<DockPanel IsHitTestVisible="False"
+							LastChildFill="False">
+						<Button Content="Sample content"
+								Focusable="False"
+								IsTabStop="False"
+								Classes="right"
+								DockPanel.Dock="Left" />
+						<Button Content="Sample content"
+								Focusable="False"
+								IsTabStop="False"
+								Classes="left"
+								DockPanel.Dock="Right" />
+					</DockPanel>
+				</DataTemplate>
+			</Setter>
+		</Style>
+	</UserControl.Styles>
+	<Grid RowDefinitions="Auto,4,*,4,Auto,4,*">
+		<TextBlock Text="HelixTabs"
+					Grid.Row="0" />
+		<TabControl Theme="{DynamicResource HelixTabs}"
+					Grid.Row="2">
+			<TabControl.ContentTemplate>
+				<DataTemplate DataType="{x:Type vm:PageTabViewModel}">
+					<StackPanel Orientation="Vertical"
+								Spacing="8">
+						<ContentControl Classes="demoBelowTabs" />
+						<TextBlock Text="Helix window-style tabs" />
+					</StackPanel>
+				</DataTemplate>
+			</TabControl.ContentTemplate>
+		</TabControl>
+
+
+		<TextBlock Text="InventoryTabs"
+					Grid.Row="4" />
+		<TabControl Theme="{DynamicResource InventoryTabs}"
+					Grid.Row="6">
+			<TabControl.ContentTemplate>
+				<DataTemplate DataType="{x:Type vm:PageTabViewModel}">
+					<StackPanel Orientation="Vertical"
+								Spacing="8">
+						<ContentControl Classes="demoBelowTabs" />
+						<TextBlock Text="Inventory-style tabs" />
+					</StackPanel>
+				</DataTemplate>
+			</TabControl.ContentTemplate>
+		</TabControl>
+	</Grid>
+</UserControl>

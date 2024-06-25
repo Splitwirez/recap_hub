@@ -50,7 +50,6 @@
                                 <rctr:AngledBorderEx x:Name="TopEdgeTrim"
                                                     Classes="activateColoration"
                                                     BorderBrush="{DynamicResource Window.BottomEdgeTrim.BorderBrush}"
-                                                    Height="14"
                                                     InvertSide="Bottom"
                                             
                                                     BottomLeftCut="6"
@@ -116,6 +115,10 @@
 		    <Style Selector="^ /template/ rctr|AngledBorder#HoloShadow">
 			    <Setter Property="Background" Value="{DynamicResource Window.HoloShadow.Background.Opaque.Active}" />
 		    </Style>
+		</Style>
+        
+        <Style Selector="^ /template/ rctr|AngledBorderEx#TopEdgeTrim">
+            <Setter Property="Height" Value="14" />
 		</Style>
 
 

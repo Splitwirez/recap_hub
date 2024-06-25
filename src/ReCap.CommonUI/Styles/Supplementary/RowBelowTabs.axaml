@@ -1,0 +1,95 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rctr="using:ReCap.CommonUI"
+					x:CompileBindings="True">
+	<Color x:Key="RowBelowTabs.Background.Top">#80B7CFDA</Color>
+	<!--
+		48B7CFDA
+	-->
+	<!--
+		79A0B1BC
+		DD576165
+	-->
+	<LinearGradientBrush x:Key="RowBelowTabs.Background"
+						 StartPoint="0%,0%"
+						 EndPoint="0%,100%">
+		<GradientStop Offset="0" Color="{DynamicResource RowBelowTabs.Background.Top}" />
+		<!--
+		77BFD5DE
+		-->
+		<!--
+		<GradientStop Offset="0.6" Color="#2BB9D1DB" />
+		<GradientStop Offset="1" Color="#17BBD2DC" />
+		-->
+		<GradientStop Offset="1" Color="#44BBD2DC" />
+		<!--
+			17BBD2DC
+			D12A2F33
+		-->
+	</LinearGradientBrush>
+	<Color x:Key="RowBelowTabs.BorderBrush.Top">#80FFFFFF</Color>
+	<LinearGradientBrush x:Key="RowBelowTabs.BorderBrush"
+						 StartPoint="0%,0%"
+						 EndPoint="0%,100%">
+		<GradientStop Offset="0.25" Color="{DynamicResource RowBelowTabs.BorderBrush.Top}" />
+		<GradientStop Offset="1" Color="#C0FFFFFF" />
+	</LinearGradientBrush>
+	
+	
+	<!--
+	<Color x:Key="RowBelowTabs.InnerGlow">#80FFFFFF</Color>
+	<LinearGradientBrush x:Key="RowBelowTabs.InnerGlow.GradientBottom"
+						 StartPoint="0%,0%"
+						 EndPoint="0%,100%">
+		<GradientStop Offset="0.25" Color="{DynamicResource RowBelowTabs.BorderBrush.Top}" />
+		<GradientStop Offset="1" Color="#C0FFFFFF" />
+	</LinearGradientBrush>
+	-->
+
+
+	<ControlTheme x:Key="RowBelowTabs"
+				TargetType="{x:Type ContentControl}">
+        <Setter Property="Background" Value="{DynamicResource RowBelowTabs.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource RowBelowTabs.BorderBrush}" />
+	<!--
+	<Style Selector="ContentControl.tabRow">
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Margin" Value="2,0,2,-5" />
+        <Setter Property="Padding" Value="26,4,26,9" />
+	-->
+        <Setter Property="Padding" Value="26,7" />
+        <Setter Property="ClipToBounds" Value="False" />
+
+		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+		<Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+					<Panel ClipToBounds="True"
+						Margin="0,0,0,-5">
+						<rctr:AngledBorderEx InvertSide="Bottom"
+											Background="{TemplateBinding Background}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											StrokeThickness="1"
+											TopLeftCut="18"
+											TopRightCut="18"
+											BottomLeftCut="6"
+											BottomRightCut="6"
+											BottomLeftInset="18"
+											BottomRightInset="18"
+											Margin="0,-1,0,0" />
+					</Panel>
+					<ContentPresenter x:Name="PART_ContentPresenter"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Margin="{TemplateBinding Padding}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

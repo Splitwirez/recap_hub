@@ -1,13 +1,14 @@
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
-using System;
-using System.Threading.Tasks;
 using ReCap.CommonUI;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
 using ReCap.Hub.Data;
 using ReCap.Hub.Localization;
 using ReCap.Hub.ViewModels;
@@ -81,7 +82,8 @@ namespace ReCap.Hub
             GameLaunchService.GameExited += OnGameExited;
 
 
-            if (HubData.Instance.GameConfigs.Count == 0)
+            int gameConfigsCount = HubData.Instance.GameConfigs.Count;
+            if (gameConfigsCount <= 0)
             {
                 _mainWindow?.Hide();
                 //string gamePath = null;
@@ -94,11 +96,40 @@ namespace ReCap.Hub
 
                 Task.Run(async () =>
                 {
-                    var gamePaths = await DialogDisplay.ShowDialog<DarksporeInstallPaths>(new LocateDarksporeViewModel(false));
+                    var gamePaths = await DialogDisplay.ShowDialog(new LocateDarksporeViewModel(false));
 
-                    GameConfigViewModel gameConfig = 
-                        new GameConfigViewModel(gamePaths.DarksporeInstallPath, gamePaths.WineExecutable, gamePaths.WinePrefix)
-                        //new GameConfigViewModel(gamePath, savesPath)
+                    string gameVersion = null;
+
+                    string installPath = gamePaths.DarksporeInstallPath;
+                    string exePath = Path.Combine(installPath, "DarksporeBin", "Darkspore.exe");
+                    if (File.Exists(exePath))
+                    {
+                        var pe = new PeNet.PeFile(exePath);
+                        var strFileInfo = pe.Resources.VsVersionInfo.StringFileInfo;
+                        var stringTables = strFileInfo.StringTable;
+
+                        if (stringTables.Length > 0)
+                            gameVersion = stringTables[0].ProductVersion;
+
+                        if (string.IsNullOrEmpty(gameVersion) || string.IsNullOrWhiteSpace(gameVersion))
+                        {
+                            Debug.WriteLine("PeFile failed to retrieve exe version");
+
+                            // try our luck by falling back to FileVersionInfo (which currently only works on Windows)
+                            var gameVersionInfo = FileVersionInfo.GetVersionInfo(exePath);
+                            gameVersion = gameVersionInfo.ProductVersion;
+                        }
+                    }
+                    if (string.IsNullOrEmpty(gameVersion) || string.IsNullOrWhiteSpace(gameVersion))
+                        gameVersion = "?.?.?.?";
+
+                    string gameConfigName = $"Darkspore v{gameVersion}";
+
+                    GameConfigViewModel gameConfig =
+                        new GameConfigViewModel(installPath, gamePaths.WineExecutable, gamePaths.WinePrefix)
+                        {
+                            Title = gameConfigName
+                        }
                     ;
                     HubData.Instance.GameConfigs.Add(gameConfig);
 
@@ -107,13 +138,26 @@ namespace ReCap.Hub
                         var saveGame = await gameConfig.CreateSaveGame(false);
                         gameConfig.SelectedSave = saveGame;
                     }
-                    
+
+                    HubData.Instance.Save();
+                    Dispatcher.UIThread.Post(() => ShowMainWindow(desktop));
+                });
+            }
+            else if ((gameConfigsCount == 1) && TimeHelper.TryGetNewest(HubData.Instance.GameConfigs, vm => vm.LastLaunchTime, out GameConfigViewModel gameConfig) && (gameConfig.Saves.Count <= 0))
+            {
+                Task.Run(async () =>
+                {
+                    var saveGame = await gameConfig.CreateSaveGame(false);
+                    gameConfig.SelectedSave = saveGame;
+
                     HubData.Instance.Save();
                     Dispatcher.UIThread.Post(() => ShowMainWindow(desktop));
                 });
             }
             else
+            {
                 ShowMainWindow(desktop);
+            }
         }
 
         void ShowMainWindow(IClassicDesktopStyleApplicationLifetime desktop)

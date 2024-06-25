@@ -3,10 +3,14 @@
                     xmlns:keys="using:ReCap.Hub.Localization.Keys">
     <x:String x:Key="{x:Static keys:Language.DisplayName}">English (Canada)</x:String>
 
+
     <x:String x:Key="{x:Static keys:App.DisplayName}">Resurrection Capsule Hub</x:String>
+
 
     <x:String x:Key="{x:Static keys:HomePage.OfflinePlayTabHeader}">PLAY OFFLINE</x:String>
     <x:String x:Key="{x:Static keys:HomePage.OnlinePlayTabHeader}">JOIN ONLINE GAME</x:String>
+    <x:String x:Key="{x:Static keys:HomePage.ShowPreferences}">Preferences...</x:String>
+
 
     <x:String x:Key="{x:Static keys:LocateGame.Title}">Locate Darkspore</x:String>
     <x:String x:Key="{x:Static keys:LocateGame.ShortDescription}">Provide the location of your Darkspore game install.</x:String>
@@ -14,4 +18,12 @@
     <!-- Afterwards, the Resurrection Capsule Hub will automatically configure according to your Darkspore install.</x:String>-->
     <x:String x:Key="{x:Static keys:LocateGame.ChooseDetectByLaunch}">Detect by launching</x:String>
     <x:String x:Key="{x:Static keys:LocateGame.ChooseBrowseForGamePath}">Browse manually</x:String>
+
+
+    <x:String x:Key="{x:Static keys:LocalPlay.GameConfigsHeader}">Game configs</x:String>
+    <x:String x:Key="{x:Static keys:LocalPlay.ShowGameConfigs}">Show game configs</x:String>
+    <x:String x:Key="{x:Static keys:LocalPlay.HideGameConfigs}">Hide game configs</x:String>
+
+    
+    <x:String x:Key="{x:Static keys:AccountView.CrogenitorLevel}">Crogenitor level {0}</x:String>
 </ResourceDictionary>

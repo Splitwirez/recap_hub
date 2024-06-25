@@ -1,13 +1,9 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
-using Avalonia.Controls.Utils;
 using Avalonia.Layout;
 using Avalonia.Media;
-using Avalonia.Visuals;
-using Avalonia.VisualTree;
-using System;
-using System.Collections.Generic;
 
 namespace ReCap.CommonUI
 {
@@ -127,7 +123,7 @@ namespace ReCap.CommonUI
 #if DEBUG_ANGLED_BORDER
         Geometry _strokeGeometryOuter = null;
 #endif
-        RoundedRect _rrect = new RoundedRect(new Rect(0, 0, 3, 3), 0);
+        RoundedRect _glowRect = new RoundedRect(new Rect(0, 0, 3, 3), 0);
         
         Thickness _strokeThickness = new Thickness(0);
 
@@ -137,17 +133,16 @@ namespace ReCap.CommonUI
         {
             Extensions.MakeControlTypeNonInteractive<AngledBorderBase>();
 
-            Action<AngledBorderBase, AvaloniaPropertyChangedEventArgs> changedHandler = (s, e) => s.UpdateGeometry();
-
             StrokeThicknessProperty.Changed.AddClassHandler<AngledBorderBase>((s, e) => 
             {
-                s._strokeThickness = new Thickness((double)(e.NewValue));
-                changedHandler(s, e);
+                s._strokeThickness = new Thickness(e.GetNewValue<double>());
+                AffectsGeometryInvalidate(s, e);
             });
-            
-            
-            InnerGlowColorProperty.Changed.AddClassHandler<AngledBorderBase>((s, e) => s._boxShadow.Color = ((e.NewValue != null) && (e.NewValue is Color color)) ? color : Colors.Transparent);
-            InnerGlowSizeProperty.Changed.AddClassHandler<AngledBorderBase>((s, e) => s._boxShadow.Blur = ((e.NewValue != null) && (e.NewValue is double radius)) ? radius : -1);
+
+            InnerGlowColorProperty.Changed.AddClassHandler<AngledBorderBase>(InnerGlowColorProperty_Changed);
+                //((s, e) => s._boxShadow.Color = ((e.NewValue != null) && (e.NewValue is Color color)) ? color : Colors.Transparent);
+            InnerGlowSizeProperty.Changed.AddClassHandler<AngledBorderBase>(InnerGlowSizeProperty_Changed);
+                //((s, e) => s._boxShadow.Blur = ((e.NewValue != null) && (e.NewValue is double radius)) ? radius : -1);
 
             
             AffectsRender<AngledBorderBase>(
@@ -158,6 +153,48 @@ namespace ReCap.CommonUI
                 InnerGlowSizeProperty);
         }
 
+        
+        static void InnerGlowColorProperty_Changed(AngledBorderBase s, AvaloniaPropertyChangedEventArgs e)
+            => s._boxShadow.Color = e.TryGetNewValue(out Color color)
+                ? color
+                : Colors.Transparent
+            ;
+        static void InnerGlowSizeProperty_Changed(AngledBorderBase s, AvaloniaPropertyChangedEventArgs e)
+            => s._boxShadow.Blur = e.TryGetNewValue(out double radius)
+                ? radius
+                : -1
+            ;
+
+
+        /// <summary>
+        /// Marks a property as affecting the border's geometry.
+        /// </summary>
+        /// <param name="properties">The properties.</param>
+        /// <remarks>
+        /// After a call to this method in a control's static constructor, any change to the
+        /// property will cause <see cref="InvalidateGeometry"/> to be called on the element.
+        /// </remarks>
+        protected static void AffectsGeometry<TAngledBorder>(params AvaloniaProperty[] properties)
+            where TAngledBorder : AngledBorderBase
+        {
+            foreach (var property in properties)
+            {
+                property.Changed.Subscribe(e =>
+                {
+                    if (e.Sender is TAngledBorder shape)
+                    {
+                        AffectsGeometryInvalidate(shape, e);
+                    }
+                });
+            }
+        }
+
+        private static void AffectsGeometryInvalidate<TAngledBorder>(TAngledBorder sender, AvaloniaPropertyChangedEventArgs e)
+            where TAngledBorder : AngledBorderBase
+        {
+            sender.InvalidateGeometry();
+        }
+
 
         public AngledBorderBase() : base()
         {
@@ -165,8 +202,8 @@ namespace ReCap.CommonUI
             
             var ctrl = (this as Control);
             
-            ctrl.LayoutUpdated += (s, e) => UpdateGeometry();
-            ctrl.AttachedToVisualTree += (s, e) => UpdateGeometry();
+            ctrl.LayoutUpdated += (s, e) => InvalidateGeometry();
+            ctrl.AttachedToVisualTree += (s, e) => InvalidateGeometry();
         }
 
         void OnBorderThicknessChanged(AvaloniaPropertyChangedEventArgs e)
@@ -175,12 +212,10 @@ namespace ReCap.CommonUI
             //_averageBorderThickness = ((nv != null) && (nv is Thickness brdThck)) ? ((brdThck.Left + brdThck.Top + brdThck.Right + brdThck.Bottom) / 4) : 0;
         }
 
-        protected void UpdateGeometry()
+        protected void InvalidateGeometry()
         {
-            RoundedRect rrect;
-            Geometry strokeGeometryOuter = null;
             var prevFillGeometry = _fillGeometry;
-            (_fillGeometry, strokeGeometryOuter, rrect) = RefreshGeometry();
+            RefreshGeometry(out _fillGeometry, out Geometry strokeGeometryOuter, out RoundedRect glowRect);
             if (prevFillGeometry != _fillGeometry)
                 RaisePropertyChanged(FillClipBindableProperty, prevFillGeometry, _fillGeometry);
             
@@ -203,7 +238,7 @@ namespace ReCap.CommonUI
 
             //rrect.Rect
             //_rrect = new RoundedRect(rrect.Rect.Inflate(BLUR_SPREAD_OFFSET), rrect.RadiiTopLeft, rrect.RadiiTopRight, rrect.RadiiBottomRight, rrect.RadiiBottomLeft);
-            _rrect = rrect.Inflate(BLUR_SPREAD_OFFSET, BLUR_SPREAD_OFFSET);
+            _glowRect = glowRect.Inflate(BLUR_SPREAD_OFFSET, BLUR_SPREAD_OFFSET);
 
             
             double minDimen = InnerGlowSize;
@@ -223,7 +258,7 @@ namespace ReCap.CommonUI
             _boxShadow.Spread = spreadBase + BLUR_SPREAD_OFFSET;
         }
         
-        protected abstract (Geometry, Geometry, RoundedRect) RefreshGeometry();
+        protected abstract void RefreshGeometry(out Geometry fillGeometry, out Geometry strokeGeometry, out RoundedRect glowRect);
         
 
         static readonly IBrush DEBUG_BRUSH = new SolidColorBrush(Color.FromArgb(0xFF, 0xFF, 0x00, 0x00));
@@ -248,7 +283,7 @@ namespace ReCap.CommonUI
 
             using (var idk2 = context.PushGeometryClip(_fillGeometry))
             {
-                context.DrawRectangle(null, null, _rrect, new BoxShadows(_boxShadow));
+                context.DrawRectangle(null, null, _glowRect, new BoxShadows(_boxShadow));
             }
 
 

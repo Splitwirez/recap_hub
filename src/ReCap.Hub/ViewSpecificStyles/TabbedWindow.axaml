@@ -68,4 +68,8 @@
 		<Setter Property="Height" Value="20" />
 	</Style>
 	-->
+
+	<Style Selector="Window.topTabs.helixTabs">
+		<Setter Property="Theme" Value="{DynamicResource HelixWindow}" />
+	</Style>
 </Styles>

@@ -15,7 +15,12 @@
 
 	<ItemGroup>
         <Compile Include="../ReCap.Hub/RxObjectBase.cs" />
-        <Compile Include="../ReCap.Hub/ViewLocator.cs" />
+        <!--
+		<Compile Include="../ReCap.Hub/ViewLocation/CachingHelper.cs" />
+        <Compile Include="../ReCap.Hub/ViewLocation/CachingDataTemplate.cs" />
+        <Compile Include="../ReCap.Hub/ViewLocation/ViewLocator.cs" />
+		-->
+        <Compile Include="../ReCap.Hub/ViewLocation/*.cs" />
         <Compile Include="../ReCap.Hub/Models/ModelBase.cs" />
         <Compile Include="../ReCap.Hub/ViewModels/ViewModelBase.cs" />
     </ItemGroup>

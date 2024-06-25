@@ -9,99 +9,86 @@
 	<Color x:Key="WindowBodyBackgroundGlowColor">#7FFFFFFF</Color>
 	<Color x:Key="WindowBodyBackgroundGlowMidColor">#40FFFFFF</Color>
 	<Color x:Key="WindowBodyBackgroundGlowEndColor">#00FFFFFF</Color>
-	<SolidColorBrush x:Key="WindowBodyBackgroundBrush" Color="{DynamicResource WindowBodyBackgroundColor}"/>
+	<SolidColorBrush x:Key="WindowBodyBackgroundBrush" Color="{DynamicResource WindowBodyBackgroundColor}" />
 	<GradientStops x:Key="WindowBodyBackgroundGlowStops">
-		<GradientStop Offset="0" Color="{DynamicResource WindowBodyBackgroundGlowColor}"/>
-		<GradientStop Offset="0.375" Color="{DynamicResource WindowBodyBackgroundGlowMidColor}"/>
-		<GradientStop Offset="1" Color="{DynamicResource WindowBodyBackgroundGlowEndColor}"/>
+		<GradientStop Offset="0" Color="{DynamicResource WindowBodyBackgroundGlowColor}" />
+		<GradientStop Offset="0.375" Color="{DynamicResource WindowBodyBackgroundGlowMidColor}" />
+		<GradientStop Offset="1" Color="{DynamicResource WindowBodyBackgroundGlowEndColor}" />
 	</GradientStops>
 
 
 
+	<Color x:Key="Window.TitleBar.BackgroundBrush.Active.Color0">#BBB7CFDA</Color>
+	<Color x:Key="Window.TitleBar.BackgroundBrush.Active.Color1">#7C93A5AD</Color>
 	<LinearGradientBrush x:Key="Window.TitleBar.BackgroundBrush.Active"
 						StartPoint="0%,0%"
 						EndPoint="0%,100%">
-		<GradientStop Offset="0" Color="#BBB7CFDA"/>
-		<GradientStop Offset="1" Color="#7C93A5AD"/>
+		<GradientStop Offset="0" Color="{DynamicResource Window.TitleBar.BackgroundBrush.Active.Color0}" />
+		<GradientStop Offset="1" Color="{DynamicResource Window.TitleBar.BackgroundBrush.Active.Color1}" />
 		<!--GradientStop Offset="0.38" Color="#72BBD2DC"/-->
 	</LinearGradientBrush>
+	<Color x:Key="Window.TitleBar.BackgroundBrush.Inactive.Color0">#BBD8D8D8</Color>
+	<Color x:Key="Window.TitleBar.BackgroundBrush.Inactive.Color1">#7CAAAAAA</Color>
 	<LinearGradientBrush x:Key="Window.TitleBar.BackgroundBrush.Inactive"
 						StartPoint="0%,0%"
 						EndPoint="0%,100%">
-		<GradientStop Offset="0" Color="#BBD8D8D8"/>
-		<GradientStop Offset="1" Color="#7CAAAAAA"/>
+		<GradientStop Offset="0" Color="{DynamicResource Window.TitleBar.BackgroundBrush.Inactive.Color0}" />
+		<GradientStop Offset="1" Color="{DynamicResource Window.TitleBar.BackgroundBrush.Inactive.Color1}" />
 		<!--GradientStop Offset="0.38" Color="#72DBDBDB"/-->
 	</LinearGradientBrush>
-	<Color x:Key="Window.Chrome.BorderBrush.Color0">#40FFFFFF</Color>
-	<Color x:Key="Window.Chrome.BorderBrush.Color1">#BDA4B2B9</Color>
-	<Color x:Key="Window.Chrome.BorderBrush.Color2">#C0FFFFFF</Color>
-	<Color x:Key="Window.Chrome.BorderBrush.Color4">#80FFFFFF</Color>
+
+	<Color x:Key="HelixWindow.TitleBar.BackgroundBrush.Active.Color2">#A8474F53</Color>
+	<LinearGradientBrush x:Key="HelixWindow.TitleBar.BackgroundBrush.Active"
+						StartPoint="0%,-100%"
+						EndPoint="0%,100%">
+		<GradientStop Offset="0" Color="{DynamicResource Window.TitleBar.BackgroundBrush.Active.Color0}" />
+		<GradientStop Offset="0.7" Color="{DynamicResource Window.TitleBar.BackgroundBrush.Active.Color1}" />
+		<GradientStop Offset="1" Color="{DynamicResource HelixWindow.TitleBar.BackgroundBrush.Active.Color2}" />
+	</LinearGradientBrush>
+	<Color x:Key="HelixWindow.TitleBar.BackgroundBrush.Inactive.Color2">#A84D4D4D</Color>
+	<LinearGradientBrush x:Key="HelixWindow.TitleBar.BackgroundBrush.Inactive"
+						StartPoint="0%,-100%"
+						EndPoint="0%,100%">
+		<GradientStop Offset="0" Color="{DynamicResource Window.TitleBar.BackgroundBrush.Inactive.Color0}" />
+		<GradientStop Offset="0.7" Color="{DynamicResource Window.TitleBar.BackgroundBrush.Inactive.Color1}" />
+		<GradientStop Offset="1" Color="{DynamicResource HelixWindow.TitleBar.BackgroundBrush.Inactive.Color2}" />
+	</LinearGradientBrush>
+	
+	<Color x:Key="Window.Chrome.BorderBrush.SoftColor">#40FFFFFF</Color>
+	<Color x:Key="Window.Chrome.BorderBrush.HarshColor">#80FFFFFF</Color>
+	<!--
+	<Color x:Key="Window.Chrome.BorderBrush.HarshColor">#C0FFFFFF</Color>
+	-->
 	<GradientStops x:Key="Window.Chrome.BorderBrush.GradientStops">
-		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
-		<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
-		<!--GradientStop Offset="0" Color=""/>
-		<GradientStop Offset="0.5" Color="#E0FFFFFF"/>
-		<GradientStop Offset="0.5" Color="#EDA4B2B9"/>
+		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.SoftColor}" />
+		<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.HarshColor}" />
+		<!--GradientStop Offset="0" Color="" />
+		<GradientStop Offset="0.5" Color="#E0FFFFFF" />
+		<GradientStop Offset="0.5" Color="#EDA4B2B9" />
 		<GradientStop Offset="1" Color="#E0FFFFFF"/-->
 	</GradientStops>
 	<LinearGradientBrush x:Key="Window.TitleBar.BorderBrush"
 						StartPoint="0,0"
 						EndPoint="0,40"
-						GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}" />
-	<!--
-						StartPoint="0%,0%"
-						EndPoint="0%,100%"-->
-	<!--
-		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
-		<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
-	</LinearGradientBrush-->
-	<!--
-						StartPoint="0%,0%"
-						EndPoint="0%,300%"
-						GradientStops="{DynamicResource Window.Chrome.BorderBrush.GradientStops}"/-->
-	<!--
-						StartPoint="0,0"
-						EndPoint="0,100"-->
+						GradientStops="{StaticResource Window.Chrome.BorderBrush.GradientStops}" />
 
 
 
-
-
-	<!--rctr:SlicedImage x:Key="Window.TitleBar.Main"
-					Source="avares://ReCap.CommonUI/Res/UI/Window/TitleBarMain.png"
-					BorderThickness="12,42,0,10"/>
-	<rctr:SlicedImage x:Key="Window.TitleBar.Right"
-					Source="avares://ReCap.CommonUI/Res/UI/Window/TitleBarRight.png"
-					BorderThickness="38,42,12,10"/>
-
-
-
-	<rctr:SlicedImage x:Key="Window.Body"
-					Source="avares://ReCap.CommonUI/Res/UI/Window/Body.png"
-					BorderThickness="24,6"/>
-	<rctr:SlicedImage x:Key="Window.Footer"
-					Source="avares://ReCap.CommonUI/Res/UI/Window/Footer.png"
-					BorderThickness="24,6"/>
-	<rctr:SlicedImage x:Key="Window.Underlay"
-					Source="avares://ReCap.CommonUI/Res/UI/Window/Underlay.png"
-					BorderThickness="10"/>
-	<rctr:SlicedImage x:Key="Window.BottomEdgeTrim"
-					Source="avares://ReCap.CommonUI/Res/UI/Window/BottomEdgeTrim.png"
-					BorderThickness="22,0"/-->
 	<LinearGradientBrush x:Key="Window.Body.Background"
 						StartPoint="0,0"
 						EndPoint="0,4"
 						SpreadMethod="Repeat">
-		<GradientStop Offset="0.5" Color="#C0030303"/>
-		<GradientStop Offset="0.75" Color="#C0070707"/>
+		<GradientStop Offset="0.5" Color="#C0030303" />
+		<GradientStop Offset="0.75" Color="#C0070707" />
 	</LinearGradientBrush>
-	<!--e0000000-->
+	
+	<Color x:Key="Window.Body.BorderBrush.Color1">#BDA4B2B9</Color>
 	<LinearGradientBrush x:Key="Window.Body.BorderBrush"
 						StartPoint="0%,-50%"
 						EndPoint="0%,150%">
-		<GradientStop Offset="-0.25" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
-		<GradientStop Offset="0.5" Color="{DynamicResource Window.Chrome.BorderBrush.Color1}" />
-		<GradientStop Offset="1.25" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
+		<GradientStop Offset="-0.25" Color="{DynamicResource Window.Chrome.BorderBrush.HarshColor}" />
+		<GradientStop Offset="0.5" Color="{DynamicResource Window.Body.BorderBrush.Color1}" />
+		<GradientStop Offset="1.25" Color="{DynamicResource Window.Chrome.BorderBrush.HarshColor}" />
 	</LinearGradientBrush>
 	<!--
 						StartPoint="0%,-200%"
@@ -112,12 +99,12 @@
 	<LinearGradientBrush x:Key="Window.BottomEdgeTrim.BorderBrush"
 						StartPoint="0%,-100%"
 						EndPoint="0%,200%">
-		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
-		<GradientStop Offset="0.5" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
+		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.SoftColor}" />
+		<GradientStop Offset="0.5" Color="{DynamicResource Window.Chrome.BorderBrush.HarshColor}" />
 	</LinearGradientBrush>
 	<!--
-		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.Color0}" />
-		<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.Color2}" />
+		<GradientStop Offset="0" Color="{DynamicResource Window.Chrome.BorderBrush.SoftColor}" />
+		<GradientStop Offset="1" Color="{DynamicResource Window.Chrome.BorderBrush.HarshColor}" />
 	</LinearGradientBrush-->
 	<!--
 						StartPoint="0%,-300%"

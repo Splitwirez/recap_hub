@@ -5,7 +5,8 @@ using ReCap.UITest.ViewModels.Pages;
 
 namespace ReCap.UITest.ViewModels
 {
-    public class UITestViewModel : ViewModelBase
+    public class UITestViewModel
+        : TabsViewModelBase
     {
         double _scaleIncrement = 0.25;
         public double ScaleIncrement
@@ -57,9 +58,9 @@ namespace ReCap.UITest.ViewModels
         }
         public void AdjustScaleFactorCommand(object parameter)
         {
-            bool increment;
             if (parameter == null)
                 return;
+            bool increment;
             
             if (parameter is bool pBool)
             {
@@ -79,21 +80,61 @@ namespace ReCap.UITest.ViewModels
             AdjustScaleFactor(increment);
         }
 
+        public void NextTabCommand(object _ = null)
+            => SelectedIndex = WrapTabIndex(SelectedIndex + 1);
+        public void PreviousTabCommand(object _ = null)
+            => SelectedIndex = WrapTabIndex(SelectedIndex - 1);
+        public bool JumpToTab(int index)
+        {
+            if (!IsTabIndexvalid(index))
+                return false;
+            
+            SelectedIndex = index;
+            return true;
+        }
 
-        ObservableCollection<PageTabViewModel> _tabs = new()
+        
+        public void JumpToTabCommand(object parameter)
         {
-            new PageTabViewModel("Button", new ButtonViewModel()),
-            new PageTabViewModel("ComboBox", new ComboBoxViewModel()),
-            new PageTabViewModel("ListBox", new ListBoxViewModel()),
-            new PageTabViewModel("ScrollViewer", new ScrollViewerViewModel()),
-            new PageTabViewModel("TabControl", new TabControlViewModel()),
-            new PageTabViewModel("TextBox", new TextBoxViewModel()),
-            new PageTabViewModel("WindowChrome", new WindowChromeViewModel()),
-        };
-        public ObservableCollection<PageTabViewModel> Tabs
+            if (parameter == null)
+                return;
+            int index;
+            
+            if (parameter is int pBool)
+            {
+                index = pBool;
+            }
+            else
+            {
+                string prmStr = (parameter is string sPrm)
+                        ? sPrm
+                        : parameter.ToString()
+                ;
+                
+                if (!int.TryParse(prmStr, out index))
+                    return;
+            }
+
+            JumpToTab(index);
+        }
+
+
+        protected override ObservableCollection<PageTabViewModel> CreateTabs()
+            => new()
+            {
+                new PageTabViewModel("Button", new ButtonViewModel()),
+                new PageTabViewModel("ComboBox", new ComboBoxViewModel()),
+                new PageTabViewModel("ListBox", new ListBoxViewModel()),
+                new PageTabViewModel("ScrollViewer", new ScrollViewerViewModel()),
+                new PageTabViewModel("TabControl", new TabControlViewModel()),
+                new PageTabViewModel("Specialized TabControl", new TabControlSpecialViewModel()),
+                new PageTabViewModel("TextBox", new TextBoxViewModel()),
+                new PageTabViewModel("WindowChrome", new WindowChromeViewModel()),
+                new PageTabViewModel("AngledBorders", new AngledBordersViewModel()),
+            };
+        
+        public UITestViewModel()
         {
-            get => _tabs;
-            private set => RASIC(ref _tabs, value);
         }
     }
 }

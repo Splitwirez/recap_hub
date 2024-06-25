@@ -102,7 +102,8 @@
 									ScaleY="{Binding ScaleFactor, Mode=OneWay}" />
 				</LayoutTransformControl.LayoutTransform>
 				<TabControl x:Name="Tabs"
-						ItemsSource="{Binding Tabs, Mode=OneWay}">
+						ItemsSource="{Binding Tabs, Mode=OneWay}"
+						SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
 					<TabControl.ItemTemplate>
 						<DataTemplate DataType="{x:Type vm:PageTabViewModel}">
 							<TextBlock Text="{Binding Title, Mode=OneWay}" />

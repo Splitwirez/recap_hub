@@ -1,36 +1,57 @@
 <UserControl x:Class="ReCap.Hub.Views.HomePageView"
             xmlns="https://github.com/avaloniaui"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:v="using:ReCap.Hub.Views"
             xmlns:vm="using:ReCap.Hub.ViewModels"
             xmlns:rctr="using:ReCap.CommonUI">
     <UserControl.Styles>
-        <Style Selector="TabControl#TopTabs > TabItem /template/ StackPanel#DataTemplateRoot > :is(Control)">
-            <Setter Property="HorizontalAlignment" Value="Left" />
-        </Style>
+		<Style Selector=":is(Window).inventoryTabs TabControl#TopTabs">
+			<Setter Property="Theme" Value="{DynamicResource InventoryTabs}" />
+			<Setter Property="ItemTemplate">
+				<DataTemplate DataType="{x:Type vm:TabViewModel}">
+					<StackPanel x:Name="DataTemplateRoot"
+								HorizontalAlignment="Left"
+								Orientation="Vertical">
+						<rctr:IconPresenter IconKey="{Binding IconKey, Mode=OneWay}"
+								Width="12" Height="12"
+								HorizontalAlignment="Left"
+								Shape.Fill="{Binding $parent[ContentPresenter].Foreground, Mode=OneWay}"
+								Shape.Stroke="{Binding $parent[ContentPresenter].Foreground, Mode=OneWay}" />
+						<TextBlock rctr:BindDynamicResource.ResourceKey="{Binding TitleKey, Mode=OneWay}"
+								VerticalAlignment="Center" />
+					</StackPanel>
+				</DataTemplate>
+			</Setter>
+		</Style>
+		
+		<Style Selector=":is(Window).helixTabs TabControl#TopTabs">
+			<Setter Property="Theme" Value="{DynamicResource HelixTabs}" />
+		</Style>
+
+		<Style Selector=":is(Window):not(.inventoryTabs) TabControl#TopTabs">
+			<Setter Property="ItemTemplate">
+				<DataTemplate DataType="{x:Type vm:TabViewModel}">
+					<TextBlock rctr:BindDynamicResource.ResourceKey="{Binding TitleKey, Mode=OneWay}" />
+				</DataTemplate>
+			</Setter>
+		</Style>
     </UserControl.Styles>
+    <UserControl.DataTemplates>
+		
+    </UserControl.DataTemplates>
     <TabControl x:Name="TopTabs"
-            ItemsSource="{Binding Tabs, Mode=OneWay}"
-            Theme="{DynamicResource TopTabs}">
-        <TabControl.ItemTemplate>
-			<DataTemplate DataType="{x:Type vm:TabViewModel}">
-				<StackPanel x:Name="DataTemplateRoot"
-							Orientation="Vertical">
-					<rctr:IconPresenter IconKey="{Binding IconKey, Mode=OneWay}"
-							Width="12" Height="12"
-							HorizontalAlignment="Left"
-							Shape.Fill="{Binding $parent[ContentPresenter].Foreground, Mode=OneWay}"
-							Shape.Stroke="{Binding $parent[ContentPresenter].Foreground, Mode=OneWay}" />
-					<TextBlock
-							rctr:BindDynamicResource.ResourceKey="{Binding TitleKey, Mode=OneWay}"
-                            VerticalAlignment="Center" />
-				</StackPanel>
-			</DataTemplate>
-        </TabControl.ItemTemplate>
+            ItemsSource="{Binding Tabs, Mode=OneWay}">
         <TabControl.ContentTemplate>
+			<!--
 			<DataTemplate DataType="{x:Type vm:TabViewModel}">
 				<ContentPresenter DataContext="{Binding ContentVM, Mode=OneWay}"
 								Content="{Binding Mode=OneWay}" />
 			</DataTemplate>
+			-->
+			<v:CachingDataTemplate DataType="{x:Type vm:TabViewModel}">
+				<ContentPresenter DataContext="{Binding ContentVM, Mode=OneWay}"
+								Content="{Binding Mode=OneWay}" />
+			</v:CachingDataTemplate>
         </TabControl.ContentTemplate>
     </TabControl>
 </UserControl>

@@ -1,0 +1,43 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rctr="using:ReCap.CommonUI"
+					x:CompileBindings="True">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Supplementary/HelixTabItem.axaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+
+	<ControlTheme x:Key="HelixTabs"
+				TargetType="{x:Type TabControl}">
+        <Setter Property="ItemContainerTheme" Value="{DynamicResource HelixTabItem}" />
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="Template">
+			<ControlTemplate>
+				<DockPanel>
+					<Grid ColumnDefinitions="Auto,*"
+						Margin="18,0"
+						DockPanel.Dock="Top">
+						<ItemsPresenter x:Name="PART_ItemsPresenter"
+										ItemsPanel="{TemplateBinding ItemsPanel}"
+										Grid.Column="0" />
+						<Rectangle Height="1"
+								VerticalAlignment="Bottom"
+								Fill="{DynamicResource RowBelowTabs.BorderBrush.Top}"
+								Grid.Column="1" />
+					</Grid>
+					<ContentPresenter x:Name="PART_SelectedContentHost"
+									Margin="{TemplateBinding Padding}"
+									Content="{TemplateBinding SelectedContent}"
+									ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+									HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+									VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+				</DockPanel>
+			</ControlTemplate>
+		</Setter>
+		<Setter Property="ItemsPanel">
+			<ItemsPanelTemplate>
+				<StackPanel Orientation="Horizontal" />
+			</ItemsPanelTemplate>
+		</Setter>
+	</ControlTheme>
+</ResourceDictionary>

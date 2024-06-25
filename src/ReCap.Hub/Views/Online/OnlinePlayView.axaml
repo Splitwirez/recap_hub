@@ -5,7 +5,8 @@
             xmlns:v="clr-namespace:ReCap.Hub.Views"
             xmlns:dt="using:ReCap.Hub.Data">
     <DockPanel>
-        <ContentControl Theme="{DynamicResource BelowTopTabs}"
+        <!--
+		<ContentControl Theme="{DynamicResource RowBelowTabs}"
                         DockPanel.Dock="Top">
             <DockPanel>
                 <Button Content="Preferences..."
@@ -16,6 +17,8 @@
                 </StackPanel>
             </DockPanel>
         </ContentControl>
+		-->
+		<v:CommandBarView DockPanel.Dock="Top" />
         <HeaderedContentControl x:Name="ServersPane"
                                 Header="Servers"
                                 Classes="pane left outermost"

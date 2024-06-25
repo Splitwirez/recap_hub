@@ -24,6 +24,7 @@ namespace ReCap.Hub.Localization.Keys
     {
         public static readonly string OfflinePlayTabHeader = default;
         public static readonly string OnlinePlayTabHeader = default;
+        public static readonly string ShowPreferences = default;
         static HomePage()
         {
             KeyHelper.PrepareKeys(typeof(HomePage));
@@ -40,6 +41,26 @@ namespace ReCap.Hub.Localization.Keys
         static LocateGame()
         {
             KeyHelper.PrepareKeys(typeof(LocateGame));
+        }
+    }
+
+    public static class LocalPlay
+    {
+        public static readonly string GameConfigsHeader = default;
+        public static readonly string ShowGameConfigs = default;
+        public static readonly string HideGameConfigs = default;
+        static LocalPlay()
+        {
+            KeyHelper.PrepareKeys(typeof(LocalPlay));
+        }
+    }
+
+    public static class AccountView
+    {
+        public static readonly string CrogenitorLevel = default;
+        static AccountView()
+        {
+            KeyHelper.PrepareKeys(typeof(AccountView));
         }
     }
         

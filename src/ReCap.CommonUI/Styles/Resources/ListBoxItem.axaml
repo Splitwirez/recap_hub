@@ -9,7 +9,7 @@
 
 	<Color x:Key="ListBoxItem.Background.Selected">#FF558CBA</Color>
 	<Color x:Key="ListBoxItem.Glow.Selected">#9092EDFF</Color>
-	<Color x:Key="ListBoxItem.BorderBrush.Selected">#7FFFFFFF</Color>
+	<Color x:Key="ListBoxItem.BorderBrush.Selected">#80FFFFFF</Color>
 
 	<Color x:Key="ListBoxItem.BorderBrush.Hover">#C0FFFFFF</Color>
 </ResourceDictionary>

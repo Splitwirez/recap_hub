@@ -9,7 +9,7 @@ namespace ReCap.UITest.Views.Pages
     {
         public ComboBoxView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void InitializeComponent()

@@ -53,6 +53,7 @@
 		<PackageReference Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
 		<PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
         <PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="$(AvVer)" />
+		<PackageReference Include="PeNet" Version="4.0.5" />
 	</ItemGroup>
 
 

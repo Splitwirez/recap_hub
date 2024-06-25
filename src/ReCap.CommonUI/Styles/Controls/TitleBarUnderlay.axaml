@@ -1,18 +1,18 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:rctr="clr-namespace:ReCap.CommonUI">
-
 	<ControlTheme x:Key="{x:Type rctr:TitleBarUnderlay}"
 				  TargetType="{x:Type rctr:TitleBarUnderlay}">
 		<Setter Property="VerticalAlignment" Value="Top" />
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="ClipToBounds" Value="False" />
-		<Setter Property="IsVisible" Value="{Binding $parent[Window].IsExtendedIntoWindowDecorations, Mode=OneWay}" />
-		<Setter Property="Height" Value="{Binding $parent[Window].ExtendClientAreaTitleBarHeightHint, Mode=OneWay}" />
+		<Setter Property="IsVisible" Value="{Binding $self.IsTitleBarVisible, Mode=OneWay}" />
+		<Setter Property="Height" Value="{Binding $self.DefaultTitleBarHeight, Mode=OneWay}" />
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Panel Background="#01000000" Classes.isActive="{Binding $parent[Window].IsActive, Mode=OneWay}">
+				<Panel x:Name="TemplateRoot"
+					Background="#01000000">
 					<DockPanel>
 						<Rectangle x:Name="PART_CaptionButtonsProxy"
 								   Width="{Binding $parent[Window].(rctr:CaptionButtonsSizeBridge.CaptionButtonsWidth), Mode=OneWay}"
@@ -36,26 +36,30 @@
 			</ControlTemplate>
 		</Setter>
 
-
-		<Style Selector="^ /template/ rctr|AngledBorderEx.activateColoration">
-			<Setter Property="StrokeThickness" Value="1" />
+		<Style Selector="^[IsTitleBarVisible=False][IsVisible=True]">
+			<Setter Property="Margin" Value="{Binding $self.DefaultTitleBarHeight, Converter={x:Static rctr:TitleBarHeightToUpwardMarginConverter.Instance}, ConverterParameter=14, Mode=OneWay}" />
+		</Style>
+		<Style Selector="^[IsTitleBarVisible=True][IsTitleBarHeightValid=True]">
+			<Setter Property="Height" Value="{Binding $self.TitleBarHeight, Mode=OneWay}" />
 		</Style>
 
-		<Style Selector="^ /template/ rctr|AngledBorderEx.activateColoration">
+
+		<Style Selector="^ /template/ :is(rctr|AngledBorderBase).activateColoration">
+			<Setter Property="StrokeThickness" Value="1" />
 			<Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Inactive}" />
 		</Style>
 
-		<Style Selector="^ /template/ Panel.isActive rctr|AngledBorderEx.activateColoration">
-			<Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Active}" />
+		<Style Selector="^[IsWindowActive=True]">
+			<Style Selector="^ /template/ :is(rctr|AngledBorderBase).activateColoration">
+				<Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Active}" />
+			</Style>
 		</Style>
 
+
 		<Style Selector=":is(Window)[(rctr|WindowChromeAddon.ActualUseTransparencyHack)=True] /template/ ^, :is(Window)[ActualTransparencyLevel=Transparent] /template/ ^">
-			<Style Selector=":is(Window)[WindowState=Normal] /template/ ^">
+			<Style Selector="^:not(:fills_screen)">
 				<Style Selector="^ /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
 					<Setter Property="TopLeftCut" Value="6" />
-					<!--
-					<Setter Property="TopRightCut" Value="6" />
-					-->
 				</Style>
 			</Style>
 		</Style>

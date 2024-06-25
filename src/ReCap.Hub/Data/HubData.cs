@@ -138,16 +138,18 @@ namespace ReCap.Hub.Data
                     if (gameConfigEl.TryGetAttributeValue(GAME_PATH_ATTR, out string gamePath)
                         && gameConfigEl.TryGetAttributeValue(SAVES_PATH_ATTR, out string savesPath))
                     {
-                        GameConfigs.Add(
-                            new GameConfigViewModel(gamePath,
+                        var gameConfigVM = new GameConfigViewModel(gamePath,
                             //new GameConfigViewModel(gamePath, savesPath)
                             gameConfigEl.TryGetAttributeValue(WINE_EX_ATTR, out string wineExec)
-                            ? wineExec
-                            : null,
+                                ? wineExec
+                                : null
+                            ,
                             gameConfigEl.TryGetAttributeValue(WINE_PFX_ATTR, out string winePrefix)
-                            ? winePrefix
-                            : null
-                            , ref el));
+                                ? winePrefix
+                                : null
+                            , ref el);
+                        
+                        GameConfigs.Add(gameConfigVM);
                     }
                 }
             }

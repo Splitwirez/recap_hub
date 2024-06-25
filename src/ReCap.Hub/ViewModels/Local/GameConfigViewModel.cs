@@ -5,7 +5,6 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
@@ -114,6 +113,9 @@ namespace ReCap.Hub.ViewModels
         public GameConfigViewModel(string gameInstallPath, string wineExecutable, string winePrefix, ref XElement element) //, string savesPath)
             : this(gameInstallPath, wineExecutable, winePrefix)
         {
+            if (element.TryGetAttributeValue("displayName", out string displayName))
+                Title = displayName;
+
             if (Directory.Exists(SavesPath))
             {
                 string savesPath = SavesPath;
@@ -412,7 +414,7 @@ namespace ReCap.Hub.ViewModels
                 _lastServerInstance?.Dispose();
                 _lastServerInstance = null;
             }
-            Process.GetCurrentProcess().Kill();
+            Process.GetCurrentProcess().Kill(); //HACK
             save.ReadFromXml(true);
             HubData.Instance.GameConfigs.Remove(this);
             HubData.Instance.GameConfigs.Insert(0, this);
@@ -450,6 +452,7 @@ namespace ReCap.Hub.ViewModels
             gameConfigEl.SetAttributeValue(HubData.WINE_EX_ATTR, WineExecPath);
             gameConfigEl.SetAttributeValue(HubData.GAME_PATH_ATTR, GameInstallPath);
             gameConfigEl.SetAttributeValue(HubData.SAVES_PATH_ATTR, SavesPath);
+            gameConfigEl.SetAttributeValue("displayName", Title);
 
             var newSaves = Saves.OrderBy(x => x.LastLaunchTime);
             foreach (var save in newSaves)
