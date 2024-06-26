@@ -1,12 +1,10 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl x:Class="ReCap.Hub.Views.SaveGameView"
+            xmlns="https://github.com/avaloniaui"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:rctr="using:ReCap.CommonUI"
             xmlns:v="using:ReCap.Hub.Views"
             xmlns:vm="using:ReCap.Hub.ViewModels"
-            xmlns:rctr="using:ReCap.CommonUI"
-            mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-            x:Class="ReCap.Hub.Views.SaveGameView">
+			xmlns:keys="using:ReCap.Hub.Localization.Keys">
     <!--
 	<UserControl.Styles>
         <Style Selector="ScrollViewer#MainContentArea /template/ :is(Control)#ScrollBarFudge">
@@ -50,14 +48,13 @@
                         StrokeThickness="0"
                         IsHitTestVisible="False"
                         Opacity="0" />
-                <!--Margin="{Binding #SaveHeaderArea.Margin}"-->
                 <StackPanel Orientation="Vertical" Spacing="5">
                     <DockPanel>
                         <TextBlock Text="{Binding Squads.Count, StringFormat='{}{0}/3'}"
                                 Classes="h3"
                                 TextAlignment="Right"
                                 DockPanel.Dock="Right" />
-                        <TextBlock Text="Squads"
+                        <TextBlock Text="{DynamicResource {x:Static keys:AccountView.SquadsHeader}}"
                                 Classes="h3"
                                 TextAlignment="Left" />
                     </DockPanel>
@@ -76,27 +73,11 @@
                                 Classes="h3"
                                 TextAlignment="Right"
                                 DockPanel.Dock="Right" />
-                        <TextBlock Text="Heroes"
+                        <TextBlock Text="{DynamicResource {x:Static keys:AccountView.HeroesHeader}}"
                                 Classes="h3"
                                 TextAlignment="Left" />
                     </DockPanel>
                     <ItemsControl Classes="heroes" ItemsSource="{Binding Heroes}">
-                        <!--ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <ContentControl Classes="heroCard">
-                                    <StackPanel Orientation="Vertical">
-                                        <Image Width="128"
-                                            Height="128"
-                                            Source="{Binding Thumbnail}"/>
-                                        <TextBlock Text="{Binding NounID}"
-                                                Classes="h3"
-                                                TextWrapping="Wrap"/>
-                                        <TextBlock Text="{Binding ID}"
-                                                TextWrapping="Wrap"/>
-                                    </StackPanel>
-                                </ContentControl>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate-->
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel HorizontalAlignment="Center" />
@@ -123,10 +104,33 @@
                     Margin="{Binding #MainContentArea.Padding, Mode=OneWay}"
                     Grid.Row="0">
             <TextBlock Text="{Binding Title}" Classes="h1" />
+            <Grid ColumnDefinitions="Auto,8,Auto"
+                RowDefinitions="*,*"
+                HorizontalAlignment="Left">
+                <TextBlock Text="{DynamicResource {x:Static keys:AccountView.CurrentThreat}}"
+                        Classes="h4"
+                        Grid.Column="0"
+                        Grid.Row="0" />
+                <TextBlock Text="{Binding CurrentThreatLevel, Mode=OneWay}"
+                        Classes="h4"
+                        Grid.Column="2"
+                        Grid.Row="0" />
+                
+                <TextBlock Text="{DynamicResource {x:Static keys:AccountView.CrogenitorLevel}}"
+                        Classes="h4"
+                        Grid.Column="0"
+                        Grid.Row="1" />
+                <TextBlock Text="{Binding CrogenitorLevel, Mode=OneWay}"
+                        Classes="h4"
+                        Grid.Column="2"
+                        Grid.Row="1" />
+            </Grid>
+            <!--
             <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore threat {0}'}"
                     Classes="h4"/>
             <TextBlock Text="{Binding CrogenitorLevel, StringFormat='Crogenitor level {0}'}"
                     Classes="h4"/>
+            -->
         </StackPanel>
         
         <ContentControl Classes="pane bottom right-outermost"
@@ -134,7 +138,7 @@
             <DockPanel>
                 <Button x:Name="LaunchGameButton"
                         Classes="play right"
-                        Content="Play"
+                        Content="{DynamicResource {x:Static keys:Globals.Play}}"
                         IsDefault="True"
                         Command="{Binding DataContext.PlayGameWithSaveCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}, FallbackValue={x:Null}}"
                         CommandParameter="{Binding}"
@@ -142,12 +146,11 @@
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Left"
                             Spacing="10">
-                    <!--Button Content="Settings..."/-->
-                    <Button Content="Delete"
+                    <Button Content="{DynamicResource {x:Static keys:Globals.Delete}}"
                             Command="{Binding DataContext.DeleteSaveGameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}}"
                             CommandParameter="{Binding}"
                             Classes="left"/>
-                    <Button Content="Rename..."
+                    <Button Content="{DynamicResource {x:Static keys:LocalPlay.RenameSaveGame}}"
                             Command="{Binding DataContext.RenameSaveGameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}}"
                             CommandParameter="{Binding}"
                             Classes="left"/>

@@ -21,17 +21,17 @@
                         IsVisible="{Binding IsCloseable, Mode=OneWay}" />
 
                 <Button x:Name="AcceptButton"
-                        Content="Accept"
+                        Content="{DynamicResource {x:Static keys:Globals.Accept}}"
                         DockPanel.Dock="Right"
                         Classes.hasGamePath="{Binding HasGamePath, Mode=OneWay}"
                         Classes.browseForGamePath="{Binding BrowseForGamePath, Mode=OneWay}" />
                 
                 <Panel Classes="browseOrDetectButtons">
-                    <ToggleButton Content="Browse manually"
+                    <ToggleButton Content="{DynamicResource {x:Static keys:LocateGame.ChooseBrowseForGamePath}}"
                                 x:Name="BrowseManuallyButton"
                                 IsChecked="{Binding BrowseForGamePath, Mode=TwoWay}"
                                 Classes.left="{Binding !IsCloseable, Mode=OneWay}" />
-                    <ToggleButton Content="Detect by launching"
+                    <ToggleButton Content="{DynamicResource {x:Static keys:LocateGame.ChooseDetectByLaunch}}"
                                 IsChecked="{Binding !BrowseForGamePath, Mode=TwoWay}"
                                 Classes.left="{Binding !IsCloseable, Mode=OneWay}" />
                 </Panel>
@@ -72,20 +72,23 @@
                                 IsVisible="{Binding BrowseForGamePath, Mode=OneWay}"
                                 Orientation="Vertical">
                         <DockPanel>
-                            <Button Command="{Binding BrowseForGameExeCommand}"
-                                    DockPanel.Dock="Right">Browse...</Button>
-                            <TextBox Watermark="Path to 'Darkspore.exe'" Text="{Binding GamePathFromBrowseDialog, Mode=TwoWay}" />
+                            <Button Content="{DynamicResource {x:Static keys:Globals.Browse}}"
+                                    Command="{Binding BrowseForGameExeCommand}"
+                                    DockPanel.Dock="Right" />
+                            <TextBox Watermark="{DynamicResource {x:Static keys:LocateGame.DarksporeExecutablePath}}" Text="{Binding GamePathFromBrowseDialog, Mode=TwoWay}" />
                         </DockPanel>
                         <DockPanel IsVisible="{Binding ShowWineBrowseControls, Mode=OneWay}">
-                            <Button Command="{Binding BrowseForWinePrefixCommand}"
-                                    DockPanel.Dock="Right">Browse...</Button>
-                        <TextBox Watermark="Path to WINE Prefix" Text="{Binding WinePrefixFromBrowseDialog, Mode=TwoWay}" />
+                            <Button Content="{DynamicResource {x:Static keys:Globals.Browse}}"
+                                    Command="{Binding BrowseForWinePrefixCommand}"
+                                    DockPanel.Dock="Right" />
+                        <TextBox Watermark="{DynamicResource {x:Static keys:LocateGame.WINEPREFIXPath}}" Text="{Binding WinePrefixFromBrowseDialog, Mode=TwoWay}" />
                         </DockPanel>
                         <DockPanel IsVisible="{Binding ShowWineBrowseControls, Mode=OneWay}"
                         HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                            <Button Command="{Binding BrowseForWineExecutableCommand}"
-                                    DockPanel.Dock="Right">Browse...</Button>
-                            <TextBox Watermark="Path to 'wine executable'" Text="{Binding WineExecutableFromBrowseDialog, Mode=TwoWay}" />
+                            <Button Content="{DynamicResource {x:Static keys:Globals.Browse}}"
+                                    Command="{Binding BrowseForWineExecutableCommand}"
+                                    DockPanel.Dock="Right" />
+                            <TextBox Watermark="{DynamicResource {x:Static keys:LocateGame.WINEExecutablePath}}" Text="{Binding WineExecutableFromBrowseDialog, Mode=TwoWay}" />
                         </DockPanel>
                     </StackPanel>
 

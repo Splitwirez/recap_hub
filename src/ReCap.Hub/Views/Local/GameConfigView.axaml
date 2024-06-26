@@ -3,7 +3,8 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:rctr="clr-namespace:ReCap.CommonUI;assembly=ReCap.CommonUI"
             xmlns:v="using:ReCap.Hub.Views"
-            xmlns:vm="using:ReCap.Hub.ViewModels">
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+			xmlns:keys="using:ReCap.Hub.Localization.Keys">
             <!--FlushWithLeft="{Binding $parent[ContentControl].DataContext.ShowGameConfigs, FallbackValue=True}"-->
     <UserControl.Styles>
         <Style Selector="ListBox#SaveGamesList > ListBoxItem">
@@ -66,7 +67,7 @@
     </UserControl.Styles>
     <DockPanel>
         <HeaderedContentControl x:Name="SaveGamesPane"
-                                Header="Save games"
+                                Header="{DynamicResource {x:Static keys:LocalPlay.SaveGamesHeader}}"
                                 Classes="pane left outermost"
                                 DockPanel.Dock="Left">
             <Grid Width="200">
@@ -86,20 +87,21 @@
                                 <Grid ColumnDefinitions="Auto,8,Auto"
                                     RowDefinitions="*,*"
                                     HorizontalAlignment="Left">
-                                    <TextBlock Text="{Binding CurrentThreatLevel, Mode=OneWay}"
-                                            Grid.Column="2"
-                                            Grid.Row="0" />
-                                    <TextBlock Text="Darkspore threat"
+                                    <TextBlock Text="{DynamicResource {x:Static keys:AccountView.CurrentThreat}}"
                                             Grid.Column="0"
                                             Grid.Row="0" />
                                     <!--TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore threat {0}'}" /-->
-                                    <TextBlock Text="{Binding CrogenitorLevel, Mode=OneWay}"
+                                    <TextBlock Text="{Binding CurrentThreatLevel, Mode=OneWay}"
                                             Grid.Column="2"
-                                            Grid.Row="1" />
-                                    <TextBlock Text="Crogenitor level"
+                                            Grid.Row="0" />
+                                    
+                                    <TextBlock Text="{DynamicResource {x:Static keys:AccountView.CrogenitorLevel}}"
                                             Grid.Column="0"
                                             Grid.Row="1" />
                                     <!--TextBlock Text="{Binding CrogenitorLevel, StringFormat='Crogenitor level {0}'}"/-->
+                                    <TextBlock Text="{Binding CrogenitorLevel, Mode=OneWay}"
+                                            Grid.Column="2"
+                                            Grid.Row="1" />
                                 </Grid>
                             </StackPanel>
                         </DataTemplate>
@@ -109,7 +111,7 @@
                                 Grid.Row="1">
                     <StackPanel Orientation="Horizontal"
                                 Spacing="4">
-                        <Button Content="New game"
+                        <Button Content="{DynamicResource {x:Static keys:LocalPlay.CreateNewSaveGame}}"
                                 Classes="left"
                                 Command="{Binding NewSaveGameCommand}"/>
                     </StackPanel>

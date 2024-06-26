@@ -7,6 +7,16 @@
     <x:String x:Key="{x:Static keys:App.DisplayName}">Resurrection Capsule Hub</x:String>
 
 
+    <x:String x:Key="{x:Static keys:Globals.OK}">OK</x:String>
+    <x:String x:Key="{x:Static keys:Globals.Accept}">Accept</x:String>
+    <x:String x:Key="{x:Static keys:Globals.Cancel}">Cancel</x:String>
+    <x:String x:Key="{x:Static keys:Globals.Yes}">Yes</x:String>
+    <x:String x:Key="{x:Static keys:Globals.No}">No</x:String>
+    <x:String x:Key="{x:Static keys:Globals.Play}">Play</x:String>
+    <x:String x:Key="{x:Static keys:Globals.Delete}">Delete</x:String>
+    <x:String x:Key="{x:Static keys:Globals.Browse}">Browse...</x:String>
+
+
     <x:String x:Key="{x:Static keys:HomePage.OfflinePlayTabHeader}">PLAY OFFLINE</x:String>
     <x:String x:Key="{x:Static keys:HomePage.OnlinePlayTabHeader}">JOIN ONLINE GAME</x:String>
     <x:String x:Key="{x:Static keys:HomePage.ShowPreferences}">Preferences...</x:String>
@@ -18,12 +28,34 @@
     <!-- Afterwards, the Resurrection Capsule Hub will automatically configure according to your Darkspore install.</x:String>-->
     <x:String x:Key="{x:Static keys:LocateGame.ChooseDetectByLaunch}">Detect by launching</x:String>
     <x:String x:Key="{x:Static keys:LocateGame.ChooseBrowseForGamePath}">Browse manually</x:String>
+    <x:String x:Key="{x:Static keys:LocateGame.DarksporeExecutablePath}">Path to 'Darkspore.exe'</x:String>
+    <x:String x:Key="{x:Static keys:LocateGame.WINEPREFIXPath}">Path to WINE Prefix</x:String>
+    <x:String x:Key="{x:Static keys:LocateGame.WINEExecutablePath}">Path to WINE executable</x:String>
 
 
     <x:String x:Key="{x:Static keys:LocalPlay.GameConfigsHeader}">Game configs</x:String>
     <x:String x:Key="{x:Static keys:LocalPlay.ShowGameConfigs}">Show game configs</x:String>
     <x:String x:Key="{x:Static keys:LocalPlay.HideGameConfigs}">Hide game configs</x:String>
+    <x:String x:Key="{x:Static keys:LocalPlay.SaveGamesHeader}">Save games</x:String>
+    <x:String x:Key="{x:Static keys:LocalPlay.CreateNewSaveGame}">New game...</x:String>
+    <x:String x:Key="{x:Static keys:LocalPlay.RenameSaveGame}">Rename...</x:String>
+    <x:String x:Key="{x:Static keys:LocalPlay.SaveGameNameHeader}">Name your campaign</x:String>
+
+
+    <x:String x:Key="{x:Static keys:OnlinePlay.ServersHeader}">Servers</x:String>
 
     
-    <x:String x:Key="{x:Static keys:AccountView.CrogenitorLevel}">Crogenitor level {0}</x:String>
+    <x:String x:Key="{x:Static keys:AccountView.CrogenitorLevel}">Crogenitor level</x:String>
+    <x:String x:Key="{x:Static keys:AccountView.CurrentThreat}">Darkspore threat</x:String>
+    <x:String x:Key="{x:Static keys:AccountView.SquadsHeader}">Squads</x:String>
+    <x:String x:Key="{x:Static keys:AccountView.HeroesHeader}">Heroes</x:String>
+
+
+    <x:String x:Key="{x:Static keys:UserPreferences.Title}">Preferences</x:String>
+    <x:String x:Key="{x:Static keys:UserPreferences.PlayerProfileHeader}">Player profile</x:String>
+    <x:String x:Key="{x:Static keys:UserPreferences.DisplayNameOption}">Display name</x:String>
+    <x:String x:Key="{x:Static keys:UserPreferences.UserInterfaceHeader}">User Interface</x:String>
+    <x:String x:Key="{x:Static keys:UserPreferences.LanguageOption}">Language</x:String>
+    <x:String x:Key="{x:Static keys:UserPreferences.UseManagedWindowDecorationsOption}">Use managed window decorations</x:String>
+    <x:String x:Key="{x:Static keys:UserPreferences.AutoCloseServerOption}">Automatically close server after Darkspore exits</x:String>
 </ResourceDictionary>

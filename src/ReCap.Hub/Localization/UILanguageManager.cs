@@ -86,8 +86,8 @@ namespace ReCap.Hub.Localization
 
 
 #if DEBUG
-            int targetTestLanguage = 0;
-            if (targetTestLanguage > 0)
+            int targetTestLanguage = -1;
+            if (targetTestLanguage >= 0)
             {
                 var testLanguages = LocalizationTest.TestLanguages;
                 if (testLanguages.Count >= 1)
@@ -96,7 +96,7 @@ namespace ReCap.Hub.Localization
                     {
                         Languages.Add(testLang);
                     }
-                    _defaultLanguage = testLanguages[targetTestLanguage - 1];
+                    _defaultLanguage = testLanguages[targetTestLanguage];
                 }
             }
 #endif

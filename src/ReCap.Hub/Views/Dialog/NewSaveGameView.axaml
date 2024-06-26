@@ -2,6 +2,7 @@
             xmlns="https://github.com/avaloniaui"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:vm="using:ReCap.Hub.ViewModels"
+            xmlns:keys="using:ReCap.Hub.Localization.Keys"
             Theme="{DynamicResource DialogRoot}"
             Width="400">
     <DockPanel>
@@ -9,17 +10,19 @@
                         HorizontalContentAlignment="Stretch"
                         DockPanel.Dock="Bottom">
             <DockPanel LastChildFill="False">
-                <Button Command="{Binding Cancel}"
+                <Button Content="{DynamicResource {x:Static keys:Globals.Cancel}}"
+                        Command="{Binding Cancel}"
                         Classes="left"
                         IsVisible="{Binding IsCloseable}"
-                        DockPanel.Dock="Left">Cancel</Button>
-                <Button Command="{Binding Accept}"
+                        DockPanel.Dock="Left" />
+                <Button Content="{DynamicResource {x:Static keys:Globals.Accept}}"
+                        Command="{Binding Accept}"
                         Classes="right"
-                        DockPanel.Dock="Right">Accept</Button>
+                        DockPanel.Dock="Right" />
             </DockPanel>
         </ContentControl>
         <HeaderedContentControl Classes="dialogBody"
-                                Header="Name your campaign">
+                                Header="{DynamicResource {x:Static keys:LocalPlay.SaveGameNameHeader}}">
             <StackPanel Orientation="Vertical">
                 <TextBox x:Name="GameTitleTextBox"
                         Text="{Binding Title}"

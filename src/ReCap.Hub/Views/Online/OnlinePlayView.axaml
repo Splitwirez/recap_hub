@@ -3,24 +3,12 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             xmlns:vm="using:ReCap.Hub.ViewModels"
             xmlns:v="clr-namespace:ReCap.Hub.Views"
+            xmlns:keys="using:ReCap.Hub.Localization.Keys"
             xmlns:dt="using:ReCap.Hub.Data">
     <DockPanel>
-        <!--
-		<ContentControl Theme="{DynamicResource RowBelowTabs}"
-                        DockPanel.Dock="Top">
-            <DockPanel>
-                <Button Content="Preferences..."
-                        Classes="left"
-                        Command="{Binding $parent[v:MainView].DataContext.ShowPreferencesCommand, Mode=OneWay}"
-                        DockPanel.Dock="Right" />
-                <StackPanel Orientation="Horizontal">
-                </StackPanel>
-            </DockPanel>
-        </ContentControl>
-		-->
 		<v:CommandBarView DockPanel.Dock="Top" />
         <HeaderedContentControl x:Name="ServersPane"
-                                Header="Servers"
+                                Header="{DynamicResource {x:Static keys:OnlinePlay.ServersHeader}}"
                                 Classes="pane left outermost"
                                 MinWidth="200"
                                 DockPanel.Dock="Left">
