@@ -3,6 +3,7 @@
     <Styles.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Supplementary/DialogParts.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Supplementary/HexagonRingProgressBar.axaml" />
 				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Supplementary/RowBelowTabs.axaml" />
                 <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Supplementary/InventoryTabs.axaml" />

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using ReCap.Hub.ViewModels;
@@ -23,8 +24,11 @@ namespace ReCap.Hub.Views
         protected virtual Control BuildIfNeeded(object data)
         {
             Control ret = null;
+            if (data == null)
+                return CreateTextForFailure($"{nameof(data)} was null");
             
-            if ((data != null) && (data is RxObjectBase rxData))
+            
+            if (data is RxObjectBase rxData)
             {
                 var type = rxData.GetViewType();
             
@@ -37,12 +41,22 @@ namespace ReCap.Hub.Views
             
             return (ret != null)
                 ? ret
-                : new TextBlock()
-                {
-                    Text = $"Couldn't find view for type '{data.GetType().FullName}'"
-                }
+                : CreateTextForFailure($"Couldn't find view for type '{data.GetType().FullName}'")
             ;
         }
+
+        TextBlock CreateTextForFailure(string failMsg)
+        {
+            Debug.WriteLine($"ViewLocator: {failMsg}");
+            return new TextBlock()
+            {
+                Text = failMsg
+            };
+        }
+
+
+
+        
         public virtual Control Build(object data)
             => this.Build_Impl(data, UseCaching, ref _cache, BuildIfNeeded);
         

@@ -6,7 +6,7 @@
             Theme="{DynamicResource DialogRoot}"
             Width="400">
     <DockPanel>
-        <ContentControl Classes="dialogFooter"
+        <ContentControl Theme="{DynamicResource DialogFooter}"
                         HorizontalContentAlignment="Stretch"
                         DockPanel.Dock="Bottom">
             <DockPanel LastChildFill="False">
@@ -21,8 +21,8 @@
                         DockPanel.Dock="Right" />
             </DockPanel>
         </ContentControl>
-        <HeaderedContentControl Classes="dialogBody"
-                                Header="{DynamicResource {x:Static keys:LocalPlay.SaveGameNameHeader}}">
+        <HeaderedContentControl Header="{DynamicResource {x:Static keys:LocalPlay.SaveGameNameHeader}}"
+                                Theme="{DynamicResource DialogBody}">
             <StackPanel Orientation="Vertical">
                 <TextBox x:Name="GameTitleTextBox"
                         Text="{Binding Title}"

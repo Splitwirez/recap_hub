@@ -5,22 +5,23 @@
         xmlns:rctr="using:ReCap.CommonUI"
         x:Class="ReCap.Hub.Views.MainView">
 	<UserControl.Styles>
-        <Style Selector="Rectangle[IsVisible=True].fakeContentArea">
+        <Style Selector="Rectangle[IsVisible=True]#FakeContentArea">
             <Setter Property="Fill">
-                <VisualBrush Visual="{Binding ElementName=ContentArea, Mode=OneTime}" Stretch="Fill" />
+                <VisualBrush Visual="{Binding ElementName=ContentArea, Mode=OneWay}" Stretch="Fill" />
             </Setter>
         </Style>
     </UserControl.Styles>
 	<Panel>
-		<Panel>
+		<Panel x:Name="ContentAreaContainer"
+            IsVisible="{Binding !IsHitTestVisible, ElementName=DialogOverlay, Mode=OneWay, FallbackValue=True}">
 			<!--IsVisible="{Binding !IsVisible, ElementName=DialogOverlay, Mode=OneWay, FallbackValue=True}"-->
 			<ContentControl x:Name="ContentArea"
                             Content="{Binding CurrentPage}"
                             Focusable="False"
                             IsTabStop="False" />
 		</Panel>
-		<Rectangle Classes="fakeContentArea"
-                IsVisible="{Binding IsVisible, ElementName=DialogOverlay, Mode=OneWay, FallbackValue=False}"/>
+		<Rectangle x:Name="FakeContentArea"
+                IsVisible="{Binding !#ContentAreaContainer.IsVisible, Mode=OneWay, FallbackValue=False}" />
 		<v:DialogOverlayView x:Name="DialogOverlay" />
 		<!--DataContext="{Binding $parent[Window].DataContext, Mode=OneWay}"-->
 	</Panel>

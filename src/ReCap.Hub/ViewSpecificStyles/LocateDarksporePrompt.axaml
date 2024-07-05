@@ -254,7 +254,7 @@
             </Style>
         </ControlTheme>
     </Styles.Resources>
-    <Style Selector="HeaderedContentControl.dialogBody">
+    <Style Selector="HeaderedContentControl.body">
         <Setter Property="Padding" Value="40,32,40,40" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
     </Style>
@@ -280,18 +280,18 @@
         <Setter Property="Margin" Value="4,0,0,0" />
     </Style>
 
-    <Style Selector="ContentControl.dialogFooter :is(Button).left">
+    <Style Selector="ContentControl.footer :is(Button).left">
         <Setter Property="Margin" Value="0,0,12,0" />
     </Style>
 
-    <Style Selector="ContentControl.dialogFooter :is(Button).right">
+    <Style Selector="ContentControl.footer :is(Button).right">
         <Setter Property="Margin" Value="12,0,0,0" />
     </Style>
 
-    <Style Selector="ContentControl.dialogFooter DockPanel:not(.hasCancelButton)">
+    <Style Selector="ContentControl.footer DockPanel:not(.hasCancelButton)">
         <Setter Property="LastChildFill" Value="False" />
     </Style>
-    <!--Style Selector="ContentControl.dialogFooter DockPanel:not(.hasCancelButton) ToggleButton.browseOrDetect">
+    <!--Style Selector="ContentControl.footer DockPanel:not(.hasCancelButton) ToggleButton.browseOrDetect">
         <Setter Property=""/>
     </Style-->
     <Style Selector="Panel.browseOrDetectButtons ToggleButton[IsChecked=True]">

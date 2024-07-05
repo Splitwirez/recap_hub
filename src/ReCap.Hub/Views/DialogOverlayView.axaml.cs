@@ -5,12 +5,14 @@ using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
+using ReCap.CommonUI;
 using ReCap.Hub.ViewModels;
 
 namespace ReCap.Hub.Views
 {
     public partial class DialogOverlayView
         : UserControl
+        //UserControl
     {
         /*
         public static readonly AttachedProperty<bool> SynchronizeAlignmentsProperty =

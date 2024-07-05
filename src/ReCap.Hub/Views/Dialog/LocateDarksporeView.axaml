@@ -10,7 +10,8 @@
         <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/LocateDarksporePrompt.axaml" />
     </UserControl.Styles>
     <DockPanel>
-        <ContentControl Classes="dialogFooter"
+        <ContentControl Theme="{DynamicResource DialogFooter}"
+                    Classes="footer"
                     IsVisible="{Binding !#ProvidePathMethodChoice.IsVisible, Mode=OneWay}"
                     ClipToBounds="False"
                     DockPanel.Dock="Bottom">
@@ -40,6 +41,7 @@
 
 
         <HeaderedContentControl Header="{DynamicResource {x:Static keys:LocateGame.Title}}"
+                                Theme="{DynamicResource DialogBody}"
                                 Classes="dialogBody"
                                 ClipToBounds="False">
             <Panel>

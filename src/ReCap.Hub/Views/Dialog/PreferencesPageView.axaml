@@ -9,14 +9,14 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
 	<DockPanel>
-		<ContentControl Classes="dialogFooter"
+		<ContentControl Theme="{DynamicResource DialogFooter}"
                         HorizontalContentAlignment="Stretch"
                         DockPanel.Dock="Bottom">
 			<Button Command="{Binding CloseCommand, Mode=OneWay}"
 					Content="{DynamicResource {x:Static keys:Globals.Accept}}" />
 		</ContentControl>
-		<HeaderedContentControl Classes="dialogBody"
-                                Header="{DynamicResource {x:Static keys:UserPreferences.Title}}">
+		<HeaderedContentControl Header="{DynamicResource {x:Static keys:UserPreferences.Title}}"
+								Theme="{DynamicResource DialogBody}">
 			<StackPanel>
 				<rctr:GroupBox Header="{DynamicResource {x:Static keys:UserPreferences.PlayerProfileHeader}}">
 					<StackPanel>

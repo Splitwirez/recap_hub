@@ -1,8 +1,9 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:rctr="using:ReCap.CommonUI"
-        xmlns:v="using:ReCap.Hub.Views">
-	<Style Selector=":is(v|CommandBarView)">
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:rctr="using:ReCap.CommonUI"
+					xmlns:v="using:ReCap.Hub.Views">
+	<ControlTheme x:Key="{x:Type v:CommandBarView}"
+                TargetType="{x:Type v:CommandBarView}">
 		<Setter Property="Template">
 			<ControlTemplate>
 				<ContentControl Theme="{DynamicResource RowBelowTabs}">
@@ -35,5 +36,5 @@
 				<StackPanel Orientation="Horizontal" Spacing="2" />
 			</ItemsPanelTemplate>
 		</Setter>
-	</Style>
-</Styles>
+	</ControlTheme>
+</ResourceDictionary>

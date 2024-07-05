@@ -5,7 +5,7 @@
             Theme="{DynamicResource DialogRoot}"
             Width="400">
     <DockPanel>
-        <ContentControl Classes="dialogFooter"
+        <ContentControl Theme="{DynamicResource DialogFooter}"
                         HorizontalContentAlignment="Stretch"
                         DockPanel.Dock="Bottom">
             <DockPanel LastChildFill="False">
@@ -18,8 +18,8 @@
                         DockPanel.Dock="Right">Accept</Button>
             </DockPanel>
         </ContentControl>
-        <HeaderedContentControl Classes="dialogBody"
-                                Header="{Binding Title, Mode=OneWay}">
+        <HeaderedContentControl Header="{Binding Title, Mode=OneWay}"
+                                Theme="{DynamicResource DialogBody}">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="{Binding Content, Mode=OneWay}" VerticalAlignment="Center"/>
                 <TextBox Text="{Binding Value}" VerticalAlignment="Center"/>

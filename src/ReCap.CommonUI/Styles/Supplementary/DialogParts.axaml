@@ -1,0 +1,149 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rctr="using:ReCap.CommonUI"
+					x:CompileBindings="True">
+    <SolidColorBrush x:Key="DialogOverlay.BackdropFilmBrush">#D8000000</SolidColorBrush>
+    <!--#C0001040-->
+
+    <Color x:Key="Dialog.Body.Background">#E0000000</Color>
+    <Color x:Key="Dialog.Body.BorderBrush">#7FFFFFFF</Color>
+    <Color x:Key="Dialog.Body.InnerGlowColor">#20FFFFFF</Color>
+    <LinearGradientBrush x:Key="Dialog.Footer.Background"
+                        StartPoint="0%,25%"
+                        EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#53D0E0E9" />
+        <GradientStop Offset="1" Color="#2BBDD5DB" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Dialog.Footer.BorderBrush">#DDD5E1E4</SolidColorBrush>
+    <Color x:Key="Dialog.Footer.InnerGlowColor">#DDD5E1E4</Color>
+    
+
+
+    
+    <ControlTheme x:Key="DialogRoot"
+                TargetType="{x:Type UserControl}"
+                BasedOn="{StaticResource {x:Type ContentControl}}">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="ClipToBounds" Value="False" />
+        
+        <Style Selector="^[HorizontalAlignment=Stretch][VerticalAlignment=Stretch]">
+            <Setter Property="Margin" Value="200,100" />
+        </Style>
+    </ControlTheme>
+
+
+
+
+    <ControlTheme x:Key="DialogBody"
+                TargetType="{x:Type HeaderedContentControl}">
+        <Setter Property="Background" Value="{DynamicResource Dialog.Body.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Dialog.Body.BorderBrush}" />
+        
+        <Setter Property="Padding" Value="12" />
+        
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <rctr:AngledBorder Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    CornerRadius="5"
+                                    InnerGlowColor="{DynamicResource Dialog.Body.InnerGlowColor}"
+                                    InnerGlowSize="2"
+                                    StrokeThickness="1" />
+                    <DockPanel>
+                        <ContentPresenter x:Name="PART_HeaderPresenter"
+                                        Classes="h4"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Content="{TemplateBinding Header}"
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        DockPanel.Dock="Top"
+                                        Margin="0,12,0,0" />
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Margin="{TemplateBinding Padding}" />
+                    </DockPanel>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+
+
+
+    <ControlTheme x:Key="DialogFooter"
+                TargetType="{x:Type ContentControl}">
+        <Setter Property="Background" Value="{DynamicResource Dialog.Footer.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Dialog.Footer.BorderBrush}" />
+        <Setter Property="Padding" Value="9,4,9,6" />
+        <Setter Property="Margin" Value="0,-4,0,0" />
+
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Orientation="Vertical">
+                    <DockPanel LastChildFill="False"
+                            Height="5">
+                        <Panel ClipToBounds="True"
+                            DockPanel.Dock="Left">
+                            <rctr:AngledBorder Width="5"
+                                            Background="{TemplateBinding Background}"
+                                            CornerRadius="0,5,0,0"
+                                            InnerGlowColor="{DynamicResource Dialog.Footer.InnerGlowColor}"
+                                            InnerGlowSize="2"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            StrokeThickness="1"
+                                            Margin="0,0,0,-15"/>
+                        </Panel>
+
+                        <Panel ClipToBounds="True"
+                            DockPanel.Dock="Right">
+                            <rctr:AngledBorder Width="5"
+                                            Background="{TemplateBinding Background}"
+                                            CornerRadius="5,0,0,0"
+                                            InnerGlowColor="{DynamicResource Dialog.Footer.InnerGlowColor}"
+                                            InnerGlowSize="2"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            StrokeThickness="1"
+                                            Margin="0,0,0,-15"/>
+                        </Panel>
+                    </DockPanel>
+                    <Panel>
+                        <Panel ClipToBounds="True">
+                            <rctr:AngledBorder Background="{TemplateBinding Background}"
+                                            CornerRadius="0,0,5,5"
+                                            InnerGlowColor="{DynamicResource Dialog.Footer.InnerGlowColor}"
+                                            InnerGlowSize="2"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            StrokeThickness="1"
+                                            Margin="0,-1,0,0"/>
+                        </Panel>
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Margin="{TemplateBinding Padding}"/>
+                    </Panel>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

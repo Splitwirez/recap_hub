@@ -1,0 +1,194 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rctr="using:ReCap.CommonUI"
+                    xmlns:sys="using:System">
+    <sys:TimeSpan x:Key="Closeable.AnimationDuration">0:0:0.375</sys:TimeSpan>
+
+    <rctr:HybridEaseInOut x:Key="Closeable.Animation.ScaleXEasing" />
+    <QuinticEaseIn x:Key="Closeable.Animation.ScaleYEasing" />
+    
+    
+    <ControlTheme x:Key="CloseButton"
+                TargetType="{x:Type Button}"
+                BasedOn="{StaticResource CaptionButton}">
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="6" />
+        <Setter Property="Content" Value="X" />
+        <Setter Property="ContentTemplate">
+            <DataTemplate>
+                <Path Data="{DynamicResource CloseButtonGlyphGeometry}"
+                    Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWay}" />
+            </DataTemplate>
+        </Setter>
+    </ControlTheme>
+
+
+
+
+    <ControlTheme x:Key="{x:Type rctr:Closeable}"
+                TargetType="{x:Type rctr:Closeable}">
+        <Setter Property="Background" Value="#9D0D0F12" />
+        <Setter Property="BorderBrush" Value="#6F5D5F62" />
+        <Setter Property="CornerRadius" Value="5" />
+        <!--
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        -->
+        <Setter Property="ClipToBounds" Value="False" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="IsHitTestVisible" Value="{Binding IsOpen, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel x:Name="DialogRoot"
+                    ClipToBounds="False">
+                    <rctr:AngledBorder x:Name="NormalHoloShadow"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    StrokeThickness="2"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    Margin="2,2,-4,-4" />
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    CornerRadius="0"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Content="{TemplateBinding Content}"
+                                    Padding="{TemplateBinding Padding}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                    <rctr:AngledBorder x:Name="FlashHoloShadow"
+                                    Background="#FFFFFFFF"
+                                    CornerRadius="{Binding #NormalHoloShadow.CornerRadius, Mode=OneWay}"
+                                    Margin="{Binding #NormalHoloShadow.Margin, Mode=OneWay}" />
+                    <Button x:Name="PART_CloseButton"
+                            Theme="{DynamicResource CloseButton}"
+
+                            Command="{TemplateBinding Command}"
+                            CommandParameter="{TemplateBinding CommandParameter}"
+
+                            IsVisible="{TemplateBinding IsCloseButtonVisible}"
+                            IsEnabled="{TemplateBinding IsCloseButtonVisible}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^ /template/ Panel#DialogRoot">
+            <Setter Property="RenderTransform" Value="scaleX(1) scaleY(1)" />
+            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="{StaticResource Closeable.AnimationDuration}" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+
+        <Style Selector="^[IsOpen=True]">
+            <Style.Animations>
+                <Animation Duration="{StaticResource Closeable.AnimationDuration}"
+                        FillMode="Forward">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="IsVisible" Value="True" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+
+            <Style Selector="^ /template/ rctr|AngledBorder#FlashHoloShadow">
+                <Style.Animations>
+                    <Animation Duration="{StaticResource Closeable.AnimationDuration}"
+                            FillMode="Both">
+                        <KeyFrame Cue="0%">
+                            <Setter Property="Opacity" Value="0" />
+                            <Setter Property="IsVisible" Value="False" />
+                        </KeyFrame>
+                        <KeyFrame Cue="40%">
+                            <Setter Property="Opacity" Value="1" />
+                            <Setter Property="IsVisible" Value="True" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%">
+                            <Setter Property="Opacity" Value="0" />
+                            <Setter Property="IsVisible" Value="False" />
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+            
+            
+            <Style Selector="^ /template/ Panel#DialogRoot">
+                <Style.Animations>
+                    <Animation Duration="{StaticResource Closeable.AnimationDuration}"
+                            FillMode="Both">
+                        <!--
+                            Easing="{StaticResource Closeable.Animation.ScaleXEasing}"
+                        -->
+                        <KeyFrame Cue="0%">
+                            <Setter Property="ScaleTransform.ScaleX" Value="0" />
+                        </KeyFrame>
+                        <KeyFrame Cue="80%">
+                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                        </KeyFrame>
+                    </Animation>
+                    <Animation Duration="{StaticResource Closeable.AnimationDuration}"
+                            FillMode="Both">
+                        <!--
+                            Easing="{StaticResource Closeable.Animation.ScaleYEasing}"
+                        
+                        <KeyFrame Cue="0%">
+                            <Setter Property="ScaleTransform.ScaleY" Value="0" />
+                        </KeyFrame>
+                        -->
+                        <KeyFrame Cue="40%">
+                            <Setter Property="ScaleTransform.ScaleY" Value="0.12" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%">
+                            <Setter Property="ScaleTransform.ScaleY" Value="1" />
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+        </Style>
+
+
+        <Style Selector="^:not(^[IsOpen=True])">
+            <Style.Animations>
+                <Animation Duration="{StaticResource Closeable.AnimationDuration}"
+                        FillMode="Forward">
+                    <KeyFrame Cue="99%">
+                        <Setter Property="IsVisible" Value="True" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="IsVisible" Value="False" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+
+            <Style Selector="^ /template/ Panel#DialogRoot">
+                <Setter Property="Opacity" Value="0" />
+                <Style.Animations>
+                    <Animation Duration="{StaticResource Closeable.AnimationDuration}"
+                            FillMode="Forward"
+                            Easing="{StaticResource Closeable.Animation.ScaleXEasing}">
+                        <KeyFrame Cue="99%">
+                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%">
+                            <Setter Property="ScaleTransform.ScaleX" Value="0" />
+                        </KeyFrame>
+                    </Animation>
+                    <Animation Duration="{StaticResource Closeable.AnimationDuration}"
+                            FillMode="Forward"
+                            Easing="{StaticResource Closeable.Animation.ScaleYEasing}">
+                        <KeyFrame Cue="0%">
+                            <Setter Property="ScaleTransform.ScaleY" Value="1" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%">
+                            <Setter Property="ScaleTransform.ScaleY" Value="0" />
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

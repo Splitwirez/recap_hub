@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="ReCap.UITest.Views.Pages.CloseableView"
+            xmlns="https://github.com/avaloniaui"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:rctr="using:ReCap.CommonUI">
+	<UserControl.Styles>
+		<Style Selector="rctr|Closeable">
+			<Setter Property="IsCloseButtonVisible" Value="{Binding ShowCloseButton}" />
+		</Style>
+	</UserControl.Styles>
+	
+	<Panel>
+		<DockPanel VerticalAlignment="Top">
+			<StackPanel Orientation="Vertical"
+						Spacing="4"
+						DockPanel.Dock="Left">
+				<Button Content="Show with direct content"
+						Command="{Binding ShowCloseableWithDirectContentCommand, Mode=OneWay}">
+					<Button.CommandParameter>
+						<StackPanel Orientation="Vertical"
+									Spacing="4">
+							<TextBlock Text="Sample text" />
+							<TextBlock Text="Light sample text"
+									Foreground="White" />
+							<TextBlock Text="Dark sample text"
+									Foreground="Black" />
+						</StackPanel>
+					</Button.CommandParameter>
+				</Button>
+				<Button Content="Show with ContentTemplate-d content"
+						Command="{Binding ShowCloseableWithContentTemplateObjectCommand, Mode=OneWay}"
+						CommandParameter="X" />
+			</StackPanel>
+			
+			<StackPanel Orientation="Vertical"
+						Spacing="4">
+				<CheckBox Content="Show Close button"
+						IsChecked="{Binding ShowCloseButton, Mode=TwoWay}" />
+			</StackPanel>
+		</DockPanel>
+
+
+		<rctr:Closeable IsOpen="{Binding IsCTemplatedCloseableOpen, Mode=TwoWay}"
+						Content="{Binding CTemplatedCloseableContent, Mode=OneWay}">
+			<rctr:Closeable.ContentTemplate>
+				<DataTemplate>
+					<TextBlock FontFamily="Ubuntu Mono"
+							Foreground="#FFFF00FF"
+							FontSize="32"
+							Text="{Binding}" />
+				</DataTemplate>
+			</rctr:Closeable.ContentTemplate>
+		</rctr:Closeable>
+		<rctr:Closeable IsOpen="{Binding IsDContentCloseableOpen, Mode=TwoWay}"
+						Content="{Binding DContentCloseableContent, Mode=OneWay}" />
+	</Panel>
+</UserControl>
