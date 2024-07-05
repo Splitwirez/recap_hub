@@ -1,0 +1,331 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:v="using:ReCap.Hub.Views">
+    <Styles.Resources>
+        <ControlTheme x:Key="FlashEmphasisBase"
+                    TargetType="{x:Type ContentControl}"
+                    BasedOn="{StaticResource {x:Type ContentControl}}">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        </ControlTheme>
+
+
+
+
+        <ControlTheme x:Key="FlashEmphasis1"
+                    TargetType="{x:Type ContentControl}"
+                    BasedOn="{StaticResource FlashEmphasisBase}">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DockPanel>
+                        <ProgressBar Theme="{DynamicResource HexagonRingProgressBar}"
+                                    IsIndeterminate="True"
+                                    VerticalAlignment="Center"
+                                    DockPanel.Dock="Right" />
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                        Classes="sh3"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Padding="{TemplateBinding Padding}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        TextBlock.TextWrapping="Wrap" />
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter>
+        </ControlTheme>
+
+
+
+        <x:TimeSpan x:Key="FlashEmphasisDuration">0:0:1.8</x:TimeSpan>
+        <x:TimeSpan x:Key="FlashEmphasisDelay1">0:0:0</x:TimeSpan>
+        <x:TimeSpan x:Key="FlashEmphasisDelay2">0:0:0.24</x:TimeSpan>
+        <QuarticEaseOut x:Key="FlashEmphasisEasing" />
+
+
+        <ControlTheme x:Key="FlashEmphasisSideBase"
+                    TargetType="{x:Type TemplatedControl}">
+                <Setter Property="RenderTransform" Value="translate(0,0)" />
+                
+                <Style Selector="^ /template/ :is(Shape)">
+                    <Setter Property="Shape.Fill" Value="#40FFFFFF" />
+                    <Setter Property="Shape.Stroke" Value="Transparent" />
+                    <Setter Property="Shape.StrokeThickness" Value="0" />
+                </Style>
+        </ControlTheme>
+        <ControlTheme x:Key="FlashEmphasisLeftSide"
+                    TargetType="{x:Type TemplatedControl}"
+                    BasedOn="{StaticResource FlashEmphasisSideBase}">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DockPanel>
+                        <Path DockPanel.Dock="Top"
+                            Data="M 0 14 V 9 L 9 0 h 9 c 1.108 0 2 0.892 2 2 v 2 c 0 0.5304329 -0.239105 1.0127514 -0.585786 1.4142136 L 12 14 Z" />
+                        <Path DockPanel.Dock="Bottom"
+                            Data="m 0 0 v 5 l 9 9 h 9 c 1.108 0 2 -0.892 2 -2 V 10 C 20 9.4695671 19.760895 8.9872486 19.414214 8.5857864 L 12 0 Z" />
+                        <Rectangle Width="12"
+                                HorizontalAlignment="Left" />
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter>
+        </ControlTheme>
+        <ControlTheme x:Key="FlashEmphasisRightSide"
+                    TargetType="{x:Type TemplatedControl}"
+                    BasedOn="{StaticResource FlashEmphasisSideBase}">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DockPanel>
+                        <Path DockPanel.Dock="Top"
+                            Data="M 20 14 V 9 L 11 0 H 2 C 0.892 0 0 0.892 0 2 V 4 C 0 4.5304329 0.239105 5.0127514 0.585786 5.4142136 L 8 14 Z" />
+                        <Path DockPanel.Dock="Bottom"
+                            Data="m 20 0 v 5 l -9 9 H 2 C 0.892 14 0 13.108 0 12 V 10 C 0 9.4695671 0.239105 8.9872486 0.585786 8.5857864 L 8 0 Z" />
+                        <Rectangle Width="12"
+                                HorizontalAlignment="Right" />
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter>
+        </ControlTheme>
+        <ControlTheme x:Key="FlashEmphasis2"
+                    TargetType="{x:Type ContentControl}"
+                    BasedOn="{StaticResource FlashEmphasisBase}">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="ClipToBounds" Value="False" />
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Panel ClipToBounds="False">
+                        <Panel x:Name="FlashPathsContainer"
+                            IsHitTestVisible="False"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                            
+                            <!-- Non-moving flashes -->
+                            <Panel x:Name="NonMoving"
+                                Classes="flashesGroup">
+                                <TemplatedControl Classes="left" />
+                                <TemplatedControl Classes="right" />
+                            </Panel>
+
+                            <!-- first moving flashes -->
+                            <Panel x:Name="FirstMoving"
+                                Classes="flashesGroup">
+                                <TemplatedControl Classes="left" />
+                                <TemplatedControl Classes="right" />
+                            </Panel>
+
+                            <!-- second moving flashes -->
+                            <Panel x:Name="SecondMoving"
+                                Classes="flashesGroup">
+                                <TemplatedControl Classes="left" />
+                                <TemplatedControl Classes="right" />
+                            </Panel>
+                        </Panel>
+
+
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                        Classes="sh3"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Margin="20,0"
+                                        Padding="{TemplateBinding Padding}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        TextBlock.TextWrapping="Wrap" />
+                    </Panel>
+                </ControlTemplate>
+            </Setter>
+            
+            <Style Selector="^ /template/ Panel.flashesGroup > TemplatedControl.left">
+                <Setter Property="Theme" Value="{DynamicResource FlashEmphasisLeftSide}" />
+            </Style>
+            <Style Selector="^ /template/ Panel.flashesGroup > TemplatedControl.right">
+                <Setter Property="Theme" Value="{DynamicResource FlashEmphasisRightSide}" />
+            </Style>
+
+
+            <Style Selector="^[IsEnabled=true]">
+                <Style Selector="^ /template/ Panel#FirstMoving">
+                    <Style.Animations>
+                        <Animation Duration="{DynamicResource FlashEmphasisDuration}"
+                                Delay="{DynamicResource FlashEmphasisDelay1}"
+                                Easing="{DynamicResource FlashEmphasisEasing}"
+                                IterationCount="INFINITE"
+                                FillMode="Both">
+                            <KeyFrame Cue="0%">
+                                <Setter Property="Opacity" Value="1.0" />
+                            </KeyFrame>
+                            <KeyFrame Cue="100%">
+                                <Setter Property="Opacity" Value="0.0" />
+                            </KeyFrame>
+                        </Animation>
+                    </Style.Animations>
+                </Style>
+                <Style Selector="^ /template/ Panel#FirstMoving > TemplatedControl.left">
+                    <Style.Animations>
+                        <Animation Duration="{DynamicResource FlashEmphasisDuration}"
+                                Delay="{DynamicResource FlashEmphasisDelay1}"
+                                Easing="{DynamicResource FlashEmphasisEasing}"
+                                IterationCount="INFINITE"
+                                FillMode="Both">
+                            <KeyFrame Cue="0%">
+                                <Setter Property="TranslateTransform.X" Value="0" />
+                            </KeyFrame>
+                            <KeyFrame Cue="100%">
+                                <Setter Property="TranslateTransform.X" Value="-232" />
+                            </KeyFrame>
+                        </Animation>
+                    </Style.Animations>
+                </Style>
+                <Style Selector="^ /template/ Panel#FirstMoving > TemplatedControl.right">
+                    <Style.Animations>
+                        <Animation Duration="{DynamicResource FlashEmphasisDuration}"
+                                Delay="{DynamicResource FlashEmphasisDelay1}"
+                                Easing="{DynamicResource FlashEmphasisEasing}"
+                                IterationCount="INFINITE"
+                                FillMode="Both">
+                            <KeyFrame Cue="0%">
+                                <Setter Property="TranslateTransform.X" Value="0" />
+                            </KeyFrame>
+                            <KeyFrame Cue="100%">
+                                <Setter Property="TranslateTransform.X" Value="232" />
+                            </KeyFrame>
+                        </Animation>
+                    </Style.Animations>
+                </Style>
+
+
+                <Style Selector="^ /template/ Panel#SecondMoving">
+                    <Style.Animations>
+                        <Animation Duration="{DynamicResource FlashEmphasisDuration}"
+                                Delay="{DynamicResource FlashEmphasisDelay2}"
+                                IterationCount="INFINITE"
+                                FillMode="Forward">
+                            <KeyFrame Cue="0%">
+                                <Setter Property="Opacity" Value="1.0" />
+                            </KeyFrame>
+                            <KeyFrame Cue="40%">
+                                <Setter Property="Opacity" Value="0.0" />
+                            </KeyFrame>
+                        </Animation>
+                    </Style.Animations>
+                </Style>
+                <Style Selector="^ /template/ Panel#SecondMoving > TemplatedControl.left">
+                    <Style.Animations>
+                        <Animation Duration="{DynamicResource FlashEmphasisDuration}"
+                                Delay="{DynamicResource FlashEmphasisDelay2}"
+                                IterationCount="INFINITE"
+                                FillMode="Forward">
+                            <KeyFrame Cue="0%">
+                                <Setter Property="TranslateTransform.X" Value="0" />
+                            </KeyFrame>
+                            <KeyFrame Cue="40%">
+                                <Setter Property="TranslateTransform.X" Value="-64" />
+                            </KeyFrame>
+                        </Animation>
+                    </Style.Animations>
+                </Style>
+                <Style Selector="^ /template/ Panel#SecondMoving > TemplatedControl.right">
+                    <Style.Animations>
+                        <Animation Duration="{DynamicResource FlashEmphasisDuration}"
+                                Delay="{DynamicResource FlashEmphasisDelay2}"
+                                IterationCount="INFINITE"
+                                FillMode="Forward">
+                            <KeyFrame Cue="0%">
+                                <Setter Property="TranslateTransform.X" Value="0" />
+                            </KeyFrame>
+                            <KeyFrame Cue="40%">
+                                <Setter Property="TranslateTransform.X" Value="64" />
+                            </KeyFrame>
+                        </Animation>
+                    </Style.Animations>
+                </Style>
+            </Style>
+        </ControlTheme>
+    </Styles.Resources>
+    <Style Selector="HeaderedContentControl.dialogBody">
+        <Setter Property="Padding" Value="40,32,40,40" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    </Style>
+    <Style Selector=":is(Panel)#ProvidePathMethodChoice Button">
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        <Setter Property="FontSize" Value="18" />
+        
+        <!--
+        <Setter Property="Padding" Value="20" />
+        -->
+        <Setter Property="MinHeight" Value="108" />
+    </Style>
+    <Style Selector=":is(Panel)#ProvidePathMethodChoice TextBlock:nth-child(1)">
+        <Setter Property="Margin" Value="0,0,0,12" />
+    </Style>
+    <Style Selector=":is(Panel)#ProvidePathMethodChoice Button:nth-child(2) /template/ rctr|AngledBorder#AutoCornerBackground">
+        <Setter Property="CornerRadius" Value="18,0,0,18" />
+        <Setter Property="Margin" Value="0,0,4,0" />
+    </Style>
+    <Style Selector=":is(Panel)#ProvidePathMethodChoice Button:nth-last-child(1) /template/ rctr|AngledBorder#AutoCornerBackground">
+        <Setter Property="CornerRadius" Value="0,18,18,0" />
+        <Setter Property="Margin" Value="4,0,0,0" />
+    </Style>
+
+    <Style Selector="ContentControl.dialogFooter :is(Button).left">
+        <Setter Property="Margin" Value="0,0,12,0" />
+    </Style>
+
+    <Style Selector="ContentControl.dialogFooter :is(Button).right">
+        <Setter Property="Margin" Value="12,0,0,0" />
+    </Style>
+
+    <Style Selector="ContentControl.dialogFooter DockPanel:not(.hasCancelButton)">
+        <Setter Property="LastChildFill" Value="False" />
+    </Style>
+    <!--Style Selector="ContentControl.dialogFooter DockPanel:not(.hasCancelButton) ToggleButton.browseOrDetect">
+        <Setter Property=""/>
+    </Style-->
+    <Style Selector="Panel.browseOrDetectButtons ToggleButton[IsChecked=True]">
+        <!--For the first time in my entire life, I actually wish Avalonia had Visibility.Hidden like WPF...but only a little bit lol-->
+        <Setter Property="Opacity" Value="0" />
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
+    </Style>
+    <Style Selector="DockPanel[LastChildFill=False] Panel.browseOrDetectButtons">
+        <Setter Property="DockPanel.Dock" Value="Left" />
+    </Style>
+    <Style Selector="DockPanel:not(DockPanel[LastChildFill=False]) Panel.browseOrDetectButtons">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <!--Style Selector="Panel.browseOrDetectButtons ToggleButton">
+        <Setter Property="Classes.right" Value="{Binding IsCloseable, Mode=OneWay}" />
+    </Style-->
+    
+    <Style Selector="StackPanel#BrowseForDarksporePrompt">
+        <Setter Property="Spacing" Value="12" />
+        <!--
+        <Setter Property="Margin" Value="40" />
+        -->
+    </Style>
+    <Style Selector="StackPanel#BrowseForDarksporePrompt > DockPanel">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="StackPanel#BrowseForDarksporePrompt > DockPanel > TextBox">
+        <Setter Property="Margin" Value="0,0,8,0" />
+    </Style>
+
+    <Style Selector="Button#AcceptButton:not(.hasGamePath, .browseForGamePath)">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+</Styles>

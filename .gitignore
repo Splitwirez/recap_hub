@@ -19,6 +19,7 @@ x64/
 x86/
 bld/
 [Oo]bj/
+[Bb]in/
 [Ll]og/
 
 # Visual Studio 2015/2017 cache/options directory
@@ -331,3 +332,5 @@ build/storage/users/
 !libs/boost_1_70_0/libs/log/src/
 !libs/raknet-3.902-mod/
 
+
+build/builder/

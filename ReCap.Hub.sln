@@ -3,18 +3,62 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCap.Hub", "src\ReCap.Hub.csproj", "{8B50A0EE-75BE-4991-9EB2-9D7409BDA735}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{166BDFC9-DE65-426E-91B5-E0248765057D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		build\app.manifest = build\app.manifest
+		build\avalonia.props = build\avalonia.props
+		build\builder.props = build\builder.props
+		build\editorconfig.props = build\editorconfig.props
+		build\publish.props = build\publish.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCap.CommonUI", "src\ReCap.CommonUI\ReCap.CommonUI.csproj", "{76E43A29-981C-4CA9-B295-176CC5E6944C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCap.Hub", "src\ReCap.Hub\ReCap.Hub.csproj", "{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCap.Builder", "build\ReCap.Builder\ReCap.Builder.csproj", "{1AF4D892-6C85-43FC-A670-DF33D073D43D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReCap.UITest", "src\ReCap.UITest\ReCap.UITest.csproj", "{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
+		Hub_Offline|Any CPU = Hub_Offline|Any CPU
+		Hub_Online|Any CPU = Hub_Online|Any CPU
 		Release|Any CPU = Release|Any CPU
+		UITest|Any CPU = UITest|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8B50A0EE-75BE-4991-9EB2-9D7409BDA735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B50A0EE-75BE-4991-9EB2-9D7409BDA735}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B50A0EE-75BE-4991-9EB2-9D7409BDA735}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B50A0EE-75BE-4991-9EB2-9D7409BDA735}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76E43A29-981C-4CA9-B295-176CC5E6944C}.Hub_Offline|Any CPU.ActiveCfg = Debug|Any CPU
+		{76E43A29-981C-4CA9-B295-176CC5E6944C}.Hub_Offline|Any CPU.Build.0 = Debug|Any CPU
+		{76E43A29-981C-4CA9-B295-176CC5E6944C}.Hub_Online|Any CPU.ActiveCfg = Debug|Any CPU
+		{76E43A29-981C-4CA9-B295-176CC5E6944C}.Hub_Online|Any CPU.Build.0 = Debug|Any CPU
+		{76E43A29-981C-4CA9-B295-176CC5E6944C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76E43A29-981C-4CA9-B295-176CC5E6944C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76E43A29-981C-4CA9-B295-176CC5E6944C}.UITest|Any CPU.ActiveCfg = Debug|Any CPU
+		{76E43A29-981C-4CA9-B295-176CC5E6944C}.UITest|Any CPU.Build.0 = Debug|Any CPU
+		{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}.Hub_Offline|Any CPU.ActiveCfg = Debug_Offline|Any CPU
+		{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}.Hub_Offline|Any CPU.Build.0 = Debug_Offline|Any CPU
+		{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}.Hub_Online|Any CPU.ActiveCfg = Debug_Online|Any CPU
+		{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}.Hub_Online|Any CPU.Build.0 = Debug_Online|Any CPU
+		{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BDCD50C-0DEF-4BB6-8E82-5E9F211950D9}.UITest|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Hub_Offline|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Hub_Offline|Any CPU.Build.0 = Debug|Any CPU
+		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Hub_Online|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Hub_Online|Any CPU.Build.0 = Debug|Any CPU
+		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AF4D892-6C85-43FC-A670-DF33D073D43D}.UITest|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}.Hub_Offline|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}.Hub_Offline|Any CPU.Build.0 = Release|Any CPU
+		{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}.Hub_Online|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}.Hub_Online|Any CPU.Build.0 = Release|Any CPU
+		{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}.UITest|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCDB611E-A72B-4F41-8BF9-8BC68CE3B193}.UITest|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

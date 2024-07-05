@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="ReCap.Hub.Views.NewSaveGameView"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+            xmlns:keys="using:ReCap.Hub.Localization.Keys"
+            Theme="{DynamicResource DialogRoot}"
+            Width="400">
+    <DockPanel>
+        <ContentControl Classes="dialogFooter"
+                        HorizontalContentAlignment="Stretch"
+                        DockPanel.Dock="Bottom">
+            <DockPanel LastChildFill="False">
+                <Button Content="{DynamicResource {x:Static keys:Globals.Cancel}}"
+                        Command="{Binding Cancel}"
+                        Classes="left"
+                        IsVisible="{Binding IsCloseable}"
+                        DockPanel.Dock="Left" />
+                <Button Content="{DynamicResource {x:Static keys:Globals.Accept}}"
+                        Command="{Binding Accept}"
+                        Classes="right"
+                        DockPanel.Dock="Right" />
+            </DockPanel>
+        </ContentControl>
+        <HeaderedContentControl Classes="dialogBody"
+                                Header="{DynamicResource {x:Static keys:LocalPlay.SaveGameNameHeader}}">
+            <StackPanel Orientation="Vertical">
+                <TextBox x:Name="GameTitleTextBox"
+                        Text="{Binding Title}"
+                        VerticalAlignment="Center"
+                        AcceptsTab="False"
+                        AcceptsReturn="False"
+						KeyDown="GameTitleTextBox_KeyDown" />
+            </StackPanel>
+        </HeaderedContentControl>
+    </DockPanel>
+</UserControl>

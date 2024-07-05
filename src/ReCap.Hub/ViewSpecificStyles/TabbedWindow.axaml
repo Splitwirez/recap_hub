@@ -1,0 +1,75 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:v="using:ReCap.Hub.Views">
+	<!--
+	<Style Selector="Window.topTabs">
+		<Setter Property="Padding" Value="0,4,0,0" />
+	</Style>
+	<Style Selector="Window.topTabs /template/ rctr|TitleBarUnderlay /template/ rctr|AngledBorderEx#TitleBarBackgroundMain">
+		<Setter Property="BottomLeftInset" Value="0" />
+		<Setter Property="IsVisible" Value="False" />
+	</Style>
+	<Style Selector="Window.topTabs /template/ rctr|AngledBorderEx#BgElement">
+		<Setter Property="TopLeftInset" Value="0" />
+	</Style>
+	<Style Selector="Window.topTabs /template/ rctr|AngledBorderEx#TopEdgeTrim">
+		<Setter Property="TopLeftInset" Value="0" />
+		<Setter Property="IsVisible" Value="False" />
+	</Style>
+	-->
+	<!--
+	<Style Selector="Window.topTabs">
+		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="92" />
+		<Setter Property="Padding" Value="0,-38,0,0" />
+	</Style>
+	<Style Selector="Window.topTabs /template/ rctr|AngledBorderEx#BgElement">
+		<Setter Property="Margin" Value="0,40,0,0" />
+	</Style>
+	-->
+	<!--
+	<Style Selector="Window.topTabs /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Margin" Value="0,-34,0,0"/>
+	</Style>
+	<Style Selector="Window.topTabs /template/ TemplatedControl.windowSegment">
+		<Setter Property="IsVisible" Value="False"/>
+	</Style>
+
+
+	<Style Selector="Window.topTabs">
+		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="75" />
+	</Style>
+	<!- -
+    <Style Selector="Window.topTabs /template/ TitleBar">
+        <Setter Property="Height" Value="75"/>
+    </Style>
+    - ->
+	<Style Selector="Window.topTabs /template/ TitleBar /template/ Panel.captionButtons > StackPanel">
+		<Setter Property="Margin" Value="33,0,0,0"/>
+	</Style>
+	<Style Selector="Window.topTabs /template/ TitleBar /template/ Panel#TitleBarTextArea">
+		<Setter Property="Height" Value="40"/>
+		<Setter Property="VerticalAlignment" Value="Top"/>
+	</Style>
+
+	<Style Selector="Window.topTabs /template/ TitleBar /template/ rctr|ImagePresenter.topTabs">
+		<Setter Property="IsVisible" Value="True"/>
+	</Style>
+	<Style Selector="Window.topTabs /template/ TitleBar /template/ DockPanel.nonTopTabs">
+		<Setter Property="IsVisible" Value="False"/>
+	</Style>
+	
+	-->
+
+
+	<!--
+	<Style Selector="ContentControl.belowTopTabs Button,
+					ContentControl.belowTopTabs ToggleButton">
+		<Setter Property="Height" Value="20" />
+	</Style>
+	-->
+
+	<Style Selector="Window.topTabs.helixTabs">
+		<Setter Property="Theme" Value="{DynamicResource HelixWindow}" />
+	</Style>
+</Styles>

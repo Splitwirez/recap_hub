@@ -1,0 +1,64 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<GradientStops x:Key="TabControl.Body.BorderBrush.GradientStops">
+		<GradientStop Offset="0" Color="#2EFFFFFF" />
+		<GradientStop Offset="1" Color="#18FFFFFF" />
+		<!--
+			00FFFFFF
+			0CFFFFFF
+		-->
+	</GradientStops>
+	<LinearGradientBrush x:Key="TabControl.Body.BorderBrush.Top"
+						StartPoint="0%,22.8%"
+						EndPoint="0%,100%"
+						GradientStops="{StaticResource TabControl.Body.BorderBrush.GradientStops}"
+						 />
+	<LinearGradientBrush x:Key="TabControl.Body.BorderBrush.Left"
+						StartPoint="22.8%,0%"
+						EndPoint="100%,0%"
+						GradientStops="{StaticResource TabControl.Body.BorderBrush.GradientStops}"
+						 />
+	<LinearGradientBrush x:Key="TabControl.Body.BorderBrush.Right"
+						StartPoint="100%,0%"
+						EndPoint="22.8%,0%"
+						GradientStops="{StaticResource TabControl.Body.BorderBrush.GradientStops}"
+						 />
+	<LinearGradientBrush x:Key="TabControl.Body.BorderBrush.Bottom"
+						StartPoint="0%,100%"
+						EndPoint="0%,22.8%"
+						GradientStops="{StaticResource TabControl.Body.BorderBrush.GradientStops}"
+						 />
+
+	<Color x:Key="TabItem.Border.BottomCorner.Idle">#53CACACA</Color>
+	<LinearGradientBrush x:Key="TabItem.BorderBrush.Idle"
+						StartPoint="0%,20%"
+						EndPoint="0%,100%">
+		<GradientStop Offset="0" Color="#50F5F5F5" />
+		<GradientStop Offset="1" Color="{DynamicResource TabItem.Border.BottomCorner.Idle}" />
+	</LinearGradientBrush>
+	<SolidColorBrush x:Key="TabItem.BottomCornerBorderBrush.Idle" Color="{DynamicResource TabItem.Border.BottomCorner.Idle}" />
+	<SolidColorBrush x:Key="TabItem.BottomEdgeBorderBrush.Idle">#38DADADA</SolidColorBrush>
+	<LinearGradientBrush x:Key="TabItem.Background.Idle"
+						StartPoint="0%,0%"
+						EndPoint="0%,92%">
+		<GradientStop Offset="0" Color="#112F2F2F" />
+		<GradientStop Offset="1" Color="#70AFAFAF" />
+	</LinearGradientBrush>
+
+
+	<Color x:Key="TabItem.Border.BottomCorner.Selected">#B0BBD7E1</Color>
+	<LinearGradientBrush x:Key="TabItem.BorderBrush.Selected"
+						StartPoint="0%,20%"
+						EndPoint="0%,100%">
+		<GradientStop Offset="0" Color="#ADF1F8FA" />
+		<GradientStop Offset="1" Color="{DynamicResource TabItem.Border.BottomCorner.Selected}" />
+	</LinearGradientBrush>
+	<SolidColorBrush x:Key="TabItem.BottomCornerBorderBrush.Selected" Color="{DynamicResource TabItem.Border.BottomCorner.Selected}" />
+	<SolidColorBrush x:Key="TabItem.BottomEdgeBorderBrush.Selected">#78C3E5F1</SolidColorBrush>
+	<LinearGradientBrush x:Key="TabItem.Background.Selected"
+						StartPoint="0%,0%"
+						EndPoint="0%,92%">
+		<GradientStop Offset="0" Color="#262C3033" />
+		<GradientStop Offset="1" Color="#F07EC8DF" />
+	</LinearGradientBrush>
+</ResourceDictionary>

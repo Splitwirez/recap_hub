@@ -1,0 +1,13 @@
+<Window x:Class="ReCap.Hub.Views.MainWindow"
+	    xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ReCap.Hub.ViewModels"
+        xmlns:v="using:ReCap.Hub.Views"
+        xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:keys="using:ReCap.Hub.Localization.Keys"
+        Icon="avares://ResurrectionCapsuleHub/Assets/ReCap.ico"
+        Title="{DynamicResource {x:Static keys:App.DisplayName}}"
+        Width="1024" Height="592"
+		Classes.topTabs="{Binding EnableMP, Mode=OneWay}">
+	<v:MainView />
+</Window>

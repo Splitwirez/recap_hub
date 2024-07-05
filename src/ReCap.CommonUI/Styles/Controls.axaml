@@ -1,0 +1,34 @@
+<Styles xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/Button_RepeatButton_ToggleButton.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/CaptionButtons.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/GroupBox.axaml" />
+	            <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/ListBox.axaml" />
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/ListBoxItem.axaml" />
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/ScrollBar.axaml" />
+	            <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/ScrollViewer.axaml" />
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/TabControl.axaml" />
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/TabItem_TabStripItem.axaml" />
+                <ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/TextBox.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/TitleBar.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/TitleBarUnderlay.axaml" />
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/Window.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+			<!--
+				<Setter Property="SystemDecorations" Value="None" />
+			<ControlTheme x:Key="{x:Type Window}" TargetType="Window" BasedOn="{StaticResource {x:Type Window}}">
+				<Setter Property="TransparencyLevelHint" Value="Transparent" />
+				<Setter Property="TransparencyBackgroundFallback" Value="Black" />
+				<Setter Property="ExtendClientAreaChromeHints" Value="PreferSystemChrome" />
+				<Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+				
+				<Setter Property="Background" Value="#C0101010" />
+			</ControlTheme>
+			-->
+        </ResourceDictionary>
+    </Styles.Resources>
+</Styles>

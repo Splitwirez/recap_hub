@@ -1,0 +1,88 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:v="using:ReCap.Hub.Views">
+    <Styles.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="HoloDecorFillBrush">#20FFFFFF</SolidColorBrush>
+        </ResourceDictionary>
+    </Styles.Resources>
+    
+    
+    
+    <Style Selector="ContentControl.tabContent">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Margin" Value="120,90"/>
+        <Setter Property="Padding" Value="2,9"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel x:Name="Root">
+                    <DockPanel DockPanel.Dock="Left">
+                        <Path Data="M 16 0 L 0 16 L 0 22 L 8 22 L 16 14 Z" Fill="{DynamicResource HoloDecorFillBrush}" DockPanel.Dock="Top"/>
+                        <Path Data="M 16 22 L 0 6 L 0 0 L 8 0 L 16 8 Z" Fill="{DynamicResource HoloDecorFillBrush}" DockPanel.Dock="Bottom"/>
+                        <Rectangle Width="8" Margin="0,0,8,0" Fill="{DynamicResource HoloDecorFillBrush}"/>
+                    </DockPanel>
+                    <DockPanel DockPanel.Dock="Right">
+                        <Path Data="M 0 0 L 16 16 L 16 22 L 8 22 L 0 14 Z" Fill="{DynamicResource HoloDecorFillBrush}" DockPanel.Dock="Top"/>
+                        <Path Data="M 0 22 L 16 6 L 16 0 L 8 0 L 0 8 Z" Fill="{DynamicResource HoloDecorFillBrush}" DockPanel.Dock="Bottom"/>
+                        <Rectangle Width="8" Margin="8,0,0,0" Fill="{DynamicResource HoloDecorFillBrush}"/>
+                    </DockPanel>
+                    <Panel Margin="{TemplateBinding Padding}">
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <rctr:AngledBorder x:Name="AppearFlash" Background="#FFC0C0C0" CornerRadius="18"/>
+                    </Panel>
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="TabStripItem:selected > :is(UserControl) > ContentControl.tabContent">
+        <Style.Animations>
+            <Animation Duration="0:0:0.25" FillMode="None">
+                <KeyFrame Cue="0%">
+                    <Setter Property="ScaleTransform.ScaleX" Value="0"/>
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="ScaleTransform.ScaleX" Value="1"/>
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+    <Style Selector="TabStripItem:selected > :is(UserControl) > ContentControl.tabContent /template/ rctr|AngledBorder#AppearFlash">
+        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="IsVisible" Value="True"/>
+        <Style.Animations>
+            <Animation Delay="0:0:0.25" Duration="0:0:0.25" FillMode="Forward">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="IsVisible" Value="True"/>
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="0"/>
+                    <Setter Property="IsVisible" Value="False"/>
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+
+
+
+
+    <Style Selector=":is(ContentControl).sidePaneFooter">
+        <!--Setter Property="MinHeight" Value="50" /-->
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Padding" Value="20,4,20,-1" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+</Styles>

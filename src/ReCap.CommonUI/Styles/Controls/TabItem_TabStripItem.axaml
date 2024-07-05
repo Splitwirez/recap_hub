@@ -1,0 +1,139 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rctr="clr-namespace:ReCap.CommonUI">
+    <ControlTheme x:Key="TabItemThemeBase"
+                TargetType="ContentControl">
+        <Setter Property="Padding" Value="10,4" />
+        <Setter Property="Margin" Value="1" />
+        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <DockPanel>
+                        <DockPanel Height="2"
+                                DockPanel.Dock="Bottom">
+                            <Rectangle Classes="corner" DockPanel.Dock="Left" />
+                            <Rectangle Classes="corner" DockPanel.Dock="Right" />
+                            <Rectangle Classes="middle"
+                                    Fill="{DynamicResource TabItem.BottomEdgeBorderBrush.Idle}" />
+                        </DockPanel>
+                        <Panel ClipToBounds="True">
+                            <rctr:AngledBorder x:Name="BackgroundBorder"
+                                            BorderBrush="{DynamicResource TabItem.BorderBrush.Idle}"
+                                            StrokeThickness="2"
+                                            CornerRadius="3,3,0,0"
+                                            Margin="0,0,0,-3">
+                                <rctr:AngledBorder Background="{DynamicResource TabItem.Background.Idle}"
+                                                Margin="1,1,1,0"
+                                                CornerRadius="1,1,0,0" />
+                            </rctr:AngledBorder>
+                        </Panel>
+                    </DockPanel>
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    Margin="{TemplateBinding Padding}" />
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^ /template/ Rectangle.corner">
+            <Setter Property="Width" Value="3" />
+            <Setter Property="Fill" Value="{DynamicResource TabItem.BottomCornerBorderBrush.Idle}" />
+        </Style>
+
+        <!--  Selected state  -->
+        <!--  We don't use selector to PART_LayoutRoot, so developer can override selected item background with TabStripItem.Background  -->
+        <Style Selector="^:selected">
+            <Style Selector="^ /template/ Rectangle.corner">
+                <Setter Property="Fill" Value="{DynamicResource TabItem.BottomCornerBorderBrush.Selected}" />
+            </Style>
+            <Style Selector="^ /template/ Rectangle.middle">
+                <Setter Property="Fill" Value="{DynamicResource TabItem.BottomEdgeBorderBrush.Selected}" />
+            </Style>
+            <Style Selector="^ /template/ rctr|AngledBorder#BackgroundBorder">
+                <Setter Property="BorderBrush" Value="{DynamicResource TabItem.BorderBrush.Selected}" />
+            </Style>
+            <Style Selector="^ /template/ rctr|AngledBorder#BackgroundBorder > rctr|AngledBorder">
+                <Setter Property="Background" Value="{DynamicResource TabItem.Background.Selected}" />
+            </Style>
+        </Style>
+        <Style Selector="^:selected /template/ Border#PART_SelectedPipe">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+
+        <!--  PointerOver state  -->
+        <Style Selector="^:pointerover:not(:pressed) /template/ rctr|AngledBorder#BackgroundBorder > rctr|AngledBorder">
+            <Setter Property="Background" Value="{DynamicResource TabItem.Background.Selected}" />
+        </Style>
+
+        <!--  Disabled state  -->
+        <Style Selector="^:disabled /template/ Border#PART_LayoutRoot">
+            <Setter Property="Background" Value="{DynamicResource TabItemHeaderBackgroundDisabled}" />
+            <Setter Property="TextElement.Foreground" Value="{DynamicResource TabItemHeaderForegroundDisabled}" />
+        </Style>
+    </ControlTheme>
+
+
+
+
+    <ControlTheme x:Key="{x:Type TabStripItem}"
+                TargetType="TabStripItem"
+                BasedOn="{StaticResource TabItemThemeBase}">
+        <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Content" Value="{TemplateBinding Content}" />
+            <Setter Property="ContentTemplate" Value="{TemplateBinding ContentTemplate}" />
+        </Style>
+    </ControlTheme>
+
+
+
+
+    <ControlTheme x:Key="{x:Type TabItem}"
+                TargetType="{x:Type TabItem}"
+                BasedOn="{StaticResource TabItemThemeBase}">
+        <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Content" Value="{Binding Header, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
+            <Setter Property="ContentTemplate" Value="{Binding HeaderTemplate, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
+        </Style>
+
+        <!--  TabStripPlacement States Group  -->
+        <!--
+        <Style Selector="^[TabStripPlacement=Left] /template/ Border#PART_SelectedPipe">
+            <Setter Property="Width" Value="{DynamicResource TabItemPipeThickness}" />
+            <Setter Property="Height" Value="{DynamicResource TabItemVerticalPipeHeight}" />
+            <Setter Property="Margin" Value="0,0,2,0" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="^[TabStripPlacement=Left] /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Margin" Value="8,0,0,0" />
+        </Style>
+
+        <Style Selector="^[TabStripPlacement=Top] /template/ Border#PART_SelectedPipe, ^[TabStripPlacement=Bottom] /template/ Border#PART_SelectedPipe">
+            <Setter Property="Height" Value="{DynamicResource TabItemPipeThickness}" />
+            <Setter Property="Margin" Value="0,0,0,2" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+
+        <Style Selector="^[TabStripPlacement=Right] /template/ Border#PART_SelectedPipe">
+            <Setter Property="Width" Value="{DynamicResource TabItemPipeThickness}" />
+            <Setter Property="Height" Value="{DynamicResource TabItemVerticalPipeHeight}" />
+            <Setter Property="Margin" Value="2,0,0,0" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="^[TabStripPlacement=Right] /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Margin" Value="0,0,8,0" />
+        </Style>
+        <Style Selector="^[TabStripPlacement=Right]">
+            <Setter Property="HorizontalContentAlignment" Value="Right" />
+        </Style>
+        -->
+    </ControlTheme>
+</ResourceDictionary>

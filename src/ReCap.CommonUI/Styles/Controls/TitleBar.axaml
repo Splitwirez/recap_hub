@@ -1,0 +1,76 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:rctr="clr-namespace:ReCap.CommonUI">
+
+	<ControlTheme x:Key="{x:Type TitleBar}" TargetType="TitleBar">
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="VerticalAlignment" Value="Top" />
+		
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Foreground" Value="{DynamicResource StrongForegroundBrush}" />
+		
+		<Setter Property="FontFamily" Value="{DynamicResource HeaderFont}" />
+		<Setter Property="FontSize" Value="15" />
+		<Setter Property="Padding" Value="20,2" />
+
+		<Setter Property="ClipToBounds" Value="False" />
+		
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel VerticalAlignment="Top"
+					Height="{Binding ExtendClientAreaTitleBarHeightHint, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay}">
+					<Panel x:Name="PART_MouseTracker"
+						   Height="1"
+						   VerticalAlignment="Top" />
+					<Panel x:Name="PART_Container">
+						<Border x:Name="PART_Background"
+								Background="{TemplateBinding Background}"
+								IsHitTestVisible="False"/>
+							<TextBlock x:Name="TitleDisplay"
+									   Text="{Binding $parent[Window].Title}"
+									   IsHitTestVisible="False"
+									   VerticalAlignment="Center"
+									   Margin="{TemplateBinding Padding}"
+									   IsVisible="{Binding Path=(rctr:WindowChromeAddon.ManagedShowTitle), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay}"
+									   />
+						<rctr:CaptionButtonsSizeBridge HorizontalAlignment="Right"
+													   VerticalAlignment="Top">
+							<CaptionButtons x:Name="PART_CaptionButtons"
+											Foreground="{TemplateBinding Foreground}"
+											Classes.leftSideButtons="{Binding Path=(rctr:WindowChromeAddon.LeftSideButtons), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Mode=OneWay}" />
+						</rctr:CaptionButtonsSizeBridge>
+					</Panel>
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+		<Style Selector="^ /template/ CaptionButtons#PART_CaptionButtons.leftSideButtons">
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="DockPanel.Dock" Value="Left" />
+		</Style>
+
+		<Style Selector="^:fullscreen">
+			<Setter Property="Background" Value="{DynamicResource SystemAccentColor}" />
+		</Style>
+
+		<Style Selector="^:fullscreen /template/ Border#PART_Background">
+			<Setter Property="IsHitTestVisible" Value="True" />
+		</Style>
+
+		<Style Selector="^:fullscreen /template/ Panel#PART_MouseTracker">
+			<Setter Property="Background" Value="Transparent" />
+		</Style>
+
+		<Style Selector="^:fullscreen /template/ Panel#PART_Container">
+			<Setter Property="RenderTransform" Value="translateY(-30px)" />
+			<Setter Property="Transitions">
+				<Transitions>
+					<TransformOperationsTransition Property="RenderTransform" Duration="0:0:.25" />
+				</Transitions>
+			</Setter>
+		</Style>
+
+		<Style Selector="^:fullscreen:pointerover /template/ Panel#PART_Container">
+			<Setter Property="RenderTransform" Value="none" />
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

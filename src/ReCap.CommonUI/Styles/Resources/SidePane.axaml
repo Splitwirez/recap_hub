@@ -1,0 +1,37 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:sys="using:System">
+	<!--LinearGradientBrush x:Key="SidePane.Background"
+						StartPoint="0%,0%"
+						EndPoint="100%,0%">
+		<GradientStop Offset="0" Color="#59B7CFDA"/>
+		<GradientStop Offset="1" Color="#09B7CFDA"/>
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="SidePane.BorderBrush"
+						StartPoint="0%,0%"
+						EndPoint="100%,0%">
+		<GradientStop Offset="0" Color="#96FFFFFF"/>
+		<GradientStop Offset="1" Color="#0FFFFFFF"/>
+	</LinearGradientBrush-->
+	<SolidColorBrush x:Key="SidePane.Background">#59B7CFDA</SolidColorBrush>
+	<SolidColorBrush x:Key="SidePane.BorderBrush">#96FFFFFF</SolidColorBrush>
+	<Color x:Key="SidePane.InnerGlowColor">#39E1E2E2</Color>
+	<!--
+	<Color x:Key="SidePane.InnerGlowColor">#1DE1E2E2
+	-->
+
+	<Color x:Key="SidePane.MaxOpacity">#FF000000</Color>
+	<Color x:Key="SidePane.MinOpacity">#80000000</Color>
+	<LinearGradientBrush x:Key="SidePane.OpacityMask.Stretch"
+						StartPoint="0%,0%"
+						EndPoint="0%,100%">
+		<GradientStop Offset="0" Color="{DynamicResource SidePane.MaxOpacity}"/>
+		<GradientStop Offset="1" Color="{DynamicResource SidePane.MinOpacity}"/>
+	</LinearGradientBrush>
+	<SolidColorBrush x:Key="SidePane.OpacityMask.Bottom" Color="{DynamicResource SidePane.MinOpacity}"/>
+	
+	<sys:Double x:Key="SidePane.Cut">6</sys:Double>
+	<sys:Double x:Key="SidePane.Inset">18</sys:Double>
+</ResourceDictionary>

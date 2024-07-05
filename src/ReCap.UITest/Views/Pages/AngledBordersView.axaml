@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="ReCap.UITest.Views.Pages.AngledBordersView"
+            xmlns="https://github.com/avaloniaui"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:rctr="using:ReCap.CommonUI">
+	<UserControl.Styles>
+		<Style Selector="UniformGrid > :is(rctr|AngledBorderBase)">
+			<Setter Property="Margin" Value="20" />
+		</Style>
+		
+		<Style Selector=":is(rctr|AngledBorderBase)">
+			<Setter Property="StrokeThickness" Value="1" />
+			<Setter Property="InnerGlowSize" Value="1" />
+
+
+			<!--
+			<Setter Property="Background" Value="#C0000000" />
+			<Setter Property="BorderBrush" Value="#40FFFFFF" />
+			<Setter Property="InnerGlowColor" Value="#20FFFFFF" />
+			-->
+			<Setter Property="Background" Value="#FF0000FF" />
+			<Setter Property="BorderBrush" Value="#FF00FF00" />
+			<Setter Property="InnerGlowColor" Value="#FFFF0000" />
+		</Style>
+
+		<Style Selector="rctr|AngledBorderEx.tl">
+			<Setter Property="TopLeftCut" Value="6" />
+		</Style>
+
+		<Style Selector="rctr|AngledBorderEx.tr">
+			<Setter Property="TopRightCut" Value="6" />
+		</Style>
+
+		<Style Selector="rctr|AngledBorderEx.br">
+			<Setter Property="BottomRightCut" Value="6" />
+		</Style>
+
+		<Style Selector="rctr|AngledBorderEx.bl">
+			<Setter Property="BottomLeftCut" Value="6" />
+		</Style>
+		
+		<Style Selector="rctr|AngledBorderEx.li">
+			<Setter Property="TopLeftInset" Value="18" />
+			<Setter Property="BottomLeftInset" Value="18" />
+		</Style>
+
+		<Style Selector="rctr|AngledBorderEx.ri">
+			<Setter Property="TopRightInset" Value="18" />
+			<Setter Property="BottomRightInset" Value="18" />
+		</Style>
+	</UserControl.Styles>
+	<UniformGrid Columns="4">
+		<rctr:AngledBorderEx Classes="tl tr br bl li ri"
+						InvertSide="Top" />
+		<rctr:AngledBorderEx Classes="tl tr br bl li ri"
+						InvertSide="Bottom" />
+		<rctr:AngledBorderEx Classes="tl tr br bl ri"
+						InvertSide="Left" />
+		<rctr:AngledBorderEx Classes="tl tr br bl li"
+						InvertSide="Right" />
+		
+		<rctr:AngledBorderEx Classes="tl tr br bl"
+						InvertSide="Top" />
+		<rctr:AngledBorderEx Classes="tl tr br bl"
+						InvertSide="Bottom" />
+		<rctr:AngledBorderEx Classes="tl tr br bl"
+						InvertSide="Left" />
+		<rctr:AngledBorderEx Classes="tl tr br bl"
+						InvertSide="Right" />
+		
+		<rctr:AngledBorderEx Classes="tl br" />
+		<rctr:AngledBorderEx Classes="tl tr" />
+		<rctr:AngledBorderEx Classes="bl br" />
+		<rctr:AngledBorderEx Classes="bl tr" />
+	</UniformGrid>
+</UserControl>

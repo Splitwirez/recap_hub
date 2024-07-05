@@ -1,0 +1,37 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ControlTheme x:Key="{x:Type ListBox}" TargetType="ListBox">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel x:Name="Root">
+					<ScrollViewer x:Name="PART_ScrollViewer"
+								VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+								HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+								HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+								VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+								IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+								IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+								AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+								BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}">
+						<ItemsPresenter x:Name="PART_ItemsPresenter"
+										ItemsPanel="{TemplateBinding ItemsPanel}"
+										Margin="{TemplateBinding Padding}" />
+					</ScrollViewer>
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+		<Setter Property="ItemsPanel">
+			<ItemsPanelTemplate>
+				<StackPanel x:Name="PART_ItemsPanel" />
+			</ItemsPanelTemplate>
+		</Setter>
+	
+		<Style Selector="^ /template/ StackPanel#PART_ItemsPanel">
+			<Setter Property="Spacing" Value="2" />
+		</Style>
+		<Style Selector="^.fitts-law-list">
+			<Setter Property="Margin" Value="-8,0,0,0" />
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

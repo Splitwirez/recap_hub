@@ -1,0 +1,86 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rctr="using:ReCap.CommonUI"
+                    x:CompileBindings="True">
+    <ControlTheme x:Key="GroupBoxHeaderBackground"
+                TargetType="{x:Type rctr:AngledBorderEx}">
+        <Setter Property="InvertSide" Value="Bottom" />
+        <Setter Property="Background" Value="{DynamicResource Window.TitleBar.BackgroundBrush.Active}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Window.BottomEdgeTrim.BorderBrush}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        
+        <Setter Property="TopLeftCut" Value="5" />
+        <Setter Property="TopRightCut" Value="5" />
+        
+        <Setter Property="BottomRightCut" Value="5" />
+        <Setter Property="BottomLeftCut" Value="5" />
+        
+        
+        <Setter Property="Margin" Value="0,0,0,-4" />
+        <Setter Property="Opacity" Value="0.4" />
+    </ControlTheme>
+
+    <ControlTheme x:Key="GroupBoxBodyBackground"
+                TargetType="{x:Type rctr:AngledBorderEx}">
+        <Setter Property="Background" Value="{ReflectionBinding Background, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
+        <Setter Property="BorderBrush" Value="{ReflectionBinding BorderBrush, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        
+        <Setter Property="TopLeftCut" Value="5" />
+        <Setter Property="TopRightCut" Value="5" />
+        <Setter Property="BottomRightCut" Value="5" />
+        <Setter Property="BottomLeftCut" Value="5" />
+    </ControlTheme>
+    
+
+    <ControlTheme x:Key="{x:Type rctr:GroupBox}"
+                TargetType="{x:Type rctr:GroupBox}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TabControl.Body.BorderBrush.Top}" />
+        <Setter Property="Padding" Value="12" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel>
+                    <Panel DockPanel.Dock="Top"
+                        Margin="0,0,0,1">
+                        <rctr:AngledBorderEx Theme="{DynamicResource GroupBoxHeaderBackground}" />
+                        <ContentPresenter x:Name="PART_HeaderPresenter"
+                                        Classes="h4"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Content="{TemplateBinding Header}"
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        HorizontalContentAlignment="Left"
+                                        VerticalContentAlignment="Center"
+                                        Margin="12,2" />
+                    </Panel>
+                    <Panel>
+                    <!--
+                    <Border x:Name="ExpanderContent"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                    -->
+                        <rctr:AngledBorderEx Theme="{DynamicResource GroupBoxBodyBackground}" />
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Padding="{TemplateBinding Padding}"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Foreground="{TemplateBinding Foreground}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    <!--
+                    </Border>
+                    -->
+                    </Panel>
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,138 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:v="using:ReCap.Hub.Views">
+    <Styles.Resources>
+        <ResourceDictionary>
+            <PathGeometry x:Key="LocalPlayTabIconData"
+                Figures="M 0 0 L 10 6 L 0 12 Z" />
+            <ControlTemplate x:Key="LocalPlayTabIcon">
+                <Path Data="{DynamicResource LocalPlayTabIconData}"
+                    Fill="{Binding $parent[TemplatedControl].Foreground, Mode=OneWay}"
+                    StrokeThickness="0"
+                    Path.Stretch="Uniform" />
+                <!--
+                <Rectangle Fill="#80FF00FF" />
+                -->
+            </ControlTemplate>
+
+            <GeometryGroup x:Key="OnlinePlayTabIconData">
+                <!--
+                <EllipseGeometry RadiusX="6" RadiusY="6" />
+                <EllipseGeometry RadiusX="3" RadiusY="6" />
+                <LineGeometry StartPoint="-6,0"
+                            EndPoint="6,0" />
+                -->
+                <PathGeometry Figures="M 6 4.5 C 6 2.508373 5.6732487 0 3 0 0.3267513 0 0 2.508373 0 4.5"
+                            Transform="{rctr:TranslationMatrix 1.5,10.5}" />
+                <EllipseGeometry RadiusX="2" RadiusY="2"
+                            Transform="{rctr:TranslationMatrix 4.5,8}" />
+                
+                <PathGeometry Figures="M 6 4.5 C 6 2.508373 5.6732487 0 3 0 0.3267513 0 0 2.508373 0 4.5"
+                            Transform="{rctr:TranslationMatrix 8.5,10.5}" />
+                <EllipseGeometry RadiusX="2" RadiusY="2"
+                            Transform="{rctr:TranslationMatrix 11.5,8}" />
+                <!--
+                    Transform="translate(2.5px,6px)"
+                    Transform="translate(9.5px,6px)"
+                -->
+                <!--
+                <PathGeometry Figures="m 1.891998 10.223131 a 6.5 6.5 0 0 1 2.2264711 -7.4369317 6.5 6.5 0 0 1 7.7630619 -10e-8 6.5 6.5 0 0 1 2.226471 7.4369318" />
+                -->
+            </GeometryGroup>
+            <ControlTemplate x:Key="OnlinePlayTabIcon">
+                <Panel>
+                    <Arc StartAngle="160"
+                        SweepAngle="220"
+                        Fill="Transparent"
+                        Stroke="{Binding $parent[TemplatedControl].Foreground, Mode=OneWay}"
+                        StrokeThickness="1" />
+                    <Path Data="{DynamicResource OnlinePlayTabIconData}"
+                        Fill="{Binding $parent[TemplatedControl].Foreground, Mode=OneWay}"
+                        StrokeThickness="0"
+                        Stretch="Uniform"
+                        VerticalAlignment="Bottom"
+                        Margin="1,0" />
+                </Panel>
+                <!--
+                <Canvas Width="16" Height="16">
+                    <Path Fill="#FF000000"
+                        Data="m 7.5 15 c 0 -1.991627 -0.3267513 -4.5 -3 -4.5 -2.6732487 0 -3 2.508373 -3 4.5" />
+                    <Ellipse Canvas.Left="2.5"
+                            Canvas.Top="6"
+                            Width="4"
+                            Height="4"
+                            Fill="#FF000000" />
+                    <Path Fill="#FF000000"
+                        Data="m 14.5 15 c 0 -1.991627 -0.326751 -4.5 -3 -4.5 -2.6732487 0 -3 2.508373 -3 4.5" />
+                    <Ellipse Canvas.Left="9.5"
+                            Canvas.Top="6"
+                            Width="4"
+                            Height="4"
+                            Fill="#FF000000" />
+                    <Path StrokeThickness="1"
+                        Stroke="#FF000000"
+                        Data="m 1.891998 10.223131 a 6.5 6.5 0 0 1 2.2264711 -7.4369317 6.5 6.5 0 0 1 7.7630619 -10e-8 6.5 6.5 0 0 1 2.226471 7.4369318" />
+                </Canvas>
+                -->
+                <!--
+                    Stroke="#FFFF00FF"
+                -->
+            </ControlTemplate>
+            <!--
+            <CombinedGeometry x:Key="OnlinePlayTabIcon" GeometryCombineMode="Union">
+                <EllipseGeometry RadiusX="12" RadiusY="12" />
+                <CombinedGeometry GeometryCombineMode="Union">
+                    <CombinedGeometry GeometryCombineMode="Union">
+                        <EllipseGeometry RadiusX="9" RadiusY="12" />
+                        <EllipseGeometry RadiusX="6" RadiusY="12" />
+                    </CombinedGeometry>
+                    <CombinedGeometry GeometryCombineMode="Union">
+                        <EllipseGeometry RadiusX="12" RadiusY="9" />
+                        <EllipseGeometry RadiusX="12" RadiusY="6" />
+                    </CombinedGeometry>
+                </CombinedGeometry>
+            </CombinedGeometry>
+            -->
+            <!--
+                
+                Figures="M 0 0
+                A 12,12 360 1 1 0,0
+                " />
+            -->
+            <!--
+            <ControlTemplate x:Key="OnlinePlayTabIcon">
+                <Canvas>
+                    <Ellipse StrokeThickness="2"
+                            Canvas.Left="0"
+                            Canvas.Right="0"
+                            Canvas.Top="0"
+                            Canvas.Bottom="0" />
+                    <Ellipse StrokeThickness="2"
+                            Canvas.Left="3"
+                            Canvas.Right="3"
+                            Canvas.Top="0"
+                            Canvas.Bottom="0" />
+                    <Ellipse StrokeThickness="2"
+                            Canvas.Left="6"
+                            Canvas.Right="6"
+                            Canvas.Top="0"
+                            Canvas.Bottom="0" />
+                    <Ellipse StrokeThickness="2"
+                            Canvas.Left="0"
+                            Canvas.Right="0"
+                            Canvas.Top="3"
+                            Canvas.Bottom="3" />
+                    <Ellipse StrokeThickness="2"
+                            Canvas.Left="0"
+                            Canvas.Right="0"
+                            Canvas.Top="6"
+                            Canvas.Bottom="6" />
+                </Canvas>
+            </ControlTemplate>
+            -->
+        </ResourceDictionary>
+        
+    </Styles.Resources>
+</Styles>

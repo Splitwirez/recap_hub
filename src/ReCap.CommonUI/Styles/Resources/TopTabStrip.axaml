@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI"
+        xmlns:sys="using:System">
+	<rctr:SlicedImage x:Key="TopTabs.TabRow"
+					Source="avares://ReCap.CommonUI/Res/UI/TopTabs/TabRow.png"
+					BorderThickness="22,9,22,6"/>
+	<rctr:SlicedImage x:Key="TopTabs.SelectedBackground"
+					Source="avares://ReCap.CommonUI/Res/UI/TopTabs/SelectedBackground.png"
+					BorderThickness="14,6,14,8"/>
+</ResourceDictionary>

@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="ReCap.UITest.Views.ScrollViewerInnerView"
+            xmlns="https://github.com/avaloniaui"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:v="using:ReCap.UITest.Views">
+	<UserControl.Styles>
+		<Style Selector="v|ScrollViewerInnerView.allowAutoHide /template/ ScrollViewer">
+			<Setter Property="AllowAutoHide" Value="True" />
+		</Style>
+		<Style Selector="v|ScrollViewerInnerView /template/ ScrollViewer > Panel > Rectangle">
+			<Setter Property="MinWidth" Value="40" />
+			<Setter Property="MinHeight" Value="40" />
+			<!--
+			<Setter Property="Width" Value="{Binding Bounds.Width, Mode=OneWay}" />
+			<Setter Property="Height" Value="{Binding Bounds.Height, Mode=OneWay}" />
+			-->
+			<Setter Property="Margin" Value="40" />
+			<Setter Property="Fill" Value="#20FF00FF" />
+		</Style>
+	</UserControl.Styles>
+	<Grid ColumnDefinitions="*,*"
+		RowDefinitions="*,*">
+	<!--
+		DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:UITestView}}, Mode=OneWay}"
+	-->
+		<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+					VerticalScrollBarVisibility="Auto"
+					Grid.Column="0"
+					Grid.Row="0">
+			<Panel>
+				<Rectangle Height="{Binding $parent[TopLevel].Bounds.Height, Mode=OneWay}" />
+			</Panel>
+		</ScrollViewer>
+		<ScrollViewer HorizontalScrollBarVisibility="Auto"
+					VerticalScrollBarVisibility="Disabled"
+					Grid.Column="0"
+					Grid.Row="1">
+			<Panel>
+				<Rectangle Width="{Binding $parent[TopLevel].Bounds.Width, Mode=OneWay}" />
+			</Panel>
+		</ScrollViewer>
+		<ScrollViewer HorizontalScrollBarVisibility="Auto"
+					VerticalScrollBarVisibility="Auto"
+					Grid.Column="1"
+					Grid.Row="0"
+					Grid.RowSpan="2">
+			<Panel>
+				<!--
+				<Rectangle DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:UITestView}}, Mode=OneWay}"
+					DataContext="{Binding $parent[v:UITestView], Mode=OneWay}"
+						Width="{Binding $parent[TopLevel].Bounds.Width, Mode=OneWay}"
+						Height="{Binding $parent[TopLevel].Bounds.Height, Mode=OneWay}"
+						Margin="20"
+						Fill="#20FF00FF"
+				-->
+				<Rectangle Width="{Binding $parent[TopLevel].Bounds.Width, Mode=OneWay}"
+						Height="{Binding $parent[TopLevel].Bounds.Height, Mode=OneWay}" />
+			</Panel>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

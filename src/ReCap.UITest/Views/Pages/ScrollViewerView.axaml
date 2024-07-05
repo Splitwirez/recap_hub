@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="ReCap.UITest.Views.Pages.ScrollViewerView"
+            xmlns="https://github.com/avaloniaui"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<!--
+			xmlns:v="clr-namespace:ReCap.UITest.Views"
+	-->
+	<UserControl.Resources>
+		<DrawingGroup x:Key="CheckerboardDrawing">
+			<GeometryDrawing Brush="#FFFFFFFF"
+						Geometry="
+							M 00 00
+							L 16 00 L 16 16 L 00 16 Z
+						" />
+			<GeometryDrawing Brush="#FFE0E0E0"
+						Geometry="
+							M 00 00
+							L 08 00 L 08 08 L 00 08 Z
+							M 08 08
+							L 16 08 L 16 16 L 08 16 Z
+						" />
+		</DrawingGroup>
+		
+		<DrawingBrush x:Key="CheckerboardBrush"
+					SourceRect="0,0,16,16"
+					DestinationRect="0,0,16,16"
+					Stretch="None"
+					TileMode="Tile"
+					Drawing="{DynamicResource CheckerboardDrawing}" />
+		<!--
+		<ImageBrush x:Key="CheckerboardBrush"
+					TileMode="Tile">
+			<ImageBrush.ImageSource>
+				<DrawingImage Drawing="{DynamicResource CheckerboardDrawing}" />
+			</ImageBrush.ImageSource>
+		</ImageBrush>
+		-->
+		
+		<LinearGradientBrush x:Key="CheckerboardMask"
+							StartPoint="0%,0%"
+							EndPoint="100%,100%">
+			<GradientStop Offset="0" Color="#FFFFFFFF" />
+			<GradientStop Offset="1" Color="#20FFFFFF" />
+		</LinearGradientBrush>
+	</UserControl.Resources>
+	<UserControl.Styles>
+		<Style Selector="ScrollViewer">
+			<Setter Property="AllowAutoHide" Value="{Binding AutoHideScrollBars, Mode=OneWay}" />
+		</Style>
+		<Style Selector="ScrollViewer > Panel > Border">
+			<Setter Property="Background" Value="{DynamicResource CheckerboardBrush}" />
+			
+			<Setter Property="BorderBrush" Value="#FFFF00FF" />
+			<Setter Property="BorderThickness" Value="2" />
+			<Setter Property="CornerRadius" Value="32" />
+
+			<Setter Property="OpacityMask" Value="{DynamicResource CheckerboardMask}" />
+			
+			<Setter Property="MinWidth" Value="40" />
+			<Setter Property="MinHeight" Value="40" />
+			
+			<Setter Property="Margin" Value="40" />
+		</Style>
+	</UserControl.Styles>
+	<!--
+	<UniformGrid Rows="1">
+		<v:ScrollViewerInnerView />
+		<v:ScrollViewerInnerView Classes="allowAutoHide" />
+	</UniformGrid>
+	-->
+	<DockPanel>
+		<Panel DockPanel.Dock="Top">
+			<CheckBox Content="Auto-hide ScrollBars"
+					IsChecked="{Binding AutoHideScrollBars, Mode=TwoWay}" />
+		</Panel>
+		<Grid ColumnDefinitions="*,*"
+			RowDefinitions="*,*">
+			<ScrollViewer HorizontalScrollBarVisibility="Disabled"
+						VerticalScrollBarVisibility="Auto"
+						Grid.Column="0"
+						Grid.Row="0">
+				<Panel>
+					<Border Height="{Binding $parent[TopLevel].Bounds.Height, Mode=OneWay}" />
+				</Panel>
+			</ScrollViewer>
+			<ScrollViewer HorizontalScrollBarVisibility="Auto"
+						VerticalScrollBarVisibility="Disabled"
+						Grid.Column="0"
+						Grid.Row="1">
+				<Panel>
+					<Border Width="{Binding $parent[TopLevel].Bounds.Width, Mode=OneWay}" />
+				</Panel>
+			</ScrollViewer>
+			<ScrollViewer HorizontalScrollBarVisibility="Auto"
+						VerticalScrollBarVisibility="Auto"
+						Grid.Column="1"
+						Grid.Row="0"
+						Grid.RowSpan="2">
+				<Panel>
+					<Border Width="{Binding $parent[TopLevel].Bounds.Width, Mode=OneWay}"
+							Height="{Binding $parent[TopLevel].Bounds.Height, Mode=OneWay}" />
+				</Panel>
+			</ScrollViewer>
+		</Grid>
+	</DockPanel>
+</UserControl>

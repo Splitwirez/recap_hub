@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="ReCap.Hub.Views.LocalPlayView"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:v="clr-namespace:ReCap.Hub.Views"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+            xmlns:dt="using:ReCap.Hub.Data"
+            xmlns:keys="using:ReCap.Hub.Localization.Keys">
+    <DockPanel>
+        <v:CommandBarView DockPanel.Dock="Top">
+            <v:CommandBarView.Header>
+				<Panel>
+                    <ToggleButton x:Name="GameConfigsToggle"
+                                Content="{DynamicResource {x:Static keys:LocalPlay.ShowGameConfigs}}"
+                                IsChecked="{Binding ShowGameConfigs, Mode=TwoWay}"
+                                IsVisible="{Binding !ShowGameConfigs}" />
+                    <ToggleButton Content="{DynamicResource {x:Static keys:LocalPlay.HideGameConfigs}}"
+                                IsChecked="{Binding !#GameConfigsToggle.IsChecked, Mode=TwoWay}"
+                                IsVisible="{Binding ShowGameConfigs}" />
+                </Panel>
+            </v:CommandBarView.Header>
+        </v:CommandBarView>
+        <Panel>
+            <TemplatedControl Classes="windowSegment toTop toBottom"/>
+            <DockPanel>
+                <HeaderedContentControl x:Name="GameConfigsPane"
+                                        Header="{DynamicResource {x:Static keys:LocalPlay.GameConfigsHeader}}"
+                                        Classes="pane left outermost"
+                                        IsVisible="{Binding ShowGameConfigs, Mode=OneWay}"
+                                        Width="200"
+                                        DockPanel.Dock="Left">
+                    <DockPanel>
+                        <ListBox x:Name="GameConfigsList"
+                                Classes="fitts-law-list"
+                                ItemsSource="{Binding GameConfigs, Mode=OneWay}"
+                                SelectedItem="{Binding SelectedGameConfig, Mode=TwoWay}"
+                                >
+                            <!--
+                                ItemsSource="{Binding Path=GameConfigs, Source={x:Static dt:HubData.Instance}, Mode=OneWay}"
+                            -->
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Title}"
+                                            Classes="h3"
+                                            TextWrapping="Wrap" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </HeaderedContentControl>
+                <!--ContentControl Content="{Binding SelectedGameConfig, Mode=OneWay}" Tag="{Binding ShowGameConfigs}"/-->
+                <v:GameConfigView DataContext="{Binding SelectedGameConfig, Mode=OneWay}" FlushWithLeft="{Binding !$parent[UserControl].DataContext.ShowGameConfigs}"/>
+            </DockPanel>
+        </Panel>
+    </DockPanel>
+    <!--/ContentControl-->
+</UserControl>

@@ -1,0 +1,14 @@
+<Application x:Class="ReCap.UITest.App"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:rctr="using:ReCap.CommonUI"
+            xmlns:hub="using:ReCap.Hub"
+            xmlns:hubv="using:ReCap.Hub.Views"
+            RequestedThemeVariant="Dark">
+    <Application.DataTemplates>
+        <hubv:ViewLocator />
+    </Application.DataTemplates>
+    <Application.Styles>
+        <rctr:ReCapTheme />
+    </Application.Styles>
+</Application>

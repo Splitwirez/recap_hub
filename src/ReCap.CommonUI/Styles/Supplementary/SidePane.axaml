@@ -1,0 +1,206 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="using:ReCap.CommonUI"
+        xmlns:rctr="using:ReCap.CommonUI">
+    <Style Selector=":is(ContentControl).pane">
+        <Setter Property="Padding" Value="4,8"/>
+        
+        <Setter Property="Background" Value="{DynamicResource SidePane.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SidePane.BorderBrush}" />
+
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
+    </Style>
+    <Style Selector="ContentControl.pane">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel Margin="2">
+                    <rctr:AngledBorderEx x:Name="CTPaneBackground"
+                                        TopLeftCut="{DynamicResource SidePane.Cut}"
+                                        TopRightCut="{DynamicResource SidePane.Cut}"
+                                        BottomRightCut="{DynamicResource SidePane.Cut}"
+                                        BottomLeftCut="{DynamicResource SidePane.Cut}"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        StrokeThickness="1"/>
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                    Margin="{TemplateBinding Padding}"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="HeaderedContentControl.pane">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel Margin="2">
+                    <rctr:AngledBorderEx x:Name="CTPaneBackground"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        StrokeThickness="1"/>
+                    <DockPanel>
+                        <ContentPresenter x:Name="PART_HeaderPresenter"
+                                        Classes="h4"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Content="{TemplateBinding Header}"
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        HorizontalContentAlignment="Left"
+                                        VerticalContentAlignment="Center"
+                                        DockPanel.Dock="Top"
+                                         />
+                        <ContentPresenter x:Name="PART_ContentPresenter"
+                                        Margin="{TemplateBinding Padding}"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        BorderThickness="0"
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </DockPanel>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector=":is(ContentControl).pane /template/ ContentPresenter#PART_HeaderPresenter">
+        <Setter Property="Margin" Value="4,8,4,-4" />
+    </Style>
+
+    <Style Selector=":is(ContentControl).pane /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="InnerGlowColor" Value="{DynamicResource SidePane.InnerGlowColor}" />
+        <Setter Property="InnerGlowSize" Value="0.25" />
+        
+        <Setter Property="BottomRightCut" Value="{DynamicResource SidePane.Cut}" />
+        <Setter Property="BottomLeftCut" Value="{DynamicResource SidePane.Cut}" />
+        <Setter Property="TopLeftCut" Value="{DynamicResource SidePane.Cut}" />
+        <Setter Property="TopRightCut" Value="{DynamicResource SidePane.Cut}" />
+    </Style>
+
+
+
+    <!--Style Selector=":is(ContentControl).pane.left /template/ rctr|AngledBorderEx#CTPaneBackground,
+                    :is(ContentControl).pane.top /template/ rctr|AngledBorderEx#CTPaneBackground,
+                    :is(ContentControl).pane.right /template/ rctr|AngledBorderEx#CTPaneBackground">
+        
+    </Style-->
+
+    
+    <Style Selector=":is(ContentControl).pane.left /template/ rctr|AngledBorderEx#CTPaneBackground,
+                    :is(ContentControl).pane.right /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="OpacityMask" Value="{DynamicResource SidePane.OpacityMask.Stretch}" />
+    </Style>
+    <Style Selector=":is(ContentControl).pane.top /template/ rctr|AngledBorderEx#CTPaneBackground">
+    </Style>
+    <Style Selector=":is(ContentControl).pane.bottom /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="OpacityMask" Value="{DynamicResource SidePane.OpacityMask.Bottom}"/>
+    </Style>
+
+    <Style Selector=":is(ContentControl).pane.left">
+        <!--Setter Property="Width" Value="200"/-->
+        <Setter Property="Margin" Value="0,0,-8,0"/>
+    </Style>
+    <Style Selector=":is(ContentControl).pane.left /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="InvertSide" Value="Right"/>
+    </Style>
+    <Style Selector=":is(ContentControl).pane.left /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Padding" Value="0,0,6,0"/>
+    </Style>
+
+    <Style Selector=":is(ContentControl).pane.top">
+        <Setter Property="Margin" Value="0,0,0,-8"/>
+    </Style>
+    <Style Selector=":is(ContentControl).pane.top /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="InvertSide" Value="Bottom"/>
+    </Style>
+    <Style Selector=":is(ContentControl).pane.top /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Padding" Value="0,0,0,6"/>
+    </Style>
+
+    <Style Selector=":is(ContentControl).pane.right">
+        <Setter Property="Margin" Value="-8,0,0,0"/>
+    </Style>
+    <Style Selector=":is(ContentControl).pane.right /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="InvertSide" Value="Left"/>
+    </Style>
+    <Style Selector=":is(ContentControl).pane.right /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Padding" Value="6,0,0,0"/>
+    </Style>
+
+    <Style Selector=":is(ContentControl).pane.bottom">
+        <Setter Property="Margin" Value="0,-8,0,0"/>
+    </Style>
+    <Style Selector=":is(ContentControl).pane.bottom /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="InvertSide" Value="Top"/>
+    </Style>
+    <Style Selector=":is(ContentControl).pane.bottom /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Padding" Value="0,6,0,0"/>
+    </Style>
+
+
+
+    <Style Selector=":is(ContentControl).pane.left.outermost /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="BottomLeftInset" Value="{DynamicResource SidePane.Inset}" />
+        <Setter Property="TopLeftInset" Value="{DynamicResource SidePane.Inset}" />
+    </Style>
+    <Style Selector=":is(ContentControl).pane.top.outermost /template/ rctr|AngledBorderEx#CTPaneBackground,
+                    :is(ContentControl).pane.top.left-outermost /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="TopLeftInset" Value="{DynamicResource SidePane.Inset}" />
+    </Style>
+    <Style Selector=":is(ContentControl).pane.top.outermost /template/ rctr|AngledBorderEx#CTPaneBackground,
+                    :is(ContentControl).pane.top.right-outermost /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="TopLeftInset" Value="{DynamicResource SidePane.Inset}" />
+    </Style>
+    <Style Selector=":is(ContentControl).pane.right.outermost /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="TopRightInset" Value="{DynamicResource SidePane.Inset}" />
+        <Setter Property="BottomRightInset" Value="{DynamicResource SidePane.Inset}" />
+    </Style>
+    <Style Selector=":is(ContentControl).pane.bottom.outermost /template/ rctr|AngledBorderEx#CTPaneBackground,
+                    :is(ContentControl).pane.bottom.left-outermost /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="BottomLeftInset" Value="{DynamicResource SidePane.Inset}" />
+    </Style>
+    <Style Selector=":is(ContentControl).pane.bottom.outermost /template/ rctr|AngledBorderEx#CTPaneBackground,
+                    :is(ContentControl).pane.bottom.right-outermost /template/ rctr|AngledBorderEx#CTPaneBackground">
+        <Setter Property="BottomRightInset" Value="{DynamicResource SidePane.Inset}" />
+    </Style>
+
+
+    <Style Selector=":is(ContentControl).pane.top,
+                    :is(ContentControl).pane.bottom">
+        <!--Setter Property="Height" Value="50"/-->
+    </Style>
+    <Style Selector=":is(ContentControl).pane.bottom">
+        <Setter Property="Padding" Value="24,10"/>
+        <!--Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <rctr:ImagePresenter Source="{DynamicResource SidePane.SaveGameFooterBackground}"
+                                                             Margin="2">
+                        <rctr:ImagePresenter.OpacityMask>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                <GradientStop Offset="0" Color="#A0000000"/>
+                                <GradientStop Offset="1" Color="#60000000"/>
+                            </LinearGradientBrush>
+                        </rctr:ImagePresenter.OpacityMask>
+                    </rctr:ImagePresenter>
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                                        Margin="{TemplateBinding Padding}"
+                                                        Background="Transparent"
+                                                        BorderBrush="Transparent"
+                                                        BorderThickness="0"
+                                                        Content="{TemplateBinding Content}"
+                                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                </Panel>
+            </ControlTemplate>
+        </Setter-->
+    </Style>
+</Styles>

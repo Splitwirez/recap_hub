@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="ReCap.Hub.Views.LocateDarksporeView"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+            xmlns:keys="using:ReCap.Hub.Localization.Keys"
+            Theme="{DynamicResource DialogRoot}"
+            Width="548"
+            x:Name="LocateDarksporePrompt">
+    <UserControl.Styles>
+        <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/LocateDarksporePrompt.axaml" />
+    </UserControl.Styles>
+    <DockPanel>
+        <ContentControl Classes="dialogFooter"
+                    IsVisible="{Binding !#ProvidePathMethodChoice.IsVisible, Mode=OneWay}"
+                    ClipToBounds="False"
+                    DockPanel.Dock="Bottom">
+            <DockPanel LastChildFill="{Binding IsCloseable, Mode=OneWay}">
+                <Button Content="Cancel"
+                        Classes="left"
+                        DockPanel.Dock="Left"
+                        IsVisible="{Binding IsCloseable, Mode=OneWay}" />
+
+                <Button x:Name="AcceptButton"
+                        Content="{DynamicResource {x:Static keys:Globals.Accept}}"
+                        DockPanel.Dock="Right"
+                        Classes.hasGamePath="{Binding HasGamePath, Mode=OneWay}"
+                        Classes.browseForGamePath="{Binding BrowseForGamePath, Mode=OneWay}" />
+                
+                <Panel Classes="browseOrDetectButtons">
+                    <ToggleButton Content="{DynamicResource {x:Static keys:LocateGame.ChooseBrowseForGamePath}}"
+                                x:Name="BrowseManuallyButton"
+                                IsChecked="{Binding BrowseForGamePath, Mode=TwoWay}"
+                                Classes.left="{Binding !IsCloseable, Mode=OneWay}" />
+                    <ToggleButton Content="{DynamicResource {x:Static keys:LocateGame.ChooseDetectByLaunch}}"
+                                IsChecked="{Binding !BrowseForGamePath, Mode=TwoWay}"
+                                Classes.left="{Binding !IsCloseable, Mode=OneWay}" />
+                </Panel>
+            </DockPanel>
+        </ContentControl>
+
+
+        <HeaderedContentControl Header="{DynamicResource {x:Static keys:LocateGame.Title}}"
+                                Classes="dialogBody"
+                                ClipToBounds="False">
+            <Panel>
+                
+                <!--Initial choice-->
+                <Grid x:Name="ProvidePathMethodChoice"
+                    IsVisible="{Binding !HasChosenProvidePathMethod, Mode=OneWay}"
+                    ColumnDefinitions="*,*"
+                    RowDefinitions="Auto,*">
+                    <TextBlock Text="{DynamicResource {x:Static keys:LocateGame.ShortDescription}}"
+                            TextWrapping="Wrap"
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="2" />
+                    <Button Content="{DynamicResource {x:Static keys:LocateGame.ChooseDetectByLaunch}}"
+                            Command="{Binding ChooseProvidePathMethodCommand, Mode=OneWay}"
+                            CommandParameter="False"
+                            Grid.Column="0"
+                            Grid.Row="1" />
+                    <Button Content="{DynamicResource {x:Static keys:LocateGame.ChooseBrowseForGamePath}}"
+                            Command="{Binding ChooseProvidePathMethodCommand, Mode=OneWay}"
+                            CommandParameter="True"
+                            Grid.Column="1"
+                            Grid.Row="1" />
+                </Grid>
+                <Panel IsVisible="{Binding !#ProvidePathMethodChoice.IsVisible, Mode=OneWay}">
+                    
+                    <!--Browse manually-->
+                    <StackPanel x:Name="BrowseForDarksporePrompt"
+                                IsVisible="{Binding BrowseForGamePath, Mode=OneWay}"
+                                Orientation="Vertical">
+                        <DockPanel>
+                            <Button Content="{DynamicResource {x:Static keys:Globals.Browse}}"
+                                    Command="{Binding BrowseForGameExeCommand}"
+                                    DockPanel.Dock="Right" />
+                            <TextBox Watermark="{DynamicResource {x:Static keys:LocateGame.DarksporeExecutablePath}}" Text="{Binding GamePathFromBrowseDialog, Mode=TwoWay}" />
+                        </DockPanel>
+                        <DockPanel IsVisible="{Binding ShowWineBrowseControls, Mode=OneWay}">
+                            <Button Content="{DynamicResource {x:Static keys:Globals.Browse}}"
+                                    Command="{Binding BrowseForWinePrefixCommand}"
+                                    DockPanel.Dock="Right" />
+                        <TextBox Watermark="{DynamicResource {x:Static keys:LocateGame.WINEPREFIXPath}}" Text="{Binding WinePrefixFromBrowseDialog, Mode=TwoWay}" />
+                        </DockPanel>
+                        <DockPanel IsVisible="{Binding ShowWineBrowseControls, Mode=OneWay}"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                            <Button Content="{DynamicResource {x:Static keys:Globals.Browse}}"
+                                    Command="{Binding BrowseForWineExecutableCommand}"
+                                    DockPanel.Dock="Right" />
+                            <TextBox Watermark="{DynamicResource {x:Static keys:LocateGame.WINEExecutablePath}}" Text="{Binding WineExecutableFromBrowseDialog, Mode=TwoWay}" />
+                        </DockPanel>
+                    </StackPanel>
+
+                    <!--Detect by launching-->
+                    <ContentControl Theme="{DynamicResource FlashEmphasis2}"
+                                    IsVisible="{Binding !#BrowseForDarksporePrompt.IsVisible, Mode=OneWay}"
+                                    Content="{DynamicResource {x:Static keys:LocateGame.Instruction}}" />
+                </Panel>
+            </Panel>
+        </HeaderedContentControl>
+    </DockPanel>
+</UserControl>

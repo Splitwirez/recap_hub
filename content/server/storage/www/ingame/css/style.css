@@ -1,0 +1,231 @@
+body {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #222;
+    font-family: Arial;
+    background-color: #0b0b0b;
+    margin: 0px;
+    padding: 0px; 
+    overflow: hidden;
+}
+
+a:focus, a:active {
+    text-decoration: none;
+    outline: none;
+    transition: all 300ms ease 0s;
+    -moz-transition: all 300ms ease 0s;
+    -webkit-transition: all 300ms ease 0s;
+    -o-transition: all 300ms ease 0s;
+    -ms-transition: all 300ms ease 0s; 
+}
+
+input, select, textarea {
+    outline: none;
+    appearance: unset !important;
+    -moz-appearance: unset !important;
+    -webkit-appearance: unset !important;
+    -o-appearance: unset !important;
+    -ms-appearance: unset !important; 
+}
+
+input[type="text"].password {
+    font-family: 'dotsfont-regular';
+	line-height: 33px;
+}
+
+input[type="text"],
+input[type="email"] {
+	resize: none;
+	border: transparent;
+	background-color: #282729;
+	color: #b4b7b9;
+	height: 18px;
+	width: 256px;
+	margin-left: 15px;
+	margin-top: 9px;
+	margin-bottom: 13px;
+}
+
+.form-input-bg {
+    width: 288px;
+    background-image: url("../images/TextField.png");
+}
+
+.form-input-bg:hover:not(:active) {
+    background-image: url("../images/TextField-hover.png");
+}
+
+input::-webkit-input-placeholder {
+color: #999; }
+input::-moz-placeholder {
+color: #999; }
+input:-ms-input-placeholder {
+color: #999; }
+input:-moz-placeholder {
+color: #999; }
+
+
+.hidden {
+    display: none !important;
+}
+
+
+.body {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    overflow: hidden;
+}
+
+.fullscreen-window {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+.view {
+    height: 100%;
+    font-size: 14px;
+    z-index: 2;
+}
+.title {
+    color: #b4b7b9;
+	font-size: 20px;
+	text-align: center;
+}
+.view label {
+    font-family: "Arial";
+}
+
+form {
+	margin-left: 50%;
+	padding-top: 55px;
+}
+
+form > .form-group {
+    margin-left: -144px;
+    margin-right: 50%;
+    margin-top: -15px;
+    width: 288px;
+}
+
+form > .form-group-title {
+	padding-top: -20px;
+	padding-bottom: 0px;
+	height: 45px;
+}
+form > .form-group-tos {
+	margin-top: -5px;
+	margin-left: -154px;
+	margin-bottom: 25px;
+}
+form > .form-group-button {
+    height: 48px;
+    margin-left: -170px;
+}
+
+.form-group > p {
+	filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 1));
+	font-size: 11px;
+	color: #b4b7b9;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
+
+.form-group.float {
+    position: absolute;
+    margin-top: -110px;
+    margin-left: 160px;
+    margin-right: 0px;
+}
+
+.form-group #selected-avatar-div {
+    margin-left: 27px;
+}
+
+.creating-account-view {
+    text-align: center;
+    position: absolute;
+    margin-top: 200px;
+    width: 100%;
+    margin-bottom: -30%;
+    display: none;
+}
+
+.creating-account-view p {
+	color: #b4b7b9;
+	text-align: center;
+	width: 100%;
+}
+
+
+.modal {
+    background-color: rgba(0,0,0,0.5);
+    z-index: 3;
+}
+
+.modal .modal-window {
+    position: relative;
+    border: 1px solid #fff;
+    height: 200px;
+    color: #fff;
+    width: 72%;
+    margin-left: 14%;
+    margin-top: 120px;
+}
+
+.modal .modal-window .modal-title {
+    margin-top: 15px;
+}
+.modal .modal-window .modal-message {
+    margin-top: 10px;
+}
+
+.modal .modal-window .modal-title,
+.modal .modal-window .modal-message,
+.modal .modal-window .form-group-button {
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+#avatar-dialog .modal-window {
+    height: 260px;
+    width: 84%;
+    margin-left: 8%;
+}
+#avatar-dialog .modal-window #signup-select-avatar-form {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+#avatar-dialog .modal-window #signup-select-avatar-form > div {
+    display: inline-block;
+    border: 4px solid transparent;
+    line-height: 0;
+}
+#avatar-dialog .modal-window #signup-select-avatar-form > div:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+#avatar-dialog .modal-window #signup-select-avatar-form > div.selected {
+    background-color: #52b7ff;
+}
+
+
+.view .modal-title {
+    color: #fff;
+}
+
+.fullscreen-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    z-index: -1 !important;
+}

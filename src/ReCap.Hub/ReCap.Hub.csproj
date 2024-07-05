@@ -1,0 +1,85 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net5.0</TargetFramework>
+		<ApplicationIcon>Assets/ReCap.ico</ApplicationIcon>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<AssemblyName>ResurrectionCapsuleHub</AssemblyName>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+
+		<DefineConstantsEx>Debug</DefineConstantsEx>
+
+        <!-- Must match LANG_DICT_PFX in 'Localization/LanguageManager.cs' -->
+        <UILangPfx>uilang:</UILangPfx>
+		
+		<Configurations>Debug;Debug_Offline;Debug_Online;Release</Configurations>
+		<EnableReCapOnline Condition=" '$(Configuration)' == 'Release' ">False</EnableReCapOnline>
+		
+		<!-- Configurations for debugging -->
+		<EnableReCapOnline Condition=" '$(Configuration)' == 'Debug_Offline' ">False</EnableReCapOnline>
+		<EnableReCapOnline Condition=" '$(Configuration)' == 'Debug_Online' ">True</EnableReCapOnline>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.StartsWith('Debug_'))">
+	<!--
+				Condition=" '$(Configuration)' != 'Release' "
+	-->
+		<Configuration>Debug</Configuration>
+		<DefineDebug>true</DefineDebug>
+		<DebugDefineConstants>;DEBUG</DebugDefineConstants>
+	</PropertyGroup>
+
+    <Target Name="EnsureReCapHubFeatures" BeforeTargets="Compile">
+        <!--
+		<PropertyGroup>
+            <UnsupportedTarget Condition=" '$(EnableReCapOnline)' == '' ">true</UnsupportedTarget>
+        </PropertyGroup>
+        <Error Text="EnableReCapOnline unset!" Condition=" '$(UnsupportedTarget)' == 'true' " />
+		-->
+		<Error Condition=" '$(EnableReCapOnline)' == '' " Text="'EnableReCapOnline' unspecified (must be 'True' or 'False')" />
+    </Target>
+
+
+	<Import Project="../../build/avalonia.props" />
+
+
+	<PropertyGroup Condition=" '$(EnableReCapOnline)' == 'True' ">
+		<DefineConstants>$(DefineConstants)$(DebugDefineConstants);RECAP_ONLINE</DefineConstants>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<ProjectReference Include="../ReCap.CommonUI/ReCap.CommonUI.csproj" />
+		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+		<PackageReference Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
+		<PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
+        <PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="$(AvVer)" />
+		<PackageReference Include="PeNet" Version="4.0.5" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<AvaloniaResource Include="Assets/**/*.png" />
+		<AvaloniaResource Include="Assets/*.ico" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<EmbeddedResource Include="Assets/Hero/0x6E76B39A.png">
+			<LogicalName>0x6E76B39A.png</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="../../content/server/**/*.*">
+			<LogicalName>recap-server?%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+		</EmbeddedResource>
+		<EmbeddedResource Include="../../content/dbpf/**/*.*">
+			<LogicalName>dbpf?%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+		</EmbeddedResource>
+
+        <EmbeddedResource Include="Localization/Languages/*.axaml">
+            <LogicalName>$(UILangPfx)%(Filename)</LogicalName>
+        </EmbeddedResource>
+	</ItemGroup>
+
+
+	<Import Project="../../build/editorconfig.props" />
+	<Import Project="../../build/publish.props" />
+</Project>

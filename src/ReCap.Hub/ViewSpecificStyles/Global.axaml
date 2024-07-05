@@ -1,0 +1,11 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/Common.axaml" />
+	<StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/CommandBar.axaml" />
+    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/DialogOverlay.axaml" />
+    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/SaveGame.axaml" />
+    <StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/Squads.axaml" />
+	<StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/TabbedWindow.axaml" />
+
+	<StyleInclude Source="avares://ResurrectionCapsuleHub/ViewSpecificStyles/Icons.axaml" />
+</Styles>

@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+		<!--PublishDirName>$(PublishTarget)</PublishDirName-->
+		<!--IsPublish>False</IsPublish-->
+		<BaseOutputPath>../bin/$(Configuration)</BaseOutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(PublishTarget)' == 'Windows' ">
+		<RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+		<!--IsPublish>True</IsPublish-->
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(PublishTarget)' == 'Linux' ">
+		<RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+		<!--IsPublish>True</IsPublish-->
+	</PropertyGroup>
+
+
+	<!--PropertyGroup Condition=" '$(PublishTarget)' != '' ">
+		<Configuration>Release</Configuration>
+		<SelfContained>true</SelfContained>
+		<PublishSingleFile>true</PublishSingleFile>
+		<PublishTrimmed>true</PublishTrimmed>
+		<TrimMode>link</TrimMode>
+		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+		<DebuggerSupport>false</DebuggerSupport>
+		<EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+		<EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
+		<MetadataUpdaterSupport>false</MetadataUpdaterSupport>
+		<!- -OutputPath>../../publish/demo/$(PublishDirName)</OutputPath- ->
+	</PropertyGroup-->
+
+
+	<!--
+	https://github.com/dotnet/sdk/blob/main/src/Layout/redist/PortableRuntimeIdentifierGraph.json
+	https://github.com/dotnet/runtime/blob/main/src/libraries/Microsoft.NETCore.Platforms/src/runtime.json
+	https://github.com/dotnet/runtime/blob/808851b07acfa1c5c94b0d4f9fb50debedb2df70/src/libraries/Microsoft.NETCore.Platforms/src/runtime.json
+	-->
+	<!--
+	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+		<BaseArchitecture>$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)</BaseArchitecture>
+		<Architecture>x86</Architecture>
+		<Architecture Condition=" '$(BaseArchitecture)' == 'X64' ">x64</Architecture>
+		<Architecture Condition=" '$(BaseArchitecture)' == 'Arm' ">arm</Architecture>
+		<Architecture Condition=" '$(BaseArchitecture)' == 'Arm64' ">arm64</Architecture>
+		<RuntimeIdentifier Condition=" '$(OS)' == 'Windows_NT' ">win7-$(Architecture)</RuntimeIdentifier>
+	</PropertyGroup>
+	-->
+</Project>

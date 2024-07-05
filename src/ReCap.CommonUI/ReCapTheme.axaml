@@ -1,0 +1,23 @@
+<Styles x:Class="ReCap.CommonUI.ReCapTheme"
+        xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:rctr="using:ReCap.CommonUI">
+	<!--
+	<Styles.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="avares://ReCap.CommonUI/Styles/Controls/Window.axaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<ResourceInclude x:Key="{x:Static rctr:ReCapTheme.MANAGED_CHROME_KEY}" Source="avares://ReCap.CommonUI/Styles/ManagedChromeControls.axaml" />
+		</ResourceDictionary>
+	</Styles.Resources>
+	-->
+
+
+	<FluentTheme />
+
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Resources.axaml" />
+
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Controls.axaml" />
+	<StyleInclude Source="avares://ReCap.CommonUI/Styles/Supplementary.axaml" />
+</Styles>

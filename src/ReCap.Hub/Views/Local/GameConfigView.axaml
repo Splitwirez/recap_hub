@@ -1,0 +1,123 @@
+﻿<UserControl x:Class="ReCap.Hub.Views.GameConfigView"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:rctr="clr-namespace:ReCap.CommonUI;assembly=ReCap.CommonUI"
+            xmlns:v="using:ReCap.Hub.Views"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+			xmlns:keys="using:ReCap.Hub.Localization.Keys">
+            <!--FlushWithLeft="{Binding $parent[ContentControl].DataContext.ShowGameConfigs, FallbackValue=True}"-->
+    <UserControl.Styles>
+        <Style Selector="ListBox#SaveGamesList > ListBoxItem">
+            <!--Setter Property="rctr:FlyoutBehavior.ShowOnHover" Value="True" />
+            <FlyoutBase.AttachedFlyout>
+                <MenuFlyout ShowMode="Transient"
+                            Placement="RightEdgeAlignedTop"
+                            rctr:FlyoutBehavior.AttachedTarget="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                            rctr:FlyoutBehavior.OpenWhenIs="{Binding IsPointerOver, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}">
+                            <!- -rctr:FlyoutBehavior.AttachedTarget="{Binding ElementName=TemplateRoot, Mode=OneWay}"- ->
+                            <!- -TransientWithDismissOnPointerMoveAway- ->
+                    <MenuItem Header="Rename..."
+                            DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                            Command="{Binding DataContext.RenameSaveGameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}}"
+                            CommandParameter="{Binding}"/>
+                    <MenuItem Header="Delete"
+                            DataContext="{Binding DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}"
+                            Command="{Binding DataContext.DeleteSaveGameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}}"
+                            CommandParameter="{Binding}"/>
+                </MenuFlyout>
+            </FlyoutBase.AttachedFlyout-->
+            <!--Setter Property="rctr:FlyoutBehavior.IsAttachedFlyoutShown" Value="{Binding Path=IsPointerOver, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}" />
+            <!- -Setter Property="rctr:FlyoutBehavior.IsAttachedFlyoutHidden" Value="{Binding Path=!IsPointerOver, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type HeaderedContentControl}}, Mode=OneWay}" /- ->
+            <Setter Property="FlyoutBase.AttachedFlyout">
+                <MenuFlyout ShowMode="Transient"
+                            Placement="RightEdgeAlignedTop"
+                            FlyoutPresenterClasses="sidePaneOffset">
+                            <!- -rctr:FlyoutBehavior.OpenWhenIs="{Binding Path=(rctr:FlyoutBehavior.AttachedTarget).IsPointerOver, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"- ->
+                            <!- -TransientWithDismissOnPointerMoveAway- ->
+                    <!- -MenuItem Header="Rename..."
+                            Command="{Binding DataContext.RenameSaveGameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}}"
+                            CommandParameter="{Binding}"/>
+                    <MenuItem Header="Delete"
+                            Command="{Binding DataContext.DeleteSaveGameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}}"
+                            CommandParameter="{Binding}"/- ->
+                    <MenuItem Header="Rename..."
+                            Command="{Binding DataContext.RenameSaveGameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}}"
+                            CommandParameter="{Binding}"/>
+                    <MenuItem Header="Delete"
+                            Command="{Binding DataContext.DeleteSaveGameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}}"
+                            CommandParameter="{Binding}"/>
+                </MenuFlyout>
+            </Setter-->
+            <!--Setter Property="ContextMenu">
+                <ContextMenu>
+                    <MenuItem Header="Rename..."
+                            Command="{Binding DataContext.RenameSaveGameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}}"
+                            CommandParameter="{Binding}"/>
+                    <MenuItem Header="Delete"
+                            Command="{Binding DataContext.DeleteSaveGameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}}"
+                            CommandParameter="{Binding}"/>
+                </ContextMenu>
+            </Setter-->
+        </Style>
+        <Style Selector="FlyoutPresenter.sidePaneOffset">
+            <Setter Property="RenderTransform">
+                <TranslateTransform X="-160" Y="-300" />
+            </Setter>
+        </Style>
+    </UserControl.Styles>
+    <DockPanel>
+        <HeaderedContentControl x:Name="SaveGamesPane"
+                                Header="{DynamicResource {x:Static keys:LocalPlay.SaveGamesHeader}}"
+                                Classes="pane left outermost"
+                                DockPanel.Dock="Left">
+            <Grid Width="200">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" MinHeight="30" SharedSizeGroup="Footer" />
+                </Grid.RowDefinitions>
+                <ListBox x:Name="SaveGamesList"
+                        Classes="fitts-law-list"
+                        ItemsSource="{Binding Saves}"
+                        SelectedItem="{Binding SelectedSave, Mode=TwoWay}"
+                        Grid.Row="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Title}" Classes="h4"/>
+                                <Grid ColumnDefinitions="Auto,8,Auto"
+                                    RowDefinitions="*,*"
+                                    HorizontalAlignment="Left">
+                                    <TextBlock Text="{DynamicResource {x:Static keys:AccountView.CurrentThreat}}"
+                                            Grid.Column="0"
+                                            Grid.Row="0" />
+                                    <!--TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore threat {0}'}" /-->
+                                    <TextBlock Text="{Binding CurrentThreatLevel, Mode=OneWay}"
+                                            Grid.Column="2"
+                                            Grid.Row="0" />
+                                    
+                                    <TextBlock Text="{DynamicResource {x:Static keys:AccountView.CrogenitorLevel}}"
+                                            Grid.Column="0"
+                                            Grid.Row="1" />
+                                    <!--TextBlock Text="{Binding CrogenitorLevel, StringFormat='Crogenitor level {0}'}"/-->
+                                    <TextBlock Text="{Binding CrogenitorLevel, Mode=OneWay}"
+                                            Grid.Column="2"
+                                            Grid.Row="1" />
+                                </Grid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ContentControl Classes="sidePaneFooter"
+                                Grid.Row="1">
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="4">
+                        <Button Content="{DynamicResource {x:Static keys:LocalPlay.CreateNewSaveGame}}"
+                                Classes="left"
+                                Command="{Binding NewSaveGameCommand}"/>
+                    </StackPanel>
+                </ContentControl>
+            </Grid>
+        </HeaderedContentControl>
+        <ContentControl x:Name="SelectedSaveArea" Content="{Binding SelectedSave, Mode=OneWay}"/>
+    </DockPanel>
+</UserControl>

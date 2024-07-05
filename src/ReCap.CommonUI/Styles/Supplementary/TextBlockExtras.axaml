@@ -1,0 +1,28 @@
+<Styles xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:rctr="using:ReCap.CommonUI"
+	x:CompileBindings="True">
+    <Style Selector=":is(Control).h1,
+                      :is(Control).h2,
+                      :is(Control).h3,
+                      :is(Control).h4">
+        <Setter Property="TextBlock.FontFamily" Value="{DynamicResource HeaderFont}"/>
+    </Style>
+    <Style Selector=":is(Control).sh1,
+                      :is(Control).sh2,
+                      :is(Control).sh3">
+        <Setter Property="TextBlock.FontFamily" Value="{DynamicResource BodyFont}"/>
+    </Style>
+    <Style Selector=":is(Control).h1,
+                      :is(Control).sh1">
+        <Setter Property="TextBlock.FontSize" Value="{DynamicResource H1FontSize}"/>
+    </Style>
+    <Style Selector=":is(Control).h2
+                      :is(Control).sh2">
+        <Setter Property="TextBlock.FontSize" Value="{DynamicResource H2FontSize}"/>
+    </Style>
+    <Style Selector=":is(Control).h3,
+                      :is(Control).sh3">
+        <Setter Property="TextBlock.FontSize" Value="{DynamicResource H3FontSize}"/>
+    </Style>
+</Styles>

@@ -1,0 +1,161 @@
+﻿<UserControl x:Class="ReCap.Hub.Views.SaveGameView"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:rctr="using:ReCap.CommonUI"
+            xmlns:v="using:ReCap.Hub.Views"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+			xmlns:keys="using:ReCap.Hub.Localization.Keys">
+    <!--
+	<UserControl.Styles>
+        <Style Selector="ScrollViewer#MainContentArea /template/ :is(Control)#ScrollBarFudge">
+            <Setter Property="Height" Value="{Binding #SaveHeaderAreaSizeHelper.Bounds.Height}" />
+            <Setter Property="Margin" Value="{Binding #MainContentArea.Padding, Mode=OneWay}" />
+        </Style>
+    </UserControl.Styles>
+	-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" MinHeight="30" SharedSizeGroup="Footer" />
+        </Grid.RowDefinitions>
+        <Rectangle x:Name="SaveHeaderAreaSizeHelper"
+                    VerticalAlignment="Stretch"
+                    Grid.Row="0"
+                    Fill="Transparent"
+                    Stroke="Transparent"
+                    StrokeThickness="0"
+                    IsHitTestVisible="False"
+                    Opacity="0" />
+        <ScrollViewer x:Name="MainContentArea"
+                    Margin="0,28,0,0"
+                    Padding="28,28,28,0"
+                    HorizontalScrollBarVisibility="Disabled"
+                    Grid.Row="0"
+                    Grid.RowSpan="2">
+            <rctr:ScrollBarInset.Vertical>
+                <MultiBinding Converter="{x:Static rctr:AddAllConverter.Instance}" Mode="OneWay">
+                    <Binding Path="Bounds.Height" ElementName="SaveHeaderAreaSizeHelper" Mode="OneWay" />
+                    <Binding Path="Padding.Top" ElementName="MainContentArea" Mode="OneWay" />
+                    <Binding Path="Margin.Top" ElementName="MainContentArea" Mode="OneWay" />
+                </MultiBinding>
+            </rctr:ScrollBarInset.Vertical>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top" Spacing="32">
+                <Rectangle Width="0"
+                        Height="{Binding #SaveHeaderAreaSizeHelper.Bounds.Height}"
+                        Fill="Transparent"
+                        Stroke="Transparent"
+                        StrokeThickness="0"
+                        IsHitTestVisible="False"
+                        Opacity="0" />
+                <StackPanel Orientation="Vertical" Spacing="5">
+                    <DockPanel>
+                        <TextBlock Text="{Binding Squads.Count, StringFormat='{}{0}/3'}"
+                                Classes="h3"
+                                TextAlignment="Right"
+                                DockPanel.Dock="Right" />
+                        <TextBlock Text="{DynamicResource {x:Static keys:AccountView.SquadsHeader}}"
+                                Classes="h3"
+                                TextAlignment="Left" />
+                    </DockPanel>
+                    <ItemsControl Classes="squads" ItemsSource="{Binding Squads}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <rctr:AlignableWrapPanel HorizontalAlignment="Center"
+                                                        HorizontalContentAlignment="Center" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Spacing="5">
+                    <DockPanel>
+                        <TextBlock Text="{Binding Heroes.Count, StringFormat='{}{0}/100'}"
+                                Classes="h3"
+                                TextAlignment="Right"
+                                DockPanel.Dock="Right" />
+                        <TextBlock Text="{DynamicResource {x:Static keys:AccountView.HeroesHeader}}"
+                                Classes="h3"
+                                TextAlignment="Left" />
+                    </DockPanel>
+                    <ItemsControl Classes="heroes" ItemsSource="{Binding Heroes}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Center" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        <TemplatedControl Classes="threatBanner"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        IsHitTestVisible="False"
+                        Grid.Row="0"
+                        Grid.RowSpan="2">
+            <TemplatedControl.Background>
+                <ImageBrush Source="avares://ResurrectionCapsuleHub/Assets/Level/zelems_3.png"
+                    AlignmentY="Center" Stretch="UniformToFill"/>
+            </TemplatedControl.Background>
+        </TemplatedControl>
+        <StackPanel Classes="saveHeaderArea"
+                    Orientation="Vertical"
+                    Spacing="5"
+                    Margin="{Binding #MainContentArea.Padding, Mode=OneWay}"
+                    Grid.Row="0">
+            <TextBlock Text="{Binding Title}" Classes="h1" />
+            <Grid ColumnDefinitions="Auto,8,Auto"
+                RowDefinitions="*,*"
+                HorizontalAlignment="Left">
+                <TextBlock Text="{DynamicResource {x:Static keys:AccountView.CurrentThreat}}"
+                        Classes="h4"
+                        Grid.Column="0"
+                        Grid.Row="0" />
+                <TextBlock Text="{Binding CurrentThreatLevel, Mode=OneWay}"
+                        Classes="h4"
+                        Grid.Column="2"
+                        Grid.Row="0" />
+                
+                <TextBlock Text="{DynamicResource {x:Static keys:AccountView.CrogenitorLevel}}"
+                        Classes="h4"
+                        Grid.Column="0"
+                        Grid.Row="1" />
+                <TextBlock Text="{Binding CrogenitorLevel, Mode=OneWay}"
+                        Classes="h4"
+                        Grid.Column="2"
+                        Grid.Row="1" />
+            </Grid>
+            <!--
+            <TextBlock Text="{Binding CurrentThreatLevel, StringFormat='Darkspore threat {0}'}"
+                    Classes="h4"/>
+            <TextBlock Text="{Binding CrogenitorLevel, StringFormat='Crogenitor level {0}'}"
+                    Classes="h4"/>
+            -->
+        </StackPanel>
+        
+        <ContentControl Classes="pane bottom right-outermost"
+                        Grid.Row="2">
+            <DockPanel>
+                <Button x:Name="LaunchGameButton"
+                        Classes="play right"
+                        Content="{DynamicResource {x:Static keys:Globals.Play}}"
+                        IsDefault="True"
+                        Command="{Binding DataContext.PlayGameWithSaveCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}, FallbackValue={x:Null}}"
+                        CommandParameter="{Binding}"
+                        DockPanel.Dock="Right"/>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Left"
+                            Spacing="10">
+                    <Button Content="{DynamicResource {x:Static keys:Globals.Delete}}"
+                            Command="{Binding DataContext.DeleteSaveGameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}}"
+                            CommandParameter="{Binding}"
+                            Classes="left"/>
+                    <Button Content="{DynamicResource {x:Static keys:LocalPlay.RenameSaveGame}}"
+                            Command="{Binding DataContext.RenameSaveGameCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:GameConfigView}}}"
+                            CommandParameter="{Binding}"
+                            Classes="left"/>
+                </StackPanel>
+            </DockPanel>
+        </ContentControl>
+    </Grid>
+</UserControl>

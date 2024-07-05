@@ -1,0 +1,53 @@
+<UserControl x:Class="ReCap.Hub.Views.PreferencesPageView"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:rctr="using:ReCap.CommonUI"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+			xmlns:loc="using:ReCap.Hub.Localization"
+			xmlns:keys="using:ReCap.Hub.Localization.Keys"
+            Theme="{DynamicResource DialogRoot}"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+	<DockPanel>
+		<ContentControl Classes="dialogFooter"
+                        HorizontalContentAlignment="Stretch"
+                        DockPanel.Dock="Bottom">
+			<Button Command="{Binding CloseCommand, Mode=OneWay}"
+					Content="{DynamicResource {x:Static keys:Globals.Accept}}" />
+		</ContentControl>
+		<HeaderedContentControl Classes="dialogBody"
+                                Header="{DynamicResource {x:Static keys:UserPreferences.Title}}">
+			<StackPanel>
+				<rctr:GroupBox Header="{DynamicResource {x:Static keys:UserPreferences.PlayerProfileHeader}}">
+					<StackPanel>
+						<TextBlock Text="{DynamicResource {x:Static keys:UserPreferences.DisplayNameOption}}"
+								Classes="h4" />
+						<TextBox Text="{Binding UserDisplayName, Mode=TwoWay}"
+								AcceptsReturn="False"
+								AcceptsTab="False" />
+					</StackPanel>
+				</rctr:GroupBox>
+				<rctr:GroupBox Header="{DynamicResource {x:Static keys:UserPreferences.UserInterfaceHeader}}">
+					<StackPanel>
+						<CheckBox Content="{DynamicResource {x:Static keys:UserPreferences.UseManagedWindowDecorationsOption}}"
+								IsChecked="{Binding UseManagedDecorations}" />
+						<CheckBox Content="{DynamicResource {x:Static keys:UserPreferences.AutoCloseServerOption}}"
+								IsChecked="{Binding AutoCloseServer}" />
+						<StackPanel DataContext="{Binding Source={x:Static loc:UILanguageManager.Instance}, Mode=OneWay}">
+							<TextBlock Text="{DynamicResource {x:Static keys:UserPreferences.LanguageOption}}"
+									Classes="h4" />
+							<ComboBox ItemsSource="{Binding Languages, Mode=OneWay}"
+									SelectedItem="{Binding CurrentLanguage, Mode=TwoWay}">
+								<ComboBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding LanguageID, Mode=OneWay}" />
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+						</StackPanel>
+					</StackPanel>
+				</rctr:GroupBox>
+			</StackPanel>
+		</HeaderedContentControl>
+	</DockPanel>
+</UserControl>

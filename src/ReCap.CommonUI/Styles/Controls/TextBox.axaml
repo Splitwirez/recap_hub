@@ -1,0 +1,231 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:CompileBindings="True">
+    <ControlTheme x:Key="ReCapTextBoxButton" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource TextControlButtonBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TextControlButtonBorderBrush}" />
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="MinWidth" Value="34" />
+        <Setter Property="Padding" Value="{DynamicResource ButtonPadding}" />
+        <Setter Property="Width" Value="{Binding $self.Bounds.Height}"/>
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource TextControlButtonForeground}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Content="{TemplateBinding Content}"
+                                    Padding="{TemplateBinding Padding}">
+                    </ContentPresenter>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style Selector="^:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource TextControlButtonBackgroundPointerOver}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource TextControlButtonBorderBrushPointerOver}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextControlButtonForegroundPointerOver}" />
+        </Style>
+
+        <Style Selector="^:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource TextControlButtonBackgroundPressed}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource TextControlButtonBorderBrushPressed}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextControlButtonForegroundPressed}" />
+        </Style>
+
+        <Style Selector="^:disabled /template/ ContentPresenter">
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="DsTextBoxToggleButton"
+                TargetType="ToggleButton"
+                BasedOn="{StaticResource ReCapTextBoxButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <ContentPresenter x:Name="PART_ContentPresenter"
+                                    Background="{TemplateBinding Background}"
+                                    Content="{TemplateBinding Content}"
+                                    Padding="{TemplateBinding Padding}">
+                    </ContentPresenter>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style Selector="^:checked /template/ ContentPresenter, ^:indeterminate /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource TextControlButtonBackgroundPressed}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource TextControlButtonBorderBrushPressed}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextControlButtonForegroundPressed}" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type TextBox}" TargetType="TextBox">
+        <Setter Property="Background" Value="{DynamicResource TextBox.Background.Idle}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TextBox.BorderBrush.Idle}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="CornerRadius" Value="6" />
+        
+        <Setter Property="Foreground" Value="{DynamicResource TextBox.Foreground.Idle}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource TextBox.Foreground.Idle}" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource TextBox.Selection.Idle}" />
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+
+        <Setter Property="MinHeight" Value="21" />
+        
+        <Setter Property="Padding" Value="5,1" />
+        <Setter Property="ScrollViewer.IsScrollChainingEnabled" Value="True" />
+        <Setter Property="ContextFlyout" Value="{StaticResource DefaultTextBoxContextFlyout}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DataValidationErrors>
+                    <Panel>
+                        <Border x:Name="PART_BorderElement"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                MinWidth="{TemplateBinding MinWidth}"
+                                MinHeight="{TemplateBinding MinHeight}">
+                            <Grid ColumnDefinitions="Auto,*,Auto" >
+                                <ContentPresenter Content="{TemplateBinding InnerLeftContent}"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="1" />
+                                <DockPanel x:Name="PART_InnerDockPanel"
+                                        Grid.Column="1"
+                                        Grid.ColumnSpan="1"
+                                        Cursor="IBeam"
+                                        Margin="{TemplateBinding Padding}">
+                                    <TextBlock x:Name="PART_FloatingWatermark"
+                                            Foreground="{DynamicResource SystemAccentColor}"
+                                            FontSize="{TemplateBinding FontSize}"
+                                            IsVisible="False"
+                                            Text="{TemplateBinding Watermark}"
+                                            DockPanel.Dock="Top" />
+                                    <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                                                VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                                                IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+                                                AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}">
+                                        <Panel>
+                                            <TextBlock x:Name="PART_Watermark"
+                                                    Opacity="0.5"
+                                                    Text="{TemplateBinding Watermark}"
+                                                    TextAlignment="{TemplateBinding TextAlignment}"
+                                                    TextWrapping="{TemplateBinding TextWrapping}"
+                                                    IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}"
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            <TextPresenter x:Name="PART_TextPresenter"
+                                                        Text="{TemplateBinding Text, Mode=TwoWay}"
+                                                        CaretIndex="{TemplateBinding CaretIndex}"
+                                                        SelectionStart="{TemplateBinding SelectionStart}"
+                                                        SelectionEnd="{TemplateBinding SelectionEnd}"
+                                                        TextAlignment="{TemplateBinding TextAlignment}"
+                                                        TextWrapping="{TemplateBinding TextWrapping}"
+                                                        LineHeight="{TemplateBinding LineHeight}"
+                                                        PasswordChar="{TemplateBinding PasswordChar}"
+                                                        RevealPassword="{TemplateBinding RevealPassword}"
+                                                        SelectionBrush="{TemplateBinding SelectionBrush}"
+                                                        SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                                        CaretBrush="{TemplateBinding CaretBrush}"
+                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        </Panel>
+                                    </ScrollViewer>
+                                </DockPanel>
+                                <ContentPresenter Content="{TemplateBinding InnerRightContent}"
+                                                Grid.Column="2"
+                                                Grid.ColumnSpan="1" />
+                            </Grid>
+                        </Border>
+                    </Panel>
+                </DataValidationErrors>
+            </ControlTemplate>
+        </Setter>
+
+        <!-- Disabled State -->
+        <Style Selector="^:disabled">
+            <Setter Property="Foreground" Value="{DynamicResource TextControlForegroundDisabled}" />
+
+            <Style Selector="^ /template/ Border#PART_BorderElement">
+                <Setter Property="Background" Value="{DynamicResource TextControlBackgroundDisabled}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource TextControlBorderBrushDisabled}" />
+            </Style>
+
+            <Style Selector="^ /template/ TextBlock#PART_Watermark, ^ /template/ TextBlock#PART_FloatingWatermark">
+                <Setter Property="Foreground" Value="{DynamicResource TextControlPlaceholderForegroundDisabled}" />
+            </Style>
+        </Style>
+
+        <!-- PointerOver State-->
+        <Style Selector="^:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource TextBox.Foreground.Hover}" />
+            <Setter Property="CaretBrush" Value="{DynamicResource TextBox.Foreground.Hover}" />
+            <Setter Property="SelectionBrush" Value="{DynamicResource TextBox.Selection.Idle}" />
+
+            <Style Selector="^ /template/ Border#PART_BorderElement">
+                <Setter Property="Background" Value="{DynamicResource TextBox.Background.Hover}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource TextBox.BorderBrush.Hover}" />
+            </Style>
+
+            <Style Selector="^ /template/ TextBlock#PART_Watermark">
+                <Setter Property="Foreground" Value="{DynamicResource TextControlPlaceholderForegroundPointerOver}" />
+            </Style>
+        </Style>
+
+        <!-- Focused State -->
+        <Style Selector="^:focus">
+            <Setter Property="Foreground" Value="{DynamicResource TextBox.Foreground.Focused}" />
+            <Setter Property="CaretBrush" Value="{DynamicResource TextBox.Foreground.Focused}" />
+            <Setter Property="SelectionBrush" Value="{DynamicResource TextBox.Selection.Focused}" />
+
+            <Style Selector="^ /template/ Border#PART_BorderElement">
+                <Setter Property="Background" Value="{DynamicResource TextBox.Background.Focused}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource TextBox.BorderBrush.Focused}" />
+            </Style>
+
+            <Style Selector="^ /template/ TextBlock#PART_Watermark">
+                <Setter Property="Foreground" Value="{DynamicResource TextControlPlaceholderForegroundFocused}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^:error /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlErrorTextForegroundBrush}"/>
+        </Style>
+
+        <Style Selector="^[UseFloatingWatermark=true]:not(:empty) /template/ TextBlock#PART_FloatingWatermark">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+
+        <Style Selector="^.revealPasswordButton[AcceptsReturn=False][IsReadOnly=False]:not(TextBox:empty)">
+            <Setter Property="InnerRightContent">
+                <Template>
+                    <ToggleButton Theme="{StaticResource DsTextBoxToggleButton}"
+                                IsChecked="{Binding $parent[TextBox].RevealPassword, Mode=TwoWay}">
+                        <Panel>
+                            <PathIcon Data="{StaticResource PasswordBoxRevealButtonData}"
+                                    Height="8" Width="12"
+                                    IsVisible="{Binding $parent[ToggleButton].!IsChecked}"/>
+                            <PathIcon Data="{StaticResource PasswordBoxHideButtonData}"
+                                    Height="12" Width="12"
+                                    IsVisible="{Binding $parent[ToggleButton].IsChecked}"/>
+                        </Panel>
+                    </ToggleButton>
+                </Template>
+            </Setter>
+        </Style>
+
+        <Style Selector="^.clearButton[AcceptsReturn=False][IsReadOnly=False]:focus:not(TextBox:empty)">
+            <Setter Property="InnerRightContent">
+                <Template>
+                    <Button Theme="{StaticResource ReCapTextBoxButton}"
+                            Command="{Binding $parent[TextBox].Clear}">
+                        <PathIcon Data="{StaticResource TextBoxClearButtonData}" Height="10" Width="10"/>
+                    </Button>
+                </Template>
+            </Setter>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="ReCap.Hub.Views.TextBoxDialogView"
+            xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:vm="using:ReCap.Hub.ViewModels"
+            Theme="{DynamicResource DialogRoot}"
+            Width="400">
+    <DockPanel>
+        <ContentControl Classes="dialogFooter"
+                        HorizontalContentAlignment="Stretch"
+                        DockPanel.Dock="Bottom">
+            <DockPanel LastChildFill="False">
+                <Button Command="{Binding CancelCommand}"
+                        Classes="left"
+                        IsVisible="{Binding IsCloseable}"
+                        DockPanel.Dock="Left">Cancel</Button>
+                <Button Command="{Binding AcceptCommand}"
+                        Classes="right"
+                        DockPanel.Dock="Right">Accept</Button>
+            </DockPanel>
+        </ContentControl>
+        <HeaderedContentControl Classes="dialogBody"
+                                Header="{Binding Title, Mode=OneWay}">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Content, Mode=OneWay}" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Value}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </HeaderedContentControl>
+    </DockPanel>
+</UserControl>

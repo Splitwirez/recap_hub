@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<!--
+		<LangVersion>8.0</LangVersion>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		-->
+	</PropertyGroup>
+	
+	<Import Project="../../build/avalonia.props" />
+	
+	<ItemGroup>
+		<AvaloniaResource Include="Styles/**/*.axaml" />
+		<AvaloniaResource Include="Res/UI/**/*.png" />
+		<AvaloniaResource Include="Res/UI/**/*.ttf" />
+	</ItemGroup>
+	
+	<Import Project="../../build/editorconfig.props" />
+</Project>

@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="ReCap.UITest.Views.Pages.ButtonView"
+            xmlns="https://github.com/avaloniaui"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:rctr="using:ReCap.CommonUI">
+	<StackPanel Orientation="Vertical" Spacing="20">
+		<rctr:GroupBox Header="Standard">
+			<StackPanel Orientation="Vertical" Spacing="10">
+				<StackPanel Orientation="Horizontal" Spacing="20">
+					<Button Content="Button" />
+					<RepeatButton Content="RepeatButton" />
+					<ToggleButton Content="ToggleButton" />
+					<ToggleButton Content="...checked" IsChecked="True" />
+				</StackPanel>
+				<StackPanel IsEnabled="False" Orientation="Horizontal" Spacing="20">
+					<Button Content="Button" />
+					<RepeatButton Content="RepeatButton" />
+					<ToggleButton Content="ToggleButton" />
+					<ToggleButton Content="...checked" IsChecked="True" />
+				</StackPanel>
+			</StackPanel>
+		</rctr:GroupBox>
+		<DockPanel LastChildFill="False">
+			<rctr:GroupBox Header="Left group"
+						DockPanel.Dock="Left">
+				<StackPanel Classes="leftButtons">
+					<Button Content="First" />
+					<Button Content="Middle" />
+					<Button Content="Last" />
+				</StackPanel>
+			</rctr:GroupBox>
+			<rctr:GroupBox Header="Right group"
+						DockPanel.Dock="Right">
+				<StackPanel Classes="rightButtons">
+					<Button Content="First" />
+					<Button Content="Middle" />
+					<Button Content="Last" />
+				</StackPanel>
+			</rctr:GroupBox>
+		</DockPanel>
+		<rctr:GroupBox Header="End-specific loners">
+			<DockPanel>
+				<Button Classes="left"
+						Content="Left" />
+				<Button Classes="right"
+						Content="Right" />
+				<Button Content="Center"
+						Margin="20,0" />
+			</DockPanel>
+		</rctr:GroupBox>
+	</StackPanel>
+</UserControl>
