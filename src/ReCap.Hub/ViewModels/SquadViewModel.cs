@@ -24,6 +24,12 @@ namespace ReCap.Hub.ViewModels
             get => _heroes;
         }
 
+        public bool IsReady
+        {
+            get => _heroes.Count >= 3;
+        }
+
+
         const string DISPLAY_TITLE_PREFIX = "Squad ";
         string _displayTitle = $"{DISPLAY_TITLE_PREFIX}{double.NaN.ToString()}";
         public string DisplayTitle

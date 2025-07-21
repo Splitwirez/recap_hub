@@ -48,6 +48,12 @@ namespace ReCap.Hub.ViewModels
             get => _squads;
         }
 
+        readonly ObservableCollection<SquadViewModel> _viewableSquads = new ObservableCollection<SquadViewModel>();
+        public ObservableCollection<SquadViewModel> ViewableSquads
+        {
+            get => _viewableSquads;
+        }
+
         //protected abstract void Heroes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e);
 
         AccountModel _model = null;
@@ -75,6 +81,7 @@ namespace ReCap.Hub.ViewModels
                 Squads.Add(new SquadViewModel(d));
             }
             EditModelHeroes = true;
+            UpdateViewableSquads();
             Model.Heroes.Sequence.CollectionChanged += Model_Heroes_CollectionChanged;
             Model.Squads.Sequence.CollectionChanged += Model_Squads_CollectionChanged;
 
@@ -195,6 +202,17 @@ namespace ReCap.Hub.ViewModels
             }
         }
 
+        void UpdateViewableSquads()
+        {
+            ViewableSquads.Clear();
+            foreach (var squad in Squads)
+            {
+                if (squad.IsReady)
+                    ViewableSquads.Add(squad);
+            }
+        }
+
+
         private void Model_Squads_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             var act = e.Action;
@@ -233,6 +251,8 @@ namespace ReCap.Hub.ViewModels
                     }
                 }
             }
+
+            UpdateViewableSquads();
         }
 
         /*private void Heroes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
