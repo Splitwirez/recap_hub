@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:rc="using:ReCap.CommonUI"
+                    xmlns:rc="clr-namespace:ReCap.CommonUI;assembly=ReCap.CommonUI"
 					xmlns:rchax="using:ReCap.CommonUI.Controls.AppearanceHacks">
 	<ControlTheme x:Key="{x:Type TitleBar}" TargetType="TitleBar">
 		<Setter Property="HorizontalAlignment" Value="Stretch" />

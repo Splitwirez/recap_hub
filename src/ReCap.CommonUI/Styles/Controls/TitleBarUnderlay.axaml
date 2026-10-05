@@ -1,7 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:rc="using:ReCap.CommonUI"
-                    xmlns:rchax="using:ReCap.CommonUI.Controls.AppearanceHacks"
+                    xmlns:rc="clr-namespace:ReCap.CommonUI;assembly=ReCap.CommonUI"
+                    xmlns:rchax="clr-namespace:ReCap.CommonUI.Controls.AppearanceHacks;assembly=ReCap.CommonUI"
                     xmlns:rcdec="using:ReCap.CommonUI.Controls.Decorators"
 					xmlns:rccnv="using:ReCap.CommonUI.Converters">
 	<ControlTheme x:Key="{x:Type rchax:TitleBarUnderlay}"
